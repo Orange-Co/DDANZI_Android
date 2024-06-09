@@ -43,3 +43,4 @@ jobs:
           base_url: ${{ secrets.BASE_URL }}
         run: |
           echo base.url=\"$base_url\" >> local.properties
+          

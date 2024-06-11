@@ -8,6 +8,7 @@ import co.orange.presentation.main.home.HomeFragment
 import co.orange.presentation.main.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.colorOf
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityMainBinding
 
@@ -18,6 +19,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         initBnvItemIconTintList()
         initBnvItemSelectedListener()
+        setNavigationBarBlack()
     }
 
     fun initBnvItemIconTintList() {
@@ -49,5 +51,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         supportFragmentManager.commit {
             replace<T>(R.id.fcv_main, T::class.java.canonicalName)
         }
+    }
+
+    private fun setNavigationBarBlack() {
+        this.window.navigationBarColor = colorOf(R.color.black)
     }
 }

@@ -23,8 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     fun initBnvItemIconTintList() {
         with(binding.bnvMain) {
             itemIconTintList = null
-            selectedItemId = R.id.menu_feed
-            labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
+            selectedItemId = R.id.menu_home
         }
     }
 
@@ -36,9 +35,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 return@setOnItemSelectedListener false
             }
             when (menu.itemId) {
-                R.id.menu_feed -> navigateTo<HomeFragment>()
+                R.id.menu_home -> navigateTo<HomeFragment>()
 
-                R.id.menu_create -> navigateTo<ProfileFragment>()
+                R.id.menu_profile -> navigateTo<ProfileFragment>()
 
                 else -> return@setOnItemSelectedListener false
             }

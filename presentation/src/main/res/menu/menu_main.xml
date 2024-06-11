@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/sel_bnv_menu_home"
+        android:title="@string/menu_tv_home" />
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/sel_bnv_menu_profile"
+        android:title="@string/menu_tv_profile" />
+</menu>

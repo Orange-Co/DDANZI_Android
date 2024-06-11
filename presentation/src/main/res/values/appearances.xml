@@ -63,7 +63,7 @@
         <item name="android:paddingVertical">2sp</item>
     </style>
 
-    <style name="TextAppearance.DDanzi.Detail1">
+    <style name="TextAppearance.DDanzi.Body6">
         <item name="fontFamily">@font/font_pretendard_medium</item>
         <item name="android:textSize">12sp</item>
         <item name="android:paddingVertical">1sp</item>

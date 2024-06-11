@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-10dp"
+            app:layout_constraintBottom_toTopOf="@id/bnv_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_main"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:background="@drawable/shape_black_fill_top10_rect"
+            android:elevation="0dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
+            android:textSize="12sp"
+            app:itemIconSize="35dp"
+            app:itemRippleColor="@null"
+            app:itemTextAppearanceActive="@style/TextAppearance.DDanzi.Body6"
+            app:itemTextAppearanceInactive="@style/TextAppearance.DDanzi.Body6"
+            app:itemTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_main" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -42,9 +43,9 @@
             android:layout_marginEnd="3dp"
             android:elevation="1dp"
             android:padding="6dp"
-            android:src="@drawable/sel_item_like"
             app:layout_constraintEnd_toEndOf="@id/cv_home_item"
-            app:layout_constraintTop_toTopOf="@id/cv_home_item" />
+            app:layout_constraintTop_toTopOf="@id/cv_home_item"
+            tools:src="@drawable/sel_item_like_white" />
 
         <TextView
             android:id="@+id/tv_home_item_title"
@@ -57,10 +58,10 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:minLines="2"
-            android:text="@string/home_tv_item_ex_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_home_item" />
+            app:layout_constraintTop_toBottomOf="@id/cv_home_item"
+            tools:text="@string/ex_item_title" />
 
         <TextView
             android:id="@+id/tv_home_item_real_price"
@@ -68,11 +69,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:text="@string/home_tv_item_ex_real_price"
             android:textColor="@color/gray_3"
             app:layout_constraintEnd_toEndOf="@id/tv_home_item_title"
             app:layout_constraintStart_toStartOf="@id/tv_home_item_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_item_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_home_item_title"
+            tools:text="@string/ex_item_real_price" />
 
         <TextView
             android:id="@+id/tv_home_item_now_price"
@@ -80,10 +81,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="@string/home_tv_item_ex_now_price"
             app:layout_constraintEnd_toEndOf="@id/tv_home_item_title"
             app:layout_constraintStart_toStartOf="@id/tv_home_item_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_item_real_price" />
+            app:layout_constraintTop_toBottomOf="@id/tv_home_item_real_price"
+            tools:text="@string/ex_item_now_price" />
 
         <TextView
             android:id="@+id/tv_home_item_like"
@@ -92,11 +93,11 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="3dp"
             android:fontFamily="@font/font_pretendard_medium"
-            android:text="@string/home_tv_item_ex_like"
             android:textColor="@color/black"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/ex_item_like" />
 
         <ImageView
             android:id="@+id/iv_home_item_like"

@@ -18,3 +18,7 @@ fun String.getGraphemeLength(): Int {
 
     return count
 }
+
+fun String.breakLines(): String {
+    return this.replace(" ", "\u00A0")
+}

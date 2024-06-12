@@ -10,14 +10,14 @@ import java.text.DecimalFormat
 
 class HomeProductViewHolder(
     val binding: ItemHomeProductBinding,
-    val productClick: (Unit) -> (Unit),
+    val productClick: (ProductModel) -> (Unit),
     val likeClick: (Unit) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: ProductModel) {
         with(binding) {
             btnItemLike.setOnSingleClickListener { likeClick }
-            root.setOnSingleClickListener { productClick }
+            root.setOnSingleClickListener { productClick(item) }
 
             tvHomeItemTitle.text = item.name
             ivHomeItem.load(item.imgUrl)

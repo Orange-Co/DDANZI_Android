@@ -12,7 +12,7 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HomeAdapter(
     private val bannerClick: (Unit) -> (Unit),
-    private val productClick: (Unit) -> (Unit),
+    private val productClick: (ProductModel) -> (Unit),
     private val likeClick: (Unit) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseFragment
+import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentHomeBinding
@@ -28,6 +29,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         initView()
         initAdapter()
         setGridRecyclerView()
+        setRecyclerViewDeco()
         setItemList()
     }
 
@@ -40,8 +42,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             HomeAdapter(
                 bannerClick = ::initBannerClickListener,
                 productClick = ::initProductClickListener,
-                likeClick = ::initLikeClickListener
-
+                likeClick = ::initLikeClickListener,
             )
         binding.rvHome.adapter = adapter
     }
@@ -62,6 +63,16 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 }
             }
         }
+    }
+
+    private fun setRecyclerViewDeco() {
+        binding.rvHome.addItemDecoration(
+            GridItemDecoration(
+                spanCount = 2,
+                spacing = 30.dpToPx(requireContext()),
+                bottomPadding = 50.dpToPx(requireContext())
+            )
+        )
     }
 
     private fun setItemList() {

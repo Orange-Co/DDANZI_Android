@@ -98,7 +98,7 @@ class HomeAdapter(
                 onContentsTheSame = { old, new -> old == new },
             )
 
-        private const val HEADER_COUNT = 1
+        const val HEADER_COUNT = 1
 
         const val VIEW_TYPE_BANNER = 0
         const val VIEW_TYPE_PRODUCT = 1

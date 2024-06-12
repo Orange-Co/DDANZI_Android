@@ -23,7 +23,7 @@
 
     <string name="detail_chips_category">카테고리</string>
     <string name="detail_chips_option">선택옵션 존재</string>
-    <string name="detail_chips_imminent">마감임박</string>
+    <string name="detail_chips_imminent">마감 임박</string>
     <string name="detail_tv_percent">%</string>
     <string name="detail_tv_stock">남은 재고</string>
     <string name="detail_tv_stock_unit">개</string>

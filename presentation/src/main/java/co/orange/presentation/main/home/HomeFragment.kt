@@ -56,6 +56,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private fun initProductClickListener(item: ProductModel) {
         DetailActivity.createIntent(requireContext(), item.imgUrl, item.originPrice, item.salePrice)
+            .apply { startActivity(this) }
     }
 
     private fun initLikeClickListener(unit: Unit) {}

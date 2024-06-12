@@ -2,6 +2,7 @@ package co.orange.presentation.detail
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -10,6 +11,8 @@ import co.orange.presentation.main.home.HomeProductViewHolder.Companion.OVER_999
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.breakLines
+import kr.genti.core.extension.setNumberForm
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDetailBinding
@@ -52,18 +55,21 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     private fun getIntentInfo() {
         with(binding) {
             ivDetailProduct.load(intent.getStringExtra(EXTRA_PRODUCT_URL))
-            tvDetailRealPrice.text = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0).toString()
-            tvDetailNowPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).toString()
+            tvDetailRealPrice.apply {
+                text = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0).setNumberForm()
+                setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
+            }
+            tvDetailNowPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).setNumberForm()
         }
     }
 
     private fun setProduct(item: ProductDetailModel) {
         with(binding) {
-            tvDetailTitle.text = item.name
+            tvDetailTitle.text = item.name.breakLines()
             chipsDetailCategory.text = item.category
             chipsDetailOption.isVisible = item.isOptionExist
             chipsDetailImminent.isVisible = item.isImminent
-            tvDetailDiscountPercent.text = item.discountRate.toString()
+            tvDetailDiscountRate.text = item.discountRate.toString()
             tvDetailStockCount.text = item.stockCount.toString()
             tvDetailLike.text = viewModel.mockProduct.interestCount.toString()
             if (item.interestCount < 1000) {

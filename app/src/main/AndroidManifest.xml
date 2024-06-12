@@ -25,6 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="co.orange.presentation.detail.DetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

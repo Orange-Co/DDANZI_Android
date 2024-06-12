@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.initOnBackPressedListener
+import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentHomeBinding
 
@@ -28,6 +29,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         initView()
         initAdapter()
+        initSellBtnListener()
         setGridRecyclerView()
         setRecyclerViewDeco()
         setItemList()
@@ -51,6 +53,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     private fun initBannerClickListener(unit: Unit) {}
     private fun initProductClickListener(unit: Unit) {}
     private fun initLikeClickListener(unit: Unit) {}
+
+    private fun initSellBtnListener() {
+        binding.btnSell.setOnSingleClickListener {
+            // TODO
+        }
+    }
 
     private fun setGridRecyclerView() {
         binding.rvHome.layoutManager = GridLayoutManager(context, 2).apply {

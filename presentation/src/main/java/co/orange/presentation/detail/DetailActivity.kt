@@ -22,7 +22,7 @@ import kr.genti.presentation.databinding.ActivityDetailBinding
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
     private val viewModel by viewModels<DetailViewModel>()
 
-    private var detailOptionBottomSheet: DetailOptionBottomSheet? = null
+    private var optionBottomSheet: OptionBottomSheet? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +56,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            detailOptionBottomSheet = DetailOptionBottomSheet()
-            detailOptionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)
+            optionBottomSheet = OptionBottomSheet()
+            optionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)
         }
     }
 
@@ -91,7 +91,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     override fun onDestroy() {
         super.onDestroy()
-        detailOptionBottomSheet = null
+
+        optionBottomSheet = null
     }
 
     companion object {

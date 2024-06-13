@@ -29,6 +29,7 @@ class OptionBottomSheet :
         super.onViewCreated(view, savedInstanceState)
 
         initDetailViewBtnListener()
+        initPurchaseBtnListener()
         initAdapter()
         setInterestCount()
         setOptionData()
@@ -39,6 +40,12 @@ class OptionBottomSheet :
             if (viewModel.mockProduct.infoUrl.isNotEmpty()) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.mockProduct.infoUrl)))
             }
+        }
+    }
+
+    private fun initPurchaseBtnListener() {
+        binding.btnPurchase.setOnSingleClickListener {
+            // TODO (버튼 활성화도 설정)
         }
     }
 

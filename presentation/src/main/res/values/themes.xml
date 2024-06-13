@@ -9,6 +9,9 @@
         <!-- Cursor color. -->
         <item name="colorControlActivated">@color/gray_3</item>
 
+        <!-- styles -->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+
     </style>
 
     <style name="Theme.DDANZI" parent="Base.Theme.DDANZI" />

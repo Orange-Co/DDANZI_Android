@@ -29,4 +29,7 @@
     <string name="detail_tv_stock_unit">개</string>
     <string name="detail_btn_detail_view"><u>이 상품에 대한 자세한 정보를 보고 싶다면?</u></string>
     <string name="detail_btn_purchase">구매하기</string>
+
+    <string name="option_tv_title">원하는 옵션을 선택해주세요</string>
+    <string name="option_tv_guide">*각인 옵션은 사용할 수 없습니다.</string>
 </resources>

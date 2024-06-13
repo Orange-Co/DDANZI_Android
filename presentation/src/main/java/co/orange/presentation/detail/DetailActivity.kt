@@ -3,6 +3,7 @@ package co.orange.presentation.detail
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -20,6 +21,9 @@ import kr.genti.presentation.databinding.ActivityDetailBinding
 @AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
     private val viewModel by viewModels<DetailViewModel>()
+
+    private var detailOptionBottomSheet: DetailOptionBottomSheet? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,8 +42,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun initDetailViewBtnListener() {
-        // TODO
-        binding.btnDetailView.setOnSingleClickListener { }
+        binding.btnDetailView.setOnSingleClickListener {
+            if (viewModel.mockProduct.infoUrl.isNotEmpty()) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.mockProduct.infoUrl)))
+            }
+        }
     }
 
     private fun initLikeBtnListener() {
@@ -48,8 +55,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun initPurchaseBtnListener() {
-        // TODO
-        binding.btnPurchase.setOnSingleClickListener { }
+        binding.btnPurchase.setOnSingleClickListener {
+            detailOptionBottomSheet = DetailOptionBottomSheet()
+            detailOptionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)
+        }
     }
 
     private fun getIntentInfo() {
@@ -80,10 +89,17 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        detailOptionBottomSheet = null
+    }
+
     companion object {
         private const val EXTRA_PRODUCT_URL = "EXTRA_PRODUCT_URL"
         private const val EXTRA_ORIGIN_PRICE = "EXTRA_ORIGIN_PRICE"
         private const val EXTRA_SALE_PRICE = "EXTRA_SALE_PRICE"
+
+        private const val BOTTOM_SHEET_OPTION = "BOTTOM_SHEET_OPTION"
 
         @JvmStatic
         fun createIntent(

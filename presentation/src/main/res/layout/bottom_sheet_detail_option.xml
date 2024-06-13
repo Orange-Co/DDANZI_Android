@@ -9,8 +9,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_white_fill_top20_rect">
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view_option_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_white_fill_top20_rect"
+            app:layout_constraintDimensionRatio="W, 11:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/iv_option_handler"
@@ -64,10 +73,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_option"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/tv_option_item_guide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_detail_view"
@@ -78,25 +88,26 @@
             style="@style/TextAppearance.DDanzi.Body6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="11dp"
+            android:gravity="end"
+            android:paddingHorizontal="23dp"
             android:text="@string/option_tv_guide"
             android:textColor="@color/gray_2"
+            app:layout_constraintBottom_toTopOf="@id/layout_option_bottom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_option" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_option_bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:paddingTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/view_option_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/tv_detail_like"
+                android:id="@+id/tv_option_like"
                 style="@style/TextAppearance.DDanzi.Body6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,9 +125,9 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:src="@drawable/sel_item_like_black"
-                app:layout_constraintBottom_toTopOf="@id/tv_detail_like"
-                app:layout_constraintEnd_toEndOf="@id/tv_detail_like"
-                app:layout_constraintStart_toStartOf="@id/tv_detail_like"
+                app:layout_constraintBottom_toTopOf="@id/tv_option_like"
+                app:layout_constraintEnd_toEndOf="@id/tv_option_like"
+                app:layout_constraintStart_toStartOf="@id/tv_option_like"
                 app:layout_constraintTop_toTopOf="@id/btn_purchase"
                 app:layout_constraintVertical_chainStyle="packed" />
 

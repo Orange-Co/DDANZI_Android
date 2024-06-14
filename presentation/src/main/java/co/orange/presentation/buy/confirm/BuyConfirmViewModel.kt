@@ -13,7 +13,7 @@ constructor(
 
     var imageUrl: String = ""
     var originPrice: Int = 0
-    var detailPrice: Int = 0
+    var salePrice: Int = 0
     var name: String = ""
 
 }

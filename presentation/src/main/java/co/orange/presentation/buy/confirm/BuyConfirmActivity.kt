@@ -2,13 +2,13 @@ package co.orange.presentation.buy.confirm
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
 import androidx.activity.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setNumberForm
+import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyConfirmBinding
 
@@ -19,15 +19,41 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initExitBtnListener()
+        initDeliveryChangeBtnListener()
+        initTermBtnListener()
+        initConfirmBtnListener()
         getIntentInfo()
         setIntentUi()
+    }
+
+    private fun initExitBtnListener() {
+        binding.btnExit.setOnSingleClickListener { finish() }
+    }
+
+    private fun initDeliveryChangeBtnListener() {
+        // TODO
+        binding.btnChangeDelivery.setOnSingleClickListener {  }
+    }
+
+    private fun initTermBtnListener() {
+        //TODO
+        binding.btnTermAll.setOnSingleClickListener {  }
+        binding.btnTermFirst.setOnSingleClickListener {  }
+        binding.btnTermSecond.setOnSingleClickListener {  }
+        binding.btnTermThird.setOnSingleClickListener {  }
+    }
+
+    private fun initConfirmBtnListener() {
+        // TODO
+        binding.btnConfirmPurchase.setOnSingleClickListener {  }
     }
 
     private fun getIntentInfo() {
         with(viewModel) {
             imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
             originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
-            detailPrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
+            salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
             name = intent.getStringExtra(EXTRA_NAME).orEmpty()
         }
     }
@@ -36,14 +62,8 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
         with(binding) {
             tvConfirmProductName.text = viewModel.name
             ivConfirmProduct.load(viewModel.imageUrl)
-            tvConfirmProductPrice.apply {
-                text = viewModel.originPrice.setNumberForm()
-                setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
-            }
-            tvConfirmPriceMoney.apply {
-                text = viewModel.originPrice.setNumberForm()
-                setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
-            }
+            tvConfirmProductPrice.text = viewModel.salePrice.setNumberForm()
+            tvConfirmPriceMoney.text = viewModel.salePrice.setNumberForm()
             // TODO
             tvConfirmPriceDiscount.text = "-3,000"
             tvConfirmPriceCharge.text = "+350"

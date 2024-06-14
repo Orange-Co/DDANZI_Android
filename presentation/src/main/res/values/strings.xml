@@ -32,4 +32,6 @@
 
     <string name="option_tv_title">원하는 옵션을 선택해주세요</string>
     <string name="option_tv_guide">*각인 옵션은 사용할 수 없습니다.</string>
+
+    <string name="buy_confirm_tv_title">구매하기</string>
 </resources>

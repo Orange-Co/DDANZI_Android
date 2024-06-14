@@ -34,4 +34,9 @@
     <string name="option_tv_guide">*각인 옵션은 사용할 수 없습니다.</string>
 
     <string name="buy_confirm_tv_title">구매하기</string>
+
+    <string name="push_tv_title">푸시 알림이\n설정되어 있지 않아요!</string>
+    <string name="push_tv_subtitle">원만한 거래를 위해서는\n푸시알림 설정이 필요해요</string>
+    <string name="push_btn_later">나중에 받을게요</string>
+    <string name="push_btn_alarm">알림받기</string>
 </resources>

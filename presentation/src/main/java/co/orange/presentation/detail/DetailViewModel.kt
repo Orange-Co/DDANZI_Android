@@ -12,6 +12,10 @@ class DetailViewModel
 constructor(
     // private val feedRepository: FeedRepository,
 ) : ViewModel() {
+    var imageUrl: String = ""
+    var originPrice: Int = 0
+    var salePrice: Int = 0
+
     val mockProduct = ProductDetailModel(
         "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
         "카테고리",

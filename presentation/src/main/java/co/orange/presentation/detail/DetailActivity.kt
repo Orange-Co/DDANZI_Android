@@ -62,13 +62,18 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun getIntentInfo() {
+        with(viewModel) {
+            imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
+            originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
+            salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
+        }
         with(binding) {
-            ivDetailProduct.load(intent.getStringExtra(EXTRA_PRODUCT_URL))
+            ivDetailProduct.load(viewModel.imageUrl)
             tvDetailRealPrice.apply {
-                text = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0).setNumberForm()
+                text = viewModel.originPrice.setNumberForm()
                 setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
             }
-            tvDetailNowPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).setNumberForm()
+            tvDetailNowPrice.text = viewModel.salePrice.setNumberForm()
         }
     }
 
@@ -107,7 +112,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             context: Context,
             productUrl: String,
             originPrice: Int,
-            salePrice: Int
+            salePrice: Int,
         ): Intent = Intent(context, DetailActivity::class.java).apply {
             putExtra(EXTRA_PRODUCT_URL, productUrl)
             putExtra(EXTRA_ORIGIN_PRICE, originPrice)

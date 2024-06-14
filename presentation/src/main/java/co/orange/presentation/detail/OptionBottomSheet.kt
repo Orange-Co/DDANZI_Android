@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import co.orange.presentation.buy.confirm.BuyConfirmActivity
 import co.orange.presentation.main.home.HomeProductViewHolder.Companion.OVER_999
 import kr.genti.core.base.BaseBottomSheet
 import kr.genti.core.extension.setOnSingleClickListener
@@ -45,7 +46,16 @@ class OptionBottomSheet :
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            // TODO (버튼 활성화도 설정)
+            // TODO 버튼 활성화 설정
+            BuyConfirmActivity.createIntent(
+                requireContext(),
+                viewModel.imageUrl,
+                viewModel.originPrice,
+                viewModel.salePrice,
+                viewModel.mockProduct.name
+            ).apply {
+                startActivity(this)
+            }
         }
     }
 

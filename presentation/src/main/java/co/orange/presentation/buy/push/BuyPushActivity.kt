@@ -15,6 +15,7 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // TODO: 뒤로가기 방지 추가
         initExitBtnListener()
         initAlarmBtnListener()
     }

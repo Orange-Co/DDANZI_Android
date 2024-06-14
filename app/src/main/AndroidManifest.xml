@@ -31,6 +31,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="co.orange.presentation.buy.confirm.BuyConfirmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

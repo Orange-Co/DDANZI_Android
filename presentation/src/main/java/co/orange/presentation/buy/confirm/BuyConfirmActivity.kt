@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import co.orange.presentation.buy.push.BuyPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
@@ -45,8 +46,12 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
     }
 
     private fun initConfirmBtnListener() {
-        // TODO
-        binding.btnConfirmPurchase.setOnSingleClickListener {  }
+        binding.btnConfirmPurchase.setOnSingleClickListener {
+            // TODO 구매 요청 서버통신 이후
+            BuyPushActivity.createIntent(this, viewModel.imageUrl, viewModel.name).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun getIntentInfo() {

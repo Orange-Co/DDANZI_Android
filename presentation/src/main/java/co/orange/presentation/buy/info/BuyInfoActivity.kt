@@ -23,12 +23,18 @@ class BuyInfoActivity :
         super.onCreate(savedInstanceState)
 
         initExitBtnListener()
+        initFixPurchaseBtnListener()
         getIntentInfo()
         setIntentUi(viewModel.mockBuyInfo)
     }
 
     private fun initExitBtnListener() {
         binding.btnExit.setOnSingleClickListener { finish() }
+    }
+
+    private fun initFixPurchaseBtnListener() {
+        // TODO
+        binding.btnFixPurchase.setOnSingleClickListener { }
     }
 
     private fun getIntentInfo() {

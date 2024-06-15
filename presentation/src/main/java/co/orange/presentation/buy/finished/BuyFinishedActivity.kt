@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.domain.entity.response.BuyDetailModel
+import co.orange.presentation.buy.info.BuyInfoActivity
 import co.orange.presentation.main.MainActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,8 +44,11 @@ class BuyFinishedActivity :
     }
 
     private fun initDetailBtnListener() {
-        // TODO
-        binding.btnShowDetail.setOnSingleClickListener { }
+        binding.btnShowDetail.setOnSingleClickListener {
+            BuyInfoActivity.createIntent(this, viewModel.productId).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun getIntentInfo() {

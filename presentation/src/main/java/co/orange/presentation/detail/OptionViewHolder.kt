@@ -3,7 +3,6 @@ package co.orange.presentation.detail
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import co.orange.domain.entity.response.OptionModel
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.databinding.ItemOptionBinding
 
 class OptionViewHolder(
@@ -11,11 +10,12 @@ class OptionViewHolder(
     private val itemClick: (Int, Long, Long) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    var selectedItem: OptionModel? = null
+    var selectedItemId: Long = -1
+    var selectedPosition: Int = -1
 
     fun onBind(item: OptionModel, position: Int) {
-        // TODO: 수정된 UI 대응
-        selectedItem = item
+        selectedItemId = item.optionId
+        selectedPosition = position
         with(binding) {
             tvOptionItemTitle.text = item.type
             tvOptionItemTitle.setOnClickListener {
@@ -30,8 +30,8 @@ class OptionViewHolder(
         }
     }
 
-    private fun initItemClickListener(position: Int, optionDetailId: Long) {
-        itemClick(position, selectedItem?.optionId ?: -1, optionDetailId)
+    private fun initItemClickListener(optionDetailId: Long) {
+        itemClick(selectedPosition, selectedItemId, optionDetailId)
     }
 
 }

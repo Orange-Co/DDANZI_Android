@@ -7,14 +7,14 @@ import kr.genti.presentation.databinding.ItemOptionDetailBinding
 
 class OptionDetailViewHolder(
     val binding: ItemOptionDetailBinding,
-    private val itemClick: (Int, Long) -> Unit,
+    private val itemClick: (Long) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(item: OptionDetailModel, position: Int) {
+    fun onBind(item: OptionDetailModel) {
         with(binding) {
             tvOptionItemDetailTitle.text = item.content
             root.setOnSingleClickListener {
-                itemClick(position, item.optionDetailId)
+                itemClick(item.optionDetailId)
             }
         }
     }

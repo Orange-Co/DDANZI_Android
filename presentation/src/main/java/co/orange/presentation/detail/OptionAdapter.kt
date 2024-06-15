@@ -8,7 +8,7 @@ import kr.genti.core.util.ItemDiffCallback
 import kr.genti.presentation.databinding.ItemOptionBinding
 
 class OptionAdapter(
-    private val itemClick: (Int, Long) -> Unit,
+    private val itemClick: (Int, Long, Long) -> Unit,
 ) : ListAdapter<OptionModel, OptionViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionViewHolder {

@@ -60,4 +60,12 @@
 
     <string name="transaction_id">거래 번호 %s</string>
     <string name="address_format">(%s) %s</string>
+
+    <string name="buy_info_tv_title">구매 상세</string>
+    <string name="buy_info_tv_message">주문 완료</string>
+    <string name="buy_info_tv_product_title">상품 정보</string>
+    <string name="buy_info_tv_seller_title">판매자 정보</string>
+    <string name="buy_info_tv_nickname">닉네임</string>
+    <string name="buy_info_tv_delivery_title">배송지 정보</string>
+    <string name="buy_info_btn_fix_purchase">구매 확정하기</string>
 </resources>

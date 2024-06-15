@@ -38,24 +38,21 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
         }
     }
 
+
     private fun navigateToFinishedActivity() {
-        val imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
-        val name = intent.getStringExtra(EXTRA_NAME).orEmpty()
+        val productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
 
     }
 
     companion object {
-        private const val EXTRA_PRODUCT_URL = "EXTRA_PRODUCT_URL"
-        private const val EXTRA_NAME = "EXTRA_NAME"
+        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            productUrl: String,
-            name: String
+            productId: Long,
         ): Intent = Intent(context, BuyPushActivity::class.java).apply {
-            putExtra(EXTRA_PRODUCT_URL, productUrl)
-            putExtra(EXTRA_NAME, name)
+            putExtra(EXTRA_PRODUCT_ID, productId)
         }
     }
 }

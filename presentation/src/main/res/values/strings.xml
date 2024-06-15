@@ -11,6 +11,9 @@
     <string name="manager_not_initialized_error_msg">Billing Manager is not initialized</string>
     <string name="view_type_error_msg">Unknown View Type : %d</string>
 
+    <string name="add_plus">+%s</string>
+    <string name="add_minus">-%s</string>
+
     <string name="menu_tv_home">홈</string>
     <string name="menu_tv_profile">마이페이지</string>
 

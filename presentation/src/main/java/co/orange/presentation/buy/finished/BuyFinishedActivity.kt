@@ -63,7 +63,7 @@ class BuyFinishedActivity :
                 R.string.address_format,
                 item.addressInfo[0].zipCode,
                 item.addressInfo[0].address
-            )
+            ).breakLines()
             tvFinishedDeliveryPhone.text = item.addressInfo[0].phone
             tvFinishedTransactionMethod.text = item.paymentInfo[0].method
             tvFinishedTransactionDate.text = item.paymentInfo[0].completedAt

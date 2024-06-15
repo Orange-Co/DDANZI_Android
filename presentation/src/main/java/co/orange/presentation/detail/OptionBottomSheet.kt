@@ -49,7 +49,7 @@ class OptionBottomSheet :
             // TODO 버튼 활성화 설정
             BuyConfirmActivity.createIntent(
                 requireContext(),
-                viewModel.mockProduct.
+                viewModel.productId
             ).apply {
                 startActivity(this)
             }

@@ -63,6 +63,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun getIntentInfo() {
         with(viewModel) {
+            productId =intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
             imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
             originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
             salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
@@ -101,6 +102,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     companion object {
+        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
         private const val EXTRA_PRODUCT_URL = "EXTRA_PRODUCT_URL"
         private const val EXTRA_ORIGIN_PRICE = "EXTRA_ORIGIN_PRICE"
         private const val EXTRA_SALE_PRICE = "EXTRA_SALE_PRICE"
@@ -110,10 +112,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         @JvmStatic
         fun createIntent(
             context: Context,
+            productId: Long,
             productUrl: String,
             originPrice: Int,
             salePrice: Int,
         ): Intent = Intent(context, DetailActivity::class.java).apply {
+            putExtra(EXTRA_PRODUCT_ID, productId)
             putExtra(EXTRA_PRODUCT_URL, productUrl)
             putExtra(EXTRA_ORIGIN_PRICE, originPrice)
             putExtra(EXTRA_SALE_PRICE, salePrice)

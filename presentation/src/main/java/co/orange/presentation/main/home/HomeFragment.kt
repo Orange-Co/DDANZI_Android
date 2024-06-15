@@ -55,7 +55,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     private fun initBannerClickListener(unit: Unit) {}
 
     private fun initProductClickListener(item: ProductModel) {
-        DetailActivity.createIntent(requireContext(), item.imgUrl, item.originPrice, item.salePrice)
+        DetailActivity.createIntent(requireContext(), item.productId, item.imgUrl, item.originPrice, item.salePrice)
             .apply { startActivity(this) }
     }
 

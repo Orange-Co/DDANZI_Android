@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import co.orange.domain.entity.response.BuyInfoModel
+import co.orange.presentation.buy.push.BuyPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
@@ -24,7 +26,7 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
         initTermBtnListener()
         initConfirmBtnListener()
         getIntentInfo()
-        setIntentUi()
+        setIntentUi(viewModel.mockBuyInfo)
     }
 
     private fun initExitBtnListener() {
@@ -33,63 +35,54 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
 
     private fun initDeliveryChangeBtnListener() {
         // TODO
-        binding.btnChangeDelivery.setOnSingleClickListener {  }
+        binding.btnChangeDelivery.setOnSingleClickListener { }
     }
 
     private fun initTermBtnListener() {
         //TODO
-        binding.btnTermAll.setOnSingleClickListener {  }
-        binding.btnTermFirst.setOnSingleClickListener {  }
-        binding.btnTermSecond.setOnSingleClickListener {  }
-        binding.btnTermThird.setOnSingleClickListener {  }
+        binding.btnTermAll.setOnSingleClickListener { }
+        binding.btnTermFirst.setOnSingleClickListener { }
+        binding.btnTermSecond.setOnSingleClickListener { }
+        binding.btnTermThird.setOnSingleClickListener { }
     }
 
     private fun initConfirmBtnListener() {
-        // TODO
-        binding.btnConfirmPurchase.setOnSingleClickListener {  }
-    }
-
-    private fun getIntentInfo() {
-        with(viewModel) {
-            imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
-            originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
-            salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
-            name = intent.getStringExtra(EXTRA_NAME).orEmpty()
+        binding.btnConfirmPurchase.setOnSingleClickListener {
+            // TODO 구매 요청 서버통신 이후
+            BuyPushActivity.createIntent(this, viewModel.productId).apply {
+                startActivity(this)
+            }
         }
     }
 
-    private fun setIntentUi() {
+    private fun getIntentInfo() {
+        viewModel.productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+    }
+
+    private fun setIntentUi(item: BuyInfoModel) {
         with(binding) {
-            tvConfirmProductName.text = viewModel.name
-            ivConfirmProduct.load(viewModel.imageUrl)
-            tvConfirmProductPrice.text = viewModel.salePrice.setNumberForm()
-            tvConfirmPriceMoney.text = viewModel.salePrice.setNumberForm()
-            // TODO
-            tvConfirmPriceDiscount.text = "-3,000"
-            tvConfirmPriceCharge.text = "+350"
-            tvConfirmPriceTotal.text = "21,350"
+            tvConfirmProductName.text = item.productName
+            ivConfirmProduct.load(item.imgUrl)
+            tvConfirmProductPrice.text = item.originPrice.setNumberForm()
+            tvConfirmPriceMoney.text = item.originPrice.setNumberForm()
+            tvConfirmPriceDiscount.text =
+                getString(R.string.add_minus, item.discountPrice.setNumberForm())
+            tvConfirmPriceCharge.text =
+                getString(R.string.add_plus, item.charge.setNumberForm())
+            tvConfirmPriceTotal.text = item.totalPrice.setNumberForm()
         }
     }
 
 
     companion object {
-        private const val EXTRA_PRODUCT_URL = "EXTRA_PRODUCT_URL"
-        private const val EXTRA_ORIGIN_PRICE = "EXTRA_ORIGIN_PRICE"
-        private const val EXTRA_SALE_PRICE = "EXTRA_SALE_PRICE"
-        private const val EXTRA_NAME = "EXTRA_NAME"
+        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            productUrl: String,
-            originPrice: Int,
-            salePrice: Int,
-            name: String
+            productId: Long
         ): Intent = Intent(context, BuyConfirmActivity::class.java).apply {
-            putExtra(EXTRA_PRODUCT_URL, productUrl)
-            putExtra(EXTRA_ORIGIN_PRICE, originPrice)
-            putExtra(EXTRA_SALE_PRICE, salePrice)
-            putExtra(EXTRA_NAME, name)
+            putExtra(EXTRA_PRODUCT_ID, productId)
         }
     }
 }

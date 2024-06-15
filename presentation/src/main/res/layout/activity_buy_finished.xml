@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_finished_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_finished_title"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="19dp"
+                android:text="@string/buy_finished_tv_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btn_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_home"
+                app:layout_constraintBottom_toBottomOf="@id/tv_finished_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_finished_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_finished"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/border_buy_finished"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_finished_top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_finished_product"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/shape_gray2_line_10_rect"
+                    android:paddingVertical="27dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_finished_product_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_check_circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_finished_message"
+                        style="@style/TextAppearance.DDanzi.Title4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:text="@string/buy_finished_tv_message"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_finished_product_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_finished_transaction"
+                        style="@style/TextAppearance.DDanzi.Body4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_finished_message"
+                        tools:text="거래 번호 RDAFSD391480" />
+
+                    <TextView
+                        android:id="@+id/tv_finished_message_sub"
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:text="@string/buy_finished_tv_message_sub"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_finished_transaction" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_finished_item"
+                        android:layout_width="100dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="30dp"
+                        android:elevation="0dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_finished_message_sub">
+
+                        <ImageView
+                            android:id="@+id/iv_finished_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/mock_img_product" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tv_finished_item_name"
+                        style="@style/TextAppearance.DDanzi.Body4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="17dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cv_finished_item"
+                        tools:text="상품이름은 한줄로만 보여줄거에야야야야" />
+
+                    <TextView
+                        android:id="@+id/tv_finished_item_price"
+                        style="@style/TextAppearance.DDanzi.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_finished_item_name"
+                        tools:text="24,000" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_finished_delivery_title"
+                    style="@style/TextAppearance.DDanzi.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="@string/buy_finished_tv_delivery_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_finished_product" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_delivery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_delivery_title">
+
+                    <TextView
+                        android:id="@+id/tv_finished_delivery_name"
+                        style="@style/TextAppearance.DDanzi.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="우리집" />
+
+                    <TextView
+                        android:id="@+id/tv_finished_delivery_address"
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_finished_delivery_name"
+                        tools:text="(02578) 서울특별시 동대문구 무학로45길 34 (용두동), 204호" />
+
+                    <TextView
+                        android:id="@+id/tv_finished_delivery_phone"
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_finished_delivery_address"
+                        tools:text="010-3259-0327" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_finished_transaction_title"
+                    style="@style/TextAppearance.DDanzi.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:text="@string/buy_finished_tv_transaction_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_delivery" />
+
+                <TextView
+                    android:id="@+id/tv_finished_transaction_method_title"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/buy_finished_tv_transaction_method"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_transaction_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_transaction_method"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_transaction_method_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_transaction_method_title"
+                    tools:text="네이버페이" />
+
+                <TextView
+                    android:id="@+id/tv_finished_transaction_date_title"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/buy_finished_tv_transaction_date"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_transaction_method_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_transaction_date"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_transaction_date_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_transaction_date_title"
+                    tools:text="2024.06.15" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_title"
+                    style="@style/TextAppearance.DDanzi.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:text="@string/buy_finished_tv_pay_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_transaction_date_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_money_title"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/buy_finished_tv_pay_money"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_pay_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_money"
+                    style="@style/TextAppearance.DDanzi.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_pay_money_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_pay_money_title"
+                    tools:text="24,000" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_discount_title"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/buy_finished_tv_pay_discount"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_pay_money_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_discount"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_pay_discount_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_pay_discount_title"
+                    tools:text="-3,000" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_charge_title"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/buy_finished_tv_pay_charge"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_pay_discount_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_charge"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_pay_charge_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_pay_charge_title"
+                    tools:text="+350" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_total_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingVertical="28dp"
+                    android:text="@string/buy_finished_tv_pay_total"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_pay_charge_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_total"
+                    style="@style/TextAppearance.DDanzi.Title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_pay_total_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_pay_total_title"
+                    tools:text="21,350" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/btn_keep_shopping"
+            style="@style/TextAppearance.DDanzi.Body3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/shape_black_line_10_rect"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="@string/buy_finished_btn_keep_shopping"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_show_detail"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_show_detail"
+            style="@style/TextAppearance.DDanzi.Body3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/shape_black_fill_10_rect"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="@string/buy_finished_btn_show_detail"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/btn_keep_shopping" />
+
+        <View
+            android:id="@+id/border_buy_finished"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/border_gray"
+            app:layout_constraintBottom_toTopOf="@id/btn_keep_shopping"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

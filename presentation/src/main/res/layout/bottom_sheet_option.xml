@@ -9,14 +9,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/shape_white_fill_top20_rect"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_fill_top20_rect">
 
         <View
             android:id="@+id/view_option_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="W, 11:9"
+            app:layout_constraintDimensionRatio="W, 4:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,6 +70,18 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_option_item_guide"
+            style="@style/TextAppearance.DDanzi.Body6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:gravity="end"
+            android:text="@string/option_tv_guide"
+            android:textColor="@color/gray_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_detail_view" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_option"
             android:layout_width="0dp"
@@ -77,24 +89,11 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/tv_option_item_guide"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_detail_view"
-            tools:listitem="@layout/item_option" />
-
-        <TextView
-            android:id="@+id/tv_option_item_guide"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:paddingHorizontal="23dp"
-            android:text="@string/option_tv_guide"
-            android:textColor="@color/gray_2"
             app:layout_constraintBottom_toTopOf="@id/layout_option_bottom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_item_guide"
+            tools:listitem="@layout/item_option" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_option_bottom"

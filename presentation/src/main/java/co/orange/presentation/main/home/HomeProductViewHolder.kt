@@ -7,8 +7,8 @@ import coil.load
 import kr.genti.core.extension.breakLines
 import kr.genti.core.extension.setNumberForm
 import kr.genti.core.extension.setOnSingleClickListener
+import kr.genti.core.extension.setOverThousand
 import kr.genti.presentation.databinding.ItemHomeProductBinding
-import java.text.DecimalFormat
 
 class HomeProductViewHolder(
     val binding: ItemHomeProductBinding,
@@ -29,17 +29,8 @@ class HomeProductViewHolder(
                 setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
             }
             tvHomeItemNowPrice.text = item.salePrice.setNumberForm()
-
-            if (item.interestCount < 1000) {
-                tvHomeItemLike.text = item.interestCount.toString()
-            } else {
-                tvHomeItemLike.text = OVER_999
-            }
+            tvHomeItemLike.text = item.interestCount.setOverThousand()
 
         }
-    }
-
-    companion object {
-        const val OVER_999 = "999+"
     }
 }

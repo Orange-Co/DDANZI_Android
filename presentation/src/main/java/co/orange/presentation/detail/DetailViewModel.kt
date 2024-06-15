@@ -27,10 +27,20 @@ constructor(
         "",
         123,
         listOf(
-            OptionModel(1, "옵션 1", listOf()),
-            OptionModel(2, "옵션 2", listOf()),
-            OptionModel(3, "옵션 3", listOf()),
-            OptionModel(4, "옵션 4", listOf())
+            OptionModel(
+                1, "색상", listOf(
+                    OptionModel.OptionDetailModel(0, "네이비"),
+                    OptionModel.OptionDetailModel(1, "블랙"),
+                )
+            ),
+            OptionModel(
+                2, "사이즈", listOf(
+                    OptionModel.OptionDetailModel(0, "S"),
+                    OptionModel.OptionDetailModel(1, "M"),
+                    OptionModel.OptionDetailModel(2, "L"),
+                    OptionModel.OptionDetailModel(3, "XL"),
+                )
+            ),
         )
     )
 }

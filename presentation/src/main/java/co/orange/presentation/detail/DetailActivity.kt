@@ -8,13 +8,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import co.orange.domain.entity.response.ProductDetailModel
-import co.orange.presentation.main.home.HomeProductViewHolder.Companion.OVER_999
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.breakLines
 import kr.genti.core.extension.setNumberForm
 import kr.genti.core.extension.setOnSingleClickListener
+import kr.genti.core.extension.setOverThousand
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDetailBinding
 
@@ -63,7 +63,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun getIntentInfo() {
         with(viewModel) {
-            productId =intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+            productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
             imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
             originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
             salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
@@ -87,11 +87,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             tvDetailDiscountRate.text = item.discountRate.toString()
             tvDetailStockCount.text = item.stockCount.toString()
             tvDetailLike.text = viewModel.mockProduct.interestCount.toString()
-            if (item.interestCount < 1000) {
-                tvDetailLike.text = item.interestCount.toString()
-            } else {
-                tvDetailLike.text = OVER_999
-            }
+            tvDetailLike.text = item.interestCount.setOverThousand()
         }
     }
 

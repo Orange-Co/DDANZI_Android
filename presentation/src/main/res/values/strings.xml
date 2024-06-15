@@ -54,6 +54,10 @@
     <string name="buy_finished_tv_pay_money">상품 금액</string>
     <string name="buy_finished_tv_pay_discount">할인가</string>
     <string name="buy_finished_tv_pay_charge">수수료</string>
+    <string name="buy_finished_tv_pay_total">최종 결제 금액</string>
     <string name="buy_finished_btn_keep_shopping">계속 쇼핑하기</string>
     <string name="buy_finished_btn_show_detail">상세 내역 보러가기</string>
+
+    <string name="transaction_id">거래 번호 %s</string>
+    <string name="address_format">(%s) %s</string>
 </resources>

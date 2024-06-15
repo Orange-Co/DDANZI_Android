@@ -3,6 +3,7 @@ package co.orange.presentation.buy.push
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import co.orange.presentation.buy.finished.BuyFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
@@ -40,7 +41,10 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
 
 
     private fun navigateToFinishedActivity() {
-        val productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+        val productId = intent.getLongExtra(EXTRA_PRODUCT_ID,-1)
+        BuyFinishedActivity.createIntent(this, productId).apply {
+            startActivity(this)
+        }
 
     }
 

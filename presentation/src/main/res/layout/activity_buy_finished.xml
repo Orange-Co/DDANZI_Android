@@ -352,6 +352,27 @@
                     app:layout_constraintTop_toTopOf="@id/tv_finished_pay_charge_title"
                     tools:text="+350" />
 
+                <TextView
+                    android:id="@+id/tv_finished_pay_total_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingVertical="28dp"
+                    android:text="@string/buy_finished_tv_pay_total"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_finished_pay_charge_title" />
+
+                <TextView
+                    android:id="@+id/tv_finished_pay_total"
+                    style="@style/TextAppearance.DDanzi.Title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_finished_pay_total_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_finished_pay_total_title"
+                    tools:text="21,350" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -361,35 +382,35 @@
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/btn_show_detail"
             android:layout_marginStart="22dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/shape_black_line_10_rect"
             android:gravity="center"
             android:paddingVertical="16dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
             android:text="@string/buy_finished_btn_keep_shopping"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_show_detail"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/btn_show_detail"
-            app:layout_constraintStart_toEndOf="@id/btn_keep_shopping"
-            android:gravity="center"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="30dp"
-            android:layout_marginStart="5dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
             android:background="@drawable/shape_black_fill_10_rect"
+            android:gravity="center"
             android:paddingVertical="16dp"
             android:text="@string/buy_finished_btn_show_detail"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/btn_keep_shopping" />
 
         <View
             android:id="@+id/border_buy_finished"

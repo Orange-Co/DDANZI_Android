@@ -9,7 +9,14 @@ fun Int.dpToPx(context: Context): Int {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics).toInt()
 }
 
-fun Int.setNumberForm() : String {
+fun Int.setNumberForm(): String {
     val decimal = DecimalFormat("#,###")
     return decimal.format(this)
 }
+
+fun Int.setOverThousand(): String =
+    if (this < 1000) {
+        this.toString()
+    } else {
+        "999+"
+    }

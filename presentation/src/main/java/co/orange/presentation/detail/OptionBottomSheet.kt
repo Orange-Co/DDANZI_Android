@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import co.orange.presentation.buy.confirm.BuyConfirmActivity
-import co.orange.presentation.main.home.HomeProductViewHolder.Companion.OVER_999
 import kr.genti.core.base.BaseBottomSheet
 import kr.genti.core.extension.setOnSingleClickListener
+import kr.genti.core.extension.setOverThousand
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetOptionBinding
 
@@ -64,15 +64,11 @@ class OptionBottomSheet :
     }
 
     private fun initItemClickListener(position: Int, optionId: Long, optionDetailId: Long) {
-        
+
     }
 
     private fun setInterestCount() {
-        binding.tvOptionLike.text = if (viewModel.mockProduct.interestCount < 1000) {
-            viewModel.mockProduct.interestCount.toString()
-        } else {
-            OVER_999
-        }
+        viewModel.mockProduct.interestCount.setOverThousand()
     }
 
     private fun setOptionData() {

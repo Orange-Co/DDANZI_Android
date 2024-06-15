@@ -63,7 +63,7 @@ class OptionBottomSheet :
         binding.rvOption.adapter = adapter
     }
 
-    private fun initItemClickListener(position: Int, optionId: Long, optoiinDetailId: Long) {
+    private fun initItemClickListener(position: Int, optionId: Long, optionDetailId: Long) {
         // TODO
     }
 

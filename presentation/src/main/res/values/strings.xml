@@ -39,4 +39,18 @@
     <string name="push_tv_subtitle">원만한 거래를 위해서는\n푸시알림 설정이 필요해요</string>
     <string name="push_btn_later">나중에 받을게요</string>
     <string name="push_btn_alarm">알림받기</string>
+
+    <string name="buy_finished_tv_title">주문 완료</string>
+    <string name="buy_finished_tv_message">주문 완료되었습니다</string>
+    <string name="buy_finished_tv_message_sub">주문 확인 후 거래가 진행됩니다.</string>
+    <string name="buy_finished_tv_delivery_title">배송지</string>
+    <string name="buy_finished_tv_transaction_title">거래 정보</string>
+    <string name="buy_finished_tv_transaction_method">결제 수단</string>
+    <string name="buy_finished_tv_transaction_date">결제 일자</string>
+    <string name="buy_finished_tv_pay_title">결제 정보</string>
+    <string name="buy_finished_tv_pay_money">상품 금액</string>
+    <string name="buy_finished_tv_pay_discount">할인가</string>
+    <string name="buy_finished_tv_pay_charge">수수료</string>
+    <string name="buy_finished_btn_keep_shopping">계속 쇼핑하기</string>
+    <string name="buy_finished_btn_show_detail">상세 내역 보러가기</string>
 </resources>

@@ -10,8 +10,11 @@ class SearchWordViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: String) {
-        binding.root.setOnSingleClickListener {
-            keywordClick(item)
+        with(binding) {
+            tvSearchWord.text = item
+            root.setOnSingleClickListener {
+                keywordClick(item)
+            }
         }
     }
 }

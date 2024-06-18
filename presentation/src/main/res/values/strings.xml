@@ -13,6 +13,7 @@
 
     <string name="add_plus">+%s</string>
     <string name="add_minus">-%s</string>
+    <string name="add_quotation">\"%s\"</string>
 
     <string name="menu_tv_home">홈</string>
     <string name="menu_tv_profile">마이페이지</string>

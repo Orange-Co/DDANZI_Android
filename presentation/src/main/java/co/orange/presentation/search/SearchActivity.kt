@@ -29,6 +29,10 @@ class SearchActivity :
     val recentAdapter
         get() = requireNotNull(_recentAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
+    private var _resultAdapter: SearchItemAdapter? = null
+    val resultAdapter
+        get() = requireNotNull(_resultAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
     private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +42,7 @@ class SearchActivity :
         initBackBtnListener()
         initKeywordAdapter()
         initRecentAdapter()
+        initResultAdapter()
         setDebounceSearch()
         setKeywordList()
         setRecentList()
@@ -77,6 +82,14 @@ class SearchActivity :
         binding.rvSearchRecent.adapter = recentAdapter
     }
 
+    private fun initResultAdapter() {
+        _resultAdapter =
+            SearchItemAdapter(
+                itemClick = ::initItemClickListener,
+            )
+        binding.rvSearchResult.adapter = resultAdapter
+    }
+
     private fun initItemClickListener(id: Long) {
         //
     }
@@ -93,7 +106,9 @@ class SearchActivity :
                     lifecycleScope.launch {
                         delay(DEBOUNCE_TIME)
                         text.toString().let { text ->
-                            // viewModel.setFriendsListFromServer(text)
+                            // TODO : 검색
+                            binding.tvSearchedText.text = getString(R.string.add_quotation, text)
+                            resultAdapter.addList(viewModel.mockItemList)
                         }
                     }
             }
@@ -112,6 +127,7 @@ class SearchActivity :
         super.onDestroy()
         _keywordAdapter = null
         _recentAdapter = null
+        _resultAdapter = null
     }
 
     companion object {

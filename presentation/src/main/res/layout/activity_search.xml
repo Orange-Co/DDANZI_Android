@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="9dp"
                     android:background="@null"
-                    android:hint="검색어를 입력하세요"
+                    android:hint="@string/search_tv_hint"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:textColorHint="@color/gray_2"
@@ -89,7 +89,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_search_bar">
+            app:layout_constraintTop_toBottomOf="@id/layout_search_bar"
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_search_word_title"
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="8dp"
-                android:text="인기 검색어"
+                android:text="@string/search_tv_word_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -107,8 +108,8 @@
                 android:id="@+id/rv_search_word"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="21dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,18 +122,18 @@
                 style="@style/TextAppearance.DDanzi.Body3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
                 android:layout_marginHorizontal="20dp"
-                android:text="최근 본 상품"
+                android:layout_marginTop="35dp"
+                android:text="@string/search_tv_recent_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_search_word"/>
+                app:layout_constraintTop_toBottomOf="@id/rv_search_word" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_search_recent"
                 android:layout_width="0dp"
-                android:layout_marginHorizontal="17dp"
                 android:layout_height="0dp"
+                android:layout_marginHorizontal="17dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -141,6 +142,54 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_search_resent_title"
+                app:spanCount="2"
+                tools:listitem="@layout/item_search_product" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_after_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_search_bar">
+
+            <TextView
+                android:id="@+id/tv_searched_text"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="향수" />
+
+            <TextView
+                android:id="@+id/tv_searched_text_title"
+                style="@style/TextAppearance.DDanzi.Body3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/search_tv_searched_text"
+                app:layout_constraintBottom_toBottomOf="@id/tv_searched_text"
+                app:layout_constraintStart_toEndOf="@id/tv_searched_text" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_result"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="17dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_searched_text"
                 app:spanCount="2"
                 tools:listitem="@layout/item_search_product" />
 

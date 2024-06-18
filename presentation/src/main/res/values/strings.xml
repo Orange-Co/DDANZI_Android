@@ -68,4 +68,9 @@
     <string name="buy_info_tv_nickname">닉네임</string>
     <string name="buy_info_tv_delivery_title">배송지 정보</string>
     <string name="buy_info_btn_fix_purchase">구매 확정하기</string>
+
+    <string name="search_tv_hint">검색어를 입력하세요</string>
+    <string name="search_tv_word_title">인기 검색어</string>
+    <string name="search_tv_recent_title">최근 본 상품</string>
+    <string name="search_tv_searched_text">검색 결과</string>
 </resources>

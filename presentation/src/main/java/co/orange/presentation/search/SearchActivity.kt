@@ -21,6 +21,10 @@ class SearchActivity :
     BaseActivity<ActivitySearchBinding>(R.layout.activity_search) {
     private val viewModel by viewModels<SearchViewModel>()
 
+    private var _keywordAdapter: SearchWordAdapter? = null
+    private val keywordAdapter
+        get() = requireNotNull(_keywordAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
     private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +32,9 @@ class SearchActivity :
 
         initFocusToEditText()
         initBackBtnListener()
+        initKeywordAdapter()
         setDebounceSearch()
+        setKeywordList()
     }
 
     private fun initFocusToEditText() {
@@ -43,6 +49,17 @@ class SearchActivity :
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initKeywordAdapter() {
+        _keywordAdapter = SearchWordAdapter(
+            keywordClick = ::initKeywordClickListener
+        )
+        binding.rvSearchWord.adapter = keywordAdapter
+    }
+
+    private fun initKeywordClickListener(keyword: String) {
+        binding.etSearch.setText(keyword)
     }
 
     private fun setDebounceSearch() {
@@ -61,6 +78,15 @@ class SearchActivity :
                 }
             }
         }
+    }
+
+    private fun setKeywordList() {
+        keywordAdapter.addList(viewModel.mockSearchModel.topSearchedList)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _keywordAdapter = null
     }
 
     companion object {

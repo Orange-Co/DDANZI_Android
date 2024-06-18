@@ -12,7 +12,7 @@ import kr.genti.presentation.databinding.ItemSearchProductBinding
 
 class SearchItemViewHolder(
     val binding: ItemSearchProductBinding,
-    val itemClick: (Long) -> (Unit),
+    val itemClick: (ProductModel) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: ProductModel) {
@@ -27,7 +27,7 @@ class SearchItemViewHolder(
             tvSearchItemLike.text = item.interestCount.setOverThousand()
 
             root.setOnSingleClickListener {
-                itemClick(item.productId)
+                itemClick(item)
             }
         }
     }

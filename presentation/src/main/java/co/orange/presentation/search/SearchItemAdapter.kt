@@ -8,7 +8,7 @@ import kr.genti.core.util.ItemDiffCallback
 import kr.genti.presentation.databinding.ItemSearchProductBinding
 
 class SearchItemAdapter(
-    private val itemClick: (Long) -> (Unit),
+    private val itemClick: (ProductModel) -> (Unit),
 ) : ListAdapter<ProductModel, SearchItemViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,

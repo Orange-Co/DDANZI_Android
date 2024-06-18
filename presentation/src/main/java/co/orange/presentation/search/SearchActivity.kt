@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
+import co.orange.domain.entity.response.ProductModel
+import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -97,27 +99,28 @@ class SearchActivity :
         binding.rvSearchResult.adapter = resultAdapter
     }
 
-    private fun initItemClickListener(id: Long) {
-        //
+    private fun initItemClickListener(item: ProductModel) {
+        DetailActivity.createIntent(this, item.productId, item.imgUrl, item.originPrice, item.salePrice)
+            .apply { startActivity(this) }
     }
 
     private fun setDebounceSearch() {
         binding.etSearch.doAfterTextChanged { text ->
             searchJob?.cancel()
-            with(binding) {
-                layoutBeforeSearch.isVisible = text.isNullOrBlank()
-                layoutAfterSearch.isVisible = !text.isNullOrBlank()
-            }
+            binding.layoutBeforeSearch.isVisible = text.isNullOrBlank()
             if (!text.isNullOrBlank()) {
                 searchJob =
                     lifecycleScope.launch {
                         delay(DEBOUNCE_TIME)
                         text.toString().let { text ->
                             // TODO : 검색
+                            binding.layoutAfterSearch.isVisible = true
                             binding.tvSearchedText.text = getString(R.string.add_quotation, text)
                             resultAdapter.addList(viewModel.mockItemList)
                         }
                     }
+            } else {
+                binding.layoutAfterSearch.isVisible = false
             }
         }
     }

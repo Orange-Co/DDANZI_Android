@@ -1,5 +1,6 @@
 package co.orange.presentation.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
+import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.dpToPx
@@ -32,6 +34,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         initView()
         initAdapter()
         initSellBtnListener()
+        initSearchBtnListener()
         setGridRecyclerView()
         setRecyclerViewDeco()
         setItemList()
@@ -51,7 +54,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         binding.rvHome.adapter = adapter
     }
 
-    //TODO: 버튼 리스너 설정
+    // TODO: 버튼 리스너 설정
     private fun initBannerClickListener(unit: Unit) {}
 
     private fun initProductClickListener(item: ProductModel) {
@@ -67,17 +70,27 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         }
     }
 
-    private fun setGridRecyclerView() {
-        binding.rvHome.layoutManager = GridLayoutManager(context, 2).apply {
-            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return when (adapter.getItemViewType(position)) {
-                        VIEW_TYPE_BANNER -> 2
-                        else -> 1
-                    }
-                }
+    private fun initSearchBtnListener() {
+        binding.btnSearch.setOnSingleClickListener {
+            Intent(requireContext(), SearchActivity::class.java).apply {
+                startActivity(this)
             }
         }
+    }
+
+    private fun setGridRecyclerView() {
+        binding.rvHome.layoutManager =
+            GridLayoutManager(context, 2).apply {
+                spanSizeLookup =
+                    object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return when (adapter.getItemViewType(position)) {
+                                VIEW_TYPE_BANNER -> 2
+                                else -> 1
+                            }
+                        }
+                    }
+            }
     }
 
     private fun setRecyclerViewDeco() {
@@ -85,8 +98,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             GridItemDecoration(
                 spanCount = 2,
                 spacing = 30.dpToPx(requireContext()),
-                bottomPadding = 50.dpToPx(requireContext())
-            )
+                bottomPadding = 50.dpToPx(requireContext()),
+            ),
         )
     }
 

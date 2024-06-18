@@ -40,6 +40,7 @@ class SearchActivity :
 
         initFocusToEditText()
         initBackBtnListener()
+        initEmptyBtnListener()
         initKeywordAdapter()
         initRecentAdapter()
         initResultAdapter()
@@ -60,6 +61,12 @@ class SearchActivity :
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initEmptyBtnListener() {
+        binding.btnEmpty.setOnSingleClickListener {
+            binding.etSearch.setText("")
+        }
     }
 
     private fun initKeywordAdapter() {

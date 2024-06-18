@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="11dp"
+                android:layout_marginStart="9dp"
                 android:padding="11dp"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -65,12 +66,12 @@
                     android:maxLines="1"
                     android:textColorHint="@color/gray_2"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/iv_empty"
+                    app:layout_constraintEnd_toStartOf="@id/btn_empty"
                     app:layout_constraintStart_toEndOf="@id/iv_search"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/iv_empty"
+                    android:id="@+id/btn_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_empty"

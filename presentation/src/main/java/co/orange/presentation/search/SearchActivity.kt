@@ -1,9 +1,18 @@
 package co.orange.presentation.search
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySearchBinding
 
@@ -12,8 +21,49 @@ class SearchActivity :
     BaseActivity<ActivitySearchBinding>(R.layout.activity_search) {
     private val viewModel by viewModels<SearchViewModel>()
 
+    private var searchJob: Job? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initFocusToEditText()
+        initBackBtnListener()
+        setDebounceSearch()
+    }
+
+    private fun initFocusToEditText() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        binding.etSearch.requestFocus()
+        inputMethodManager.showSoftInput(
+            binding.etSearch,
+            InputMethodManager.SHOW_IMPLICIT,
+        )
+    }
+
+    private fun initBackBtnListener() {
+        binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun setDebounceSearch() {
+        binding.etSearch.doAfterTextChanged { text ->
+            searchJob?.cancel()
+            with(binding) {
+                layoutBeforeSearch.isVisible = text.isNullOrBlank()
+                layoutAfterSearch.isVisible = !text.isNullOrBlank()
+            }
+            if (!text.isNullOrBlank()) {
+                searchJob = lifecycleScope.launch {
+                    delay(DEBOUNCE_TIME)
+                    text.toString().let { text ->
+                        // viewModel.setFriendsListFromServer(text)
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val DEBOUNCE_TIME = 500L
     }
 }

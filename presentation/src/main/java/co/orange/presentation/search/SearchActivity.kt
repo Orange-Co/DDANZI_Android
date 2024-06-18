@@ -22,8 +22,12 @@ class SearchActivity :
     private val viewModel by viewModels<SearchViewModel>()
 
     private var _keywordAdapter: SearchWordAdapter? = null
-    private val keywordAdapter
+    val keywordAdapter
         get() = requireNotNull(_keywordAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
+    private var _recentAdapter: SearchItemAdapter? = null
+    val recentAdapter
+        get() = requireNotNull(_recentAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     private var searchJob: Job? = null
 
@@ -33,8 +37,10 @@ class SearchActivity :
         initFocusToEditText()
         initBackBtnListener()
         initKeywordAdapter()
+        initRecentAdapter()
         setDebounceSearch()
         setKeywordList()
+        setRecentList()
     }
 
     private fun initFocusToEditText() {
@@ -52,14 +58,27 @@ class SearchActivity :
     }
 
     private fun initKeywordAdapter() {
-        _keywordAdapter = SearchWordAdapter(
-            keywordClick = ::initKeywordClickListener
-        )
+        _keywordAdapter =
+            SearchWordAdapter(
+                keywordClick = ::initKeywordClickListener,
+            )
         binding.rvSearchWord.adapter = keywordAdapter
     }
 
     private fun initKeywordClickListener(keyword: String) {
         binding.etSearch.setText(keyword)
+    }
+
+    private fun initRecentAdapter() {
+        _recentAdapter =
+            SearchItemAdapter(
+                itemClick = ::initItemClickListener,
+            )
+        binding.rvSearchRecent.adapter = recentAdapter
+    }
+
+    private fun initItemClickListener(id: Long) {
+        //
     }
 
     private fun setDebounceSearch() {
@@ -70,12 +89,13 @@ class SearchActivity :
                 layoutAfterSearch.isVisible = !text.isNullOrBlank()
             }
             if (!text.isNullOrBlank()) {
-                searchJob = lifecycleScope.launch {
-                    delay(DEBOUNCE_TIME)
-                    text.toString().let { text ->
-                        // viewModel.setFriendsListFromServer(text)
+                searchJob =
+                    lifecycleScope.launch {
+                        delay(DEBOUNCE_TIME)
+                        text.toString().let { text ->
+                            // viewModel.setFriendsListFromServer(text)
+                        }
                     }
-                }
             }
         }
     }
@@ -84,9 +104,14 @@ class SearchActivity :
         keywordAdapter.addList(viewModel.mockSearchModel.topSearchedList)
     }
 
+    private fun setRecentList() {
+        recentAdapter.addList(viewModel.mockSearchModel.recentViewedList)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _keywordAdapter = null
+        _recentAdapter = null
     }
 
     companion object {

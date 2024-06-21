@@ -1,8 +1,10 @@
 package co.orange.presentation.main.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import co.orange.presentation.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.setOnSingleClickListener
@@ -25,8 +27,11 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     }
 
     private fun initSettingBtnListener() {
-        // TODO
-        binding.btnSetting.setOnSingleClickListener { }
+        binding.btnSetting.setOnSingleClickListener {
+            Intent(requireContext(), SettingActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun initLoginBtnListener() {

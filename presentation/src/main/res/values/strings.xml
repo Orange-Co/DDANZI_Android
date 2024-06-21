@@ -74,4 +74,16 @@
     <string name="search_tv_word_title">인기 검색어</string>
     <string name="search_tv_recent_title">최근 본 상품</string>
     <string name="search_tv_searched_text">검색 결과</string>
+
+    <string name="profile_btn_login">로그인 해주세요</string>
+    <string name="profile_btn_benefit"><u>회원가입 시 혜택 보기</u></string>
+    <string name="profile_tv_center_title">고객 센터</string>
+    <string name="profile_btn_center_question">자주 묻는 질문</string>
+    <string name="profile_btn_center_one_on_one">1:1 상담 센터</string>
+    <string name="profile_tv_info_header">반가워요,</string>
+    <string name="profile_tv_info_footer">님</string>
+    <string name="profile_tv_history_title">히스토리</string>
+    <string name="profile_btn_history_purchase">구매 내역</string>
+    <string name="profile_btn_history_sell">판매 내역</string>
+    <string name="profile_btn_history_like">내 관심</string>
 </resources>

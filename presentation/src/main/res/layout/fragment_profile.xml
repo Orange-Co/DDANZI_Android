@@ -175,7 +175,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btn_btn_history_sell"
+                    android:id="@+id/btn_history_sell"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -211,12 +211,12 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btn_btn_history_like"
+                    android:id="@+id/btn_history_like"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_btn_history_sell">
+                    app:layout_constraintTop_toBottomOf="@id/btn_history_sell">
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body3"

@@ -94,7 +94,7 @@
             android:layout_marginBottom="3dp"
             android:fontFamily="@font/font_pretendard_medium"
             android:textColor="@color/black"
-            android:textSize="8sp"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@string/ex_item_like" />

@@ -1,8 +1,12 @@
 package co.orange.presentation.setting
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.domain.entity.response.SettingModel
+import co.orange.presentation.setting.account.AccountActivity
+import co.orange.presentation.setting.bank.BankActivity
+import co.orange.presentation.setting.delivery.DeliveryActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
@@ -17,7 +21,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         super.onCreate(savedInstanceState)
 
         initBackBtnListener()
-        initManageBtnsListener()
+        initDeliveryManageBtnListener()
+        initBankManageBtnListener()
+        initAccountManageBtnListener()
         setSettingInfo(viewModel.mockSettingModel)
     }
 
@@ -25,11 +31,28 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         binding.btnBack.setOnSingleClickListener { finish() }
     }
 
-    private fun initManageBtnsListener() {
-        // TODO
-        binding.btnManageDelivery.setOnSingleClickListener { }
-        binding.btnManageBank.setOnSingleClickListener { }
-        binding.btnManageAccount.setOnSingleClickListener { }
+    private fun initDeliveryManageBtnListener() {
+        binding.btnManageDelivery.setOnSingleClickListener {
+            Intent(this, DeliveryActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun initBankManageBtnListener() {
+        binding.btnManageBank.setOnSingleClickListener {
+            Intent(this, BankActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun initAccountManageBtnListener() {
+        binding.btnManageAccount.setOnSingleClickListener {
+            Intent(this, AccountActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun setSettingInfo(item: SettingModel) {

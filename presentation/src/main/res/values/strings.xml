@@ -96,4 +96,7 @@
     <string name="setting_tv_manage_delivery">배송지 관리</string>
     <string name="setting_tv_manage_bank">계좌 관리</string>
     <string name="setting_tv_manage_account">계정 관리</string>
+
+    <string name="btn_mod">수정</string>
+    <string name="btn_delete">삭제</string>
 </resources>

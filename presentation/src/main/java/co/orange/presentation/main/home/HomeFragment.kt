@@ -3,6 +3,9 @@ package co.orange.presentation.main.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.domain.entity.response.ProductModel
@@ -19,6 +22,8 @@ import kr.genti.presentation.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    lateinit var activityResult: ActivityResultLauncher<PickVisualMediaRequest>
+
     private var _adapter: HomeAdapter? = null
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
@@ -33,8 +38,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         initView()
         initAdapter()
-        initSellBtnListener()
         initSearchBtnListener()
+        initSellBtnListener()
+        searchSellProduct()
         setGridRecyclerView()
         setRecyclerViewDeco()
         setItemList()
@@ -64,18 +70,28 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private fun initLikeClickListener(unit: Unit) {}
 
-    private fun initSellBtnListener() {
-        binding.btnSell.setOnSingleClickListener {
-            // TODO
-        }
-    }
-
     private fun initSearchBtnListener() {
         binding.btnSearch.setOnSingleClickListener {
             Intent(requireContext(), SearchActivity::class.java).apply {
                 startActivity(this)
             }
         }
+    }
+
+    private fun initSellBtnListener() {
+        binding.btnSell.setOnSingleClickListener {
+            activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        }
+    }
+
+    private fun searchSellProduct() {
+        activityResult =
+            registerForActivityResult(PickVisualMedia()) { uri ->
+                if (uri != null) {
+                    // TODO : OCR 진행 후 실 상품 이미지 대체
+                    viewModel.selectedImageUri = uri
+                }
+            }
     }
 
     private fun setGridRecyclerView() {

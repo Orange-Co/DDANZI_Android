@@ -2,7 +2,7 @@ package co.orange.presentation.setting.bank
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import co.orange.domain.entity.response.AddressInfoModel
+import co.orange.domain.entity.response.AccountModel
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
@@ -16,7 +16,7 @@ class BankActivityy : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) 
 
         initBackBtnListener()
         initBankInfoBtnListener()
-        setDeliveryUi(viewModel.mockAddressModel)
+        setDeliveryUi(viewModel.mockAccountModel)
     }
 
     private fun initBackBtnListener() {
@@ -28,8 +28,11 @@ class BankActivityy : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) 
         binding.layoutBankItem.setOnSingleClickListener { }
     }
 
-    private fun setDeliveryUi(item: AddressInfoModel) {
+    private fun setDeliveryUi(item: AccountModel) {
         with(binding) {
+            tvBankName.text = item.bank
+            tvBankAccount.text = item.accountNumber
+            tvBankOwner.text = item.name
         }
     }
 }

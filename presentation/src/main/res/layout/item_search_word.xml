@@ -14,13 +14,12 @@
 
         <TextView
             android:id="@+id/tv_search_word"
-            style="@style/TextAppearance.DDanzi.Body6"
+            style="@style/TextAppearance.DDanzi.Body5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_black_fill_100_rect"
+            android:background="@drawable/shape_gray4_line_100_rect"
             android:paddingHorizontal="13dp"
             android:paddingVertical="5dp"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

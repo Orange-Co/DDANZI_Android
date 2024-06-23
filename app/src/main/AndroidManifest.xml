@@ -66,6 +66,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="co.orange.presentation.setting.bank.BankActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

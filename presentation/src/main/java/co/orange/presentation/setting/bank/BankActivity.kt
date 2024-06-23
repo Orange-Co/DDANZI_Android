@@ -8,7 +8,7 @@ import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankBinding
 
-class BankActivityy : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) {
+class BankActivity : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) {
     val viewModel by viewModels<BankViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

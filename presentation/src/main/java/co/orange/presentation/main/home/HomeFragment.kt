@@ -30,6 +30,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private val viewModel by activityViewModels<HomeViewModel>()
 
+    private var sellProductDialog: SellProductDialog? = null
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -90,6 +92,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 if (uri != null) {
                     // TODO : OCR 진행 후 실 상품 이미지 대체
                     viewModel.selectedImageUri = uri
+                    sellProductDialog = SellProductDialog()
+                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
                 }
             }
     }
@@ -126,5 +130,10 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
+        sellProductDialog = null
+    }
+
+    companion object {
+        private const val SELL_PRODUCT_DIALOG = "SELL_PRODUCT_DIALOG"
     }
 }

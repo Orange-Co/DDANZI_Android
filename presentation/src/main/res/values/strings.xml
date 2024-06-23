@@ -101,4 +101,8 @@
 
     <string name="btn_mod">수정</string>
     <string name="btn_delete">삭제</string>
+
+    <string name="sell_product_tv_subtitle">해당 상품이 맞나요?</string>
+    <string name="sell_product_btn_submit">네 맞아요</string>
+    <string name="sell_product_pick_again">다시 업로드하기</string>
 </resources>

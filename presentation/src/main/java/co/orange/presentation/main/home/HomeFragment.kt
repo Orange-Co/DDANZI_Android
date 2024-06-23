@@ -7,12 +7,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.initOnBackPressedListener
@@ -46,6 +50,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         setGridRecyclerView()
         setRecyclerViewDeco()
         setItemList()
+        observeCheckedAgainState()
     }
 
     private fun initView() {
@@ -66,7 +71,13 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     private fun initBannerClickListener(unit: Unit) {}
 
     private fun initProductClickListener(item: ProductModel) {
-        DetailActivity.createIntent(requireContext(), item.productId, item.imgUrl, item.originPrice, item.salePrice)
+        DetailActivity.createIntent(
+            requireContext(),
+            item.productId,
+            item.imgUrl,
+            item.originPrice,
+            item.salePrice,
+        )
             .apply { startActivity(this) }
     }
 
@@ -125,6 +136,15 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private fun setItemList() {
         adapter.setItemList(viewModel.mockItemList)
+    }
+
+    private fun observeCheckedAgainState() {
+        viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).onEach { isChecked ->
+            if (isChecked) {
+                activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+                viewModel.setCheckedState(false)
+            }
+        }.launchIn(lifecycleScope)
     }
 
     override fun onDestroyView() {

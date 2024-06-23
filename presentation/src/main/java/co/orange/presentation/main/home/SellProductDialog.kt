@@ -47,8 +47,10 @@ class SellProductDialog :
     }
 
     private fun initPickAgainBtnListener() {
-        // TODO
-        binding.btnPickAgain.setOnSingleClickListener { }
+        binding.btnPickAgain.setOnSingleClickListener {
+            viewModel.setCheckedState(true)
+            dismiss()
+        }
     }
 
     private fun setSellProductUi() {

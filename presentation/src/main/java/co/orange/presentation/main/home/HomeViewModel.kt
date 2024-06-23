@@ -2,8 +2,12 @@ package co.orange.presentation.main.home
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import co.orange.domain.entity.response.ProductModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,6 +17,16 @@ class HomeViewModel
         // private val feedRepository: FeedRepository,
     ) : ViewModel() {
         var selectedImageUri = Uri.EMPTY
+
+        private val _isCheckedAgain = MutableSharedFlow<Boolean>()
+        val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
+
+        fun setCheckedState(state: Boolean) {
+            viewModelScope.launch {
+                _isCheckedAgain.emit(state)
+            }
+        }
+
         val mockItemList =
             listOf(
                 ProductModel(

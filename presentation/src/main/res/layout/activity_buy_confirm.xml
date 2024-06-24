@@ -65,7 +65,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="상품 정보"
+                    android:text="@string/confirm_tv_product_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -113,7 +113,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="배송지"
+                    android:text="@string/confirm_tv_delivery_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_confirm_product" />
@@ -126,7 +126,7 @@
                     android:background="@drawable/shape_gray3_line_5_rect"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="7dp"
-                    android:text="변경"
+                    android:text="@string/confirm_btn_change"
                     app:layout_constraintBottom_toBottomOf="@id/tv_confirm_delivery_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_confirm_delivery_title" />
@@ -147,7 +147,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="결제 수단"
+                    android:text="@string/confirm_tv_pay_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/layout_confirm_delivery_empty" />
@@ -168,7 +168,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="결제 금액"
+                    android:text="@string/confirm_tv_price_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/layout_confirm_pay_empty" />
@@ -179,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
-                    android:text="상품 금액"
+                    android:text="@string/confirm_tv_price_money_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_confirm_price_title" />
 
@@ -199,7 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="할인가"
+                    android:text="@string/confirm_tv_price_discount_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_confirm_price_money_title" />
 
@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="수수료"
+                    android:text="@string/confirm_tv_price_charge_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_confirm_price_discount_title" />
 
@@ -250,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="결제 금액"
+                    android:text="@string/confirm_tv_price_total_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/border_confirm_price" />
 
@@ -287,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="아래 약관에 전체동의해요" />
+                        android:text="@string/confirm_btn_term_all" />
 
                 </LinearLayout>
 
@@ -313,8 +313,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="첫번째 약관"
-                        android:textColor="@color/gray_2" />
+                        android:textColor="@color/gray_2"
+                        tools:text="첫번째 약관" />
 
                 </LinearLayout>
 
@@ -341,8 +341,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="두번째 약관"
-                        android:textColor="@color/gray_2" />
+                        android:textColor="@color/gray_2"
+                        tools:text="두번째 약관" />
 
                 </LinearLayout>
 
@@ -369,8 +369,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="세번째 약관"
-                        android:textColor="@color/gray_2" />
+                        android:textColor="@color/gray_2"
+                        tools:text="세번째 약관" />
 
                 </LinearLayout>
 

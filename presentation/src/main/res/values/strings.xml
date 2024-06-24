@@ -112,4 +112,10 @@
     <string name="confirm_tv_price_charge_title">수수료</string>
     <string name="confirm_tv_price_total_title">결제 금액</string>
     <string name="confirm_btn_term_all">아래 약관에 전체동의해요</string>
+    <string name="confirm_tv_sell_title">판매하기</string>
+    <string name="confirm_tv_product_name">상품명</string>
+    <string name="confirm_tv_kakao_price">카카오톡 선물하기 가격</string>
+    <string name="confirm_tv_price">판매 가격</string>
+    <string name="confirm_tv_sell_date">받은 날짜</string>
+    <string name="confirm_tv_sell_date_subtitle">배송지 입력 기간 이내의 상품만 등록 가능합니다.</string>
 </resources>

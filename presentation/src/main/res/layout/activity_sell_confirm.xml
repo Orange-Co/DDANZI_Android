@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp"
-                android:text="판매하기"
+                android:text="@string/confirm_tv_sell_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="40dp">
 
                 <ImageView
                     android:id="@+id/iv_sell_product"
@@ -78,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="29dp"
-                    android:text="상품 정보"
+                    android:text="@string/confirm_tv_product_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_sell_product" />
 
@@ -88,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="상품명"
+                    android:text="@string/confirm_tv_product_name"
                     android:textColor="@color/gray_3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_info_title" />
@@ -112,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
-                    android:text="카카오톡 선물하기 가격"
+                    android:text="@string/confirm_tv_kakao_price"
                     android:textColor="@color/gray_3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_info_name_title" />
@@ -133,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
-                    android:text="판매 가격"
+                    android:text="@string/confirm_tv_price"
                     android:textColor="@color/gray_3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_info_origin_price_title" />
@@ -158,6 +159,163 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_info_sell_price_title" />
 
+                <TextView
+                    android:id="@+id/tv_sell_date_title"
+                    style="@style/TextAppearance.DDanzi.Title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:text="@string/confirm_tv_sell_date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/border_sell_info" />
+
+                <TextView
+                    android:id="@+id/tv_sell_date_subtitle"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/confirm_tv_sell_date_subtitle"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_date_title" />
+
+                <TextView
+                    android:id="@+id/tv_sell_date"
+                    style="@style/TextAppearance.DDanzi.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shape_gray3_line_5_rect"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_date_subtitle"
+                    tools:text="2024.06.24" />
+
+                <View
+                    android:id="@+id/border_sell_date"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_date" />
+
+                <LinearLayout
+                    android:id="@+id/btn_term_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="11dp"
+                    android:paddingStart="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/border_sell_date">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_check_circle" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/confirm_btn_term_all" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_term_first"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="11dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_term_all">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/sel_term_check" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/gray_2"
+                        tools:text="첫번째 약관" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_term_second"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="11dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_term_first">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/sel_term_check" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/gray_2"
+                        tools:text="두번째 약관" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_term_third"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="11dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_term_second">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/sel_term_check" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/gray_2"
+                        tools:text="세번째 약관" />
+
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -173,7 +331,7 @@
             android:background="@drawable/shape_black_fill_10_rect"
             android:gravity="center"
             android:paddingVertical="15dp"
-            android:text="판매하기"
+            android:text="@string/confirm_tv_sell_title"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

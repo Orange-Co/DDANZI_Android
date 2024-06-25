@@ -3,13 +3,20 @@ package co.orange.presentation.main.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.initOnBackPressedListener
@@ -19,11 +26,15 @@ import kr.genti.presentation.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    lateinit var activityResult: ActivityResultLauncher<PickVisualMediaRequest>
+
     private var _adapter: HomeAdapter? = null
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     private val viewModel by activityViewModels<HomeViewModel>()
+
+    private var sellProductDialog: SellProductDialog? = null
 
     override fun onViewCreated(
         view: View,
@@ -33,11 +44,13 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         initView()
         initAdapter()
-        initSellBtnListener()
         initSearchBtnListener()
+        initSellBtnListener()
+        searchSellProduct()
         setGridRecyclerView()
         setRecyclerViewDeco()
         setItemList()
+        observeCheckedAgainState()
     }
 
     private fun initView() {
@@ -58,17 +71,17 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     private fun initBannerClickListener(unit: Unit) {}
 
     private fun initProductClickListener(item: ProductModel) {
-        DetailActivity.createIntent(requireContext(), item.productId, item.imgUrl, item.originPrice, item.salePrice)
+        DetailActivity.createIntent(
+            requireContext(),
+            item.productId,
+            item.imgUrl,
+            item.originPrice,
+            item.salePrice,
+        )
             .apply { startActivity(this) }
     }
 
     private fun initLikeClickListener(unit: Unit) {}
-
-    private fun initSellBtnListener() {
-        binding.btnSell.setOnSingleClickListener {
-            // TODO
-        }
-    }
 
     private fun initSearchBtnListener() {
         binding.btnSearch.setOnSingleClickListener {
@@ -76,6 +89,24 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 startActivity(this)
             }
         }
+    }
+
+    private fun initSellBtnListener() {
+        binding.btnSell.setOnSingleClickListener {
+            activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        }
+    }
+
+    private fun searchSellProduct() {
+        activityResult =
+            registerForActivityResult(PickVisualMedia()) { uri ->
+                if (uri != null) {
+                    // TODO : OCR 진행 후 실 상품 이미지 대체
+                    viewModel.selectedImageUri = uri
+                    sellProductDialog = SellProductDialog()
+                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
+                }
+            }
     }
 
     private fun setGridRecyclerView() {
@@ -107,8 +138,22 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         adapter.setItemList(viewModel.mockItemList)
     }
 
+    private fun observeCheckedAgainState() {
+        viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).onEach { isChecked ->
+            if (isChecked) {
+                activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+                viewModel.setCheckedState(false)
+            }
+        }.launchIn(lifecycleScope)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
+        sellProductDialog = null
+    }
+
+    companion object {
+        private const val SELL_PRODUCT_DIALOG = "SELL_PRODUCT_DIALOG"
     }
 }

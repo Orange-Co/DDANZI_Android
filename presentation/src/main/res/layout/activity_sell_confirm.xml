@@ -320,7 +320,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-
         <TextView
             android:id="@+id/btn_confirm_sell"
             style="@style/TextAppearance.DDanzi.Body3"

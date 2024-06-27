@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.domain.entity.response.SellInfoModel
+import co.orange.presentation.sell.push.SellPushActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setNumberForm
@@ -43,7 +44,9 @@ class SellConfirmActivity :
     private fun initConfirmBtnListener() {
         binding.btnConfirmSell.setOnSingleClickListener {
             // TODO 구매 요청 서버통신 이후
-            // TODO 푸시 이동
+            SellPushActivity.createIntent(this, -1).apply {
+                startActivity(this)
+            }
         }
     }
 

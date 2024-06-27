@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.domain.entity.response.SellInfoModel
 import co.orange.presentation.sell.push.SellPushActivity
+import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setNumberForm
@@ -63,6 +64,9 @@ class SellConfirmActivity :
             tvSellInfoName.text = item.productName
             tvSellInfoOriginPrice.text = item.originPrice.setNumberForm()
             tvSellInfoSellPrice.text = item.salePrice.setNumberForm()
+            // TODO : intent 수정
+            ivSellProduct.load(R.drawable.mock_img_product)
+            tvSellDate.text = "2024.06.28"
         }
     }
 

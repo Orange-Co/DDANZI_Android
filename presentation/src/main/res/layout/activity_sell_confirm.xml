@@ -99,6 +99,7 @@
                     style="@style/TextAppearance.DDanzi.Body4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="end"
                     android:ellipsize="end"
                     android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="@id/tv_sell_info_name_title"
@@ -256,7 +257,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/gray_2"
-                        tools:text="첫번째 약관" />
+                        android:text="첫번째 약관" />
 
                 </LinearLayout>
 
@@ -284,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/gray_2"
-                        tools:text="두번째 약관" />
+                        android:text="두번째 약관" />
 
                 </LinearLayout>
 
@@ -312,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/gray_2"
-                        tools:text="세번째 약관" />
+                        android:text="세번째 약관" />
 
                 </LinearLayout>
 

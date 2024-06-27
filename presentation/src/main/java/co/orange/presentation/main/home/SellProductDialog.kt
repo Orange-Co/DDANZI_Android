@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
+import co.orange.presentation.sell.confirm.SellConfirmActivity
 import coil.load
 import kr.genti.core.base.BaseDialog
 import kr.genti.core.extension.setOnSingleClickListener
@@ -42,8 +43,13 @@ class SellProductDialog :
     }
 
     private fun initConfirmBtnListener() {
-        // TODO
-        binding.btnSubmit.setOnSingleClickListener { }
+        binding.btnSubmit.setOnSingleClickListener {
+            // TODO intent값 수정
+            SellConfirmActivity.createIntent(requireContext(), -1).apply {
+                startActivity(this)
+            }
+            dismiss()
+        }
     }
 
     private fun initPickAgainBtnListener() {

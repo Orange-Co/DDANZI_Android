@@ -76,6 +76,16 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="co.orange.presentation.sell.confirm.SellConfirmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="co.orange.presentation.sell.push.SellPushActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

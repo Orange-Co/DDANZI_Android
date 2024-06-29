@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import co.orange.domain.entity.response.SellInfoModel
+import co.orange.domain.entity.response.SellItemModel
 import co.orange.presentation.sell.push.SellPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +59,7 @@ class SellConfirmActivity :
         viewModel.productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
     }
 
-    private fun setIntentUi(item: SellInfoModel) {
+    private fun setIntentUi(item: SellItemModel) {
         with(binding) {
             tvSellInfoName.text = item.productName
             tvSellInfoOriginPrice.text = item.originPrice.setNumberForm()

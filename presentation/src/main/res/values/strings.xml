@@ -135,5 +135,6 @@
     <string name="sell_info_tv_pay_kakao_title">카카오톡 선물하기 가격</string>
     <string name="sell_info_tv_pay_real_title">판매가</string>
     <string name="sell_info_btn_fix_sell">판매 확정하기</string>
+    <string name="sell_info_tv_tooltip">판매를 확정하고, 배송정보를 입력하세요</string>
 
 </resources>

@@ -342,7 +342,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_info_pay_title" />
 
                     <TextView
-                        android:id="@+id/tv_info_kakao_money"
+                        android:id="@+id/tv_info_pay_kakao"
                         style="@style/TextAppearance.DDanzi.Body3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

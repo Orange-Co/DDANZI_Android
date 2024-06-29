@@ -128,5 +128,12 @@
     <string name="sell_finished_tv_message_sub">주문 확인 후 거래가 진행됩니다. 근데 여기서 뭔가 설명문을 좀 적어야 할 것 같은데?</string>
     <string name="sell_finished_btn_product_detail">상품 등록 확인</string>
     <string name="sell_finished_btn_sell_more">상품 추가 등록</string>
+    <string name="sell_info_tv_title">판매 상세</string>
+    <string name="sell_info_tv_message">입금 완료</string>
+    <string name="sell_info_tv_buyer_title">구매자 정보</string>
+    <string name="sell_info_tv_pay_title">판매 정보</string>
+    <string name="sell_info_tv_pay_kakao_title">카카오톡 선물하기 가격</string>
+    <string name="sell_info_tv_pay_real_title">판매가</string>
+    <string name="sell_info_btn_fix_sell">판매 확정하기</string>
 
 </resources>

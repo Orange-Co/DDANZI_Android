@@ -123,4 +123,10 @@
     <string name="sell_product_btn_submit">네 맞아요</string>
     <string name="sell_product_pick_again"><u>다시 업로드하기</u></string>
 
+    <string name="sell_finished_tv_title">상품 등록 완료</string>
+    <string name="sell_finished_tv_message">상품 등록이 완료되었습니다.</string>
+    <string name="sell_finished_tv_message_sub">주문 확인 후 거래가 진행됩니다. 근데 여기서 뭔가 설명문을 좀 적어야 할 것 같은데?</string>
+    <string name="sell_finished_btn_product_detail">상품 등록 확인</string>
+    <string name="sell_finished_btn_sell_more">상품 추가 등록</string>
+
 </resources>

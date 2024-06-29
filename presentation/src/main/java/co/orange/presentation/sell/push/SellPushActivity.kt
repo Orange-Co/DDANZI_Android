@@ -3,6 +3,7 @@ package co.orange.presentation.sell.push
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import co.orange.presentation.sell.finished.SellFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
@@ -38,10 +39,10 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
     }
 
     private fun navigateToFinishedActivity() {
-//        val productId = intent.getLongExtra(EXTRA_PRODUCT_ID,-1)
-//        BuyFinishedActivity.createIntent(this, productId).apply {
-//            startActivity(this)
-//        }
+        val productId = intent.getLongExtra(EXTRA_ITEM_ID, -1)
+        SellFinishedActivity.createIntent(this, productId).apply {
+            startActivity(this)
+        }
     }
 
     companion object {

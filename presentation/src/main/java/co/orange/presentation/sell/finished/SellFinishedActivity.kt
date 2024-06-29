@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.domain.entity.response.SellInfoModel
 import co.orange.presentation.main.MainActivity
+import co.orange.presentation.sell.info.SellInfoActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
@@ -41,7 +42,9 @@ class SellFinishedActivity :
 
     private fun initDetailBtnListener() {
         binding.btnProductDetail.setOnSingleClickListener {
-            // TODO
+            SellInfoActivity.createIntent(this, viewModel.itemId).apply {
+                startActivity(this)
+            }
         }
     }
 

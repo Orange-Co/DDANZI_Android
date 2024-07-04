@@ -137,4 +137,6 @@
     <string name="sell_info_btn_fix_sell">판매 확정하기</string>
     <string name="sell_info_tv_tooltip">판매를 확정하고, 배송정보를 입력하세요</string>
 
+    <string name="login_tv_title">이제는\n배송선물도\n거래하자</string>
+
 </resources>

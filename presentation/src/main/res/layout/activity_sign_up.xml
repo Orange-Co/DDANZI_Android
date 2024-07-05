@@ -4,6 +4,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="co.orange.presentation.auth.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,10 +79,12 @@
                     android:id="@+id/et_sign_up_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{(text) -> vm.checkNameFinished()}"
                     android:hint="@string/sign_up_tv_name_hint"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:text="@={vm.name}"
                     android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                     android:textColorHint="@color/gray_2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -108,11 +115,13 @@
                         android:id="@+id/et_sign_up_birth_front"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:afterTextChanged="@{(text) -> vm.checkBirthFrontFinished()}"
                         android:hint="@string/sign_up_tv_birth_front_hint"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="6"
                         android:maxLines="1"
+                        android:text="@={vm.birthFront}"
                         android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                         android:textColorHint="@color/gray_2"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -136,12 +145,14 @@
                         android:id="@+id/et_sign_up_birth_back"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
+                        android:layout_marginEnd="4dp"
+                        android:afterTextChanged="@{(text) -> vm.checkBirthBackFinished()}"
+                        android:gravity="center_horizontal"
+                        android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:gravity="center_horizontal"
                         android:maxLines="1"
-                        android:layout_marginEnd="4dp"
+                        android:text="@={vm.birthBack}"
                         android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/tv_sign_up_birth_secret"
@@ -184,12 +195,12 @@
                     <TextView
                         android:id="@+id/et_sign_up_mobile"
                         android:layout_width="0dp"
-                        android:layout_marginHorizontal="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="4dp"
+                        android:paddingVertical="10dp"
                         android:text="@string/sign_up_tv_mobile_hint"
                         android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                         android:textColor="@color/gray_2"
-                        android:paddingVertical="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -199,11 +210,11 @@
                         android:layout_width="0dp"
                         android:layout_height="1.5dp"
                         android:layout_marginHorizontal="4dp"
-                        android:background="@color/gray_2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginBottom="4dp"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:background="@color/gray_2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -232,11 +243,13 @@
                     android:id="@+id/et_sign_up_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{(text) -> vm.checkPhoneFinished()}"
                     android:hint="@string/sign_up_tv_phone_hint"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
                     android:maxLength="11"
                     android:maxLines="1"
+                    android:text="@={vm.phone}"
                     android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                     android:textColorHint="@color/gray_2"
                     app:layout_constraintEnd_toStartOf="@id/btn_phone_certify"
@@ -260,26 +273,28 @@
 
                 <TextView
                     android:id="@+id/tv_sign_up_code_title"
+                    style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_marginTop="30dp"
                     android:text="@string/sign_up_tv_code"
-                    style="@style/TextAppearance.DDanzi.Body3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_sign_up_phone" />
 
                 <EditText
                     android:id="@+id/et_sign_up_code"
-                    android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{(text) -> vm.checkCodeFinished()}"
                     android:hint="@string/sign_up_tv_code_hint"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
                     android:maxLength="6"
                     android:maxLines="1"
+                    android:text="@={vm.code}"
+                    android:textAppearance="@style/TextAppearance.DDanzi.Body2"
                     android:textColorHint="@color/gray_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -296,7 +311,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/shape_black_fill_10_rect"
+            android:background="@drawable/sel_btn"
+            android:enabled="@{vm.isCompleted}"
             android:gravity="center"
             android:paddingVertical="15dp"
             android:text="@string/sign_up_btn_confirm"

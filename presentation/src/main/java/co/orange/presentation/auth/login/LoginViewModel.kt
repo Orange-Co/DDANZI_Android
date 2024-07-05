@@ -1,4 +1,4 @@
-package co.orange.presentation.auth
+package co.orange.presentation.auth.login
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

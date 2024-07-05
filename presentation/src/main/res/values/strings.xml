@@ -146,7 +146,7 @@
     <string name="sign_up_tv_birth">생년월일</string>
     <string name="sign_up_tv_birth_front_hint">예시: 900101</string>
     <string name="sign_up_tv_birth_mid">-</string>
-    <string name="sign_up_tv_birth_secret">● ● ● ● ● ●</string>
+    <string name="sign_up_tv_birth_secret">●\u00A0\u00A0●\u00A0\u00A0●\u00A0\u00A0●\u00A0\u00A0●\u00A0\u00A0●</string>
     <string name="sign_up_tv_mobile">통신사</string>
     <string name="sign_up_tv_mobile_hint">선택해주세요</string>
     <string name="sign_up_tv_phone">휴대폰 번호</string>

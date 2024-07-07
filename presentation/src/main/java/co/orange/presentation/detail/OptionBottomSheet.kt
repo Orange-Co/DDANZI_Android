@@ -14,11 +14,10 @@ import kr.genti.presentation.databinding.BottomSheetOptionBinding
 
 class OptionBottomSheet :
     BaseBottomSheet<BottomSheetOptionBinding>(R.layout.bottom_sheet_option) {
-
     private val viewModel by activityViewModels<DetailViewModel>()
 
     private var _adapter: OptionAdapter? = null
-    private val adapter
+    val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     override fun onStart() {
@@ -26,7 +25,10 @@ class OptionBottomSheet :
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         initDetailViewBtnListener()
@@ -49,7 +51,7 @@ class OptionBottomSheet :
             // TODO 버튼 활성화 설정
             BuyConfirmActivity.createIntent(
                 requireContext(),
-                viewModel.productId
+                viewModel.productId,
             ).apply {
                 startActivity(this)
             }
@@ -57,13 +59,18 @@ class OptionBottomSheet :
     }
 
     private fun initAdapter() {
-        _adapter = OptionAdapter(
-            itemClick = ::initItemClickListener,
-        )
+        _adapter =
+            OptionAdapter(
+                itemClick = ::initItemClickListener,
+            )
         binding.rvOption.adapter = adapter
     }
 
-    private fun initItemClickListener(position: Int, optionId: Long, optionDetailId: Long) {
+    private fun initItemClickListener(
+        position: Int,
+        optionId: Long,
+        optionDetailId: Long,
+    ) {
         // TODO 옵션 저장
     }
 

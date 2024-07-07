@@ -14,6 +14,8 @@ import kr.genti.presentation.databinding.ActivitySignUpBinding
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel by viewModels<SignUpViewModel>()
 
+    private var mobileBottomSheet: MobileBottomSheet? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,7 +44,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
     }
 
     private fun showMobileBottomSheet() {
-        // TODO
+        mobileBottomSheet = MobileBottomSheet()
+        mobileBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_MOBILE)
     }
 
     private fun initVerifyBtnListener() {
@@ -93,5 +96,15 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
                 currentFocus?.clearFocus()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mobileBottomSheet = null
+    }
+
+    companion object {
+        private const val BOTTOM_SHEET_MOBILE = "BOTTOM_SHEET_MOBILE"
     }
 }

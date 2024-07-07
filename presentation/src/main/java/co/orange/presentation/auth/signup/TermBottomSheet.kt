@@ -1,8 +1,10 @@
 package co.orange.presentation.auth.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import co.orange.presentation.auth.submit.SubmitActivity
 import kr.genti.core.base.BaseBottomSheet
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
@@ -35,10 +37,11 @@ class TermBottomSheet :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-//            Intent(this, MainActivity::class.java).apply {
-//                startActivity(this)
-//            }
-//            finish()
+            Intent(requireActivity(), SubmitActivity::class.java).apply {
+                startActivity(this)
+            }
+            requireActivity().finish()
+            dismiss()
         }
     }
 }

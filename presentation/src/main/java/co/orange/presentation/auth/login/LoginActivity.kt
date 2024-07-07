@@ -25,6 +25,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             Intent(this, SignUpActivity::class.java).apply {
                 startActivity(this)
             }
+            finish()
         }
     }
 }

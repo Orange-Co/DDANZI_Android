@@ -156,4 +156,18 @@
     <string name="sign_up_tv_code_hint">인증번호 6자리를 입력해주세요</string>
     <string name="sign_up_btn_confirm">확인</string>
 
+    <string name="sign_up_mobile_tv_title">통신사 선택</string>
+    <string name="sign_up_mobile_tv_skt">SKT</string>
+    <string name="sign_up_mobile_tv_kt">KT</string>
+    <string name="sign_up_mobile_tv_lg">LG U+</string>
+    <string name="sign_up_mobile_tv_skt_a">SKT 알뜰폰</string>
+    <string name="sign_up_mobile_tv_kt_a">KT 알뜰폰</string>
+    <string name="sign_up_mobile_tv_lg_a">LG U+ 알뜰폰</string>
+
+    <string name="sign_up_term_btn_detail"><u>자세히</u></string>
+    <string name="sign_up_term_tv_first">필수 약관 1 (필수)</string>
+    <string name="sign_up_term_tv_second">필수 약관 2 (필수)</string>
+    <string name="sign_up_term_tv_third">선택 약관 1 (선택)</string>
+    <string name="sign_up_term_btn_submit">다음으로</string>
+
 </resources>

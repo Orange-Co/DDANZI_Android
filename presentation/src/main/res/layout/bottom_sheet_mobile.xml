@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="33dp"
-            android:text="통신사 선택"
+            android:text="@string/sign_up_mobile_tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_handler" />
@@ -53,7 +53,7 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SKT"
+                    android:text="@string/sign_up_mobile_tv_skt"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,7 +79,7 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KT"
+                    android:text="@string/sign_up_mobile_tv_kt"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -105,7 +105,7 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LG U+"
+                    android:text="@string/sign_up_mobile_tv_lg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -131,7 +131,7 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SKT 알뜰폰"
+                    android:text="@string/sign_up_mobile_tv_skt_a"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -157,7 +157,7 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KT 알뜰폰"
+                    android:text="@string/sign_up_mobile_tv_kt_a"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -183,7 +183,7 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LG U+ 알뜰폰"
+                    android:text="@string/sign_up_mobile_tv_lg_a"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

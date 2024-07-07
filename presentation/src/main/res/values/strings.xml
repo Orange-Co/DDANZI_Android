@@ -170,4 +170,7 @@
     <string name="sign_up_term_tv_third">선택 약관 1 (선택)</string>
     <string name="sign_up_term_btn_submit">다음으로</string>
 
+    <string name="sign_up_confirm_btn_confirm">완료</string>
+    <string name="sign_up_confirm_tv_title">환영해요!</string>
+
 </resources>

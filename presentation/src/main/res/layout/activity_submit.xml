@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <TextView
+            style="@style/TextAppearance.DDanzi.Title4"
+            android:id="@+id/tv_confirm_title"
+            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="91dp"
+            android:text="@string/sign_up_confirm_tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:fontFamily="@font/font_pretendard_regular"
+            android:id="@+id/tv_confirm_subtitle"
+            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_height="wrap_content"
+            tools:text="행복한물개13123님"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_confirm_title"/>
+
+        <TextView
+            android:id="@+id/btn_confirm"
+            style="@style/TextAppearance.DDanzi.Body3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="true"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:text="@string/sign_up_confirm_btn_confirm"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -280,7 +280,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_check_circle" />
+                        android:src="@drawable/ic_check_circle_filled" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body1"
@@ -306,7 +306,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_term_check" />
+                        android:src="@drawable/sel_check_term" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body4"
@@ -334,7 +334,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_term_check" />
+                        android:src="@drawable/sel_check_term" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body4"
@@ -362,7 +362,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_term_check" />
+                        android:src="@drawable/sel_check_term" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body4"

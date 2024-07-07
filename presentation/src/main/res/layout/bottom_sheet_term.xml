@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="30dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_fill_top20_rect">
+
+        <View
+            android:id="@+id/iv_handler"
+            android:layout_width="82dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_gray4_fill_100_rect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/btn_term_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="33dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sel_check_circle" />
+
+            <TextView
+                style="@style/TextAppearance.DDanzi.Body3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/confirm_btn_term_all" />
+
+        </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_term_first"
+                app:layout_constraintEnd_toStartOf="@id/btn_term_first_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_term_all"
+                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_term_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sel_check_term"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_term_first"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/sign_up_term_tv_first"
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_term_first"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/btn_term_first_detail"
+                android:layout_width="wrap_content"
+                android:padding="6dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_2"
+                android:text="@string/sign_up_term_btn_detail"
+                style="@style/TextAppearance.DDanzi.Body6"
+                android:layout_marginEnd="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btn_term_first"
+                app:layout_constraintBottom_toBottomOf="@id/btn_term_first"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_term_second"
+            app:layout_constraintEnd_toStartOf="@id/btn_term_second_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_first"
+            android:layout_marginStart="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_term_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sel_check_term"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_term_second"
+                style="@style/TextAppearance.DDanzi.Body6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingVertical="12dp"
+                android:text="@string/sign_up_term_tv_second"
+                android:textColor="@color/gray_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_term_second"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/btn_term_second_detail"
+            android:layout_width="wrap_content"
+            android:padding="6dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_2"
+            android:text="@string/sign_up_term_btn_detail"
+            style="@style/TextAppearance.DDanzi.Body6"
+            android:layout_marginEnd="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_term_second"
+            app:layout_constraintBottom_toBottomOf="@id/btn_term_second"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_term_third"
+            app:layout_constraintEnd_toStartOf="@id/btn_term_third_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_second"
+            android:layout_marginStart="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_term_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sel_check_term"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_term_third"
+                style="@style/TextAppearance.DDanzi.Body6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingVertical="12dp"
+                android:text="@string/sign_up_term_tv_third"
+                android:textColor="@color/gray_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_term_third"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/btn_term_third_detail"
+            android:layout_width="wrap_content"
+            android:padding="6dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_2"
+            android:text="@string/sign_up_term_btn_detail"
+            style="@style/TextAppearance.DDanzi.Body6"
+            android:layout_marginEnd="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_term_third"
+            app:layout_constraintBottom_toBottomOf="@id/btn_term_third"/>
+
+        <TextView
+            android:id="@+id/btn_submit"
+            style="@style/TextAppearance.DDanzi.Body3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/shape_black_fill_10_rect"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="@string/sign_up_term_btn_submit"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_third"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

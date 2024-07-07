@@ -7,6 +7,8 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
@@ -54,4 +56,12 @@ fun ComponentActivity.initOnBackPressedListener(
         }
 
     this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+}
+
+fun Activity.initFocusWithKeyboard(editText: EditText) {
+    editText.requestFocus()
+    (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(
+        editText,
+        InputMethodManager.SHOW_IMPLICIT,
+    )
 }

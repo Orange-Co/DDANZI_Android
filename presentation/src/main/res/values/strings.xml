@@ -137,4 +137,40 @@
     <string name="sell_info_btn_fix_sell">판매 확정하기</string>
     <string name="sell_info_tv_tooltip">판매를 확정하고, 배송정보를 입력하세요</string>
 
+    <string name="login_tv_title">이제는\n배송선물도\n거래하자</string>
+
+    <string name="sign_up_tv_title">본인 인증을\n진행해주세요</string>
+    <string name="sign_up_tv_subtitle">본인 명의의 휴대폰 번호로 인증을 진행해주세요</string>
+    <string name="sign_up_tv_name">이름</string>
+    <string name="sign_up_tv_name_hint">예시: 홍길동</string>
+    <string name="sign_up_tv_birth">생년월일</string>
+    <string name="sign_up_tv_birth_front_hint">예시: 900101</string>
+    <string name="sign_up_tv_birth_mid">-</string>
+    <string name="sign_up_tv_birth_secret">●\u00A0\u00A0●\u00A0\u00A0●\u00A0\u00A0●\u00A0\u00A0●\u00A0\u00A0●</string>
+    <string name="sign_up_tv_mobile">통신사</string>
+    <string name="sign_up_tv_mobile_hint">선택해주세요</string>
+    <string name="sign_up_tv_phone">휴대폰 번호</string>
+    <string name="sign_up_tv_phone_hint">- 없이 숫자만 입력해주세요</string>
+    <string name="sign_up_btn_phone_certify">인증요청</string>
+    <string name="sign_up_tv_code">인증번호</string>
+    <string name="sign_up_tv_code_hint">인증번호 6자리를 입력해주세요</string>
+    <string name="sign_up_btn_confirm">확인</string>
+
+    <string name="sign_up_mobile_tv_title">통신사 선택</string>
+    <string name="sign_up_mobile_tv_skt">SKT</string>
+    <string name="sign_up_mobile_tv_kt">KT</string>
+    <string name="sign_up_mobile_tv_lg">LG U+</string>
+    <string name="sign_up_mobile_tv_skt_a">SKT 알뜰폰</string>
+    <string name="sign_up_mobile_tv_kt_a">KT 알뜰폰</string>
+    <string name="sign_up_mobile_tv_lg_a">LG U+ 알뜰폰</string>
+
+    <string name="sign_up_term_btn_detail"><u>자세히</u></string>
+    <string name="sign_up_term_tv_first">필수 약관 1 (필수)</string>
+    <string name="sign_up_term_tv_second">필수 약관 2 (필수)</string>
+    <string name="sign_up_term_tv_third">선택 약관 1 (선택)</string>
+    <string name="sign_up_term_btn_submit">다음으로</string>
+
+    <string name="sign_up_confirm_btn_confirm">완료</string>
+    <string name="sign_up_confirm_tv_title">환영해요!</string>
+
 </resources>

@@ -15,6 +15,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
     private val viewModel by viewModels<SignUpViewModel>()
 
     private var mobileBottomSheet: MobileBottomSheet? = null
+    private var termBottomSheet: TermBottomSheet? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +33,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
 
     private fun initConfirmBtnListener() {
         binding.btnConfirm.setOnSingleClickListener {
-//            Intent(this, MainActivity::class.java).apply {
-//                startActivity(this)
-//            }
-//            finish()
+            termBottomSheet = TermBottomSheet()
+            termBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_TERM)
         }
     }
 
@@ -49,7 +48,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
     }
 
     private fun initVerifyBtnListener() {
-        binding.btnConfirm.setOnSingleClickListener {
+        binding.btnPhoneCertify.setOnSingleClickListener {
             // TODO 서버통신
         }
     }
@@ -102,9 +101,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
         super.onDestroy()
 
         mobileBottomSheet = null
+        termBottomSheet = null
     }
 
     companion object {
         private const val BOTTOM_SHEET_MOBILE = "BOTTOM_SHEET_MOBILE"
+        private const val BOTTOM_SHEET_TERM = "BOTTOM_SHEET_TERM"
     }
 }

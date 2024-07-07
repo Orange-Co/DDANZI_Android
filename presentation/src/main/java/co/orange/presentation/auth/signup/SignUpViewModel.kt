@@ -20,7 +20,7 @@ class SignUpViewModel
         val birthBack = MutableLiveData<String>()
         val isBirthBackFinished = MutableLiveData(false)
 
-        val mobile = MutableLiveData<String>()
+        val mobile = MutableLiveData<String>("선택해주세요")
         val isMobileFinished = MutableLiveData(false)
 
         val phone = MutableLiveData<String>()
@@ -33,14 +33,17 @@ class SignUpViewModel
 
         fun checkNameFinished() {
             isNameFinished.value = name.value?.isNotEmpty()
+            checkIsCompleted()
         }
 
         fun checkBirthFrontFinished() {
             isBirthFrontFinished.value = birthFront.value?.length == 6
+            checkIsCompleted()
         }
 
         fun checkBirthBackFinished() {
             isBirthBackFinished.value = birthBack.value?.length == 1
+            checkIsCompleted()
         }
 
         fun checkPhoneFinished() {
@@ -49,6 +52,7 @@ class SignUpViewModel
 
         fun checkCodeFinished() {
             isCodeFinished.value = code.value?.length == 6
+            checkIsCompleted()
         }
 
         fun checkIsCompleted() {

@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.colorOf
 import co.orange.presentation.main.home.HomeFragment
 import co.orange.presentation.main.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.colorOf
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityMainBinding
 

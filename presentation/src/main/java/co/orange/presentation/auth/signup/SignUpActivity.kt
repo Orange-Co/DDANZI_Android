@@ -2,11 +2,11 @@ package co.orange.presentation.auth.signup
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.hideKeyboard
+import co.orange.core.extension.initFocusWithKeyboard
+import co.orange.core.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.hideKeyboard
-import kr.genti.core.extension.initFocusWithKeyboard
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySignUpBinding
 

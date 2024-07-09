@@ -7,14 +7,14 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.breakLines
+import co.orange.core.extension.setNumberForm
+import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setOverThousand
 import co.orange.domain.entity.response.ProductDetailModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.breakLines
-import kr.genti.core.extension.setNumberForm
-import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setOverThousand
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDetailBinding
 
@@ -33,7 +33,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         initPurchaseBtnListener()
         getIntentInfo()
         setProduct(viewModel.mockProduct)
-
     }
 
     private fun initBackBtnListener() {
@@ -112,11 +111,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             productUrl: String,
             originPrice: Int,
             salePrice: Int,
-        ): Intent = Intent(context, DetailActivity::class.java).apply {
-            putExtra(EXTRA_PRODUCT_ID, productId)
-            putExtra(EXTRA_PRODUCT_URL, productUrl)
-            putExtra(EXTRA_ORIGIN_PRICE, originPrice)
-            putExtra(EXTRA_SALE_PRICE, salePrice)
-        }
+        ): Intent =
+            Intent(context, DetailActivity::class.java).apply {
+                putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_PRODUCT_URL, productUrl)
+                putExtra(EXTRA_ORIGIN_PRICE, originPrice)
+                putExtra(EXTRA_SALE_PRICE, salePrice)
+            }
     }
 }

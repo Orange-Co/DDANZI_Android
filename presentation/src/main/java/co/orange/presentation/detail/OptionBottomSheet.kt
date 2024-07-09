@@ -5,10 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import co.orange.core.base.BaseBottomSheet
+import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setOverThousand
 import co.orange.presentation.buy.confirm.BuyConfirmActivity
-import kr.genti.core.base.BaseBottomSheet
-import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setOverThousand
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetOptionBinding
 

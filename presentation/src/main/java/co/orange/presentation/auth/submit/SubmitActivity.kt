@@ -1,9 +1,9 @@
 package co.orange.presentation.auth.submit
 
 import android.os.Bundle
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySubmitBinding
 

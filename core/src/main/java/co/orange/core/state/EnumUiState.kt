@@ -1,4 +1,4 @@
-package kr.genti.core.state
+package co.orange.core.state
 
 enum class EnumUiState {
     LOADING,

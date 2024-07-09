@@ -1,4 +1,4 @@
-package kr.genti.core.state
+package co.orange.core.state
 
 sealed interface UiState<out T> {
     object Empty : UiState<Nothing>

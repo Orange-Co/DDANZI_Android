@@ -2,9 +2,9 @@ package co.orange.presentation.setting.bank
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.AccountModel
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankBinding
 

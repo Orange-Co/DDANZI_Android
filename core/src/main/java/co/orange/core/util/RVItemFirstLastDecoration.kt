@@ -1,4 +1,4 @@
-package kr.genti.core.util
+package co.orange.core.util
 
 import android.graphics.Rect
 import android.view.View

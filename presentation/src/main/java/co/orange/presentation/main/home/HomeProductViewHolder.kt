@@ -2,12 +2,12 @@ package co.orange.presentation.main.home
 
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
+import co.orange.core.extension.breakLines
+import co.orange.core.extension.setNumberForm
+import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setOverThousand
 import co.orange.domain.entity.response.ProductModel
 import coil.load
-import kr.genti.core.extension.breakLines
-import kr.genti.core.extension.setNumberForm
-import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setOverThousand
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HomeProductViewHolder(
@@ -30,7 +30,6 @@ class HomeProductViewHolder(
             }
             tvHomeItemNowPrice.text = item.salePrice.setNumberForm()
             tvHomeItemLike.text = item.interestCount.setOverThousand()
-
         }
     }
 }

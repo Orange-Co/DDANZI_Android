@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
+import co.orange.core.base.BaseDialog
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.sell.confirm.SellConfirmActivity
 import coil.load
-import kr.genti.core.base.BaseDialog
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogSellProductBinding
 

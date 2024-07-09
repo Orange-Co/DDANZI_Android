@@ -3,16 +3,15 @@ package co.orange.presentation.buy.push
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityPushBinding
 
 @AndroidEntryPoint
 class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,13 +38,11 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
         }
     }
 
-
     private fun navigateToFinishedActivity() {
-        val productId = intent.getLongExtra(EXTRA_PRODUCT_ID,-1)
+        val productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
         BuyFinishedActivity.createIntent(this, productId).apply {
             startActivity(this)
         }
-
     }
 
     companion object {
@@ -55,8 +52,9 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
         fun createIntent(
             context: Context,
             productId: Long,
-        ): Intent = Intent(context, BuyPushActivity::class.java).apply {
-            putExtra(EXTRA_PRODUCT_ID, productId)
-        }
+        ): Intent =
+            Intent(context, BuyPushActivity::class.java).apply {
+                putExtra(EXTRA_PRODUCT_ID, productId)
+            }
     }
 }

@@ -1,4 +1,4 @@
-package kr.genti.core.base
+package co.orange.core.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

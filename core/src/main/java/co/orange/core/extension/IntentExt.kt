@@ -1,4 +1,4 @@
-package kr.genti.core.extension
+package co.orange.core.extension
 
 import android.content.Intent
 import android.os.Build

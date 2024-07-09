@@ -3,8 +3,8 @@ package co.orange.presentation.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import co.orange.core.util.ItemDiffCallback
 import co.orange.domain.entity.response.ProductModel
-import kr.genti.core.util.ItemDiffCallback
 import kr.genti.presentation.databinding.ItemSearchProductBinding
 
 class SearchItemAdapter(

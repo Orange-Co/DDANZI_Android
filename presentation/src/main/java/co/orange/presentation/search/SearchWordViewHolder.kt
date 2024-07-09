@@ -1,7 +1,7 @@
 package co.orange.presentation.search
 
 import androidx.recyclerview.widget.RecyclerView
-import kr.genti.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setOnSingleClickListener
 import kr.genti.presentation.databinding.ItemSearchWordBinding
 
 class SearchWordViewHolder(

@@ -10,6 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import co.orange.core.base.BaseFragment
+import co.orange.core.extension.dpToPx
+import co.orange.core.extension.initOnBackPressedListener
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
@@ -18,10 +22,6 @@ import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.dpToPx
-import kr.genti.core.extension.initOnBackPressedListener
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentHomeBinding
 

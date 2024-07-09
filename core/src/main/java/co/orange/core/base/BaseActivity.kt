@@ -1,4 +1,4 @@
-package kr.genti.core.base
+package co.orange.core.base
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import kr.genti.core.extension.hideKeyboard
+import co.orange.core.extension.hideKeyboard
 
 abstract class BaseActivity<T : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int,

@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import co.orange.core.base.BaseFragment
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentProfileBinding
 

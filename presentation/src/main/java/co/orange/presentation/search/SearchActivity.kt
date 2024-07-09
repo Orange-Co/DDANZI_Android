@@ -5,15 +5,15 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.initFocusWithKeyboard
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.initFocusWithKeyboard
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySearchBinding
 

@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import co.orange.core.base.BaseActivity
+import co.orange.core.extension.breakLines
+import co.orange.core.extension.setNumberForm
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.BuyDetailModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.breakLines
-import kr.genti.core.extension.setNumberForm
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyInfoBinding
 
@@ -49,11 +49,12 @@ class BuyInfoActivity :
             tvInfoProductPrice.text = item.originPrice.setNumberForm()
             tvInfoSellerNickname.text = item.sellerNickname
             tvInfoDeliveryName.text = item.addressInfo[0].recipient
-            tvInfoDeliveryAddress.text = getString(
-                R.string.address_format,
-                item.addressInfo[0].zipCode,
-                item.addressInfo[0].address
-            ).breakLines()
+            tvInfoDeliveryAddress.text =
+                getString(
+                    R.string.address_format,
+                    item.addressInfo[0].zipCode,
+                    item.addressInfo[0].address,
+                ).breakLines()
             tvInfoDeliveryPhone.text = item.addressInfo[0].phone
             tvInfoTransactionMethod.text = item.paymentInfo[0].method
             tvInfoTransactionDate.text = item.paymentInfo[0].completedAt
@@ -65,16 +66,16 @@ class BuyInfoActivity :
         }
     }
 
-
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: Long
-        ): Intent = Intent(context, BuyInfoActivity::class.java).apply {
-            putExtra(EXTRA_PRODUCT_ID, productId)
-        }
+            productId: Long,
+        ): Intent =
+            Intent(context, BuyInfoActivity::class.java).apply {
+                putExtra(EXTRA_PRODUCT_ID, productId)
+            }
     }
 }

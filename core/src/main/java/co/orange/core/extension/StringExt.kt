@@ -1,4 +1,4 @@
-package kr.genti.core.extension
+package co.orange.core.extension
 
 import java.text.BreakIterator
 

@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import co.orange.core.util.ItemDiffCallback
 import co.orange.domain.entity.response.ProductModel
-import kr.genti.core.util.ItemDiffCallback
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ItemHomeBannerBinding
 import kr.genti.presentation.databinding.ItemHomeProductBinding
@@ -27,7 +27,7 @@ class HomeAdapter(
             VIEW_TYPE_BANNER ->
                 HomeBannerViewHolder(
                     ItemHomeBannerBinding.inflate(inflater, parent, false),
-                    bannerClick
+                    bannerClick,
                 )
 
             VIEW_TYPE_PRODUCT ->

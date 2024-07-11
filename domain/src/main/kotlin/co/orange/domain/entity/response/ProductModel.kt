@@ -8,4 +8,17 @@ data class ProductModel(
     val originPrice: Int,
     val salePrice: Int,
     val interestCount: Int,
-)
+) {
+    companion object {
+        fun imageOnlyProductModel(imgUrl: String) =
+            ProductModel(
+                -1,
+                -1,
+                "",
+                imgUrl,
+                0,
+                0,
+                0,
+            )
+    }
+}

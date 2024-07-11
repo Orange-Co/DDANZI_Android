@@ -32,11 +32,11 @@
 
             <ImageView
                 android:id="@+id/iv_home_logo"
-                android:layout_width="41dp"
+                android:layout_width="76dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/mock_ic_logo"
+                android:src="@drawable/img_logo_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="37dp"
-            android:background="@drawable/shape_blue_fill_100_rect"
+            android:background="@drawable/shape_yellow_fill_100_rect"
             android:orientation="horizontal"
             android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -91,8 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="3dp"
-                android:text="@string/home_btn_sell"
-                android:textColor="@color/white" />
+                android:text="@string/home_btn_sell"/>
 
         </LinearLayout>
 

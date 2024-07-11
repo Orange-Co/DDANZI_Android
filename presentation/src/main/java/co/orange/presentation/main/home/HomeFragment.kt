@@ -14,6 +14,9 @@ import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
@@ -51,8 +54,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         searchSellProduct()
         setGridRecyclerView()
         setRecyclerViewDeco()
-        setItemList()
         observeCheckedAgainState()
+        observeGetHomeDataState()
     }
 
     private fun initView() {
@@ -145,15 +148,25 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         )
     }
 
-    private fun setItemList() {
-        adapter.setItemList(viewModel.mockItemList)
-    }
-
     private fun observeCheckedAgainState() {
         viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).onEach { isChecked ->
             if (isChecked) {
                 activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
                 viewModel.setCheckedState(false)
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeGetHomeDataState() {
+        viewModel.getHomeDataState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    adapter.addBannerItem(state.data.homeImgUrl)
+                    adapter.setItemList(state.data.productList)
+                }
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
             }
         }.launchIn(lifecycleScope)
     }

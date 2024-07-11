@@ -16,6 +16,7 @@ class HomeAdapter(
     private val likeClick: (Unit) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()
+    private var bannerItem: String? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -52,7 +53,7 @@ class HomeAdapter(
     ) {
         when (holder) {
             is HomeBannerViewHolder -> {
-                holder.onBind()
+                bannerItem?.let { holder.onBind(it) }
             }
 
             is HomeProductViewHolder -> {
@@ -73,22 +74,14 @@ class HomeAdapter(
             else -> VIEW_TYPE_PRODUCT
         }
 
-    fun addItemList(newItems: List<ProductModel>) {
-        this.itemList.addAll(newItems)
+    fun addBannerItem(bannerUrl: String) {
+        this.bannerItem = bannerUrl
         notifyDataSetChanged()
     }
 
     fun setItemList(itemList: List<ProductModel>) {
         this.itemList = itemList.toMutableList()
         notifyDataSetChanged()
-    }
-
-    fun removeItem(position: Int) {
-        if (this.itemList.isNotEmpty()) {
-            this.itemList.removeAt(position)
-            notifyItemRemoved(position + HEADER_COUNT)
-            notifyItemRangeChanged(position + HEADER_COUNT, itemCount)
-        }
     }
 
     companion object {

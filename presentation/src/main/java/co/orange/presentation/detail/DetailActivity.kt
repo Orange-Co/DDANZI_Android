@@ -107,7 +107,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: Long,
+            productId: String,
             productUrl: String,
             originPrice: Int,
             salePrice: Int,

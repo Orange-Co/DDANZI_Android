@@ -4,8 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProductModel
-import co.orange.domain.entity.response.ProductModel.Companion.imageOnlyProductModel
+import co.orange.domain.entity.response.HomeModel
 import co.orange.domain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -30,8 +29,8 @@ class HomeViewModel
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
 
-        private val _getHomeDataState = MutableStateFlow<UiState<List<ProductModel>>>(UiState.Empty)
-        val getHomeDataState: StateFlow<UiState<List<ProductModel>>> = _getHomeDataState
+        private val _getHomeDataState = MutableStateFlow<UiState<HomeModel>>(UiState.Empty)
+        val getHomeDataState: StateFlow<UiState<HomeModel>> = _getHomeDataState
 
         fun setCheckedState(state: Boolean) {
             viewModelScope.launch {
@@ -43,12 +42,7 @@ class HomeViewModel
             viewModelScope.launch {
                 homeRepository.getHomeData()
                     .onSuccess {
-                        val itemList = it.productList.toMutableList()
-                        itemList.add(
-                            0,
-                            imageOnlyProductModel(it.homeImgUrl),
-                        )
-                        _getHomeDataState.value = UiState.Success(itemList)
+                        _getHomeDataState.value = UiState.Success(it)
                     }
                     .onFailure {
                         _getHomeDataState.value = UiState.Failure(it.message.toString())

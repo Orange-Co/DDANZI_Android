@@ -31,6 +31,7 @@ class HomeViewModel
             listOf(
                 ProductModel(
                     1,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -39,6 +40,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     2,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -47,6 +49,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     3,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -55,6 +58,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     4,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -63,6 +67,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     5,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -71,6 +76,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     6,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -79,6 +85,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     7,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -87,6 +94,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     8,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,
@@ -95,6 +103,7 @@ class HomeViewModel
                 ),
                 ProductModel(
                     9,
+                    1,
                     "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
                     "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
                     54000,

@@ -52,7 +52,7 @@ class HomeAdapter(
     ) {
         when (holder) {
             is HomeBannerViewHolder -> {
-                holder.onBind()
+                if (itemList.isNotEmpty()) holder.onBind(itemList[0])
             }
 
             is HomeProductViewHolder -> {

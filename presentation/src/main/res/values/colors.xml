@@ -11,6 +11,7 @@
 
     <!--Brand Color -->
     <color name="main_blue">#57CBE4</color>
+    <color name="main_yellow">#FFE500</color>
     <color name="deep_blue">#034EE1</color>
     <color name="btn_blue">#3527D7</color>
     <color name="seg_red">#FF6C6C</color>

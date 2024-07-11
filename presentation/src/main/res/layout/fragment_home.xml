@@ -32,11 +32,11 @@
 
             <ImageView
                 android:id="@+id/iv_home_logo"
-                android:layout_width="41dp"
+                android:layout_width="76dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/mock_ic_logo"
+                android:src="@drawable/img_logo_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -56,6 +56,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         setRecyclerViewDeco()
         observeCheckedAgainState()
         observeGetHomeDataState()
+        observeGetProductIdState()
     }
 
     private fun initView() {
@@ -115,10 +116,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         activityResult =
             registerForActivityResult(PickVisualMedia()) { uri ->
                 if (uri != null) {
-                    // TODO : OCR 진행 후 실 상품 이미지 대체
                     viewModel.selectedImageUri = uri
-                    sellProductDialog = SellProductDialog()
-                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
+                    viewModel.showCaptureImage(uri, requireContext())
                 }
             }
     }
@@ -163,6 +162,20 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 is UiState.Success -> {
                     adapter.addBannerItem(state.data.homeImgUrl)
                     adapter.setItemList(state.data.productList)
+                }
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeGetProductIdState() {
+        viewModel.getProductIdState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    sellProductDialog = SellProductDialog()
+                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
                 }
 
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))

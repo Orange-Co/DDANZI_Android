@@ -64,6 +64,8 @@ object ThirdPartyDependencies {
     const val circleIndicator = "me.relex:circleindicator:${Versions.circleIndicatorVersion}"
     const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmerVersion}"
 
+    const val mlkit = "com.google.mlkit:text-recognition-korean:${Versions.mlkitVersion}"
+
     const val kakaoLogin = "com.kakao.sdk:v2-user:${Versions.kakaoVersion}"
     const val kakaoAuth = "com.kakao.sdk:v2-auth:${Versions.kakaoVersion}"
     const val kakaoTalk = "com.kakao.sdk:v2-talk:${Versions.kakaoVersion}"

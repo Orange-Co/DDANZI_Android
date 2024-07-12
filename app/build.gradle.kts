@@ -94,6 +94,5 @@ dependencies {
         implementation(retrofitJsonConverter)
         implementation(timber)
         implementation(ossLicense)
-        implementation(mlkit)
     }
 }

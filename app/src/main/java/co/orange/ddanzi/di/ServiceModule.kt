@@ -18,7 +18,6 @@ object ServiceModule {
         @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
     ): AuthService = retrofit.create(AuthService::class.java)
 
-    // TODO 추후 수정
     @Provides
     @Singleton
     fun provideHomeService(

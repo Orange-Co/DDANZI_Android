@@ -8,5 +8,6 @@ data class OptionModel(
     data class OptionDetailModel(
         val optionDetailId: Long,
         val content: String,
+        val isAvailable: Boolean,
     )
 }

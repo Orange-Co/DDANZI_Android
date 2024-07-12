@@ -62,7 +62,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun getIntentInfo() {
         with(viewModel) {
-            productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+            productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
             imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
             originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
             salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)

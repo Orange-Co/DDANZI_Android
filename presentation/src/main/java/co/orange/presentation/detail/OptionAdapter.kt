@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import co.orange.core.util.ItemDiffCallback
-import co.orange.domain.entity.response.OptionModel
+import co.orange.domain.entity.response.ProductOptionModel
 import kr.genti.presentation.databinding.ItemOptionBinding
 
 class OptionAdapter(
     private val itemClick: (Int, Long, Long) -> Unit,
-) : ListAdapter<OptionModel, OptionViewHolder>(diffUtil) {
+) : ListAdapter<ProductOptionModel, OptionViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -28,7 +28,7 @@ class OptionAdapter(
         holder.onBind(item, position)
     }
 
-    fun addList(newItems: List<OptionModel>) {
+    fun addList(newItems: List<ProductOptionModel>) {
         val currentItems = currentList.toMutableList()
         currentItems.addAll(newItems)
         submitList(currentItems)
@@ -36,7 +36,7 @@ class OptionAdapter(
 
     companion object {
         private val diffUtil =
-            ItemDiffCallback<OptionModel>(
+            ItemDiffCallback<ProductOptionModel>(
                 onItemsTheSame = { old, new -> old.optionId == new.optionId },
                 onContentsTheSame = { old, new -> old == new },
             )

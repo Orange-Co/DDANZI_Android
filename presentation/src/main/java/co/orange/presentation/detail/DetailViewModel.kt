@@ -1,8 +1,8 @@
 package co.orange.presentation.detail
 
 import androidx.lifecycle.ViewModel
-import co.orange.domain.entity.response.OptionModel
 import co.orange.domain.entity.response.ProductDetailModel
+import co.orange.domain.entity.response.ProductOptionModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -28,22 +28,22 @@ class DetailViewModel
                 "",
                 123,
                 listOf(
-                    OptionModel(
+                    ProductOptionModel(
                         1,
                         "색상",
                         listOf(
-                            OptionModel.OptionDetailModel(0, "네이비", true),
-                            OptionModel.OptionDetailModel(1, "블랙", true),
+                            ProductOptionModel.OptionDetailModel(0, "네이비", true),
+                            ProductOptionModel.OptionDetailModel(1, "블랙", true),
                         ),
                     ),
-                    OptionModel(
+                    ProductOptionModel(
                         2,
                         "사이즈",
                         listOf(
-                            OptionModel.OptionDetailModel(0, "S", true),
-                            OptionModel.OptionDetailModel(1, "M", true),
-                            OptionModel.OptionDetailModel(2, "L", true),
-                            OptionModel.OptionDetailModel(3, "XL", true),
+                            ProductOptionModel.OptionDetailModel(0, "S", true),
+                            ProductOptionModel.OptionDetailModel(1, "M", true),
+                            ProductOptionModel.OptionDetailModel(2, "L", true),
+                            ProductOptionModel.OptionDetailModel(3, "XL", true),
                         ),
                     ),
                 ),

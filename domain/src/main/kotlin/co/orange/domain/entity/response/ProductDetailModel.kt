@@ -9,5 +9,5 @@ data class ProductDetailModel(
     val stockCount: Int,
     val infoUrl: String,
     val interestCount: Int,
-    val optionList: List<OptionModel>
+    val optionList: List<ProductOptionModel>,
 )

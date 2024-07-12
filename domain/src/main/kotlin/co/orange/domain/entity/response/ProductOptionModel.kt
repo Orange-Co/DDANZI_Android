@@ -1,6 +1,6 @@
 package co.orange.domain.entity.response
 
-data class OptionModel(
+data class ProductOptionModel(
     val optionId: Long,
     val type: String,
     val optionDetailList: List<OptionDetailModel>,

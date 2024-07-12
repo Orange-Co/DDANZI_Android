@@ -40,8 +40,8 @@ class OptionBottomSheet :
 
     private fun initDetailViewBtnListener() {
         binding.btnDetailView.setOnSingleClickListener {
-            if (viewModel.mockProduct.infoUrl.isNotEmpty()) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.mockProduct.infoUrl)))
+            if (viewModel.infoUrl.isNotEmpty()) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.infoUrl)))
             }
         }
     }
@@ -75,10 +75,10 @@ class OptionBottomSheet :
     }
 
     private fun setInterestCount() {
-        viewModel.mockProduct.interestCount.setOverThousand()
+        viewModel.interestCount.setOverThousand()
     }
 
     private fun setOptionData() {
-        adapter.addList(viewModel.mockProduct.optionList)
+        adapter.addList(viewModel.optionList)
     }
 }

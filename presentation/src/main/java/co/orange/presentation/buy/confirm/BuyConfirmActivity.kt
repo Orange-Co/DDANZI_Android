@@ -56,7 +56,7 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+        viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
     }
 
     private fun setIntentUi(item: BuyInfoModel) {
@@ -79,7 +79,7 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: Long,
+            productId: String,
         ): Intent =
             Intent(context, BuyConfirmActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)

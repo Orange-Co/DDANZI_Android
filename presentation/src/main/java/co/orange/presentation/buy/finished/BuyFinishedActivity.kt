@@ -52,7 +52,7 @@ class BuyFinishedActivity :
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+        viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
     }
 
     private fun setIntentUi(item: BuyDetailModel) {
@@ -85,7 +85,7 @@ class BuyFinishedActivity :
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: Long,
+            productId: String,
         ): Intent =
             Intent(context, BuyFinishedActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)

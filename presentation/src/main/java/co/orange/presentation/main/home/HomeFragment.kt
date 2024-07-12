@@ -1,7 +1,6 @@
 package co.orange.presentation.main.home
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
@@ -23,9 +22,6 @@ import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -60,6 +56,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         setRecyclerViewDeco()
         observeCheckedAgainState()
         observeGetHomeDataState()
+        observeGetProductIdState()
     }
 
     private fun initView() {
@@ -120,26 +117,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             registerForActivityResult(PickVisualMedia()) { uri ->
                 if (uri != null) {
                     viewModel.selectedImageUri = uri
-                    sellProductDialog = SellProductDialog()
-                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
-                    showCaptureImage(uri)
+                    viewModel.showCaptureImage(uri, requireContext())
                 }
             }
-    }
-
-    private fun showCaptureImage(img: Uri) {
-        runCatching {
-            val image = InputImage.fromFilePath(requireContext(), img)
-            val recognizer =
-                TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
-            recognizer.process(image)
-                .addOnSuccessListener {
-                    toast(it.text)
-                }
-                .addOnFailureListener {
-                    toast(stringOf(R.string.error_msg))
-                }
-        }
     }
 
     private fun setGridRecyclerView() {
@@ -182,6 +162,20 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 is UiState.Success -> {
                     adapter.addBannerItem(state.data.homeImgUrl)
                     adapter.setItemList(state.data.productList)
+                }
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeGetProductIdState() {
+        viewModel.getProductIdState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    sellProductDialog = SellProductDialog()
+                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
                 }
 
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))

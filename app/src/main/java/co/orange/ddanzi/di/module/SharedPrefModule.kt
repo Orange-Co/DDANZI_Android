@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di
+package co.orange.ddanzi.di.module
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di
+package co.orange.ddanzi.di.module
 
 import co.orange.data.repositoryImpl.AuthRepositoryImpl
 import co.orange.data.repositoryImpl.DetailRepositoryImpl

@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di
+package co.orange.ddanzi.di.interceptor
 
 import android.content.Context
 import android.content.Intent

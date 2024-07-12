@@ -31,11 +31,7 @@ class DetailViewModel
             MutableStateFlow<UiState<ProductDetailModel>>(UiState.Empty)
         val getProductDetailState: StateFlow<UiState<ProductDetailModel>> = _getProductDetailState
 
-        init {
-            getProductDetailFromServer()
-        }
-
-        private fun getProductDetailFromServer() {
+        fun getProductDetailFromServer() {
             viewModelScope.launch {
                 detailRepository.getProductDetail(productId)
                     .onSuccess {

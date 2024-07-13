@@ -114,6 +114,7 @@ class SearchActivity :
     private fun setDebounceSearch() {
         binding.etSearch.doAfterTextChanged { text ->
             searchJob?.cancel()
+            resultAdapter.submitList(listOf())
             binding.layoutBeforeSearch.isVisible = text.isNullOrBlank()
             if (!text.isNullOrBlank()) {
                 searchJob =

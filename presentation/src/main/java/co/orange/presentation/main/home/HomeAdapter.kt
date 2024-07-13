@@ -16,6 +16,7 @@ class HomeAdapter(
     private val likeClick: (Unit) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()
+
     private var bannerItem: String? = null
 
     override fun onCreateViewHolder(

@@ -1,11 +1,13 @@
 package co.orange.ddanzi.di.module
 
 import co.orange.data.repositoryImpl.AuthRepositoryImpl
-import co.orange.data.repositoryImpl.DetailRepositoryImpl
+import co.orange.data.repositoryImpl.DeviceRepositoryImpl
 import co.orange.data.repositoryImpl.HomeRepositoryImpl
+import co.orange.data.repositoryImpl.SearchRepositoryImpl
 import co.orange.domain.repository.AuthRepository
-import co.orange.domain.repository.DetailRepository
+import co.orange.domain.repository.DeviceRepository
 import co.orange.domain.repository.HomeRepository
+import co.orange.domain.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +27,9 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDetailRepository(detailRepositoryImpl: DetailRepositoryImpl): DetailRepository = detailRepositoryImpl
+    fun provideDeviceRepository(deviceRepositoryImpl: DeviceRepositoryImpl): DeviceRepository = deviceRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideSearchRepository(searchRepositoryImpl: SearchRepositoryImpl): SearchRepository = searchRepositoryImpl
 }

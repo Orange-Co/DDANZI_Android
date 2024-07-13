@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.HomeModel
 import co.orange.domain.repository.HomeRepository
+import co.orange.domain.repository.UserRepository
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
@@ -23,6 +24,7 @@ class HomeViewModel
     @Inject
     constructor(
         private val homeRepository: HomeRepository,
+        private val userRepository: UserRepository,
     ) : ViewModel() {
         init {
             getHomeDataFromServer()
@@ -75,5 +77,9 @@ class HomeViewModel
                         _getProductIdState.value = UiState.Failure(it.message.toString())
                     }
             }
+        }
+
+        fun setDeviceToken(deviceToken: String) {
+            userRepository.setDeviceToken(deviceToken)
         }
     }

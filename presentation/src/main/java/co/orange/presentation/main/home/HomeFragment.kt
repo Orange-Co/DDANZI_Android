@@ -2,6 +2,7 @@ package co.orange.presentation.main.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -23,6 +24,7 @@ import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
@@ -52,6 +54,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         initSearchBtnListener()
         initSellBtnListener()
         searchSellProduct()
+        setDeviceToken()
         setGridRecyclerView()
         setRecyclerViewDeco()
         observeCheckedAgainState()
@@ -122,6 +125,16 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             }
     }
 
+    private fun setDeviceToken() {
+        // TODO : FCM의 디바이스토큰으로 수정
+        viewModel.setDeviceToken(
+            Settings.Secure.getString(
+                requireContext().contentResolver,
+                Settings.Secure.ANDROID_ID,
+            ),
+        )
+    }
+
     private fun setGridRecyclerView() {
         binding.rvHome.layoutManager =
             GridLayoutManager(context, 2).apply {
@@ -148,40 +161,43 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     }
 
     private fun observeCheckedAgainState() {
-        viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).onEach { isChecked ->
-            if (isChecked) {
-                activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-                viewModel.setCheckedState(false)
-            }
-        }.launchIn(lifecycleScope)
+        viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isChecked ->
+                if (isChecked) {
+                    activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+                    viewModel.setCheckedState(false)
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun observeGetHomeDataState() {
-        viewModel.getHomeDataState.flowWithLifecycle(lifecycle).onEach { state ->
-            when (state) {
-                is UiState.Success -> {
-                    adapter.addBannerItem(state.data.homeImgUrl)
-                    adapter.setItemList(state.data.productList)
-                }
+        viewModel.getHomeDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        adapter.addBannerItem(state.data.homeImgUrl)
+                        adapter.setItemList(state.data.productList)
+                    }
 
-                is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                else -> return@onEach
-            }
-        }.launchIn(lifecycleScope)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun observeGetProductIdState() {
-        viewModel.getProductIdState.flowWithLifecycle(lifecycle).onEach { state ->
-            when (state) {
-                is UiState.Success -> {
-                    sellProductDialog = SellProductDialog()
-                    sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
-                }
+        viewModel.getProductIdState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        sellProductDialog = SellProductDialog()
+                        sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
+                    }
 
-                is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                else -> return@onEach
-            }
-        }.launchIn(lifecycleScope)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroyView() {

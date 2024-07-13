@@ -39,7 +39,7 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
     }
 
     private fun navigateToFinishedActivity() {
-        val productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+        val productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
         BuyFinishedActivity.createIntent(this, productId).apply {
             startActivity(this)
         }
@@ -51,7 +51,7 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: Long,
+            productId: String,
         ): Intent =
             Intent(context, BuyPushActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)

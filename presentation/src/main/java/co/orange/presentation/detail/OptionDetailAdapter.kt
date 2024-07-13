@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.util.ItemDiffCallback
-import co.orange.domain.entity.response.OptionModel.OptionDetailModel
+import co.orange.domain.entity.response.ProductOptionModel.OptionDetailModel
 import kr.genti.presentation.databinding.ItemOptionDetailBinding
 
 class OptionDetailAdapter(

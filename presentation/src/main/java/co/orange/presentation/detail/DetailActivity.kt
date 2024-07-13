@@ -7,14 +7,21 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOverThousand
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDetailBinding
 
@@ -32,7 +39,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         initLikeBtnListener()
         initPurchaseBtnListener()
         getIntentInfo()
-        setProduct(viewModel.mockProduct)
+        observeGetProductDetailState()
     }
 
     private fun initBackBtnListener() {
@@ -42,8 +49,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun initDetailViewBtnListener() {
         binding.btnDetailView.setOnSingleClickListener {
-            if (viewModel.mockProduct.infoUrl.isNotEmpty()) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.mockProduct.infoUrl)))
+            if (viewModel.infoUrl.isNotEmpty()) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.infoUrl)))
             }
         }
     }
@@ -62,10 +69,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun getIntentInfo() {
         with(viewModel) {
-            productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+            productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
             imageUrl = intent.getStringExtra(EXTRA_PRODUCT_URL).orEmpty()
             originPrice = intent.getIntExtra(EXTRA_ORIGIN_PRICE, 0)
             salePrice = intent.getIntExtra(EXTRA_SALE_PRICE, 0)
+            getProductDetailFromServer()
         }
         with(binding) {
             ivDetailProduct.load(viewModel.imageUrl)
@@ -77,6 +85,16 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         }
     }
 
+    private fun observeGetProductDetailState() {
+        viewModel.getProductDetailState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> setProduct(state.data)
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+        }.launchIn(lifecycleScope)
+    }
+
     private fun setProduct(item: ProductDetailModel) {
         with(binding) {
             tvDetailTitle.text = item.name.breakLines()
@@ -85,7 +103,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             chipsDetailImminent.isVisible = item.isImminent
             tvDetailDiscountRate.text = item.discountRate.toString()
             tvDetailStockCount.text = item.stockCount.toString()
-            tvDetailLike.text = viewModel.mockProduct.interestCount.toString()
             tvDetailLike.text = item.interestCount.setOverThousand()
         }
     }

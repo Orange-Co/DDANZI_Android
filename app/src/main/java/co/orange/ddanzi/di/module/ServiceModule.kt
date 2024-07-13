@@ -1,7 +1,9 @@
-package co.orange.ddanzi.di
+package co.orange.ddanzi.di.module
 
 import co.orange.data.service.AuthService
+import co.orange.data.service.DetailService
 import co.orange.data.service.HomeService
+import co.orange.ddanzi.di.qualifier.RetrofitQualifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,10 +20,15 @@ object ServiceModule {
         @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
     ): AuthService = retrofit.create(AuthService::class.java)
 
-    // TODO 추후 수정
     @Provides
     @Singleton
     fun provideHomeService(
         @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
     ): HomeService = retrofit.create(HomeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDetailService(
+        @RetrofitQualifier.DEVICE retrofit: Retrofit,
+    ): DetailService = retrofit.create(DetailService::class.java)
 }

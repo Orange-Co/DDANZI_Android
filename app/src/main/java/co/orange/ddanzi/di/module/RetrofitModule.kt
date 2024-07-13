@@ -1,8 +1,11 @@
-package co.orange.ddanzi.di
+package co.orange.ddanzi.di.module
 
 import co.orange.core.extension.isJsonArray
 import co.orange.core.extension.isJsonObject
 import co.orange.ddanzi.BuildConfig.BASE_URL
+import co.orange.ddanzi.di.interceptor.AuthInterceptor
+import co.orange.ddanzi.di.interceptor.DeviceTokenInterceptor
+import co.orange.ddanzi.di.qualifier.RetrofitQualifier
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -66,6 +69,11 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    @RetrofitQualifier.DEVICE
+    fun provideDeviceTokenInterceptor(deviceTokenInterceptor: DeviceTokenInterceptor): Interceptor = deviceTokenInterceptor
+
+    @Provides
+    @Singleton
     @RetrofitQualifier.JWT
     fun provideJWTOkHttpClient(
         loggingInterceptor: Interceptor,
@@ -86,6 +94,18 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    @RetrofitQualifier.DEVICE
+    fun provideDeviceOkHttpClient(
+        loggingInterceptor: Interceptor,
+        @RetrofitQualifier.DEVICE deviceTokenInterceptor: Interceptor,
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(deviceTokenInterceptor)
+            .build()
+
+    @Provides
+    @Singleton
     @RetrofitQualifier.JWT
     fun provideJWTRetrofit(
         @RetrofitQualifier.JWT client: OkHttpClient,
@@ -102,6 +122,19 @@ object RetrofitModule {
     @RetrofitQualifier.NOTOKEN
     fun provideReissueRetrofit(
         @RetrofitQualifier.NOTOKEN client: OkHttpClient,
+        factory: Converter.Factory,
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(factory)
+            .build()
+
+    @Provides
+    @Singleton
+    @RetrofitQualifier.DEVICE
+    fun provideDeviceRetrofit(
+        @RetrofitQualifier.DEVICE client: OkHttpClient,
         factory: Converter.Factory,
     ): Retrofit =
         Retrofit.Builder()

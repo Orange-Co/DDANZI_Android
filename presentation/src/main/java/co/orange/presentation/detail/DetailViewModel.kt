@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
 import co.orange.domain.entity.response.ProductOptionModel
-import co.orange.domain.repository.DetailRepository
+import co.orange.domain.repository.DeviceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class DetailViewModel
     @Inject
     constructor(
-        private val detailRepository: DetailRepository,
+        private val deviceRepository: DeviceRepository,
     ) : ViewModel() {
         var productId: String = ""
         var imageUrl: String = ""
@@ -33,7 +33,7 @@ class DetailViewModel
 
         fun getProductDetailFromServer() {
             viewModelScope.launch {
-                detailRepository.getProductDetail(productId)
+                deviceRepository.getProductDetail(productId)
                     .onSuccess {
                         infoUrl = it.infoUrl
                         interestCount = it.interestCount

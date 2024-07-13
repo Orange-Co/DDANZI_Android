@@ -2,6 +2,6 @@ package co.orange.domain.repository
 
 import co.orange.domain.entity.response.ProductDetailModel
 
-interface DetailRepository {
+interface DeviceRepository {
     suspend fun getProductDetail(id: String): Result<ProductDetailModel>
 }

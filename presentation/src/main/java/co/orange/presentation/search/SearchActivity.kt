@@ -4,15 +4,22 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initFocusWithKeyboard
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySearchBinding
@@ -48,6 +55,7 @@ class SearchActivity :
         setDebounceSearch()
         setKeywordList()
         setRecentList()
+        observeGetSearchResultState()
     }
 
     private fun initFocus() {
@@ -112,10 +120,9 @@ class SearchActivity :
                     lifecycleScope.launch {
                         delay(DEBOUNCE_TIME)
                         text.toString().let { text ->
-                            // TODO : 검색
                             binding.layoutAfterSearch.isVisible = true
                             binding.tvSearchedText.text = getString(R.string.add_quotation, text)
-                            resultAdapter.addList(viewModel.mockItemList)
+                            viewModel.getSearchResultFromServer(text)
                         }
                     }
             } else {
@@ -130,6 +137,20 @@ class SearchActivity :
 
     private fun setRecentList() {
         recentAdapter.addList(viewModel.mockSearchModel.recentViewedList)
+    }
+
+    private fun observeGetSearchResultState() {
+        viewModel.getSearchResultState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        resultAdapter.addList(state.data.searchedProductList)
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

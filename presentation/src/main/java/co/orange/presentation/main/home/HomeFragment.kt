@@ -2,6 +2,7 @@ package co.orange.presentation.main.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -53,6 +54,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         initSearchBtnListener()
         initSellBtnListener()
         searchSellProduct()
+        setDeviceToken()
         setGridRecyclerView()
         setRecyclerViewDeco()
         observeCheckedAgainState()
@@ -121,6 +123,16 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                     viewModel.showCaptureImage(uri, requireContext())
                 }
             }
+    }
+
+    private fun setDeviceToken() {
+        // TODO : FCM의 디바이스토큰으로 수정
+        viewModel.setDeviceToken(
+            Settings.Secure.getString(
+                requireContext().contentResolver,
+                Settings.Secure.ANDROID_ID,
+            ),
+        )
     }
 
     private fun setGridRecyclerView() {

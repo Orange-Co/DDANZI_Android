@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import co.orange.data.local.UserSharedPref
 import co.orange.data.local.UserSharedPrefImpl
+import co.orange.data.repositoryImpl.UserRepositoryImpl
+import co.orange.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +25,8 @@ object SharedPrefModule {
     @Provides
     @Singleton
     fun provideSharedPref(sharedPrefImpl: UserSharedPrefImpl): UserSharedPref = sharedPrefImpl
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository = userRepositoryImpl
 }

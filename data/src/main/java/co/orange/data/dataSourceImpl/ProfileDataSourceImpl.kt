@@ -1,5 +1,6 @@
 package co.orange.data.dataSourceImpl
 
+import co.orange.data.dataSource.ProfileDataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.response.ProfileNicknameDto
 import co.orange.data.service.ProfileService
@@ -9,6 +10,6 @@ data class ProfileDataSourceImpl
     @Inject
     constructor(
         private val profileService: ProfileService,
-    ) : ProfileService {
-        override suspend fun geNickname(): BaseResponse<ProfileNicknameDto> = profileService.geNickname()
+    ) : ProfileDataSource {
+        override suspend fun getNickname(): BaseResponse<ProfileNicknameDto> = profileService.geNickname()
     }

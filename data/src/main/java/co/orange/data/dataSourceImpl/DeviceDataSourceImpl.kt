@@ -3,13 +3,13 @@ package co.orange.data.dataSourceImpl
 import co.orange.data.dataSource.DeviceDataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.response.ProductDetailDto
-import co.orange.data.service.DetailService
+import co.orange.data.service.DeviceService
 import javax.inject.Inject
 
 data class DeviceDataSourceImpl
     @Inject
     constructor(
-        private val detailService: DetailService,
+        private val deviceService: DeviceService,
     ) : DeviceDataSource {
-        override suspend fun getHomeData(id: String): BaseResponse<ProductDetailDto> = detailService.getProductDetail(id)
+        override suspend fun getProductDetail(id: String): BaseResponse<ProductDetailDto> = deviceService.getProductDetail(id)
     }

@@ -12,6 +12,6 @@ class DeviceRepositoryImpl
     ) : DeviceRepository {
         override suspend fun getProductDetail(id: String): Result<ProductDetailModel> =
             runCatching {
-                deviceDataSource.getHomeData(id).data.toModel()
+                deviceDataSource.getProductDetail(id).data.toModel()
             }
     }

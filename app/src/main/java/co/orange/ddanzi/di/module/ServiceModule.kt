@@ -1,7 +1,7 @@
 package co.orange.ddanzi.di.module
 
 import co.orange.data.service.AuthService
-import co.orange.data.service.DetailService
+import co.orange.data.service.DeviceService
 import co.orange.data.service.HomeService
 import co.orange.data.service.SearchService
 import co.orange.ddanzi.di.qualifier.RetrofitQualifier
@@ -31,7 +31,7 @@ object ServiceModule {
     @Singleton
     fun provideDetailService(
         @RetrofitQualifier.DEVICE retrofit: Retrofit,
-    ): DetailService = retrofit.create(DetailService::class.java)
+    ): DeviceService = retrofit.create(DeviceService::class.java)
 
     @Provides
     @Singleton

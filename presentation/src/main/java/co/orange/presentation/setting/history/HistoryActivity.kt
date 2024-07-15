@@ -11,25 +11,53 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.domain.entity.response.ProductModel
+import co.orange.presentation.detail.DetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityHistoryBinding
 
+@AndroidEntryPoint
 class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_history) {
     val viewModel by viewModels<HistoryViewModel>()
+
+    private var _adapter: HistoryAdapter? = null
+    val adapter
+        get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBackBtnListener()
+        initAdapter()
         getTypeFromIntent()
         observeGetInterestListState()
     }
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initAdapter() {
+        _adapter =
+            HistoryAdapter(
+                itemClick = ::initItemClickListener,
+            )
+        binding.rvHistory.adapter = adapter
+    }
+
+    private fun initItemClickListener(item: ProductModel) {
+        DetailActivity.createIntent(
+            this,
+            item.productId,
+            item.imgUrl,
+            item.originPrice,
+            item.salePrice,
+        )
+            .apply { startActivity(this) }
     }
 
     private fun getTypeFromIntent() {
@@ -63,13 +91,18 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
                     is UiState.Success -> {
                         binding.tvHistoryCount.text =
                             getString(R.string.profile_history_count, state.data.totalCount)
-                        // resultAdapter.addList(state.data.searchedProductList)
+                        adapter.addList(state.data.productList)
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _adapter = null
     }
 
     companion object {

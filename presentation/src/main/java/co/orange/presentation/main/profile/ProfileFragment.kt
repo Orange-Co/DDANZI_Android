@@ -66,12 +66,15 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         with(binding) {
             btnHistoryPurchase.setOnSingleClickListener {
                 HistoryActivity.createIntent(requireContext(), TYPE_BUY)
+                    .apply { startActivity(this) }
             }
             btnHistorySell.setOnSingleClickListener {
                 HistoryActivity.createIntent(requireContext(), TYPE_SELL)
+                    .apply { startActivity(this) }
             }
             btnHistoryLike.setOnSingleClickListener {
                 HistoryActivity.createIntent(requireContext(), TYPE_INTEREST)
+                    .apply { startActivity(this) }
             }
         }
     }

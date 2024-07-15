@@ -176,6 +176,7 @@
     <string name="profile_history_buy_title">구매 목록</string>
     <string name="profile_history_sell_title">판매 목록</string>
     <string name="profile_history_interest_title">내 관심</string>
+    <string name="profile_history_count">총 %d건</string>
 
 
 </resources>

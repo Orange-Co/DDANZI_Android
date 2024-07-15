@@ -14,7 +14,7 @@ class DeviceTokenInterceptor
             val originalRequest = chain.request()
             val newRequest =
                 originalRequest.newBuilder()
-                    .header(AUTHORIZATION, "$BEARER ${sharedPref.accessToken}")
+                    .header(AUTHORIZATION, "$BEARER ${sharedPref.deviceToken}")
                     .build()
             return chain.proceed(newRequest)
         }

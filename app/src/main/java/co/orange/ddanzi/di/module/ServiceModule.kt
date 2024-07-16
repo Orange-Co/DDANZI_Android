@@ -5,6 +5,7 @@ import co.orange.data.service.DeviceService
 import co.orange.data.service.HomeService
 import co.orange.data.service.ProfileService
 import co.orange.data.service.SearchService
+import co.orange.data.service.SettingService
 import co.orange.ddanzi.di.qualifier.RetrofitQualifier
 import dagger.Module
 import dagger.Provides
@@ -46,4 +47,11 @@ object ServiceModule {
     fun provideProfileService(
         @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
     ): ProfileService = retrofit.create(ProfileService::class.java)
+
+    // TODO
+    @Provides
+    @Singleton
+    fun provideSettingService(
+        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+    ): SettingService = retrofit.create(SettingService::class.java)
 }

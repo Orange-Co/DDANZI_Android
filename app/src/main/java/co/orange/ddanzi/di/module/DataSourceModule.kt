@@ -38,4 +38,8 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun provideProfileDataSource(profileDataSourceImpl: ProfileDataSourceImpl): ProfileDataSource = profileDataSourceImpl
+
+    @Provides
+    @Singleton
+    fun providesSettingDataSource(searchDataSourceImpl: SearchDataSourceImpl): SearchDataSource = searchDataSourceImpl
 }

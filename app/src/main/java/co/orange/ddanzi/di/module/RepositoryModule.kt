@@ -5,11 +5,13 @@ import co.orange.data.repositoryImpl.DeviceRepositoryImpl
 import co.orange.data.repositoryImpl.HomeRepositoryImpl
 import co.orange.data.repositoryImpl.ProfileRepositoryImpl
 import co.orange.data.repositoryImpl.SearchRepositoryImpl
+import co.orange.data.repositoryImpl.SettingRepositoryImpl
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.DeviceRepository
 import co.orange.domain.repository.HomeRepository
 import co.orange.domain.repository.ProfileRepository
 import co.orange.domain.repository.SearchRepository
+import co.orange.domain.repository.SettingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +40,8 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository = profileRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideSettingRepository(settingRepositoryImpl: SettingRepositoryImpl): SettingRepository = settingRepositoryImpl
 }

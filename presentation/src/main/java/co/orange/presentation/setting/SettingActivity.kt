@@ -3,13 +3,20 @@ package co.orange.presentation.setting
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.SettingModel
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.presentation.setting.account.AccountActivity
 import co.orange.presentation.setting.bank.BankActivity
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySettingBinding
 
@@ -24,7 +31,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         initDeliveryManageBtnListener()
         initBankManageBtnListener()
         initAccountManageBtnListener()
-        setSettingInfo(viewModel.mockSettingModel)
+        observeGetSettingInfoState()
     }
 
     private fun initBackBtnListener() {
@@ -55,11 +62,21 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         }
     }
 
-    private fun setSettingInfo(item: SettingModel) {
-        with(binding) {
-            tvSettingInfoName.text = item.name
-            tvSettingInfoPhone.text = item.phone
-            tvSettingInfoNickname.text = item.nickname
-        }
+    private fun observeGetSettingInfoState() {
+        viewModel.getSettingInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        with(binding) {
+                            tvSettingInfoName.text = state.data.name
+                            tvSettingInfoPhone.text = state.data.phone
+                            tvSettingInfoNickname.text = state.data.nickname
+                        }
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 }

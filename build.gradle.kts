@@ -2,6 +2,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
     }
 
     dependencies {
@@ -12,6 +13,6 @@ buildscript {
     }
 }
 
-tasks.register("clean",Delete::class) {
+tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

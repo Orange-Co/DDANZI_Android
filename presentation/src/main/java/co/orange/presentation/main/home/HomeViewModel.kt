@@ -79,6 +79,10 @@ class HomeViewModel
             }
         }
 
+        fun resetProductIdState() {
+            _getProductIdState.value = UiState.Empty
+        }
+
         fun setDeviceToken(deviceToken: String) {
             userRepository.setDeviceToken(deviceToken)
         }

@@ -4,5 +4,5 @@ import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.response.ProductDetailDto
 
 interface DeviceDataSource {
-    suspend fun getHomeData(id: String): BaseResponse<ProductDetailDto>
+    suspend fun getProductDetail(id: String): BaseResponse<ProductDetailDto>
 }

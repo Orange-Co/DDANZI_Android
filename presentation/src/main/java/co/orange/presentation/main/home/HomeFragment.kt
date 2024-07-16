@@ -192,6 +192,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                     is UiState.Success -> {
                         sellProductDialog = SellProductDialog()
                         sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
+                        viewModel.resetProductIdState()
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

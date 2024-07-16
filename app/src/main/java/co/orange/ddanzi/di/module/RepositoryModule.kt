@@ -3,10 +3,12 @@ package co.orange.ddanzi.di.module
 import co.orange.data.repositoryImpl.AuthRepositoryImpl
 import co.orange.data.repositoryImpl.DeviceRepositoryImpl
 import co.orange.data.repositoryImpl.HomeRepositoryImpl
+import co.orange.data.repositoryImpl.ProfileRepositoryImpl
 import co.orange.data.repositoryImpl.SearchRepositoryImpl
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.DeviceRepository
 import co.orange.domain.repository.HomeRepository
+import co.orange.domain.repository.ProfileRepository
 import co.orange.domain.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
@@ -32,4 +34,8 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideSearchRepository(searchRepositoryImpl: SearchRepositoryImpl): SearchRepository = searchRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository = profileRepositoryImpl
 }

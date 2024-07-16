@@ -5,7 +5,7 @@ import co.orange.data.dto.response.ProductDetailDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface DetailService {
+interface DeviceService {
     @GET("/api/v1/home/product/{id}")
     suspend fun getProductDetail(
         @Path("id") id: String,

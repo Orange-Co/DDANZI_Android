@@ -5,11 +5,13 @@ import co.orange.data.dataSource.DeviceDataSource
 import co.orange.data.dataSource.HomeDataSource
 import co.orange.data.dataSource.ProfileDataSource
 import co.orange.data.dataSource.SearchDataSource
+import co.orange.data.dataSource.SettingDataSource
 import co.orange.data.dataSourceImpl.AuthDataSourceImpl
 import co.orange.data.dataSourceImpl.DeviceDataSourceImpl
 import co.orange.data.dataSourceImpl.HomeDataSourceImpl
 import co.orange.data.dataSourceImpl.ProfileDataSourceImpl
 import co.orange.data.dataSourceImpl.SearchDataSourceImpl
+import co.orange.data.dataSourceImpl.SettingDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +43,5 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun providesSettingDataSource(searchDataSourceImpl: SearchDataSourceImpl): SearchDataSource = searchDataSourceImpl
+    fun providesSettingDataSource(settingDataSourceImpl: SettingDataSourceImpl): SettingDataSource = settingDataSourceImpl
 }

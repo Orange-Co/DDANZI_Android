@@ -29,11 +29,10 @@ object ServiceModule {
         @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
     ): HomeService = retrofit.create(HomeService::class.java)
 
-    // TODO
     @Provides
     @Singleton
     fun provideDetailService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.DEVICE retrofit: Retrofit,
     ): DeviceService = retrofit.create(DeviceService::class.java)
 
     @Provides

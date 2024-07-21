@@ -14,13 +14,12 @@ class DeviceTokenInterceptor
             val originalRequest = chain.request()
             val newRequest =
                 originalRequest.newBuilder()
-                    .header(AUTHORIZATION, "$BEARER ${sharedPref.deviceToken}")
+                    .header(DEVICE_TOKEN, sharedPref.deviceToken)
                     .build()
             return chain.proceed(newRequest)
         }
 
         companion object {
-            private const val BEARER = "Bearer"
-            private const val AUTHORIZATION = "Authorization"
+            private const val DEVICE_TOKEN = "devicetoken"
         }
     }

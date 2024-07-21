@@ -1,52 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+        <!-- jQuery -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <!-- iamport.payment.js -->
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    </head>
 
-</head>
+    <body>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                IMP.init("imp24882465");
 
-<body>
-
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        IMP.init("imp24882465");
-
-        IMP.certification(
-            {
-                // param
-                merchant_uid: "store-9b4ff43c-0f51-4a73-b6df-79624d3afe45",
-                m_redirect_url: "{리디렉션 될 URL}",
-                popup: false,
-            },
-            function (rsp) {
-                // callback
-                if (rsp.success) {
-                    // 인증 성공 시
-                    // jQuery로 HTTP 요청
-                    jQuery.ajax({
-                        url: "{서버의 인증 정보를 받는 endpoint}",
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        data: JSON.stringify({ imp_uid: rsp.imp_uid }), // JSON 문자열로 변환
-                        success: function(response) {
-                            // 성공 처리
-                        },
-                        error: function(xhr, status, error) {
-                            // 오류 처리
+                IMP.certification(
+                    {
+                        // param
+                        merchant_uid: "store-9b4ff43c-0f51-4a73-b6df-79624d3afe45",
+                        m_redirect_url: "{리디렉션 될 URL}",
+                        popup: false,
+                    },
+                    function (rsp) {
+                        if (rsp.success) {
+                            jQuery.ajax({
+                                url: "{서버의 인증 정보를 받는 endpoint}",
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                data: JSON.stringify({ imp_uid: rsp.imp_uid }),
+                                success: function(response) {
+                                    // 성공 처리
+                                },
+                                error: function(xhr, status, error) {
+                                    // 오류 처리
+                                }
+                            });
+                        } else {
+                            alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
                         }
-                    });
-                } else {
-                    alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-                }
-            }
-        );
-    });
-</script>
-</body>
+                    }
+                );
+            });
+        </script>
+    </body>
 </html>

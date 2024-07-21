@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.auth.signup.SignUpActivity
-import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityLoginBinding
@@ -19,7 +18,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
 
         initLoginBtnListener()
-        Iamport.init(this)
     }
 
     private fun initLoginBtnListener() {

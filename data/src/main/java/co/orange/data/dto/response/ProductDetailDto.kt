@@ -8,14 +8,20 @@ import kotlinx.serialization.Serializable
 data class ProductDetailDto(
     @SerialName("name")
     val name: String,
+    @SerialName("imgUrl")
+    val imgUrl: String,
     @SerialName("category")
     val category: String,
-    @SerialName("isOptionExist")
-    val isOptionExist: Boolean,
     @SerialName("isImminent")
     val isImminent: Boolean,
+    @SerialName("isOptionExist")
+    val isOptionExist: Boolean,
     @SerialName("discountRate")
     val discountRate: Int,
+    @SerialName("originPrice")
+    val originPrice: Int,
+    @SerialName("salePrice")
+    val salePrice: Int,
     @SerialName("stockCount")
     val stockCount: Int,
     @SerialName("infoUrl")
@@ -28,10 +34,13 @@ data class ProductDetailDto(
     fun toModel() =
         ProductDetailModel(
             name,
+            imgUrl,
             category,
-            isOptionExist,
             isImminent,
+            isOptionExist,
             discountRate,
+            originPrice,
+            salePrice,
             stockCount,
             infoUrl,
             interestCount,

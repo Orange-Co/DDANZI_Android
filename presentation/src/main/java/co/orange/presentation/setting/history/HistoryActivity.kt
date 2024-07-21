@@ -53,9 +53,6 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         DetailActivity.createIntent(
             this,
             item.productId,
-            item.imgUrl,
-            item.originPrice,
-            item.salePrice,
         )
             .apply { startActivity(this) }
     }

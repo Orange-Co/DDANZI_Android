@@ -19,9 +19,6 @@ class DetailViewModel
         private val deviceRepository: DeviceRepository,
     ) : ViewModel() {
         var productId: String = ""
-        var imageUrl: String = ""
-        var originPrice: Int = 0
-        var salePrice: Int = 0
 
         var infoUrl: String = ""
         var interestCount: Int = 0

@@ -1,4 +1,4 @@
-package co.orange.presentation.auth.signup
+package co.orange.presentation.auth.signup_x
 
 import android.os.Bundle
 import androidx.activity.viewModels

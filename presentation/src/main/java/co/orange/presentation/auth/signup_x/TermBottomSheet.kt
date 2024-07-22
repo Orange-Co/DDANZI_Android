@@ -1,4 +1,4 @@
-package co.orange.presentation.auth.signup
+package co.orange.presentation.auth.signup_x
 
 import android.content.Intent
 import android.os.Bundle

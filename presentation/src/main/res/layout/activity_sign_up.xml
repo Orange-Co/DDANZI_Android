@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="co.orange.presentation.auth.signup.SignUpViewModel" />
+            type="co.orange.presentation.auth.signup_x.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

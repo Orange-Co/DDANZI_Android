@@ -9,10 +9,10 @@ import co.orange.core.base.BaseActivity
 import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
-import kr.genti.presentation.databinding.ActivityPhoneBinding
+import kr.genti.presentation.databinding.ActivitySmsAuthBinding
 
 @AndroidEntryPoint
-class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone) {
+class SmsAuthActivity : BaseActivity<ActivitySmsAuthBinding>(R.layout.activity_sms_auth) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,12 +22,12 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
 
     private fun initWebView() {
         binding.webPhoneAuth.apply {
-//            addJavascriptInterface(
-//                SmsAuthFactory(
-//                    this@PhoneActivity,
-//                ),
-//                "AndroidBridge",
-//            )
+            addJavascriptInterface(
+                SmsAuthFactory(
+                    this@SmsAuthActivity,
+                ),
+                "AndroidBridge",
+            )
             settings.apply {
                 javaScriptEnabled = true
                 javaScriptCanOpenWindowsAutomatically = true

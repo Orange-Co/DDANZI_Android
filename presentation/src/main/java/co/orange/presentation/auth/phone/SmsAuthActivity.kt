@@ -26,7 +26,7 @@ class SmsAuthActivity : BaseActivity<ActivitySmsAuthBinding>(R.layout.activity_s
                 SmsAuthFactory(
                     this@SmsAuthActivity,
                 ),
-                "AndroidBridge",
+                ANDROID_BRIDGE,
             )
             settings.apply {
                 javaScriptEnabled = true
@@ -53,5 +53,9 @@ class SmsAuthActivity : BaseActivity<ActivitySmsAuthBinding>(R.layout.activity_s
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    companion object {
+        const val ANDROID_BRIDGE = "AndroidBridge"
     }
 }

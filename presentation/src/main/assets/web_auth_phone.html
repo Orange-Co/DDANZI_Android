@@ -17,7 +17,6 @@
 
                 IMP.certification(
                     {
-                        // param
                         merchant_uid: "MIIddanzi1",
                         m_redirect_url: "{리디렉션 될 URL}",
                         popup: false,
@@ -30,10 +29,10 @@
                                 headers: { "Content-Type": "application/json" },
                                 data: JSON.stringify({ imp_uid: rsp.imp_uid }),
                                 success: function(response) {
-                                   window.AndroidBridge.resultAuth('success');
+                                   window.AndroidBridge.resultAuth('success', rsp.imp_uid);
                                 },
                                 error: function(xhr, status, error) {
-                                    // 오류 처리
+                                     window.AndroidBridge.resultAuth('failure');
                                 }
                             });
                         } else {

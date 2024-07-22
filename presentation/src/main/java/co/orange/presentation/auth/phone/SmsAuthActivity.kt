@@ -38,8 +38,7 @@ class SmsAuthActivity : BaseActivity<ActivitySmsAuthBinding>(R.layout.activity_s
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
             scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
             isScrollbarFadingEnabled = true
-//            webChromeClient = myChromeClient()
-//            webViewClient = WebViewClientClass()
+            webViewClient = SmsAuthWebViewClient()
             loadUrl("file:///android_asset/web_auth_phone.html")
         }
     }
@@ -62,7 +61,7 @@ class SmsAuthActivity : BaseActivity<ActivitySmsAuthBinding>(R.layout.activity_s
 
         @JvmStatic
         fun createIntent(context: Context): Intent =
-            Intent(context, SmsAuthFactory::class.java).apply {
+            Intent(context, SmsAuthActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
     }

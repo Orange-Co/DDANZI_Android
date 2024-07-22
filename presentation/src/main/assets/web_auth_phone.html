@@ -24,20 +24,19 @@
             },
             function (rsp) {
                 if (rsp.success) {
-                    jQuery.ajax({
-                        url: "{서버의 인증 정보를 받는 endpoint}",
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        data: JSON.stringify({ imp_uid: rsp.imp_uid }),
-                        success: function(response) {
-                           window.AndroidBridge.resultAuth(true, rsp.imp_uid);
-                        },
-                        error: function(xhr, status, error) {
-                             window.AndroidBridge.resultAuth(false);
+                    $.ajax({
+                        type : 'POST',
+                        url : '/certifications/confirm',
+                        dataType : 'json',
+                        data : {
+                            imp_uid : rsp.imp_uid
                         }
-                    });
+                     }).done(function() {
+                       window.AndroidBridge.resultAuth(true, rsp.imp_uid);
+                     });
                 } else {
                     alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                    window.AndroidBridge.resultAuth(false);
                 }
             }
         );

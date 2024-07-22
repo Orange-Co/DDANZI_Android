@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- jQuery -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-        <!-- iamport.payment.js -->
-        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    </head>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript"
+            src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+</head>
 
-    <body>
-        <script type="text/javascript">
-            document.addEventListener("DOMContentLoaded", function() {
-                IMP.init("imp24882465");
+<body>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        IMP.init("imp24882465");
 
-                IMP.certification(
-                    {
-                        merchant_uid: "MIIddanzi1",
-                        m_redirect_url: "{리디렉션 될 URL}",
-                        popup: false,
-                    },
-                    function (rsp) {
-                        if (rsp.success) {
-                            jQuery.ajax({
-                                url: "{서버의 인증 정보를 받는 endpoint}",
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                data: JSON.stringify({ imp_uid: rsp.imp_uid }),
-                                success: function(response) {
-                                   window.AndroidBridge.resultAuth('success', rsp.imp_uid);
-                                },
-                                error: function(xhr, status, error) {
-                                     window.AndroidBridge.resultAuth('failure');
-                                }
-                            });
-                        } else {
-                            alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+        IMP.certification(
+            {
+                merchant_uid: "MIIddanzi1",
+                m_redirect_url: "{리디렉션 될 URL}",
+                popup: false,
+            },
+            function (rsp) {
+                if (rsp.success) {
+                    jQuery.ajax({
+                        url: "{서버의 인증 정보를 받는 endpoint}",
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        data: JSON.stringify({ imp_uid: rsp.imp_uid }),
+                        success: function(response) {
+                           window.AndroidBridge.resultAuth(true, rsp.imp_uid);
+                        },
+                        error: function(xhr, status, error) {
+                             window.AndroidBridge.resultAuth(false);
                         }
-                    }
-                );
-            });
-        </script>
-    </body>
+                    });
+                } else {
+                    alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                }
+            }
+        );
+    });
+</script>
+</body>
 </html>

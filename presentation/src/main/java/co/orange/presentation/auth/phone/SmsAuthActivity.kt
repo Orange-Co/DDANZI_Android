@@ -1,5 +1,7 @@
 package co.orange.presentation.auth.phone
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -57,5 +59,11 @@ class SmsAuthActivity : BaseActivity<ActivitySmsAuthBinding>(R.layout.activity_s
 
     companion object {
         const val ANDROID_BRIDGE = "AndroidBridge"
+
+        @JvmStatic
+        fun createIntent(context: Context): Intent =
+            Intent(context, SmsAuthFactory::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
     }
 }

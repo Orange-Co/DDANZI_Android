@@ -53,8 +53,7 @@ class SearchActivity :
         initRecentAdapter()
         initResultAdapter()
         setDebounceSearch()
-        setKeywordList()
-        setRecentList()
+        observeGetSearchViewInfoState()
         observeGetSearchResultState()
     }
 
@@ -129,12 +128,19 @@ class SearchActivity :
         }
     }
 
-    private fun setKeywordList() {
-        keywordAdapter.addList(viewModel.mockSearchModel.topSearchedList)
-    }
+    private fun observeGetSearchViewInfoState() {
+        viewModel.getSearchInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        keywordAdapter.addList(state.data.topSearchedList)
+                        recentAdapter.addList(state.data.recentlyViewedList)
+                    }
 
-    private fun setRecentList() {
-        recentAdapter.addList(viewModel.mockSearchModel.recentViewedList)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun observeGetSearchResultState() {

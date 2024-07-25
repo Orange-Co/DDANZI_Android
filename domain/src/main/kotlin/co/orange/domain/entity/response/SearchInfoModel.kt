@@ -1,6 +1,6 @@
 package co.orange.domain.entity.response
 
-data class SearchModel(
+data class SearchInfoModel(
     val topSearchedList: List<String>,
-    val recentViewedList: List<ProductModel>,
+    val recentlyViewedList: List<ProductModel>,
 )

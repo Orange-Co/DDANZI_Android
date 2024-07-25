@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductModel
-import co.orange.domain.entity.response.SearchModel
+import co.orange.domain.entity.response.SearchInfoModel
 import co.orange.domain.entity.response.SearchResultModel
 import co.orange.domain.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,8 +35,8 @@ class SearchViewModel
             }
         }
 
-        var mockSearchModel =
-            SearchModel(
+        var mockSearchInfoModel =
+            SearchInfoModel(
                 listOf("향수", "이승준", "곰인형", "성년의 날 선물", "멀티비타민"),
                 listOf(
                     ProductModel(

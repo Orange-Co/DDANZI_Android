@@ -130,11 +130,11 @@ class SearchActivity :
     }
 
     private fun setKeywordList() {
-        keywordAdapter.addList(viewModel.mockSearchModel.topSearchedList)
+        keywordAdapter.addList(viewModel.mockSearchInfoModel.topSearchedList)
     }
 
     private fun setRecentList() {
-        recentAdapter.addList(viewModel.mockSearchModel.recentViewedList)
+        recentAdapter.addList(viewModel.mockSearchInfoModel.recentlyViewedList)
     }
 
     private fun observeGetSearchResultState() {

@@ -12,5 +12,6 @@ interface DeviceService {
         @Path("id") id: String,
     ): BaseResponse<ProductDetailDto>
 
+    @GET("/api/v1/search")
     suspend fun getSearchInfo(): BaseResponse<SearchInfoDto>
 }

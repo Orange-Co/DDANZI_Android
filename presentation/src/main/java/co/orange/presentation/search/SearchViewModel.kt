@@ -3,9 +3,9 @@ package co.orange.presentation.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProductModel
 import co.orange.domain.entity.response.SearchInfoModel
 import co.orange.domain.entity.response.SearchResultModel
+import co.orange.domain.repository.DeviceRepository
 import co.orange.domain.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,9 +18,30 @@ class SearchViewModel
     @Inject
     constructor(
         private val searchRepository: SearchRepository,
+        private val deviceRepository: DeviceRepository,
     ) : ViewModel() {
+        private val _getSearchInfoState = MutableStateFlow<UiState<SearchInfoModel>>(UiState.Empty)
+        val getSearchInfoState: StateFlow<UiState<SearchInfoModel>> = _getSearchInfoState
+
         private val _getSearchResultState = MutableStateFlow<UiState<SearchResultModel>>(UiState.Empty)
         val getSearchResultState: StateFlow<UiState<SearchResultModel>> = _getSearchResultState
+
+        init {
+            getSearchInfoFromServer()
+        }
+
+        private fun getSearchInfoFromServer() {
+            _getSearchInfoState.value = UiState.Loading
+            viewModelScope.launch {
+                deviceRepository.getSearchInfo()
+                    .onSuccess {
+                        _getSearchInfoState.value = UiState.Success(it)
+                    }
+                    .onFailure {
+                        _getSearchInfoState.value = UiState.Failure(it.message.toString())
+                    }
+            }
+        }
 
         fun getSearchResultFromServer(keyword: String) {
             _getSearchResultState.value = UiState.Loading
@@ -34,29 +55,4 @@ class SearchViewModel
                     }
             }
         }
-
-        var mockSearchInfoModel =
-            SearchInfoModel(
-                listOf("향수", "이승준", "곰인형", "성년의 날 선물", "멀티비타민"),
-                listOf(
-                    ProductModel(
-                        "1",
-                        0,
-                        "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
-                        "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
-                        54000,
-                        48900,
-                        12,
-                    ),
-                    ProductModel(
-                        "2",
-                        0,
-                        "퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트",
-                        "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
-                        54000,
-                        48900,
-                        34,
-                    ),
-                ),
-            )
     }

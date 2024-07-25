@@ -72,6 +72,10 @@ object ThirdPartyDependencies {
     const val kakaoShare = "com.kakao.sdk:v2-share:${Versions.kakaoVersion}"
 }
 
+object JitpackDependencies {
+    const val iamport = "com.github.iamport:iamport-android:${Versions.iamportVersion}"
+}
+
 object ClassPathPlugins {
     const val gradle = "com.android.tools.build:gradle:${Versions.gradleVersion}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"

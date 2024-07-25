@@ -104,9 +104,6 @@ class SearchActivity :
         DetailActivity.createIntent(
             this,
             item.productId,
-            item.imgUrl,
-            item.originPrice,
-            item.salePrice,
         )
             .apply { startActivity(this) }
     }

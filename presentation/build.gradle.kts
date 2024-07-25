@@ -86,4 +86,8 @@ dependencies {
         implementation(circleIndicator)
         implementation(mlkit)
     }
+
+    JitpackDependencies.run {
+        implementation(iamport)
+    }
 }

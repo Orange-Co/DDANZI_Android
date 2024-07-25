@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript"
+            src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        IMP.init("imp24882465");
+
+        IMP.certification(
+            {
+                merchant_uid: "MIIddanzi1",
+                m_redirect_url: "{리디렉션 될 URL}",
+                popup: false,
+            },
+            function (rsp) {
+                if (rsp.success) {
+                    $.ajax({
+                        type : 'POST',
+                        url : '/certifications/confirm',
+                        dataType : 'json',
+                        data : {
+                            imp_uid : rsp.imp_uid
+                        }
+                     }).done(function() {
+                       window.AndroidBridge.resultAuth(true, rsp.imp_uid);
+                     });
+                } else {
+                    alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                    window.AndroidBridge.resultAuth(false);
+                }
+            }
+        );
+    });
+</script>
+</body>
+</html>

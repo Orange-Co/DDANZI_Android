@@ -1,4 +1,4 @@
-package co.orange.presentation.auth.signup
+package co.orange.presentation.auth.signup_x
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

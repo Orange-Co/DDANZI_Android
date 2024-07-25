@@ -92,9 +92,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         DetailActivity.createIntent(
             requireContext(),
             item.productId,
-            item.imgUrl,
-            item.originPrice,
-            item.salePrice,
         )
             .apply { startActivity(this) }
     }

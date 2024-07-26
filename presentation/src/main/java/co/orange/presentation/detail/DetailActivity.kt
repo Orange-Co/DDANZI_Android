@@ -42,7 +42,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         getIntentInfo()
         observeGetProductDetailState()
         observeLikeState()
-        observeLikeErrorState()
     }
 
     private fun initBackBtnListener() {
@@ -111,16 +110,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             if (isLiked) {
                 binding.btnLike.setImageResource(R.drawable.ic_like_yellow)
             } else {
-                binding.btnLike.setImageResource(R.drawable.ic_like_black_selected)
+                binding.btnLike.setImageResource(R.drawable.ic_like_black_unselected)
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun observeLikeErrorState() {
-        viewModel.likeErrorState.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isError ->
-                if (isError) toast(stringOf(R.string.error_msg))
-            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

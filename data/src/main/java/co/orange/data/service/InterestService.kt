@@ -9,11 +9,11 @@ import retrofit2.http.Path
 interface InterestService {
     @POST("/api/v1/interest/{productId}")
     suspend fun postInterest(
-        @Path("productId") productId: Long,
+        @Path("productId") productId: String,
     ): BaseResponse<InterestDto>
 
     @DELETE("/api/v1/interest/{productId}")
     suspend fun deleteInterest(
-        @Path("productId") productId: Long,
+        @Path("productId") productId: String,
     ): BaseResponse<InterestDto>
 }

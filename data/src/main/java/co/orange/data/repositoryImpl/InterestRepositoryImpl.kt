@@ -10,12 +10,12 @@ class InterestRepositoryImpl
     constructor(
         private val interestDataSource: InterestDataSource,
     ) : InterestRepository {
-        override suspend fun postInterest(productId: Long): Result<InterestModel> =
+        override suspend fun postInterest(productId: String): Result<InterestModel> =
             runCatching {
                 interestDataSource.postInterest(productId).data.toModel()
             }
 
-        override suspend fun deleteInterest(productId: Long): Result<InterestModel> =
+        override suspend fun deleteInterest(productId: String): Result<InterestModel> =
             runCatching {
                 interestDataSource.deleteInterest(productId).data.toModel()
             }

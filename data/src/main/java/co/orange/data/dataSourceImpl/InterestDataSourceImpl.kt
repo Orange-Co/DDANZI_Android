@@ -10,7 +10,7 @@ data class InterestDataSourceImpl
     constructor(
         private val interestDataSource: InterestDataSource,
     ) : InterestDataSource {
-        override suspend fun postInterest(productId: Long): BaseResponse<InterestDto> = interestDataSource.postInterest(productId)
+        override suspend fun postInterest(productId: String): BaseResponse<InterestDto> = interestDataSource.postInterest(productId)
 
-        override suspend fun deleteInterest(productId: Long): BaseResponse<InterestDto> = interestDataSource.deleteInterest(productId)
+        override suspend fun deleteInterest(productId: String): BaseResponse<InterestDto> = interestDataSource.deleteInterest(productId)
     }

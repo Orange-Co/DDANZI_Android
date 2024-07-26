@@ -18,8 +18,10 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
+import co.orange.presentation.buy.confirm.BuyConfirmActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
@@ -40,6 +42,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         initPurchaseBtnListener()
         getIntentInfo()
         observeGetProductDetailState()
+        observeLikeState()
     }
 
     private fun initBackBtnListener() {
@@ -56,14 +59,24 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun initLikeBtnListener() {
-        // TODO
-        binding.btnLike.setOnSingleClickListener { }
+        binding.btnLike.setOnSingleClickListener {
+            viewModel.setLikeStateWithServer()
+        }
     }
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            optionBottomSheet = OptionBottomSheet()
-            optionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)
+            if (viewModel.optionList.isEmpty()) {
+                BuyConfirmActivity.createIntent(
+                    this,
+                    viewModel.productId,
+                ).apply {
+                    startActivity(this)
+                }
+            } else {
+                optionBottomSheet = OptionBottomSheet()
+                optionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)
+            }
         }
     }
 
@@ -100,6 +113,17 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             }
             tvDetailNowPrice.text = item.salePrice.setNumberForm()
         }
+    }
+
+    private fun observeLikeState() {
+        viewModel.likeState.flowWithLifecycle(lifecycle).distinctUntilChanged().onEach { isLiked ->
+            if (isLiked) {
+                binding.btnLike.setImageResource(R.drawable.ic_like_yellow)
+            } else {
+                binding.btnLike.setImageResource(R.drawable.ic_like_black_unselected)
+            }
+            binding.tvDetailLike.text = viewModel.interestCount.setOverThousand()
+        }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

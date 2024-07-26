@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:src="@drawable/sel_item_like_black"
+                android:src="@drawable/ic_like_black_unselected"
                 app:layout_constraintBottom_toTopOf="@id/tv_option_like"
                 app:layout_constraintEnd_toEndOf="@id/tv_option_like"
                 app:layout_constraintStart_toStartOf="@id/tv_option_like"
@@ -135,7 +135,7 @@
                 style="@style/TextAppearance.DDanzi.Body3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="80dp"
                 android:layout_marginEnd="23dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/shape_black_fill_10_rect"
@@ -145,7 +145,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_like" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

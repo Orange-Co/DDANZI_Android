@@ -70,7 +70,7 @@
 
                     <TextView
                         android:id="@+id/chips_detail_category"
-                        style="@style/TextAppearance.DDanzi.Body3"
+                        style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_black_line_5_rect"
@@ -80,7 +80,7 @@
 
                     <TextView
                         android:id="@+id/chips_detail_option"
-                        style="@style/TextAppearance.DDanzi.Body3"
+                        style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
@@ -91,7 +91,7 @@
 
                     <TextView
                         android:id="@+id/chips_detail_imminent"
-                        style="@style/TextAppearance.DDanzi.Body3"
+                        style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
@@ -147,10 +147,10 @@
                     style="@style/TextAppearance.DDanzi.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="9dp"
                     android:textColor="@color/gray_2"
                     app:layout_constraintBottom_toBottomOf="@id/tv_detail_discount_rate"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_detail_now_price"
                     tools:text="@string/ex_item_real_price" />
 
                 <TextView
@@ -158,11 +158,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="9dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/font_pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="28sp"
-                    app:layout_constraintEnd_toStartOf="@id/tv_detail_real_price"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
                     tools:text="@string/ex_item_now_price" />
 
@@ -249,7 +249,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:src="@drawable/sel_item_like_black"
+            android:src="@drawable/ic_like_black_unselected"
             app:layout_constraintBottom_toTopOf="@id/tv_detail_like"
             app:layout_constraintEnd_toEndOf="@id/tv_detail_like"
             app:layout_constraintStart_toStartOf="@id/tv_detail_like"
@@ -261,7 +261,7 @@
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="80dp"
             android:layout_marginEnd="23dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/shape_black_fill_10_rect"
@@ -271,7 +271,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_like" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:id="@+id/border_detail"

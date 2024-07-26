@@ -3,12 +3,14 @@ package co.orange.ddanzi.di.module
 import co.orange.data.dataSource.AuthDataSource
 import co.orange.data.dataSource.DeviceDataSource
 import co.orange.data.dataSource.HomeDataSource
+import co.orange.data.dataSource.InterestDataSource
 import co.orange.data.dataSource.ProfileDataSource
 import co.orange.data.dataSource.SearchDataSource
 import co.orange.data.dataSource.SettingDataSource
 import co.orange.data.dataSourceImpl.AuthDataSourceImpl
 import co.orange.data.dataSourceImpl.DeviceDataSourceImpl
 import co.orange.data.dataSourceImpl.HomeDataSourceImpl
+import co.orange.data.dataSourceImpl.InterestDataSourceImpl
 import co.orange.data.dataSourceImpl.ProfileDataSourceImpl
 import co.orange.data.dataSourceImpl.SearchDataSourceImpl
 import co.orange.data.dataSourceImpl.SettingDataSourceImpl
@@ -44,4 +46,8 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun providesSettingDataSource(settingDataSourceImpl: SettingDataSourceImpl): SettingDataSource = settingDataSourceImpl
+
+    @Provides
+    @Singleton
+    fun providesInterestDataSource(interestDataSourceImpl: InterestDataSourceImpl): InterestDataSource = interestDataSourceImpl
 }

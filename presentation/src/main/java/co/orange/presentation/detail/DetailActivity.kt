@@ -112,6 +112,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             } else {
                 binding.btnLike.setImageResource(R.drawable.ic_like_black_unselected)
             }
+            binding.tvDetailLike.text = viewModel.interestCount.setOverThousand()
         }.launchIn(lifecycleScope)
     }
 

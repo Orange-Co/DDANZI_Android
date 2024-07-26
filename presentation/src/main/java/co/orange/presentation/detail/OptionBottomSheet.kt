@@ -102,6 +102,7 @@ class OptionBottomSheet :
             } else {
                 binding.btnLike.setImageResource(R.drawable.ic_like_black_unselected)
             }
+            binding.tvOptionLike.text = viewModel.interestCount.setOverThousand()
         }.launchIn(lifecycleScope)
     }
 }

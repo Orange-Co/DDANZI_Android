@@ -53,10 +53,16 @@ class DetailViewModel
             viewModelScope.launch {
                 if (likeState.value) {
                     interestRepository.deleteInterest(productId)
-                        .onSuccess { _likeState.value = false }
+                        .onSuccess {
+                            interestCount -= 1
+                            _likeState.value = false
+                        }
                 } else {
                     interestRepository.postInterest(productId)
-                        .onSuccess { _likeState.value = true }
+                        .onSuccess {
+                            interestCount += 1
+                            _likeState.value = true
+                        }
                 }
             }
         }

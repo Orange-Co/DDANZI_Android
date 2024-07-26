@@ -6,8 +6,11 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
 import co.orange.domain.entity.response.ProductOptionModel
 import co.orange.domain.repository.DeviceRepository
+import co.orange.domain.repository.InterestRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,6 +20,7 @@ class DetailViewModel
     @Inject
     constructor(
         private val deviceRepository: DeviceRepository,
+        private val interestRepository: InterestRepository,
     ) : ViewModel() {
         var productId: String = ""
 
@@ -27,6 +31,14 @@ class DetailViewModel
         private val _getProductDetailState =
             MutableStateFlow<UiState<ProductDetailModel>>(UiState.Empty)
         val getProductDetailState: StateFlow<UiState<ProductDetailModel>> = _getProductDetailState
+
+        private val _likeState =
+            MutableStateFlow<Boolean>(false)
+        val likeState: StateFlow<Boolean> = _likeState
+
+        private val _likeErrorState =
+            MutableSharedFlow<Boolean>()
+        val likeErrorState: SharedFlow<Boolean> = _likeState
 
         fun getProductDetailFromServer() {
             viewModelScope.launch {
@@ -40,6 +52,20 @@ class DetailViewModel
                     .onFailure {
                         _getProductDetailState.value = UiState.Failure(it.message.toString())
                     }
+            }
+        }
+
+        fun setLikeStateWithServer() {
+            viewModelScope.launch {
+                if (likeState.value) {
+                    interestRepository.deleteInterest(productId)
+                        .onSuccess { _likeState.value = false }
+                        .onFailure { _likeErrorState.emit(true) }
+                } else {
+                    interestRepository.postInterest(productId)
+                        .onSuccess { _likeState.value = false }
+                        .onFailure { _likeErrorState.emit(true) }
+                }
             }
         }
     }

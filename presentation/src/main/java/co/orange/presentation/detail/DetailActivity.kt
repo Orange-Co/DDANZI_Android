@@ -20,6 +20,7 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
@@ -40,6 +41,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         initPurchaseBtnListener()
         getIntentInfo()
         observeGetProductDetailState()
+        observeLikeState()
+        observeLikeErrorState()
     }
 
     private fun initBackBtnListener() {
@@ -56,8 +59,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun initLikeBtnListener() {
-        // TODO
-        binding.btnLike.setOnSingleClickListener { }
+        binding.btnLike.setOnSingleClickListener {
+            viewModel.setLikeStateWithServer()
+        }
     }
 
     private fun initPurchaseBtnListener() {
@@ -100,6 +104,23 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             }
             tvDetailNowPrice.text = item.salePrice.setNumberForm()
         }
+    }
+
+    private fun observeLikeState() {
+        viewModel.likeState.flowWithLifecycle(lifecycle).distinctUntilChanged().onEach { isLiked ->
+            if (isLiked) {
+                binding.btnLike.setImageResource(R.drawable.ic_like_yellow)
+            } else {
+                binding.btnLike.setImageResource(R.drawable.ic_like_black_selected)
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeLikeErrorState() {
+        viewModel.likeErrorState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isError ->
+                if (isError) toast(stringOf(R.string.error_msg))
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

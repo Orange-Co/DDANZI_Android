@@ -122,11 +122,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="co.orange.presentation.auth.phone.SmsAuthActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

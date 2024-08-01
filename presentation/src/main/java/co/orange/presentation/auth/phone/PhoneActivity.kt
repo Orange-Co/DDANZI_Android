@@ -1,13 +1,18 @@
 package co.orange.presentation.auth.phone
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.core.extension.toast
+import com.google.gson.GsonBuilder
+import com.iamport.sdk.data.sdk.IamPortCertification
+import com.iamport.sdk.data.sdk.IamPortResponse
+import com.iamport.sdk.domain.core.ICallbackPaymentResult
+import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityPhoneBinding
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone) {
@@ -19,30 +24,28 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
 
     private fun initAuthBtnListener() {
         binding.btnPhoneAuth.setOnSingleClickListener {
-            SmsAuthActivity.createIntent(this).apply {
-                startActivityForResult(this, SMS_AUTH_REQ_CODE)
-            }
+            Iamport.init(this)
+            val userCode = "imp24882465"
+            val certification =
+                IamPortCertification(
+                    merchant_uid = "MIIddanzi1",
+                    company = "유어포트",
+                )
+
+            Iamport.certification(
+                userCode,
+                iamPortCertification = certification,
+            ) { callBackListener.result(it) }
         }
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?,
-    ) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == SMS_AUTH_REQ_CODE) {
-            data?.let {
-                toast("${it.getStringExtra(EXTRA_IMP_UID)}")
+    private val callBackListener =
+        object : ICallbackPaymentResult {
+            override fun result(iamPortResponse: IamPortResponse?) {
+                val resJson = GsonBuilder().setPrettyPrinting().create().toJson(iamPortResponse)
+                Log.i("qqqq", "결제 결과 콜백\n$resJson")
+                var result = iamPortResponse
+                Timber.tag("qqqq").d(result.toString())
             }
         }
-    }
-
-    companion object {
-        const val SMS_AUTH_REQ_CODE = 202
-
-        const val EXTRA_IS_SUCCESS = "EXTRA_IS_SUCCESS"
-        const val EXTRA_IMP_UID = "EXTRA_IMP_UID"
-    }
 }

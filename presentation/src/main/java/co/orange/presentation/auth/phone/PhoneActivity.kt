@@ -23,18 +23,22 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
 
     private fun initAuthBtnListener() {
         binding.btnPhoneAuth.setOnSingleClickListener {
-            Iamport.certification(
-                userCode = IAMPORT_CODE,
-                iamPortCertification =
-                    IamPortCertification(
-                        merchant_uid = MERCHANT_UID,
-                        company = stringOf(R.string.company_name),
-                    ),
-            ) { response ->
-                // IamPortResponse(imp_success=null, success=true, imp_uid=imp_452864483577, merchant_uid=MIIddanzi1, error_msg=null, error_code=null)
-                if (response != null) {
-                    response.imp_uid
-                }
+            startIamportCertification()
+        }
+    }
+
+    private fun startIamportCertification() {
+        Iamport.certification(
+            userCode = IAMPORT_CODE,
+            iamPortCertification =
+                IamPortCertification(
+                    merchant_uid = MERCHANT_UID,
+                    company = stringOf(R.string.company_name),
+                ),
+        ) { response ->
+            // IamPortResponse(imp_success=null, success=true, imp_uid=imp_452864483577, merchant_uid=MIIddanzi1, error_msg=null, error_code=null)
+            if (response != null && response.success == true) {
+                response.imp_uid
             }
         }
     }

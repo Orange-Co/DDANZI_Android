@@ -85,6 +85,7 @@ dependencies {
         implementation(circularProgressBar)
         implementation(circleIndicator)
         implementation(mlkit)
+        implementation(gson)
     }
 
     JitpackDependencies.run {

@@ -20,8 +20,8 @@ android {
 
         buildConfigField(
             "String",
-            "USER_CODE",
-            gradleLocalProperties(rootDir).getProperty("user.code"),
+            "IAMPORT_CODE",
+            gradleLocalProperties(rootDir).getProperty("iamport.code"),
         )
 
         buildConfigField(
@@ -99,7 +99,6 @@ dependencies {
         implementation(circularProgressBar)
         implementation(circleIndicator)
         implementation(mlkit)
-        implementation(gson)
     }
 
     JitpackDependencies.run {

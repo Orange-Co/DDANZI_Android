@@ -1,6 +1,6 @@
 package co.orange.data.service
 
-import co.orange.data.dto.BaseResponse
+import co.orange.data.dto.IamportBaseResponse
 import co.orange.data.dto.request.IamportTokenRequestDto
 import co.orange.data.dto.response.IamportTokenDto
 import retrofit2.http.Body
@@ -10,5 +10,5 @@ interface IamportService {
     @POST("/users/getToken")
     suspend fun postToGetIamportToken(
         @Body request: IamportTokenRequestDto,
-    ): BaseResponse<IamportTokenDto>
+    ): IamportBaseResponse<IamportTokenDto>
 }

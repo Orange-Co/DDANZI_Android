@@ -14,6 +14,14 @@ import javax.inject.Singleton
 object OkHttpClientModule {
     @Provides
     @Singleton
+    @RetrofitQualifier.NOTOKEN
+    fun provideReissueOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+    @Provides
+    @Singleton
     @RetrofitQualifier.JWT
     fun provideJWTOkHttpClient(
         loggingInterceptor: Interceptor,
@@ -22,14 +30,6 @@ object OkHttpClientModule {
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(authInterceptor)
-            .build()
-
-    @Provides
-    @Singleton
-    @RetrofitQualifier.NOTOKEN
-    fun provideReissueOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
             .build()
 
     @Provides

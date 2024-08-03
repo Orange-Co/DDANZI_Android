@@ -1,26 +1,18 @@
 package co.orange.ddanzi.di.module
 
-import co.orange.core.extension.isJsonArray
-import co.orange.core.extension.isJsonObject
 import co.orange.ddanzi.BuildConfig.BASE_URL
-import co.orange.ddanzi.di.interceptor.AuthInterceptor
-import co.orange.ddanzi.di.interceptor.DeviceTokenInterceptor
-import co.orange.ddanzi.di.qualifier.RetrofitQualifier
+import co.orange.ddanzi.BuildConfig.IAMPORT_BASE_URL
+import co.orange.ddanzi.di.interceptor.RetrofitQualifier
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Converter
 import retrofit2.Retrofit
-import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -43,66 +35,25 @@ object RetrofitModule {
             APPLICATION_JSON.toMediaType(),
         )
 
-    @Provides
-    @Singleton
-    fun provideHttpLoggingInterceptor(): Interceptor =
-        HttpLoggingInterceptor { message ->
-            when {
-                message.isJsonObject() ->
-                    Timber.tag("okhttp").d(JSONObject(message).toString(4))
-
-                message.isJsonArray() ->
-                    Timber.tag("okhttp").d(JSONArray(message).toString(4))
-
-                else -> {
-                    Timber.tag("okhttp").d("CONNECTION INFO -> $message")
-                }
-            }
-        }.apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-    @Provides
-    @Singleton
-    @RetrofitQualifier.JWT
-    fun provideAuthInterceptor(authInterceptor: AuthInterceptor): Interceptor = authInterceptor
-
-    @Provides
-    @Singleton
-    @RetrofitQualifier.DEVICE
-    fun provideDeviceTokenInterceptor(deviceTokenInterceptor: DeviceTokenInterceptor): Interceptor = deviceTokenInterceptor
-
-    @Provides
-    @Singleton
-    @RetrofitQualifier.JWT
-    fun provideJWTOkHttpClient(
-        loggingInterceptor: Interceptor,
-        @RetrofitQualifier.JWT authInterceptor: Interceptor,
-    ): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(authInterceptor)
+    private fun createRetrofit(
+        client: OkHttpClient,
+        factory: Converter.Factory,
+        baseUrl: String,
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(factory)
             .build()
+    }
 
     @Provides
     @Singleton
     @RetrofitQualifier.NOTOKEN
-    fun provideReissueOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
-
-    @Provides
-    @Singleton
-    @RetrofitQualifier.DEVICE
-    fun provideDeviceOkHttpClient(
-        loggingInterceptor: Interceptor,
-        @RetrofitQualifier.DEVICE deviceTokenInterceptor: Interceptor,
-    ): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(deviceTokenInterceptor)
-            .build()
+    fun provideNoTokenRetrofit(
+        @RetrofitQualifier.NOTOKEN client: OkHttpClient,
+        factory: Converter.Factory,
+    ): Retrofit = createRetrofit(client, factory, BASE_URL)
 
     @Provides
     @Singleton
@@ -110,25 +61,7 @@ object RetrofitModule {
     fun provideJWTRetrofit(
         @RetrofitQualifier.JWT client: OkHttpClient,
         factory: Converter.Factory,
-    ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(factory)
-            .build()
-
-    @Provides
-    @Singleton
-    @RetrofitQualifier.NOTOKEN
-    fun provideReissueRetrofit(
-        @RetrofitQualifier.NOTOKEN client: OkHttpClient,
-        factory: Converter.Factory,
-    ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(factory)
-            .build()
+    ): Retrofit = createRetrofit(client, factory, BASE_URL)
 
     @Provides
     @Singleton
@@ -136,10 +69,13 @@ object RetrofitModule {
     fun provideDeviceRetrofit(
         @RetrofitQualifier.DEVICE client: OkHttpClient,
         factory: Converter.Factory,
-    ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(factory)
-            .build()
+    ): Retrofit = createRetrofit(client, factory, BASE_URL)
+
+    @Provides
+    @Singleton
+    @RetrofitQualifier.IAMPORT
+    fun provideIamportRetrofit(
+        @RetrofitQualifier.IAMPORT client: OkHttpClient,
+        factory: Converter.Factory,
+    ): Retrofit = createRetrofit(client, factory, IAMPORT_BASE_URL)
 }

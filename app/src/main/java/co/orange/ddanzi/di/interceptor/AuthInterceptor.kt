@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import co.orange.core.extension.toast
 import co.orange.data.local.UserSharedPref
-import co.orange.domain.entity.request.TokenRequestModel
+import co.orange.domain.entity.request.AuthTokenRequestModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.presentation.auth.login.LoginActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -44,7 +44,7 @@ class AuthInterceptor
                         runBlocking {
                             authRepository.postReissueTokens(
                                 sharedPref.refreshToken,
-                                TokenRequestModel(sharedPref.userId),
+                                AuthTokenRequestModel(sharedPref.userId),
                             )
                         }.onSuccess { data ->
                             sharedPref.apply {

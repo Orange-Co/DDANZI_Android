@@ -3,6 +3,7 @@ package co.orange.ddanzi.di.module
 import co.orange.data.repositoryImpl.AuthRepositoryImpl
 import co.orange.data.repositoryImpl.DeviceRepositoryImpl
 import co.orange.data.repositoryImpl.HomeRepositoryImpl
+import co.orange.data.repositoryImpl.IamportRepositoryImpl
 import co.orange.data.repositoryImpl.InterestRepositoryImpl
 import co.orange.data.repositoryImpl.ProfileRepositoryImpl
 import co.orange.data.repositoryImpl.SearchRepositoryImpl
@@ -10,6 +11,7 @@ import co.orange.data.repositoryImpl.SettingRepositoryImpl
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.DeviceRepository
 import co.orange.domain.repository.HomeRepository
+import co.orange.domain.repository.IamportRepository
 import co.orange.domain.repository.InterestRepository
 import co.orange.domain.repository.ProfileRepository
 import co.orange.domain.repository.SearchRepository
@@ -50,4 +52,8 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideInterestRepository(interestRepositoryImpl: InterestRepositoryImpl): InterestRepository = interestRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideIamportRepository(iamportRepositoryImpl: IamportRepositoryImpl): IamportRepository = iamportRepositoryImpl
 }

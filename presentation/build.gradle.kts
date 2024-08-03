@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -15,6 +17,18 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField(
+            "String",
+            "IAMPORT_CODE",
+            gradleLocalProperties(rootDir).getProperty("iamport.code"),
+        )
+
+        buildConfigField(
+            "String",
+            "MERCHANT_UID",
+            gradleLocalProperties(rootDir).getProperty("merchant.uid"),
+        )
     }
 
     compileOptions {

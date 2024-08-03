@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di.qualifier
+package co.orange.ddanzi.di.interceptor
 
 import javax.inject.Qualifier
 
@@ -14,4 +14,8 @@ object RetrofitQualifier {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class DEVICE
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class IAMPORT
 }

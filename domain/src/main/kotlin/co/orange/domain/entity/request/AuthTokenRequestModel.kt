@@ -1,5 +1,5 @@
 package co.orange.domain.entity.request
 
-data class TokenRequestModel(
+data class AuthTokenRequestModel(
     val userId: Long,
 )

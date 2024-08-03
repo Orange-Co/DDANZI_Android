@@ -29,6 +29,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
         Iamport.init(this)
         initAuthBtnListener()
         observeIamportTokenResult()
+        observeIamportCertificationResult()
     }
 
     private fun initAuthBtnListener() {
@@ -46,7 +47,6 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
                     company = stringOf(R.string.company_name),
                 ),
         ) { response ->
-            // IamPortResponse(imp_success=null, success=true, imp_uid=imp_452864483577, merchant_uid=MIIddanzi1, error_msg=null, error_code=null)
             if (response != null && response.success == true) {
                 with(viewModel) {
                     certificatedUid = response.imp_uid.toString()
@@ -58,6 +58,13 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
 
     private fun observeIamportTokenResult() {
         viewModel.getIamportTokenResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (!isSuccess) toast(stringOf(R.string.error_msg))
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeIamportCertificationResult() {
+        viewModel.getIamportCertificationResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
                 if (!isSuccess) toast(stringOf(R.string.error_msg))
             }.launchIn(lifecycleScope)

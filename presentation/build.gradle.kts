@@ -29,6 +29,18 @@ android {
             "MERCHANT_UID",
             gradleLocalProperties(rootDir).getProperty("merchant.uid"),
         )
+
+        buildConfigField(
+            "String",
+            "IAMPORT_API_KEY",
+            gradleLocalProperties(rootDir).getProperty("iamport.api.key"),
+        )
+
+        buildConfigField(
+            "String",
+            "IAMPORT_API_SECRET",
+            gradleLocalProperties(rootDir).getProperty("iamport.api.secret"),
+        )
     }
 
     compileOptions {

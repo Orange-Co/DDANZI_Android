@@ -7,7 +7,7 @@ import co.orange.data.service.InterestService
 import co.orange.data.service.ProfileService
 import co.orange.data.service.SearchService
 import co.orange.data.service.SettingService
-import co.orange.ddanzi.di.qualifier.RetrofitQualifier
+import co.orange.ddanzi.di.interceptor.RetrofitQualifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

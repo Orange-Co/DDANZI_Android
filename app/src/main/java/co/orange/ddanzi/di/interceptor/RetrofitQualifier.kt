@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di.qualifier
+package co.orange.ddanzi.di.interceptor
 
 import javax.inject.Qualifier
 

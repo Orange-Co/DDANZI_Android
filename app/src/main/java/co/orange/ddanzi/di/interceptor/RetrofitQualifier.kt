@@ -14,4 +14,8 @@ object RetrofitQualifier {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class DEVICE
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class IAMPORT
 }

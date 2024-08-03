@@ -1,6 +1,7 @@
 package co.orange.ddanzi.di.module
 
 import co.orange.ddanzi.BuildConfig.BASE_URL
+import co.orange.ddanzi.BuildConfig.IAMPORT_BASE_URL
 import co.orange.ddanzi.di.interceptor.RetrofitQualifier
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -37,9 +38,10 @@ object RetrofitModule {
     private fun createRetrofit(
         client: OkHttpClient,
         factory: Converter.Factory,
+        baseUrl: String,
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(factory)
             .build()
@@ -48,10 +50,10 @@ object RetrofitModule {
     @Provides
     @Singleton
     @RetrofitQualifier.NOTOKEN
-    fun provideReissueRetrofit(
+    fun provideNoTokenRetrofit(
         @RetrofitQualifier.NOTOKEN client: OkHttpClient,
         factory: Converter.Factory,
-    ): Retrofit = createRetrofit(client, factory)
+    ): Retrofit = createRetrofit(client, factory, BASE_URL)
 
     @Provides
     @Singleton
@@ -59,7 +61,7 @@ object RetrofitModule {
     fun provideJWTRetrofit(
         @RetrofitQualifier.JWT client: OkHttpClient,
         factory: Converter.Factory,
-    ): Retrofit = createRetrofit(client, factory)
+    ): Retrofit = createRetrofit(client, factory, BASE_URL)
 
     @Provides
     @Singleton
@@ -67,5 +69,13 @@ object RetrofitModule {
     fun provideDeviceRetrofit(
         @RetrofitQualifier.DEVICE client: OkHttpClient,
         factory: Converter.Factory,
-    ): Retrofit = createRetrofit(client, factory)
+    ): Retrofit = createRetrofit(client, factory, BASE_URL)
+
+    @Provides
+    @Singleton
+    @RetrofitQualifier.IAMPORT
+    fun provideIamportRetrofit(
+        @RetrofitQualifier.IAMPORT client: OkHttpClient,
+        factory: Converter.Factory,
+    ): Retrofit = createRetrofit(client, factory, IAMPORT_BASE_URL)
 }

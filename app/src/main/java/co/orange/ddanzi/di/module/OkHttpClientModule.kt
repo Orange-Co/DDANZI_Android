@@ -15,7 +15,7 @@ object OkHttpClientModule {
     @Provides
     @Singleton
     @RetrofitQualifier.NOTOKEN
-    fun provideReissueOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient =
+    fun provideNoTokenOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
@@ -42,5 +42,13 @@ object OkHttpClientModule {
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(deviceTokenInterceptor)
+            .build()
+
+    @Provides
+    @Singleton
+    @RetrofitQualifier.IAMPORT
+    fun provideIamportOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
             .build()
 }

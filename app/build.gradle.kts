@@ -27,6 +27,12 @@ android {
             "BASE_URL",
             gradleLocalProperties(rootDir).getProperty("base.url"),
         )
+
+        buildConfigField(
+            "String",
+            "IAMPORT_BASE_URL",
+            gradleLocalProperties(rootDir).getProperty("iamport.base.url"),
+        )
     }
 
     buildTypes {

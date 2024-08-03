@@ -16,8 +16,8 @@ data class IamportDataSourceImpl
         override suspend fun postToGetIamportToken(request: IamportTokenRequestDto): IamportBaseResponse<IamportTokenDto?> =
             iamportService.postToGetIamportToken(request)
 
-        override suspend fun postToGetCertificationData(
+        override suspend fun getIamportCertificationData(
             authorization: String,
             impUid: String,
-        ): IamportBaseResponse<IamportCertificationDto?> = iamportService.postToGetCertificationData(authorization, impUid)
+        ): IamportBaseResponse<IamportCertificationDto?> = iamportService.getIamportCertificationData(authorization, impUid)
     }

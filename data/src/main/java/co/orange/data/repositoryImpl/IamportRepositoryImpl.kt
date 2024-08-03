@@ -24,12 +24,12 @@ class IamportRepositoryImpl
                 ).response?.toModel()
             }
 
-        override suspend fun postToGetCertificationData(
+        override suspend fun getIamportCertificationData(
             authorization: String,
             impUid: String,
         ): Result<IamportCertificationModel?> =
             runCatching {
-                iamportDataSource.postToGetCertificationData(
+                iamportDataSource.getIamportCertificationData(
                     "$BEARER $authorization",
                     impUid,
                 ).response?.toModel()

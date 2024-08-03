@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +28,7 @@ class PhoneViewModel
                 iamportRepository.postToGetIamportToken()
                     .onSuccess {
                         if (it?.accessToken != null && certificatedUid.isNotBlank()) {
-                            postToGetCertificationDataFromServer(it.accessToken)
+                            getCertificationDataFromServer(it.accessToken)
                         } else {
                             _getIamportTokenResult.emit(false)
                         }
@@ -40,13 +39,16 @@ class PhoneViewModel
             }
         }
 
-        private fun postToGetCertificationDataFromServer(accessToken: String) {
+        private fun getCertificationDataFromServer(accessToken: String) {
             viewModelScope.launch {
-                iamportRepository.postToGetCertificationData(accessToken, certificatedUid)
+                iamportRepository.getIamportCertificationData(accessToken, certificatedUid)
                     .onSuccess {
                         if (it != null) {
-                            Timber.tag("okhttp").d(it.toString())
                             _getIamportCertificationResult.emit(true)
+                            val name = it.name // "김상호" 형태
+                            val phone = it.phone // "01032590327" 형태
+                            val birth = it.birthday // "2000-03-27" 형태
+                            val sex = it.gender // "male" 형태
                         } else {
                             _getIamportCertificationResult.emit(false)
                         }

@@ -16,6 +16,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
 
         initBackBtnListener()
+        initAddBtnListener()
         initModBtnListener()
         initDeleteBtnListener()
         setDeliveryUi(viewModel.mockAddressModel)
@@ -23,6 +24,10 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initAddBtnListener() {
+        binding.btnAddDelivery.setOnSingleClickListener { }
     }
 
     private fun initModBtnListener() {

@@ -122,6 +122,16 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity android:name="co.orange.presentation.setting.delivery.AddressActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="co.orange.presentation.setting.delivery.ADDRESS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -100,6 +100,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
                 }
         private var action: ((Bundle) -> Unit)? = null
 
+        @JvmStatic
         fun open(onComplete: (Bundle) -> Unit) {
             action = onComplete
             launcher?.launch(Bundle())

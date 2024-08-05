@@ -5,12 +5,12 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.toast
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.presentation.setting.delivery.AddressBridge.Companion.ADDRESS
 import co.orange.presentation.setting.delivery.AddressBridge.Companion.ZIPCODE
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDeliveryBinding
-import timber.log.Timber
 
 class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity_delivery) {
     val viewModel by viewModels<DeliveryViewModel>()
@@ -25,6 +25,11 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         setDeliveryUi(viewModel.mockAddressModel)
     }
 
+    override fun onStart() {
+        super.onStart()
+        AddressActivity.register(this)
+    }
+
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
     }
@@ -34,8 +39,9 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
             AddressActivity.open { bundle ->
                 val zipCode = bundle.getString(ZIPCODE)
                 val address = bundle.getString(ADDRESS)
-
-                Timber.tag("qqqq").d("주소: [$zipCode] $address")
+                if (zipCode?.isNotEmpty() == true && address?.isNotEmpty() == true) {
+                    toast("주소: [$zipCode] $address")
+                }
             }
         }
     }
@@ -61,5 +67,10 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
                 ).breakLines()
             tvDeliveryPhone.text = item.phone
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AddressActivity.unregister()
     }
 }

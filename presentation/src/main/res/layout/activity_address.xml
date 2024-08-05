@@ -8,10 +8,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
+        android:paddingTop="20dp"
         android:layout_height="match_parent">
 
         <WebView
-            android:id="@+id/web_phone_auth"
+            android:id="@+id/web_daum_address"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

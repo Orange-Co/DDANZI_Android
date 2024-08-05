@@ -23,6 +23,8 @@ object AndroidXDependencies {
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigationVersion}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigationVersion}"
 
+    const val webkit = "androidx.webkit:webkit:${Versions.webkitVersion}"
+
     const val lifeCycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleVersion}"
     const val lifecycleJava8 =
         "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleVersion}"

@@ -65,6 +65,7 @@ dependencies {
         implementation(fragment)
         implementation(navigationFragment)
         implementation(navigationUi)
+        implementation(webkit)
         implementation(startup)
         implementation(legacy)
         implementation(security)

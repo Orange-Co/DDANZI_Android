@@ -67,6 +67,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
             request: WebResourceRequest?,
         ): WebResourceResponse? = request?.url?.let { assetLoader.shouldInterceptRequest(it) }
 
+        @Deprecated("Deprecated in Java")
         override fun shouldInterceptRequest(
             view: WebView?,
             url: String?,

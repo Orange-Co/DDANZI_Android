@@ -21,26 +21,6 @@ import kr.genti.presentation.databinding.ActivityAddressBinding
 
 @AndroidEntryPoint
 class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_address) {
-    private var launcher: ActivityResultLauncher<Bundle>? = null
-    private val contract: ActivityResultContract<Bundle, Bundle>
-        get() =
-            object : ActivityResultContract<Bundle, Bundle>() {
-                override fun createIntent(
-                    context: Context,
-                    input: Bundle,
-                ): Intent = Intent("co.orange.presentation.setting.delivery.ADDRESS")
-
-                override fun parseResult(
-                    resultCode: Int,
-                    intent: Intent?,
-                ): Bundle =
-                    when (resultCode) {
-                        RESULT_CANCELED -> Bundle.EMPTY
-                        else -> intent?.extras ?: Bundle.EMPTY
-                    }
-            }
-    private var action: ((Bundle) -> Unit)? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -80,20 +60,6 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         }
     }
 
-    fun open(onComplete: (Bundle) -> Unit) {
-        action = onComplete
-        launcher?.launch(Bundle())
-    }
-
-    fun register(activity: ComponentActivity) {
-        launcher = activity.registerForActivityResult(contract) { b -> action?.invoke(b) }
-    }
-
-    fun unregister() {
-        action = null
-        launcher = null
-    }
-
     private class FileWebViewClient(private val assetLoader: WebViewAssetLoader) :
         WebViewClientCompat() {
         override fun shouldInterceptRequest(
@@ -111,5 +77,46 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         private const val ADDRESS_BRIDGE = "address_bridge"
         private const val DOMAIN = "address.finder.com"
         private const val PATH = "assets"
+        private const val ACTION_ADDRESS_ACTIVITY =
+            "co.orange.presentation.setting.delivery.ADDRESS"
+
+        private var launcher: ActivityResultLauncher<Bundle>? = null
+        private val contract: ActivityResultContract<Bundle, Bundle>
+            get() =
+                object : ActivityResultContract<Bundle, Bundle>() {
+                    override fun createIntent(
+                        context: Context,
+                        input: Bundle,
+                    ): Intent = Intent(ACTION_ADDRESS_ACTIVITY)
+
+                    override fun parseResult(
+                        resultCode: Int,
+                        intent: Intent?,
+                    ): Bundle =
+                        when (resultCode) {
+                            RESULT_CANCELED -> Bundle.EMPTY
+                            else -> intent?.extras ?: Bundle.EMPTY
+                        }
+                }
+        private var action: ((Bundle) -> Unit)? = null
+
+        fun open(onComplete: (Bundle) -> Unit) {
+            action = onComplete
+            launcher?.launch(Bundle())
+        }
+
+        @JvmStatic
+        fun register(activity: ComponentActivity) {
+            launcher =
+                activity.registerForActivityResult(contract) { bundle ->
+                    action?.invoke(bundle)
+                }
+        }
+
+        @JvmStatic
+        fun unregister() {
+            action = null
+            launcher = null
+        }
     }
 }

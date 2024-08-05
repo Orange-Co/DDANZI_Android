@@ -2,10 +2,18 @@ package co.orange.presentation.setting.delivery
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebSettings
+import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.webkit.WebViewAssetLoader
+import androidx.webkit.WebViewClientCompat
 import co.orange.core.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
@@ -20,7 +28,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
                 override fun createIntent(
                     context: Context,
                     input: Bundle,
-                ): Intent = Intent("co.orange.presentation.setting.delivery.FINDER")
+                ): Intent = Intent("co.orange.presentation.setting.delivery.ADDRESS")
 
                 override fun parseResult(
                     resultCode: Int,
@@ -37,18 +45,38 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         super.onCreate(savedInstanceState)
 
         setWebView()
+        loadWebView()
     }
 
     private fun setWebView() {
         binding.webDaumAddress.apply {
             with(settings) {
                 javaScriptEnabled = true
-                allowFileAccessFromFileURLs = false
-                allowUniversalAccessFromFileURLs = false
+                javaScriptCanOpenWindowsAutomatically = true
+                cacheMode = WebSettings.LOAD_NO_CACHE
                 allowFileAccess = false
                 allowContentAccess = false
             }
-            // addJavascriptInterface(JavascriptInterface(this@AddressFinder), JS_BRIDGE)
+            setLayerType(View.LAYER_TYPE_HARDWARE, null)
+            scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
+            isScrollbarFadingEnabled = true
+            addJavascriptInterface(AddressBridge(this@AddressActivity), ADDRESS_BRIDGE)
+        }
+    }
+
+    private fun loadWebView() {
+        with(binding.webDaumAddress) {
+            webViewClient =
+                FileWebViewClient(
+                    WebViewAssetLoader.Builder()
+                        .addPathHandler(
+                            "/$PATH/",
+                            WebViewAssetLoader.AssetsPathHandler(this@AddressActivity),
+                        )
+                        .setDomain(DOMAIN)
+                        .build(),
+                )
+            loadUrl("https://$DOMAIN/$PATH/web_daum_address.html")
         }
     }
 
@@ -66,12 +94,22 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         launcher = null
     }
 
-    companion object {
-        private const val JS_BRIDGE = "address_finder"
-        private const val DOMAIN = "address.finder.net" // 로컬 가상 도메인
-        private const val PATH = "assets"
+    private class FileWebViewClient(private val assetLoader: WebViewAssetLoader) :
+        WebViewClientCompat() {
+        override fun shouldInterceptRequest(
+            view: WebView?,
+            request: WebResourceRequest?,
+        ): WebResourceResponse? = request?.url?.let { assetLoader.shouldInterceptRequest(it) }
 
-        const val ADDRESS = "address"
-        const val ZIPCODE = "zipcode"
+        override fun shouldInterceptRequest(
+            view: WebView?,
+            url: String?,
+        ): WebResourceResponse? = assetLoader.shouldInterceptRequest(Uri.parse(url))
+    }
+
+    companion object {
+        private const val ADDRESS_BRIDGE = "address_bridge"
+        private const val DOMAIN = "address.finder.com"
+        private const val PATH = "assets"
     }
 }

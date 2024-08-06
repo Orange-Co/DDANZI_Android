@@ -1,11 +1,11 @@
-package co.orange.presentation.setting.delivery
+package co.orange.presentation.address
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.webkit.JavascriptInterface
 
-class AddressBridge(private val activity: Activity) {
+class AddressWebBridge(private val activity: Activity) {
     @JavascriptInterface
     fun result(
         address: String,

@@ -122,7 +122,13 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <activity android:name="co.orange.presentation.address.AddressWebActivity"
+        <activity
+            android:name="co.orange.presentation.address.AddressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="co.orange.presentation.address.AddressWebActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="co.orange.presentation.address.ADDRESS" />

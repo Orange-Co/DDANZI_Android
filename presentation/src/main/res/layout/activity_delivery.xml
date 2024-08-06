@@ -123,7 +123,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/btn_add_delivery"
+            android:id="@+id/btn_delivery_add"
             style="@style/TextAppearance.DDanzi.Title3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

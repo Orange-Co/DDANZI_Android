@@ -23,19 +23,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_delivery_info_title"
+            android:id="@+id/tv_address_title"
             style="@style/TextAppearance.DDanzi.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:text="배송지 등록"
+            android:text="@string/address_tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
 
         <View
-            android:id="@+id/border_delivery_info"
+            android:id="@+id/border_address"
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginHorizontal="20dp"
@@ -43,7 +43,185 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_delivery_info_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_address_title" />
+
+        <TextView
+            android:id="@+id/tv_address_zipcode_title"
+            style="@style/TextAppearance.DDanzi.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="21dp"
+            android:text="@string/address_tv_zipcode_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/border_address" />
+
+        <TextView
+            android:id="@+id/tv_address_zipcode"
+            style="@style/TextAppearance.DDanzi.Body4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_address_zipcode_title"
+            tools:text="01234" />
+
+        <View
+            android:id="@+id/border_address_zipcode"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_address_zipcode" />
+
+        <TextView
+            android:id="@+id/btn_find_zipcode"
+            style="@style/TextAppearance.DDanzi.Body6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_gray4_line_100_rect"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="4dp"
+            android:text="@string/address_btn_find_address"
+            android:textColor="@color/gray_4"
+            app:layout_constraintBottom_toTopOf="@id/border_address_zipcode"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_find_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/border_address_zipcode">
+
+            <TextView
+                android:id="@+id/tv_address_delivery_title"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/address_tv_delivery_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_address_delivery"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="1dp"
+                android:text="@string/address_tv_address_hint"
+                android:textColor="@color/gray_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_delivery_title" />
+
+            <View
+                android:id="@+id/border_address_delivery"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_delivery" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_find_address">
+
+            <TextView
+                android:id="@+id/tv_address_delivery_plus_title"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/address_tv_address_plus_title" />
+
+            <EditText
+                android:id="@+id/et_address_delivery_plus"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/transparent"
+                android:hint="@string/address_tv_address_plus_hint"
+                android:paddingStart="2dp"
+                android:textColorHint="@color/gray_2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_address_name_title"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/setting_tv_info_name" />
+
+            <TextView
+                android:id="@+id/tv_address_name"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="1dp"
+                tools:text="김상호" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_address_phone_title"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/setting_tv_info_phone" />
+
+            <TextView
+                android:id="@+id/tv_address_phone"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="2dp"
+                tools:text="010-1234-5678" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/black" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

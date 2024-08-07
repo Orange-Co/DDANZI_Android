@@ -25,6 +25,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
 
         binding.vm = viewModel
         initBackBtnListener()
+        initConfirmBtnListener()
         initAddressFindBtnListener()
     }
 

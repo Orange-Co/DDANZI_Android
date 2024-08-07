@@ -35,6 +35,12 @@ class AddressViewModel
 
         fun checkIsCompleted() {
             isCompleted.value =
-                (zipCode.isNotEmpty() && address.isNotEmpty() && detailAddress.value != null && name.value != null && phone.value != null)
+                (
+                    zipCode.isNotEmpty() &&
+                        address.isNotEmpty() &&
+                        detailAddress.value?.isNotEmpty() == true &&
+                        name.value?.isNotEmpty() == true &&
+                        phone.value?.length == 11
+                )
         }
     }

@@ -27,8 +27,16 @@ class UserRepositoryImpl
             userSharedPref.deviceToken = deviceToken
         }
 
-        override fun setUserId(userId: Long) {
-            userSharedPref.userId = userId
+        override fun getUserName(): String = userSharedPref.userName
+
+        override fun getUserPhone(): String = userSharedPref.userPhone
+
+        override fun setUserInfo(
+            userName: String,
+            userPhone: String,
+        ) {
+            userSharedPref.userName = userName
+            userSharedPref.userPhone = userPhone
         }
 
         override fun clearInfo() {

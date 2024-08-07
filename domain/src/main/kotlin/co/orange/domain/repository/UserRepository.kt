@@ -14,7 +14,14 @@ interface UserRepository {
 
     fun setDeviceToken(deviceToken: String)
 
-    fun setUserId(userId: Long)
+    fun getUserName(): String
+
+    fun getUserPhone(): String
+
+    fun setUserInfo(
+        userName: String,
+        userPhone: String,
+    )
 
     fun clearInfo()
 }

@@ -4,7 +4,8 @@ interface UserSharedPref {
     var accessToken: String
     var refreshToken: String
     var deviceToken: String
-    var userId: Long
+    var userName: String
+    var userPhone: String
 
     fun clearInfo()
 }

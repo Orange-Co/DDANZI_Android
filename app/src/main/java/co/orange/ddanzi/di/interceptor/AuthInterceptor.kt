@@ -44,13 +44,12 @@ class AuthInterceptor
                         runBlocking {
                             authRepository.postReissueTokens(
                                 sharedPref.refreshToken,
-                                AuthTokenRequestModel(sharedPref.userId),
+                                AuthTokenRequestModel(0),
                             )
                         }.onSuccess { data ->
                             sharedPref.apply {
                                 accessToken = data.accessToken
                                 refreshToken = data.refreshToken
-                                userId = data.userId
                             }
 
                             response.close()

@@ -22,3 +22,11 @@ fun String.getGraphemeLength(): Int {
 fun String.breakLines(): String {
     return this.replace(" ", "\u00A0")
 }
+
+fun String.toPhoneFrom(): String? {
+    return if (this.length == 11) {
+        "${this.substring(0, 3)}-${this.substring(3, 7)}-${this.substring(7)}"
+    } else {
+        null
+    }
+}

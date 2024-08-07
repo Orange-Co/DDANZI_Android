@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.delivery
+package co.orange.presentation.address
 
 import android.content.Context
 import android.content.Intent
@@ -17,10 +17,10 @@ import androidx.webkit.WebViewClientCompat
 import co.orange.core.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
-import kr.genti.presentation.databinding.ActivityAddressBinding
+import kr.genti.presentation.databinding.ActivityAddressWebBinding
 
 @AndroidEntryPoint
-class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_address) {
+class AddressWebActivity : BaseActivity<ActivityAddressWebBinding>(R.layout.activity_address_web) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,7 +40,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
             scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
             isScrollbarFadingEnabled = true
-            addJavascriptInterface(AddressBridge(this@AddressActivity), ADDRESS_BRIDGE)
+            addJavascriptInterface(AddressWebBridge(this@AddressWebActivity), ADDRESS_BRIDGE)
         }
     }
 
@@ -51,7 +51,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
                     WebViewAssetLoader.Builder()
                         .addPathHandler(
                             "/$PATH/",
-                            WebViewAssetLoader.AssetsPathHandler(this@AddressActivity),
+                            WebViewAssetLoader.AssetsPathHandler(this@AddressWebActivity),
                         )
                         .setDomain(DOMAIN)
                         .build(),
@@ -76,10 +76,9 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
 
     companion object {
         private const val ADDRESS_BRIDGE = "address_bridge"
-        private const val DOMAIN = "address.finder.com"
+        private const val DOMAIN = "ddanzi.address.com"
         private const val PATH = "assets"
-        private const val ACTION_ADDRESS_ACTIVITY =
-            "co.orange.presentation.setting.delivery.ADDRESS"
+        private const val ACTION_ADDRESS_ACTIVITY = "co.orange.presentation.address.ADDRESS"
 
         private var launcher: ActivityResultLauncher<Bundle>? = null
         private val contract: ActivityResultContract<Bundle, Bundle>

@@ -101,6 +101,17 @@
     <string name="setting_btn_quit">회원 탈퇴</string>
     <string name="setting_btn_add">+ 등록</string>
 
+    <string name="address_tv_title">배송지 등록</string>
+    <string name="address_tv_zipcode_title">우편번호</string>
+    <string name="address_btn_find_address">우편번호 찾기</string>
+    <string name="address_tv_delivery_title">주소지</string>
+    <string name="address_tv_address_hint">주소지를 입력해주세요</string>
+    <string name="address_tv_address_plus_title">상세주소</string>
+    <string name="address_tv_address_plus_hint">상세주소를 입력해주세요</string>
+    <string name="address_tv_name_hint">이름를 입력해주세요</string>
+    <string name="address_tv_phone_hint">휴대폰 번호를 입력해주세요</string>
+    <string name="address_btn_confirm">입력 완료</string>
+
     <string name="btn_mod">수정</string>
     <string name="btn_delete">삭제</string>
 
@@ -179,6 +190,5 @@
     <string name="profile_history_sell_title">판매 목록</string>
     <string name="profile_history_interest_title">내 관심</string>
     <string name="profile_history_count">총 %d건</string>
-
 
 </resources>

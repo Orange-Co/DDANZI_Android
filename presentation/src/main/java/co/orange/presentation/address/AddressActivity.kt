@@ -25,6 +25,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
 
         initBackBtnListener()
         initAddressFindBtnListener()
+        setUserInfo()
     }
 
     private fun initBackBtnListener() {
@@ -56,6 +57,13 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
             tvAddressZipcode.text = resultZipCode
             tvAddressDelivery.text = resultAddress
             tvAddressDelivery.setTextColor(colorOf(R.color.gray_3))
+        }
+    }
+
+    private fun setUserInfo() {
+        with(binding) {
+            etAddressName.setText(viewModel.getUserName())
+            etAddressPhone.setText(viewModel.getUserPhone())
         }
     }
 

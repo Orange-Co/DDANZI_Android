@@ -186,14 +186,16 @@
                 android:text="@string/setting_tv_info_name" />
 
             <EditText
-                android:id="@+id/tv_address_name"
+                android:id="@+id/et_address_name"
                 style="@style/TextAppearance.DDanzi.Body4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/transparent"
+                android:hint="@string/address_tv_name_hint"
                 android:paddingStart="1dp"
                 android:textColor="@color/gray_3"
+                android:textColorHint="@color/gray_2"
                 tools:text="김상호" />
 
             <View
@@ -211,14 +213,16 @@
                 android:text="@string/setting_tv_info_phone" />
 
             <EditText
-                android:id="@+id/tv_address_phone"
+                android:id="@+id/et_address_phone"
                 style="@style/TextAppearance.DDanzi.Body4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/transparent"
+                android:hint="@string/address_tv_phone_hint"
                 android:paddingStart="2dp"
                 android:textColor="@color/gray_3"
+                android:textColorHint="@color/gray_2"
                 tools:text="010-1234-5678" />
 
             <View

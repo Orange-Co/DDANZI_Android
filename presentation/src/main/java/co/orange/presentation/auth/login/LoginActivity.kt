@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.auth.signup_x.SignUpActivity
+import co.orange.presentation.auth.phone.PhoneActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityLoginBinding
@@ -22,7 +22,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun initLoginBtnListener() {
         binding.btnLoginKakao.setOnSingleClickListener {
-            Intent(this, SignUpActivity::class.java).apply {
+            Intent(this, PhoneActivity::class.java).apply {
                 startActivity(this)
             }
             finish()

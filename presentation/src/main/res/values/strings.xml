@@ -187,5 +187,7 @@
     <string name="address_tv_address_hint">주소지를 입력해주세요</string>
     <string name="address_tv_address_plus_title">상세주소</string>
     <string name="address_tv_address_plus_hint">상세주소를 입력해주세요</string>
+    <string name="address_tv_name_hint">이름를 입력해주세요</string>
+    <string name="address_tv_phone_hint">휴대폰 번호를 입력해주세요</string>
 
 </resources>

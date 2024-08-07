@@ -55,7 +55,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         with(binding) {
             tvAddressZipcode.text = resultZipCode
             tvAddressDelivery.text = resultAddress
-            tvAddressDelivery.setTextColor(colorOf(R.color.black))
+            tvAddressDelivery.setTextColor(colorOf(R.color.gray_3))
         }
     }
 

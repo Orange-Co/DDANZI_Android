@@ -65,6 +65,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
             android:paddingStart="2dp"
+            android:textColor="@color/gray_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_address_zipcode_title"
@@ -166,7 +167,8 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/transparent"
                 android:hint="@string/address_tv_address_plus_hint"
-                android:paddingStart="2dp"
+                android:paddingStart="1dp"
+                android:textColor="@color/gray_3"
                 android:textColorHint="@color/gray_2" />
 
             <View
@@ -183,13 +185,15 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/setting_tv_info_name" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_address_name"
                 style="@style/TextAppearance.DDanzi.Body4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@color/transparent"
                 android:paddingStart="1dp"
+                android:textColor="@color/gray_3"
                 tools:text="김상호" />
 
             <View
@@ -206,13 +210,15 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/setting_tv_info_phone" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_address_phone"
                 style="@style/TextAppearance.DDanzi.Body4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@color/transparent"
                 android:paddingStart="2dp"
+                android:textColor="@color/gray_3"
                 tools:text="010-1234-5678" />
 
             <View

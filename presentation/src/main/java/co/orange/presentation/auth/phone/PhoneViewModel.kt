@@ -2,7 +2,9 @@ package co.orange.presentation.auth.phone
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.orange.core.extension.toPhoneFrom
 import co.orange.domain.repository.IamportRepository
+import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,6 +16,7 @@ class PhoneViewModel
     @Inject
     constructor(
         private val iamportRepository: IamportRepository,
+        private val userRepository: UserRepository,
     ) : ViewModel() {
         var certificatedUid: String = ""
 
@@ -49,6 +52,9 @@ class PhoneViewModel
                             val phone = it.phone // "01032590327" 형태
                             val birth = it.birthday // "2000-03-27" 형태
                             val sex = it.gender // "male" 형태
+                            if (name != null && phone != null) {
+                                userRepository.setUserInfo(name, phone.toPhoneFrom().orEmpty())
+                            }
                         } else {
                             _getIamportCertificationResult.emit(false)
                         }

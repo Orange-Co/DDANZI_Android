@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="co.orange.presentation.address.AddressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -165,9 +170,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:afterTextChanged="@{() -> vm.checkIsCompleted()}"
                 android:background="@color/transparent"
                 android:hint="@string/address_tv_address_plus_hint"
                 android:paddingStart="1dp"
+                android:text="@={vm.detailAddress}"
                 android:textColor="@color/gray_3"
                 android:textColorHint="@color/gray_2" />
 
@@ -191,9 +198,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:afterTextChanged="@{() -> vm.checkIsCompleted()}"
                 android:background="@color/transparent"
                 android:hint="@string/address_tv_name_hint"
                 android:paddingStart="1dp"
+                android:text="@={vm.name}"
                 android:textColor="@color/gray_3"
                 android:textColorHint="@color/gray_2"
                 tools:text="김상호" />
@@ -218,9 +227,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:afterTextChanged="@{() -> vm.checkIsCompleted()}"
                 android:background="@color/transparent"
                 android:hint="@string/address_tv_phone_hint"
+                android:inputType="phone"
                 android:paddingStart="2dp"
+                android:text="@={vm.phone}"
                 android:textColor="@color/gray_3"
                 android:textColorHint="@color/gray_2"
                 tools:text="010-1234-5678" />
@@ -232,6 +244,23 @@
                 android:background="@color/black" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_confirm"
+            style="@style/TextAppearance.DDanzi.Body3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="@{vm.isCompleted}"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:text="@string/address_btn_confirm"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

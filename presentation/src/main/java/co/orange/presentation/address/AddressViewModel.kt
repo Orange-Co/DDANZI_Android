@@ -1,5 +1,6 @@
 package co.orange.presentation.address
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,17 +14,27 @@ class AddressViewModel
     ) : ViewModel() {
         var zipCode = ""
         var address = ""
-        var detailAddress = ""
-        var name = ""
-        var phone = ""
+        var detailAddress = MutableLiveData<String>()
+        var name = MutableLiveData<String>()
+        var phone = MutableLiveData<String>()
 
-        fun getUserName(): String {
-            name = userRepository.getUserName()
-            return name
+        val isCompleted = MutableLiveData(false)
+
+        init {
+            getUserName()
+            getUserPhone()
         }
 
-        fun getUserPhone(): String {
-            phone = userRepository.getUserPhone()
-            return phone
+        private fun getUserName() {
+            name.value = userRepository.getUserName()
+        }
+
+        private fun getUserPhone() {
+            phone.value = userRepository.getUserPhone()
+        }
+
+        fun checkIsCompleted() {
+            isCompleted.value =
+                (zipCode.isNotEmpty() && address.isNotEmpty() && detailAddress.value != null && name.value != null && phone.value != null)
         }
     }

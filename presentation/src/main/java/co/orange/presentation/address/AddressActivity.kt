@@ -23,13 +23,20 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.vm = viewModel
         initBackBtnListener()
         initAddressFindBtnListener()
-        setUserInfo()
     }
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initConfirmBtnListener() {
+        // TODO 서버통신
+        binding.btnConfirm.setOnSingleClickListener {
+            finish()
+        }
     }
 
     private fun initAddressFindBtnListener() {
@@ -52,18 +59,12 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         with(viewModel) {
             zipCode = resultZipCode.orEmpty()
             address = resultAddress.orEmpty()
+            checkIsCompleted()
         }
         with(binding) {
             tvAddressZipcode.text = resultZipCode
             tvAddressDelivery.text = resultAddress
             tvAddressDelivery.setTextColor(colorOf(R.color.gray_3))
-        }
-    }
-
-    private fun setUserInfo() {
-        with(binding) {
-            etAddressName.setText(viewModel.getUserName())
-            etAddressPhone.setText(viewModel.getUserPhone())
         }
     }
 

@@ -15,8 +15,8 @@ class AddressWebBridge(private val activity: Activity) {
             setResult(
                 RESULT_OK,
                 Intent().apply {
-                    putExtra(ADDRESS, address)
-                    putExtra(ZIPCODE, zipCode)
+                    putExtra(EXTRA_ADDRESS, address)
+                    putExtra(EXTRA_ZIPCODE, zipCode)
                 },
             )
             finish()
@@ -24,7 +24,7 @@ class AddressWebBridge(private val activity: Activity) {
     }
 
     companion object {
-        const val ADDRESS = "address"
-        const val ZIPCODE = "zipcode"
+        const val EXTRA_ADDRESS = "address"
+        const val EXTRA_ZIPCODE = "zipcode"
     }
 }

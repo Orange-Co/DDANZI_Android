@@ -9,5 +9,8 @@ interface SettingRepository {
 
     suspend fun postToAddAddress(request: AddressRequestModel): Result<AddressModel>
 
-    suspend fun putToModAddress(request: AddressRequestModel): Result<AddressModel>
+    suspend fun putToModAddress(
+        addressId: Long,
+        request: AddressRequestModel,
+    ): Result<AddressModel>
 }

@@ -1,5 +1,7 @@
 package co.orange.presentation.address
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
@@ -34,9 +36,12 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
     }
 
     private fun initConfirmBtnListener() {
-        // TODO 서버통신
         binding.btnConfirm.setOnSingleClickListener {
-            finish()
+            if (intent.getBooleanExtra(EXTRA_IS_FIRST, true)) {
+                // 추가 서버통신
+            } else {
+                // 변경 서버통신
+            }
         }
     }
 
@@ -72,5 +77,18 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
     override fun onDestroy() {
         super.onDestroy()
         AddressWebActivity.unregister()
+    }
+
+    companion object {
+        private const val EXTRA_IS_FIRST = "EXTRA_IS_FIRST"
+
+        @JvmStatic
+        fun createIntent(
+            context: Context,
+            isFirst: Boolean,
+        ): Intent =
+            Intent(context, AddressActivity::class.java).apply {
+                putExtra(EXTRA_IS_FIRST, isFirst)
+            }
     }
 }

@@ -1,6 +1,5 @@
 package co.orange.presentation.setting.delivery
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
@@ -29,13 +28,13 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
 
     private fun initWebBtnListener() {
         with(binding) {
-            btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView() }
-            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView() }
+            btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView(true) }
+            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(false) }
         }
     }
 
-    private fun navigateToAddressView() {
-        Intent(this, AddressActivity::class.java).apply {
+    private fun navigateToAddressView(isFirst: Boolean) {
+        AddressActivity.createIntent(this, isFirst).apply {
             startActivity(this)
         }
     }

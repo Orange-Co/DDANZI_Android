@@ -36,8 +36,9 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
     }
 
     private fun initConfirmBtnListener() {
+        val addressId = intent.getLongExtra(EXTRA_ADDRESS_ID, -1)
         binding.btnConfirm.setOnSingleClickListener {
-            if (intent.getBooleanExtra(EXTRA_IS_FIRST, true)) {
+            if (addressId == DEFAULT_ID) {
                 // 추가 서버통신
             } else {
                 // 변경 서버통신
@@ -80,15 +81,16 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
     }
 
     companion object {
-        private const val EXTRA_IS_FIRST = "EXTRA_IS_FIRST"
+        private const val EXTRA_ADDRESS_ID = "EXTRA_ADDRESS_ID"
+        const val DEFAULT_ID: Long = -1
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            isFirst: Boolean,
+            addressId: Long,
         ): Intent =
             Intent(context, AddressActivity::class.java).apply {
-                putExtra(EXTRA_IS_FIRST, isFirst)
+                putExtra(EXTRA_ADDRESS_ID, addressId)
             }
     }
 }

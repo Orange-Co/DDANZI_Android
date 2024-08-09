@@ -7,7 +7,9 @@ import co.orange.domain.entity.response.AddressModel
 import co.orange.domain.repository.SettingRepository
 import co.orange.presentation.address.AddressActivity.Companion.DEFAULT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,11 +25,10 @@ class DeliveryViewModel
         private val _getUserAddressState = MutableStateFlow<UiState<AddressModel>>(UiState.Empty)
         val getUserAddressState: StateFlow<UiState<AddressModel>> = _getUserAddressState
 
-        init {
-            getUserAddressFromServer()
-        }
+        private val _deleteAddressResult = MutableSharedFlow<Boolean>()
+        val deleteAddressResult: SharedFlow<Boolean> = _deleteAddressResult
 
-        private fun getUserAddressFromServer() {
+        fun getUserAddressFromServer() {
             viewModelScope.launch {
                 settingRepository.getUserAddress()
                     .onSuccess {
@@ -36,6 +37,18 @@ class DeliveryViewModel
                     }
                     .onFailure {
                         _getUserAddressState.value = UiState.Failure(it.message.orEmpty())
+                    }
+            }
+        }
+
+        fun deleteUserAddressFromServer() {
+            viewModelScope.launch {
+                settingRepository.deleteUserAddress(addressId)
+                    .onSuccess {
+                        _deleteAddressResult.emit(true)
+                    }
+                    .onFailure {
+                        _deleteAddressResult.emit(false)
                     }
             }
         }

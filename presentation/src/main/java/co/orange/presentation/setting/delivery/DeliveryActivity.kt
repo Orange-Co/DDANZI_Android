@@ -31,6 +31,13 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         initWebBtnListener()
         initDeleteBtnListener()
         observeUserAddressState()
+        observeDeleteAddressResult()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getUserAddressFromServer()
     }
 
     private fun initBackBtnListener() {
@@ -51,8 +58,9 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
     }
 
     private fun initDeleteBtnListener() {
-        // TODO
-        binding.btnDeliveryDelete.setOnSingleClickListener { }
+        binding.btnDeliveryDelete.setOnSingleClickListener {
+            viewModel.deleteUserAddressFromServer()
+        }
     }
 
     private fun observeUserAddressState() {
@@ -79,6 +87,21 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeDeleteAddressResult() {
+        viewModel.deleteAddressResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (isSuccess) {
+                    toast(stringOf(R.string.address_delete_toast))
+                    with(binding) {
+                        btnDeliveryAdd.isVisible = true
+                        layoutDeliveryItem.isVisible = false
+                    }
+                } else {
+                    toast(stringOf(R.string.error_msg))
                 }
             }.launchIn(lifecycleScope)
     }

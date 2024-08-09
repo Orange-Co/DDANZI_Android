@@ -5,6 +5,7 @@ import co.orange.data.dto.request.AddressRequestDto
 import co.orange.data.dto.response.AddressDto
 import co.orange.data.dto.response.SettingInfoDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -24,4 +25,12 @@ interface SettingService {
         @Path("id") addressId: Long,
         @Body request: AddressRequestDto,
     ): BaseResponse<AddressDto>
+
+    @GET("/api/v1/mypage/setting/address")
+    suspend fun getUserAddress(): BaseResponse<AddressDto>
+
+    @DELETE("/api/v1/mypage/setting/address/{id}")
+    suspend fun deleteUserAddress(
+        @Path("id") addressId: Long,
+    ): BaseResponse<Boolean>
 }

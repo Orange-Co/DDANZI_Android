@@ -30,4 +30,14 @@ class SettingRepositoryImpl
             runCatching {
                 settingDataSource.putToModAddress(addressId, request.toDto()).data.toModel()
             }
+
+        override suspend fun getUserAddress(): Result<AddressModel> =
+            runCatching {
+                settingDataSource.getUserAddress().data.toModel()
+            }
+
+        override suspend fun deleteUserAddress(addressId: Long): Result<Boolean> =
+            runCatching {
+                settingDataSource.deleteUserAddress(addressId).data
+            }
     }

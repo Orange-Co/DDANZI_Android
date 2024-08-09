@@ -14,4 +14,8 @@ interface SettingDataSource {
         addressId: Long,
         request: AddressRequestDto,
     ): BaseResponse<AddressDto>
+
+    suspend fun getUserAddress(): BaseResponse<AddressDto>
+
+    suspend fun deleteUserAddress(addressId: Long): BaseResponse<Boolean>
 }

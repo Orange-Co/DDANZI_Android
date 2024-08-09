@@ -22,4 +22,8 @@ data class SettingDataSourceImpl
             addressId: Long,
             request: AddressRequestDto,
         ): BaseResponse<AddressDto> = settingService.putToModAddress(addressId, request)
+
+        override suspend fun getUserAddress(): BaseResponse<AddressDto> = settingService.getUserAddress()
+
+        override suspend fun deleteUserAddress(addressId: Long): BaseResponse<Boolean> = settingService.deleteUserAddress(addressId)
     }

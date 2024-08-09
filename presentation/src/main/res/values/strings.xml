@@ -61,7 +61,7 @@
     <string name="buy_finished_btn_show_detail">상세 내역 보러가기</string>
 
     <string name="transaction_id">거래 번호 %s</string>
-    <string name="address_format">(%s) %s</string>
+    <string name="address_format">(%s) %s %s</string>
 
     <string name="buy_info_tv_title">구매 상세</string>
     <string name="buy_info_tv_message">주문 완료</string>
@@ -112,6 +112,7 @@
     <string name="address_tv_phone_hint">휴대폰 번호를 입력해주세요</string>
     <string name="address_btn_confirm">입력 완료</string>
     <string name="address_toast">배송지 입력이 완료되었습니다</string>
+    <string name="address_delete_toast">배송지가 삭제되었습니다</string>
 
     <string name="btn_mod">수정</string>
     <string name="btn_delete">삭제</string>

@@ -1,6 +1,5 @@
 package co.orange.presentation.setting.delivery
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
@@ -8,6 +7,7 @@ import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.presentation.address.AddressActivity
+import co.orange.presentation.address.AddressActivity.Companion.DEFAULT_ID
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDeliveryBinding
 
@@ -28,14 +28,15 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
     }
 
     private fun initWebBtnListener() {
+        // TODO: addressId 조회 후 변경
         with(binding) {
-            btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView() }
-            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView() }
+            btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView(DEFAULT_ID) }
+            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(5) }
         }
     }
 
-    private fun navigateToAddressView() {
-        Intent(this, AddressActivity::class.java).apply {
+    private fun navigateToAddressView(addressId: Long) {
+        AddressActivity.createIntent(this, addressId).apply {
             startActivity(this)
         }
     }

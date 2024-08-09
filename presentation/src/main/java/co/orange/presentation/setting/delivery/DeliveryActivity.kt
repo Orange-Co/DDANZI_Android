@@ -2,15 +2,25 @@ package co.orange.presentation.setting.delivery
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.AddressInfoModel
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.presentation.address.AddressActivity
 import co.orange.presentation.address.AddressActivity.Companion.DEFAULT_ID
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDeliveryBinding
 
+@AndroidEntryPoint
 class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity_delivery) {
     val viewModel by viewModels<DeliveryViewModel>()
 
@@ -20,7 +30,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         initBackBtnListener()
         initWebBtnListener()
         initDeleteBtnListener()
-        setDeliveryUi(viewModel.mockAddressModel)
+        observeUserAddressState()
     }
 
     private fun initBackBtnListener() {
@@ -28,10 +38,9 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
     }
 
     private fun initWebBtnListener() {
-        // TODO: addressId 조회 후 변경
         with(binding) {
             btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView(DEFAULT_ID) }
-            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(5) }
+            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(viewModel.addressId) }
         }
     }
 
@@ -46,16 +55,31 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         binding.btnDeliveryDelete.setOnSingleClickListener { }
     }
 
-    private fun setDeliveryUi(item: AddressInfoModel) {
-        with(binding) {
-            tvDeliveryName.text = item.recipient
-            tvDeliveryAddress.text =
-                getString(
-                    R.string.address_format,
-                    item.zipCode,
-                    item.address,
-                ).breakLines()
-            tvDeliveryPhone.text = item.phone
-        }
+    private fun observeUserAddressState() {
+        viewModel.getUserAddressState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        with(binding) {
+                            if (state.data.addressId != null) {
+                                btnDeliveryAdd.isVisible = false
+                                layoutDeliveryItem.isVisible = true
+                                tvDeliveryName.text = state.data.name
+                                tvDeliveryAddress.text =
+                                    getString(
+                                        R.string.address_format,
+                                        state.data.zipCode,
+                                        state.data.address,
+                                        state.data.detailAddress,
+                                    ).breakLines()
+                                tvDeliveryPhone.text = state.data.phone
+                            }
+                        }
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 }

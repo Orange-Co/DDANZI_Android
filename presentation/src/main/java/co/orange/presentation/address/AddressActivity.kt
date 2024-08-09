@@ -4,12 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.colorOf
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
 import co.orange.presentation.address.AddressWebBridge.Companion.EXTRA_ADDRESS
 import co.orange.presentation.address.AddressWebBridge.Companion.EXTRA_ZIPCODE
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityAddressBinding
 
@@ -29,6 +36,7 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         initBackBtnListener()
         initConfirmBtnListener()
         initAddressFindBtnListener()
+        observeAddressResult()
     }
 
     private fun initBackBtnListener() {
@@ -39,9 +47,9 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
         val addressId = intent.getLongExtra(EXTRA_ADDRESS_ID, -1)
         binding.btnConfirm.setOnSingleClickListener {
             if (addressId == DEFAULT_ID) {
-                // 추가 서버통신
+                viewModel.postToAddAddressToServer()
             } else {
-                // 변경 서버통신
+                viewModel.putToModAddressToServer(addressId)
             }
         }
     }
@@ -73,6 +81,18 @@ class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_a
             tvAddressDelivery.text = resultAddress
             tvAddressDelivery.setTextColor(colorOf(R.color.gray_3))
         }
+    }
+
+    private fun observeAddressResult() {
+        viewModel.setAddressResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (isSuccess) {
+                    toast(stringOf(R.string.address_toast))
+                    finish()
+                } else {
+                    toast(stringOf(R.string.error_msg))
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

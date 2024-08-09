@@ -2,14 +2,21 @@ package co.orange.presentation.address
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import co.orange.domain.entity.request.AddressRequestModel
+import co.orange.domain.repository.SettingRepository
 import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddressViewModel
     @Inject
     constructor(
+        private val settingRepository: SettingRepository,
         private val userRepository: UserRepository,
     ) : ViewModel() {
         var zipCode = ""
@@ -19,6 +26,9 @@ class AddressViewModel
         var phone = MutableLiveData<String>()
 
         val isCompleted = MutableLiveData(false)
+
+        private val _setAddressResult = MutableSharedFlow<Boolean>()
+        val setAddressResult: SharedFlow<Boolean> = _setAddressResult
 
         init {
             getUserName()
@@ -42,5 +52,48 @@ class AddressViewModel
                         name.value?.isNotEmpty() == true &&
                         phone.value?.length == 11
                 )
+        }
+
+        fun postToAddAddressToServer() {
+            viewModelScope.launch {
+                settingRepository.postToAddAddress(
+                    AddressRequestModel(
+                        name.value.orEmpty(),
+                        zipCode,
+                        TYPE_ROAD,
+                        address,
+                        detailAddress.value.orEmpty(),
+                        phone.value.orEmpty(),
+                    ),
+                ).onSuccess {
+                    _setAddressResult.emit(true)
+                }.onFailure {
+                    _setAddressResult.emit(false)
+                }
+            }
+        }
+
+        fun putToModAddressToServer(addressId: Long) {
+            viewModelScope.launch {
+                settingRepository.putToModAddress(
+                    addressId,
+                    AddressRequestModel(
+                        name.value.orEmpty(),
+                        zipCode,
+                        TYPE_ROAD,
+                        address,
+                        detailAddress.value.orEmpty(),
+                        phone.value.orEmpty(),
+                    ),
+                ).onSuccess {
+                    _setAddressResult.emit(true)
+                }.onFailure {
+                    _setAddressResult.emit(false)
+                }
+            }
+        }
+
+        companion object {
+            private const val TYPE_ROAD = "ROAD"
         }
     }

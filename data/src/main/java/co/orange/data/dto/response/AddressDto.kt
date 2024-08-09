@@ -9,7 +9,7 @@ data class AddressDto(
     @SerialName("addressId")
     val addressId: Long,
     @SerialName("name")
-    val name: String,
+    val name: String?,
     @SerialName("zipCode")
     val zipCode: String,
     @SerialName("type")
@@ -19,7 +19,7 @@ data class AddressDto(
     @SerialName("detailAddress")
     val detailAddress: String,
     @SerialName("phone")
-    val phone: String,
+    val phone: String?,
 ) {
     fun toModel() = AddressModel(addressId, name, zipCode, type, address, detailAddress, phone)
 }

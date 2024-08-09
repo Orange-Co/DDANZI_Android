@@ -31,7 +31,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         // TODO: addressId 조회 후 변경
         with(binding) {
             btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView(DEFAULT_ID) }
-            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(1) }
+            btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(5) }
         }
     }
 

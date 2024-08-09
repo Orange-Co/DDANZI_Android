@@ -7,13 +7,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AddressDto(
     @SerialName("addressId")
-    val addressId: Long,
+    val addressId: Long?,
     @SerialName("name")
     val name: String?,
     @SerialName("zipCode")
-    val zipCode: String,
+    val zipCode: String?,
     @SerialName("type")
-    val type: String,
+    val type: String?,
     @SerialName("address")
     val address: String,
     @SerialName("detailAddress")

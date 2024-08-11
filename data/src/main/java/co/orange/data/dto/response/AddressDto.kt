@@ -8,8 +8,8 @@ import kotlinx.serialization.Serializable
 data class AddressDto(
     @SerialName("addressId")
     val addressId: Long?,
-    @SerialName("name")
-    val name: String?,
+    @SerialName("recipient")
+    val recipient: String?,
     @SerialName("zipCode")
     val zipCode: String?,
     @SerialName("type")
@@ -18,8 +18,8 @@ data class AddressDto(
     val address: String,
     @SerialName("detailAddress")
     val detailAddress: String,
-    @SerialName("phone")
-    val phone: String?,
+    @SerialName("recipientPhone")
+    val recipientPhone: String?,
 ) {
-    fun toModel() = AddressModel(addressId, name, zipCode, type, address, detailAddress, phone)
+    fun toModel() = AddressModel(addressId, recipient, zipCode, type, address, detailAddress, recipientPhone)
 }

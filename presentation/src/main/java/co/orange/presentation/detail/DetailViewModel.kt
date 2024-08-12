@@ -41,6 +41,7 @@ class DetailViewModel
                         infoUrl = it.infoUrl
                         interestCount = it.interestCount
                         optionList = it.optionList
+                        _likeState.value = it.isInterested
                         _getProductDetailState.value = UiState.Success(it)
                     }
                     .onFailure {

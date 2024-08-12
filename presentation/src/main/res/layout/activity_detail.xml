@@ -249,7 +249,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:src="@drawable/ic_like_black_unselected"
+            android:src="@drawable/sel_item_like_yellow"
             app:layout_constraintBottom_toTopOf="@id/tv_detail_like"
             app:layout_constraintEnd_toEndOf="@id/tv_detail_like"
             app:layout_constraintStart_toStartOf="@id/tv_detail_like"

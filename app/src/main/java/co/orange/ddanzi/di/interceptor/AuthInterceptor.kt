@@ -84,6 +84,6 @@ class AuthInterceptor
             private const val CODE_TOKEN_EXPIRED = 401
             private const val TOKEN_EXPIRED_ERROR = "토큰이 만료되었어요\n다시 로그인 해주세요"
             private const val BEARER = "Bearer"
-            private const val AUTHORIZATION = "Authorization"
+            private const val AUTHORIZATION = "accesstoken"
         }
     }

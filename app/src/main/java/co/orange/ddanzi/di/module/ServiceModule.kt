@@ -43,25 +43,22 @@ object ServiceModule {
         @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
     ): SearchService = retrofit.create(SearchService::class.java)
 
-    // TODO
     @Provides
     @Singleton
     fun provideProfileService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): ProfileService = retrofit.create(ProfileService::class.java)
 
-    // TODO
     @Provides
     @Singleton
     fun provideSettingService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): SettingService = retrofit.create(SettingService::class.java)
 
-    // TODO
     @Provides
     @Singleton
     fun provideInterestService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): InterestService = retrofit.create(InterestService::class.java)
 
     @Provides

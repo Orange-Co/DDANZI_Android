@@ -72,7 +72,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
                             if (state.data.addressId != null) {
                                 btnDeliveryAdd.isVisible = false
                                 layoutDeliveryItem.isVisible = true
-                                tvDeliveryName.text = state.data.name
+                                tvDeliveryName.text = state.data.recipient
                                 tvDeliveryAddress.text =
                                     getString(
                                         R.string.address_format,
@@ -80,7 +80,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
                                         state.data.address,
                                         state.data.detailAddress,
                                     ).breakLines()
-                                tvDeliveryPhone.text = state.data.phone
+                                tvDeliveryPhone.text = state.data.recipientPhone
                             }
                         }
                     }

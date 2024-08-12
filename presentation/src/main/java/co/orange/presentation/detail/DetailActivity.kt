@@ -117,12 +117,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun observeLikeState() {
         viewModel.likeState.flowWithLifecycle(lifecycle).distinctUntilChanged().onEach { isLiked ->
-            if (isLiked) {
-                binding.btnLike.setImageResource(R.drawable.ic_like_yellow)
-            } else {
-                binding.btnLike.setImageResource(R.drawable.ic_like_black_unselected)
+            with(binding) {
+                btnLike.isEnabled = isLiked
+                tvDetailLike.text = viewModel.interestCount.setOverThousand()
             }
-            binding.tvDetailLike.text = viewModel.interestCount.setOverThousand()
         }.launchIn(lifecycleScope)
     }
 

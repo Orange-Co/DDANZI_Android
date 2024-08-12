@@ -11,6 +11,7 @@ data class ProductDetailModel(
     val salePrice: Int,
     val stockCount: Int,
     val infoUrl: String,
+    val isInterested: Boolean,
     val interestCount: Int,
     val optionList: List<ProductOptionModel>,
 )

@@ -26,6 +26,8 @@ data class ProductDetailDto(
     val stockCount: Int,
     @SerialName("infoUrl")
     val infoUrl: String,
+    @SerialName("isInterested")
+    val isInterested: Boolean,
     @SerialName("interestCount")
     val interestCount: Int,
     @SerialName("optionList")
@@ -43,6 +45,7 @@ data class ProductDetailDto(
             salePrice,
             stockCount,
             infoUrl,
+            isInterested,
             interestCount,
             optionList.map { it.toModel() },
         )

@@ -30,6 +30,7 @@ class HomeProductViewHolder(
             }
             tvHomeItemNowPrice.text = item.salePrice.setNumberForm()
             tvHomeItemLike.text = item.interestCount.setOverThousand()
+            ivHomeItemLike.isEnabled = item.isInterested
         }
     }
 }

@@ -25,6 +25,7 @@ class HistoryViewHolder(
             }
             tvHomeItemNowPrice.text = item.salePrice.setNumberForm()
             tvHomeItemLike.text = item.interestCount.setOverThousand()
+            btnItemLike.isEnabled = item.isInterested
 
             root.setOnSingleClickListener {
                 itemClick(item)

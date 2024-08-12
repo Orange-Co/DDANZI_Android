@@ -18,8 +18,20 @@ data class ProductDto(
     val originPrice: Int,
     @SerialName("salePrice")
     val salePrice: Int,
+    @SerialName("isInterested")
+    val isInterested: Boolean,
     @SerialName("interestCount")
     val interestCount: Int,
 ) {
-    fun toModel() = ProductModel(productId, kakaoProductId, name, imgUrl, originPrice, salePrice, interestCount)
+    fun toModel() =
+        ProductModel(
+            productId,
+            kakaoProductId,
+            name,
+            imgUrl,
+            originPrice,
+            salePrice,
+            isInterested,
+            interestCount,
+        )
 }

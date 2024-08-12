@@ -49,10 +49,11 @@
             app:layout_constraintTop_toTopOf="@id/cv_search_item">
 
             <ImageView
+                android:id="@+id/iv_search_item_like"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_like_white_unselected" />
+                android:src="@drawable/sel_item_like_yellow" />
 
             <TextView
                 android:id="@+id/tv_search_item_like"

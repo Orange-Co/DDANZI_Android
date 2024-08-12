@@ -33,6 +33,7 @@ class AddressViewModel
         init {
             getUserName()
             getUserPhone()
+            getUserInfoFromServer()
         }
 
         private fun getUserName() {
@@ -52,6 +53,17 @@ class AddressViewModel
                         name.value?.isNotEmpty() == true &&
                         phone.value?.length == 11
                 )
+        }
+
+        private fun getUserInfoFromServer() {
+            viewModelScope.launch {
+                settingRepository.getSettingInfo()
+                    .onSuccess {
+                        name.value = it.name
+                        phone.value = it.phone
+                        userRepository.setUserInfo(it.name, it.phone)
+                    }
+            }
         }
 
         fun postToAddAddressToServer() {

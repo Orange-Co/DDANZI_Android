@@ -1,5 +1,6 @@
 package co.orange.presentation.auth.phone
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.extension.toPhoneFrom
@@ -20,11 +21,53 @@ class PhoneViewModel
     ) : ViewModel() {
         var certificatedUid: String = ""
 
+        var isTermAllSelected = MutableLiveData<Boolean>(false)
+        var isTermPrivateSelected = MutableLiveData<Boolean>(false)
+        var isTermServiceSelected = MutableLiveData<Boolean>(false)
+        var isTermMarketingSelected = MutableLiveData<Boolean>(false)
+        var isCompleted = MutableLiveData<Boolean>(false)
+
+        private val _isSubmitClicked = MutableSharedFlow<Boolean>()
+        val isSubmitClicked: SharedFlow<Boolean> = _isSubmitClicked
+
         private val _getIamportTokenResult = MutableSharedFlow<Boolean>()
         val getIamportTokenResult: SharedFlow<Boolean> = _getIamportTokenResult
 
         private val _getIamportCertificationResult = MutableSharedFlow<Boolean>()
         val getIamportCertificationResult: SharedFlow<Boolean> = _getIamportCertificationResult
+
+        fun checkAllTerm() {
+            isTermPrivateSelected.value = isTermAllSelected.value?.not()
+            isTermServiceSelected.value = isTermAllSelected.value?.not()
+            isTermMarketingSelected.value = isTermAllSelected.value?.not()
+            isTermAllSelected.value = isTermAllSelected.value?.not()
+        }
+
+        fun checkPrivateTerm() {
+            isTermPrivateSelected.value = isTermPrivateSelected.value?.not()
+            checkIsCompleted()
+        }
+
+        fun checkServiceTerm() {
+            isTermServiceSelected.value = isTermServiceSelected.value?.not()
+            checkIsCompleted()
+        }
+
+        fun checkMarketingTerm() {
+            isTermMarketingSelected.value = isTermMarketingSelected.value?.not()
+            checkIsCompleted()
+        }
+
+        private fun checkIsCompleted() {
+            isCompleted.value =
+                (isTermPrivateSelected.value == true && isTermServiceSelected.value == true)
+        }
+
+        fun clickSubmitBtn() {
+            viewModelScope.launch {
+                _isSubmitClicked.emit(true)
+            }
+        }
 
         fun postToGetIamportTokenFromServer() {
             viewModelScope.launch {

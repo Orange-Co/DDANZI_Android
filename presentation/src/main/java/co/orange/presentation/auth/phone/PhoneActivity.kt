@@ -23,19 +23,30 @@ import kr.genti.presentation.databinding.ActivityPhoneBinding
 class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone) {
     private val viewModel by viewModels<PhoneViewModel>()
 
+    private var termBottomSheet: TermBottomSheet? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Iamport.init(this)
         initAuthBtnListener()
+        observeIsSubmitClicked()
         observeIamportTokenResult()
         observeIamportCertificationResult()
     }
 
     private fun initAuthBtnListener() {
         binding.btnPhoneAuth.setOnSingleClickListener {
-            startIamportCertification()
+            termBottomSheet = TermBottomSheet()
+            termBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_TERM)
         }
+    }
+
+    private fun observeIsSubmitClicked() {
+        viewModel.isSubmitClicked.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (isSuccess) startIamportCertification()
+            }.launchIn(lifecycleScope)
     }
 
     private fun startIamportCertification() {
@@ -73,5 +84,10 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
     override fun onDestroy() {
         super.onDestroy()
         Iamport.close()
+        termBottomSheet = null
+    }
+
+    companion object {
+        private const val BOTTOM_SHEET_TERM = "BOTTOM_SHEET_TERM"
     }
 }

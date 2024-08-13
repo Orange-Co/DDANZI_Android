@@ -4,6 +4,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="co.orange.presentation.auth.phone.PhoneViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +34,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="33dp"
             android:gravity="center_vertical"
+            android:onClick="@{() -> vm.checkAllTerm()}"
             android:orientation="horizontal"
             android:paddingVertical="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +43,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
+                android:checked="@{vm.isTermAllSelected ? true : false}"
                 android:layout_height="wrap_content"
                 android:src="@drawable/sel_check_circle" />
 
@@ -54,6 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:onClick="@{() -> vm.checkPrivateTerm()}"
             app:layout_constraintEnd_toStartOf="@id/btn_term_private_detail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_term_all">
@@ -62,6 +70,7 @@
                 android:id="@+id/iv_term_first"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@{vm.isTermPrivateSelected ? true : false}"
                 android:src="@drawable/sel_check_term"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:paddingVertical="12dp"
                 android:text="@string/sign_up_term_tv_first"
-                android:textColor="@color/gray_2"
+                android:textColor="@{vm.isTermPrivateSelected ? @color/black : @color/gray_2}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_term_first"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -100,6 +109,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:onClick="@{() -> vm.checkServiceTerm()}"
             app:layout_constraintEnd_toStartOf="@id/btn_term_service_detail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_term_private">
@@ -108,6 +118,7 @@
                 android:id="@+id/iv_term_second"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@{vm.isTermServiceSelected ? true : false}"
                 android:src="@drawable/sel_check_term"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +132,7 @@
                 android:layout_marginStart="10dp"
                 android:paddingVertical="12dp"
                 android:text="@string/sign_up_term_tv_second"
-                android:textColor="@color/gray_2"
+                android:textColor="@{vm.isTermServiceSelected ? @color/black : @color/gray_2}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_term_second"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -146,6 +157,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:onClick="@{() -> vm.checkMarketingTerm()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_term_service">
@@ -154,6 +166,7 @@
                 android:id="@+id/iv_term_third"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@{vm.isTermMarketingSelected ? true : false}"
                 android:src="@drawable/sel_check_term"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -167,7 +180,7 @@
                 android:layout_marginStart="10dp"
                 android:paddingVertical="12dp"
                 android:text="@string/sign_up_term_tv_third"
-                android:textColor="@color/gray_2"
+                android:textColor="@{vm.isTermMarketingSelected ? @color/black : @color/gray_2}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_term_third"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -182,7 +195,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/sel_btn"
-            android:enabled="false"
+            android:enabled="@{vm.isCompleted}"
             android:gravity="center"
             android:paddingVertical="16dp"
             android:text="@string/sign_up_term_btn_submit"

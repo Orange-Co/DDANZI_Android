@@ -12,30 +12,41 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <TextView
-            style="@style/TextAppearance.DDanzi.Title4"
-            android:id="@+id/tv_confirm_title"
-            android:layout_width="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="91dp"
-            android:text="@string/sign_up_confirm_tv_title"
+        <ImageView
+            android:id="@+id/iv_confirm_logo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_check_circle_filled"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:textColor="@color/black"
-            android:textSize="32sp"
-            android:fontFamily="@font/font_pretendard_regular"
-            android:id="@+id/tv_confirm_subtitle"
+            android:id="@+id/tv_confirm_title"
+            style="@style/TextAppearance.DDanzi.Title4"
             android:layout_width="0dp"
-            android:layout_marginStart="20dp"
             android:layout_height="wrap_content"
-            tools:text="행복한물개13123님"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/sign_up_confirm_tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_confirm_title"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_confirm_logo" />
+
+        <TextView
+            android:id="@+id/tv_confirm_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/font_pretendard_regular"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_confirm_title"
+            tools:text="행복한물개13123님" />
 
         <TextView
             android:id="@+id/btn_confirm"

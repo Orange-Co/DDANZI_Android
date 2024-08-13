@@ -22,4 +22,8 @@ class MyApp : Application() {
     private fun setDayMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
+
+    private fun initKakaoSdk() {
+        KakaoSdk.init(this, NATIVE_APP_KEY)
+    }
 }

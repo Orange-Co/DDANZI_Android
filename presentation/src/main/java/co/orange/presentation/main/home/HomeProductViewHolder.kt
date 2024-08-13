@@ -13,12 +13,10 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 class HomeProductViewHolder(
     val binding: ItemHomeProductBinding,
     val productClick: (ProductModel) -> (Unit),
-    val likeClick: (Unit) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: ProductModel) {
         with(binding) {
-            btnItemLike.setOnSingleClickListener { likeClick }
             root.setOnSingleClickListener { productClick(item) }
 
             tvHomeItemTitle.text = item.name.breakLines()

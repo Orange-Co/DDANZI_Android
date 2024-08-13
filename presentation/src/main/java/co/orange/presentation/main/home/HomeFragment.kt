@@ -80,7 +80,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             HomeAdapter(
                 bannerClick = ::initBannerClickListener,
                 productClick = ::initProductClickListener,
-                likeClick = ::initLikeClickListener,
             )
         binding.rvHome.adapter = adapter
     }
@@ -95,8 +94,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         )
             .apply { startActivity(this) }
     }
-
-    private fun initLikeClickListener(unit: Unit) {}
 
     private fun initSearchBtnListener() {
         binding.btnSearch.setOnSingleClickListener {

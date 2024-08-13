@@ -50,6 +50,7 @@ class PhoneViewModel
             isTermServiceSelected.value = isTermAllSelected.value?.not()
             isTermMarketingSelected.value = isTermAllSelected.value?.not()
             isTermAllSelected.value = isTermAllSelected.value?.not()
+            checkIsCompleted()
         }
 
         fun checkPrivateTerm() {
@@ -70,6 +71,8 @@ class PhoneViewModel
         private fun checkIsCompleted() {
             isCompleted.value =
                 (isTermPrivateSelected.value == true && isTermServiceSelected.value == true)
+            isTermAllSelected.value =
+                (isTermPrivateSelected.value == true && isTermServiceSelected.value == true && isTermMarketingSelected.value == true)
         }
 
         fun clickSubmitBtn(boolean: Boolean) {

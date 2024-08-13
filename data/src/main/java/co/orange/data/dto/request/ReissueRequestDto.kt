@@ -1,15 +1,15 @@
 package co.orange.data.dto.request
 
-import co.orange.domain.entity.request.AuthTokenRequestModel
+import co.orange.domain.entity.request.ReissueRequestModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AuthTokenRequestDto(
+data class ReissueRequestDto(
     @SerialName("userId")
     val userId: Long,
 ) {
     companion object {
-        fun AuthTokenRequestModel.toDto() = AuthTokenRequestDto(userId)
+        fun ReissueRequestModel.toDto() = ReissueRequestDto(userId)
     }
 }

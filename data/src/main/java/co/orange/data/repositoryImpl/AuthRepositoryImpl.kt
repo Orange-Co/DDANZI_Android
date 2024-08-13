@@ -1,9 +1,9 @@
 package co.orange.data.repositoryImpl
 
 import co.orange.data.dataSource.AuthDataSource
-import co.orange.data.dto.request.AuthTokenRequestDto.Companion.toDto
-import co.orange.domain.entity.request.AuthTokenRequestModel
-import co.orange.domain.entity.response.AuthTokenModel
+import co.orange.data.dto.request.ReissueRequestDto.Companion.toDto
+import co.orange.domain.entity.request.ReissueRequestModel
+import co.orange.domain.entity.response.ReissueTokenModel
 import co.orange.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -14,8 +14,8 @@ class AuthRepositoryImpl
     ) : AuthRepository {
         override suspend fun postReissueTokens(
             authorization: String,
-            request: AuthTokenRequestModel,
-        ): Result<AuthTokenModel> =
+            request: ReissueRequestModel,
+        ): Result<ReissueTokenModel> =
             runCatching {
                 authDataSource.postReissueTokens(
                     authorization,

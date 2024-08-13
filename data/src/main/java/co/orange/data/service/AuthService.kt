@@ -1,8 +1,8 @@
 package co.orange.data.service
 
 import co.orange.data.dto.BaseResponse
-import co.orange.data.dto.request.AuthTokenRequestDto
-import co.orange.data.dto.response.AuthTokenDto
+import co.orange.data.dto.request.ReissueRequestDto
+import co.orange.data.dto.response.ReissueTokenDto
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -12,6 +12,6 @@ interface AuthService {
     @POST("api/users/reissue")
     suspend fun postReissueTokens(
         @Header("Authorization") authorization: String,
-        @Body request: AuthTokenRequestDto,
-    ): BaseResponse<AuthTokenDto>
+        @Body request: ReissueRequestDto,
+    ): BaseResponse<ReissueTokenDto>
 }

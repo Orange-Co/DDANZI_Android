@@ -22,6 +22,7 @@ import kr.genti.presentation.BuildConfig.IAMPORT_CODE
 import kr.genti.presentation.BuildConfig.MERCHANT_UID
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityPhoneBinding
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone) {
@@ -67,6 +68,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
                     company = stringOf(R.string.company_name),
                 ),
         ) { response ->
+            Timber.tag("okhttp").d("IAMPORT CERTIFICATION RESPONSE : $response")
             if (response != null && response.success == true) {
                 with(viewModel) {
                     certificatedUid = response.imp_uid.toString()

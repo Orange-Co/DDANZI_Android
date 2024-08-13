@@ -31,10 +31,17 @@ class AuthRepositoryImpl
             }
 
         override suspend fun postToSignUp(
-            authorization: String,
+            accesstoken: String,
             request: SignUpRequestModel,
         ): Result<SignUpModel> =
             runCatching {
-                authDataSource.postToSignUp(authorization, request.toDto()).data.toModel()
+                authDataSource.postToSignUp(
+                    "$BEARER $accesstoken",
+                    request.toDto(),
+                ).data.toModel()
             }
+
+        companion object {
+            private const val BEARER = "Bearer"
+        }
     }

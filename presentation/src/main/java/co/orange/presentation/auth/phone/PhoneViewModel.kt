@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -92,6 +93,7 @@ class PhoneViewModel
                         }
                     }
                     .onFailure {
+                        Timber.tag("okhttp").d("IAMPORT TOKEN ERROR : $it")
                         _getIamportTokenResult.emit(false)
                     }
             }
@@ -120,6 +122,7 @@ class PhoneViewModel
                         }
                     }
                     .onFailure {
+                        Timber.tag("okhttp").d("IAMPORT DATA ERROR : $it")
                         _getIamportCertificationResult.emit(false)
                     }
             }
@@ -132,6 +135,7 @@ class PhoneViewModel
                         _postSignUpState.value = UiState.Success(it.nickname)
                     }
                     .onFailure {
+                        Timber.tag("okhttp").d(it)
                         _postSignUpState.value = UiState.Failure(it.message.orEmpty())
                     }
             }

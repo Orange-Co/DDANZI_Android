@@ -13,7 +13,7 @@ interface AuthRepository {
     suspend fun postOauthDataToGetToken(request: AuthRequestModel): Result<AuthTokenModel>
 
     suspend fun postToSignUp(
-        authorization: String,
+        accesstoken: String,
         request: SignUpRequestModel,
     ): Result<SignUpModel>
 }

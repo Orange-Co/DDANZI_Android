@@ -68,12 +68,14 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
                     company = stringOf(R.string.company_name),
                 ),
         ) { response ->
-            Timber.tag("okhttp").d("IAMPORT CERTIFICATION RESPONSE : $response")
             if (response != null && response.success == true) {
                 with(viewModel) {
                     certificatedUid = response.imp_uid.toString()
                     postToGetIamportTokenFromServer()
                 }
+            } else {
+                Timber.tag("okhttp").d("IAMPORT CERTIFICATION ERROR : $response")
+                setLoadingScreen(false)
             }
         }
     }

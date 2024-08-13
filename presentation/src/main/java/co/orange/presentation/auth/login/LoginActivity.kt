@@ -9,7 +9,6 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
-import co.orange.core.state.UiState
 import co.orange.presentation.auth.phone.PhoneActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,7 +26,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
         initLoginBtnListener()
         observeAppLoginAvailable()
-        observeChangeTokenState()
+        observeChangeTokenResult()
     }
 
     private fun initLoginBtnListener() {
@@ -42,19 +41,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }.launchIn(lifecycleScope)
     }
 
-    private fun observeChangeTokenState() {
-        viewModel.changeTokenState.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        Intent(this, PhoneActivity::class.java).apply {
-                            startActivity(this)
-                        }
-                        finish()
+    private fun observeChangeTokenResult() {
+        viewModel.changeTokenResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (isSuccess) {
+                    Intent(this, PhoneActivity::class.java).apply {
+                        startActivity(this)
                     }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
+                    finish()
+                } else {
+                    toast(stringOf(R.string.error_msg))
                 }
             }.launchIn(lifecycleScope)
     }

@@ -4,8 +4,10 @@ import co.orange.data.dataSource.AuthDataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.AuthRequestDto
 import co.orange.data.dto.request.ReissueRequestDto
+import co.orange.data.dto.request.SignUpRequestDto
 import co.orange.data.dto.response.AuthTokenDto
 import co.orange.data.dto.response.ReissueTokenDto
+import co.orange.data.dto.response.SignUpDto
 import co.orange.data.service.AuthService
 import javax.inject.Inject
 
@@ -19,4 +21,9 @@ data class AuthDataSourceImpl
 
         override suspend fun postOauthDataToGetToken(request: AuthRequestDto): BaseResponse<AuthTokenDto> =
             authService.postOauthDataToGetToken(request)
+
+        override suspend fun postToSignUp(
+            accesstoken: String,
+            request: SignUpRequestDto,
+        ): BaseResponse<SignUpDto> = authService.postToSignUp(accesstoken, request)
     }

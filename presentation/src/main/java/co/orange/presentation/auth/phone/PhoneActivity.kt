@@ -8,6 +8,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import com.iamport.sdk.data.sdk.IamPortCertification
 import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
         observeIsSubmitClicked()
         observeIamportTokenResult()
         observeIamportCertificationResult()
+        observeSignUpState()
     }
 
     private fun initAuthBtnListener() {
@@ -45,7 +47,10 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
     private fun observeIsSubmitClicked() {
         viewModel.isSubmitClicked.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
-                if (isSuccess) startIamportCertification()
+                if (isSuccess) {
+                    // TODO 로딩뷰 시작
+                    startIamportCertification()
+                }
             }.launchIn(lifecycleScope)
     }
 
@@ -78,6 +83,19 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
         viewModel.getIamportCertificationResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
                 if (!isSuccess) toast(stringOf(R.string.error_msg))
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeSignUpState() {
+        viewModel.postSignUpState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
             }.launchIn(lifecycleScope)
     }
 

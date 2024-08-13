@@ -4,11 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.extension.toPhoneFrom
+import co.orange.core.state.UiState
+import co.orange.domain.entity.request.SignUpRequestModel
+import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.IamportRepository
 import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +21,7 @@ import javax.inject.Inject
 class PhoneViewModel
     @Inject
     constructor(
+        private val authRepository: AuthRepository,
         private val iamportRepository: IamportRepository,
         private val userRepository: UserRepository,
     ) : ViewModel() {
@@ -35,6 +41,9 @@ class PhoneViewModel
 
         private val _getIamportCertificationResult = MutableSharedFlow<Boolean>()
         val getIamportCertificationResult: SharedFlow<Boolean> = _getIamportCertificationResult
+
+        private val _postSignUpState = MutableStateFlow<UiState<String>>(UiState.Empty)
+        val postSignUpState: StateFlow<UiState<String>> = _postSignUpState
 
         fun checkAllTerm() {
             isTermPrivateSelected.value = isTermAllSelected.value?.not()
@@ -91,19 +100,36 @@ class PhoneViewModel
                     .onSuccess {
                         if (it != null) {
                             _getIamportCertificationResult.emit(true)
-                            val name = it.name // "김상호" 형태
-                            val phone = it.phone // "01032590327" 형태
-                            val birth = it.birthday // "2000-03-27" 형태
-                            val sex = it.gender // "male" 형태
-                            if (name != null && phone != null) {
-                                userRepository.setUserInfo(name, phone.toPhoneFrom().orEmpty())
-                            }
+                            postToSignUpFromServer(
+                                SignUpRequestModel(
+                                    it.name.orEmpty(),
+                                    it.phone.orEmpty(),
+                                    it.birthday?.replace("-", ".").orEmpty(),
+                                    it.gender?.uppercase().orEmpty(),
+                                ),
+                            )
+                            userRepository.setUserInfo(
+                                it.name.orEmpty(),
+                                it.phone?.toPhoneFrom().orEmpty(),
+                            )
                         } else {
                             _getIamportCertificationResult.emit(false)
                         }
                     }
                     .onFailure {
                         _getIamportCertificationResult.emit(false)
+                    }
+            }
+        }
+
+        private fun postToSignUpFromServer(request: SignUpRequestModel) {
+            viewModelScope.launch {
+                authRepository.postToSignUp(userRepository.getAccessToken(), request)
+                    .onSuccess {
+                        _postSignUpState.value = UiState.Success(it.nickname)
+                    }
+                    .onFailure {
+                        _postSignUpState.value = UiState.Failure(it.message.orEmpty())
                     }
             }
         }

@@ -1,5 +1,6 @@
 package co.orange.domain.entity.request
 
 data class ReissueRequestModel(
-    val userId: Long,
+    val accessToken: String,
+    val refreshToken: String,
 )

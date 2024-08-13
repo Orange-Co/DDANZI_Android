@@ -7,6 +7,7 @@ import co.orange.domain.entity.response.ProductDetailModel
 import co.orange.domain.entity.response.ProductOptionModel
 import co.orange.domain.repository.DeviceRepository
 import co.orange.domain.repository.InterestRepository
+import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +20,7 @@ class DetailViewModel
     constructor(
         private val deviceRepository: DeviceRepository,
         private val interestRepository: InterestRepository,
+        private val userRepository: UserRepository,
     ) : ViewModel() {
         var productId: String = ""
 
@@ -67,4 +69,6 @@ class DetailViewModel
                 }
             }
         }
+
+        fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()
     }

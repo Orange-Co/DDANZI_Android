@@ -36,7 +36,7 @@ class TermBottomSheet :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            viewModel.clickSubmitBtn()
+            viewModel.clickSubmitBtn(true)
             dismiss()
         }
     }

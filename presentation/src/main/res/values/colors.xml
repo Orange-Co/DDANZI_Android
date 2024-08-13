@@ -28,5 +28,6 @@
     <color name="transparent_60">#99000000</color>
     <color name="transparent_50">#80000000</color>
     <color name="transparent_30">#4D000000</color>
+    <color name="background_50">#7D7D7D</color>
 
 </resources>

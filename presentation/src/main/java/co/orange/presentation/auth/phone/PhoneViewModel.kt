@@ -72,9 +72,9 @@ class PhoneViewModel
                 (isTermPrivateSelected.value == true && isTermServiceSelected.value == true)
         }
 
-        fun clickSubmitBtn() {
+        fun clickSubmitBtn(boolean: Boolean) {
             viewModelScope.launch {
-                _isSubmitClicked.emit(true)
+                _isSubmitClicked.emit(boolean)
             }
         }
 

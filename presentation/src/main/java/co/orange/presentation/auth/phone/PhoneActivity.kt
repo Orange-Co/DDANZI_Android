@@ -2,10 +2,12 @@ package co.orange.presentation.auth.phone
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setStatusBarColorFromResource
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
@@ -49,7 +51,8 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
         viewModel.isSubmitClicked.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
                 if (isSuccess) {
-                    // TODO 로딩뷰 시작
+                    setLoadingScreen(true)
+                    viewModel.clickSubmitBtn(false)
                     startIamportCertification()
                 }
             }.launchIn(lifecycleScope)
@@ -76,14 +79,20 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
     private fun observeIamportTokenResult() {
         viewModel.getIamportTokenResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
-                if (!isSuccess) toast(stringOf(R.string.error_msg))
+                if (!isSuccess) {
+                    toast(stringOf(R.string.error_msg))
+                    setLoadingScreen(false)
+                }
             }.launchIn(lifecycleScope)
     }
 
     private fun observeIamportCertificationResult() {
         viewModel.getIamportCertificationResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
-                if (!isSuccess) toast(stringOf(R.string.error_msg))
+                if (!isSuccess) {
+                    toast(stringOf(R.string.error_msg))
+                    setLoadingScreen(false)
+                }
             }.launchIn(lifecycleScope)
     }
 
@@ -92,17 +101,31 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        // TODO 로딩 해제
+                        setLoadingScreen(false)
                         SubmitActivity.createIntent(this, state.data).apply {
                             startActivity(this)
                         }
                         finish()
                     }
 
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    is UiState.Failure -> {
+                        toast(stringOf(R.string.error_msg))
+                        setLoadingScreen(false)
+                    }
+
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    private fun setLoadingScreen(isLoading: Boolean) {
+        if (isLoading) {
+            setStatusBarColorFromResource(R.color.background_50)
+            binding.layoutLoading.isVisible = true
+        } else {
+            setStatusBarColorFromResource(R.color.white)
+            binding.layoutLoading.isVisible = false
+        }
     }
 
     override fun onDestroy() {

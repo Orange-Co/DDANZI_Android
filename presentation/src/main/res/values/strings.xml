@@ -183,6 +183,7 @@
     <string name="sign_up_term_tv_third">마케팅 수신 동의 (선택)</string>
     <string name="sign_up_term_btn_submit">동의하고 본인 인증하러 가기</string>
 
+    <string name="sign_up_nickname">%1$s님</string>
     <string name="sign_up_confirm_btn_confirm">완료</string>
     <string name="sign_up_confirm_tv_title">환영해요!</string>
 

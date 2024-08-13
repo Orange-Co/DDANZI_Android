@@ -9,6 +9,7 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.presentation.auth.submit.SubmitActivity
 import com.iamport.sdk.data.sdk.IamPortCertification
 import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,6 +92,11 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
+                        // TODO 로딩 해제
+                        SubmitActivity.createIntent(this, state.data).apply {
+                            startActivity(this)
+                        }
+                        finish()
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

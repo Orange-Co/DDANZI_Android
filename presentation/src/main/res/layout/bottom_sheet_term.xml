@@ -43,9 +43,8 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:checked="@{vm.isTermAllSelected ? true : false}"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sel_check_circle" />
+                android:src="@{vm.isTermAllSelected ? @drawable/ic_check_circle_filled : @drawable/ic_check_circle_unfilled}" />
 
             <TextView
                 style="@style/TextAppearance.DDanzi.Body3"
@@ -70,8 +69,7 @@
                 android:id="@+id/iv_term_first"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{vm.isTermPrivateSelected ? true : false}"
-                android:src="@drawable/sel_check_term"
+                android:src="@{vm.isTermPrivateSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -118,8 +116,7 @@
                 android:id="@+id/iv_term_second"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{vm.isTermServiceSelected ? true : false}"
-                android:src="@drawable/sel_check_term"
+                android:src="@{vm.isTermServiceSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -166,8 +163,7 @@
                 android:id="@+id/iv_term_third"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{vm.isTermMarketingSelected ? true : false}"
-                android:src="@drawable/sel_check_term"
+                android:src="@{vm.isTermMarketingSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -91,8 +91,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         DetailActivity.createIntent(
             requireContext(),
             item.productId,
-        )
-            .apply { startActivity(this) }
+        ).apply { startActivity(this) }
     }
 
     private fun initSearchBtnListener() {
@@ -105,7 +104,13 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
-            activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            if (viewModel.getUserLogined()) {
+                activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            } else {
+                Intent(requireActivity(), LoginActivity::class.java).apply {
+                    startActivity(this)
+                }
+            }
         }
     }
 

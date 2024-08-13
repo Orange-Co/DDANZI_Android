@@ -1,9 +1,12 @@
 package co.orange.data.repositoryImpl
 
 import co.orange.data.dataSource.AuthDataSource
-import co.orange.data.dto.request.AuthTokenRequestDto.Companion.toDto
-import co.orange.domain.entity.request.AuthTokenRequestModel
+import co.orange.data.dto.request.AuthRequestDto.Companion.toDto
+import co.orange.data.dto.request.ReissueRequestDto.Companion.toDto
+import co.orange.domain.entity.request.AuthRequestModel
+import co.orange.domain.entity.request.ReissueRequestModel
 import co.orange.domain.entity.response.AuthTokenModel
+import co.orange.domain.entity.response.ReissueTokenModel
 import co.orange.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -12,14 +15,15 @@ class AuthRepositoryImpl
     constructor(
         private val authDataSource: AuthDataSource,
     ) : AuthRepository {
-        override suspend fun postReissueTokens(
-            authorization: String,
-            request: AuthTokenRequestModel,
-        ): Result<AuthTokenModel> =
+        override suspend fun postReissueTokens(request: ReissueRequestModel): Result<ReissueTokenModel> =
             runCatching {
                 authDataSource.postReissueTokens(
-                    authorization,
                     request.toDto(),
                 ).data.toModel()
+            }
+
+        override suspend fun postOauthDataToGetToken(request: AuthRequestModel): Result<AuthTokenModel> =
+            runCatching {
+                authDataSource.postOauthDataToGetToken(request.toDto()).data.toModel()
             }
     }

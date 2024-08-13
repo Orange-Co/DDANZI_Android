@@ -82,7 +82,9 @@ dependencies {
         kapt(hiltWorkManagerCompiler)
     }
 
-    implementation(MaterialDesignDependencies.materialDesign)
+    MaterialDesignDependencies.run {
+        implementation(materialDesign)
+    }
 
     TestDependencies.run {
         testImplementation(jUnit)
@@ -104,5 +106,9 @@ dependencies {
 
     JitpackDependencies.run {
         implementation(iamport)
+    }
+
+    KakaoDependencies.run {
+        implementation(user)
     }
 }

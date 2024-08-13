@@ -32,11 +32,10 @@ object Versions {
     const val balloonVersion = "1.4.5"
     const val lottieVersion = "6.0.0"
     const val circularProgressBar = "3.1.0"
-    const val kakaoVersion = "2.19.0"
+    const val kakaoVersion = "2.20.3"
     const val circleIndicatorVersion = "2.1.6"
     const val shimmerVersion = "0.5.0"
     const val mlkitVersion = "16.0.0"
-    const val gsonVersion = "2.10.1"
 
     const val iamportVersion = "v1.4.4"
 

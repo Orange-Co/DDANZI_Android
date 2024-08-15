@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProfileNicknameModel
 import co.orange.domain.repository.ProfileRepository
+import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,6 +17,7 @@ class ProfileViewModel
     @Inject
     constructor(
         private val profileRepository: ProfileRepository,
+        private val userRepository: UserRepository,
     ) : ViewModel() {
         private val _getNicknameState = MutableStateFlow<UiState<ProfileNicknameModel>>(UiState.Empty)
         val getNicknameState: StateFlow<UiState<ProfileNicknameModel>> = _getNicknameState
@@ -31,4 +33,6 @@ class ProfileViewModel
                     }
             }
         }
+
+        fun getUserLogined() = userRepository.getUserName().isNotEmpty()
     }

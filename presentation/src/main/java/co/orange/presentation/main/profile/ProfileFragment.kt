@@ -12,6 +12,7 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.setting.SettingActivity
 import co.orange.presentation.setting.history.HistoryActivity
 import co.orange.presentation.setting.history.HistoryActivity.Companion.TYPE_BUY
@@ -51,8 +52,11 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     }
 
     private fun initLoginBtnListener() {
-        // TODO
-        binding.btnLogin.setOnSingleClickListener { }
+        binding.btnLogin.setOnSingleClickListener {
+            Intent(requireActivity(), LoginActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun initWebBtnsListener() {
@@ -80,10 +84,10 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     }
 
     private fun checkIsLogined() {
-        // TODO 추후 토큰 반영
-        if (true) {
+        if (viewModel.getUserLogined()) {
             with(binding) {
                 layoutYesLogin.isVisible = true
+                binding.btnSetting.isVisible = true
                 layoutNotLogin.isVisible = false
             }
             viewModel.getNicknameFromServer()

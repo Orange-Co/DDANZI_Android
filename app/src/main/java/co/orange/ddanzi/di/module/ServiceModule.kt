@@ -28,7 +28,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideHomeService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): HomeService = retrofit.create(HomeService::class.java)
 
     @Provides

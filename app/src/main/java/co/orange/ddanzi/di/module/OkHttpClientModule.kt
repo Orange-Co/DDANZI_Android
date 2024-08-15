@@ -37,10 +37,12 @@ object OkHttpClientModule {
     @RetrofitQualifier.DEVICE
     fun provideDeviceOkHttpClient(
         loggingInterceptor: Interceptor,
+        @RetrofitQualifier.JWT authInterceptor: Interceptor,
         @RetrofitQualifier.DEVICE deviceTokenInterceptor: Interceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
             .addInterceptor(deviceTokenInterceptor)
             .build()
 

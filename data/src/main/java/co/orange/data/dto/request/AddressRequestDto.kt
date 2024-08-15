@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AddressRequestDto(
-    @SerialName("name")
-    val name: String,
+    @SerialName("recipient")
+    val recipient: String,
     @SerialName("zipCode")
     val zipCode: String,
     @SerialName("type")
@@ -16,10 +16,10 @@ data class AddressRequestDto(
     val address: String,
     @SerialName("detailAddress")
     val detailAddress: String,
-    @SerialName("phone")
-    val phone: String,
+    @SerialName("recipientPhone")
+    val recipientPhone: String,
 ) {
     companion object {
-        fun AddressRequestModel.toDto() = AddressRequestDto(name, zipCode, type, address, detailAddress, phone)
+        fun AddressRequestModel.toDto() = AddressRequestDto(recipient, zipCode, type, address, detailAddress, recipientPhone)
     }
 }

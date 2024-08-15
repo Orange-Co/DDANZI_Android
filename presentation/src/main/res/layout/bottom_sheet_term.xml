@@ -4,13 +4,18 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="co.orange.presentation.auth.phone.PhoneViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingBottom="30dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_white_fill_top20_rect">
+        android:background="@drawable/shape_white_fill_top20_rect"
+        android:paddingBottom="30dp">
 
         <View
             android:id="@+id/iv_handler"
@@ -29,6 +34,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="33dp"
             android:gravity="center_vertical"
+            android:onClick="@{() -> vm.checkAllTerm()}"
             android:orientation="horizontal"
             android:paddingVertical="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +44,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sel_check_circle" />
+                android:src="@{vm.isTermAllSelected ? @drawable/ic_check_circle_filled : @drawable/ic_check_circle_unfilled}" />
 
             <TextView
                 style="@style/TextAppearance.DDanzi.Body3"
@@ -49,66 +55,68 @@
 
         </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_term_first"
-                app:layout_constraintEnd_toStartOf="@id/btn_term_first_detail"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_term_private"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:onClick="@{() -> vm.checkPrivateTerm()}"
+            app:layout_constraintEnd_toStartOf="@id/btn_term_private_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_all">
+
+            <ImageView
+                android:id="@+id/iv_term_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@{vm.isTermPrivateSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_term_all"
-                android:layout_marginStart="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iv_term_first"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sel_check_term"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_term_first"
-                    style="@style/TextAppearance.DDanzi.Body6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:paddingVertical="12dp"
-                    android:text="@string/sign_up_term_tv_first"
-                    android:textColor="@color/gray_2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_term_first"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/btn_term_first_detail"
-                android:layout_width="wrap_content"
-                android:padding="6dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray_2"
-                android:text="@string/sign_up_term_btn_detail"
+                android:id="@+id/tv_term_first"
                 style="@style/TextAppearance.DDanzi.Body6"
-                android:layout_marginEnd="14dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btn_term_first"
-                app:layout_constraintBottom_toBottomOf="@id/btn_term_first"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingVertical="12dp"
+                android:text="@string/sign_up_term_tv_first"
+                android:textColor="@{vm.isTermPrivateSelected ? @color/black : @color/gray_2}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_term_first"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/btn_term_private_detail"
+            style="@style/TextAppearance.DDanzi.Body6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:padding="6dp"
+            android:text="@string/sign_up_term_btn_detail"
+            android:textColor="@color/gray_2"
+            app:layout_constraintBottom_toBottomOf="@id/btn_term_private"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_term_private" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_term_second"
-            app:layout_constraintEnd_toStartOf="@id/btn_term_second_detail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_term_first"
-            android:layout_marginStart="20dp"
+            android:id="@+id/btn_term_service"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:onClick="@{() -> vm.checkServiceTerm()}"
+            app:layout_constraintEnd_toStartOf="@id/btn_term_service_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_private">
 
             <ImageView
                 android:id="@+id/iv_term_second"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sel_check_term"
+                android:src="@{vm.isTermServiceSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,7 +129,7 @@
                 android:layout_marginStart="10dp"
                 android:paddingVertical="12dp"
                 android:text="@string/sign_up_term_tv_second"
-                android:textColor="@color/gray_2"
+                android:textColor="@{vm.isTermServiceSelected ? @color/black : @color/gray_2}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_term_second"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -129,32 +137,33 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/btn_term_second_detail"
-            android:layout_width="wrap_content"
-            android:padding="6dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray_2"
-            android:text="@string/sign_up_term_btn_detail"
+            android:id="@+id/btn_term_service_detail"
             style="@style/TextAppearance.DDanzi.Body6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
+            android:padding="6dp"
+            android:text="@string/sign_up_term_btn_detail"
+            android:textColor="@color/gray_2"
+            app:layout_constraintBottom_toBottomOf="@id/btn_term_service"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_term_second"
-            app:layout_constraintBottom_toBottomOf="@id/btn_term_second"/>
+            app:layout_constraintTop_toTopOf="@id/btn_term_service" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_term_third"
-            app:layout_constraintEnd_toStartOf="@id/btn_term_third_detail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_term_second"
-            android:layout_marginStart="20dp"
+            android:id="@+id/btn_term_marketing"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:onClick="@{() -> vm.checkMarketingTerm()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_service">
 
             <ImageView
                 android:id="@+id/iv_term_third"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sel_check_term"
+                android:src="@{vm.isTermMarketingSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -167,7 +176,7 @@
                 android:layout_marginStart="10dp"
                 android:paddingVertical="12dp"
                 android:text="@string/sign_up_term_tv_third"
-                android:textColor="@color/gray_2"
+                android:textColor="@{vm.isTermMarketingSelected ? @color/black : @color/gray_2}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_term_third"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -175,33 +184,21 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/btn_term_third_detail"
-            android:layout_width="wrap_content"
-            android:padding="6dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray_2"
-            android:text="@string/sign_up_term_btn_detail"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_marginEnd="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_term_third"
-            app:layout_constraintBottom_toBottomOf="@id/btn_term_third"/>
-
-        <TextView
             android:id="@+id/btn_submit"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
-            android:background="@drawable/shape_black_fill_10_rect"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="@{vm.isCompleted}"
             android:gravity="center"
             android:paddingVertical="16dp"
             android:text="@string/sign_up_term_btn_submit"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/btn_term_third"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_term_marketing" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

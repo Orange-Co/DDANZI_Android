@@ -6,6 +6,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.hideKeyboard
 import co.orange.core.extension.initFocusWithKeyboard
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.presentation.auth.phone.TermBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySignUpBinding

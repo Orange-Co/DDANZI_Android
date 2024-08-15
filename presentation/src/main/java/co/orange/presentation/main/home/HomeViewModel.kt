@@ -83,6 +83,8 @@ class HomeViewModel
             _getProductIdState.value = UiState.Empty
         }
 
+        fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()
+
         fun setDeviceToken(deviceToken: String) {
             userRepository.setDeviceToken(deviceToken)
         }

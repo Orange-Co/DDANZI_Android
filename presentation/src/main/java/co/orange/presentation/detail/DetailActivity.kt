@@ -18,6 +18,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
+import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.buy.confirm.BuyConfirmActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,13 +67,15 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
+            if (!viewModel.getUserLogined()) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                return@setOnSingleClickListener
+            }
             if (viewModel.optionList.isEmpty()) {
                 BuyConfirmActivity.createIntent(
                     this,
                     viewModel.productId,
-                ).apply {
-                    startActivity(this)
-                }
+                ).apply { startActivity(this) }
             } else {
                 optionBottomSheet = OptionBottomSheet()
                 optionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)

@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -68,6 +69,8 @@ class LoginViewModel
                         with(userRepository) {
                             setTokens(it.accesstoken, it.refreshtoken)
                         }
+                        Timber.tag("qqqq").d(it.accesstoken)
+                        Timber.tag("qqqq").d(userRepository.getAccessToken())
                         _changeTokenResult.emit(true)
                     }
                     .onFailure {

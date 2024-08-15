@@ -13,7 +13,6 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 class HomeAdapter(
     private val bannerClick: (Unit) -> (Unit),
     private val productClick: (ProductModel) -> (Unit),
-    private val likeClick: (Unit) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()
 
@@ -36,7 +35,6 @@ class HomeAdapter(
                 HomeProductViewHolder(
                     ItemHomeProductBinding.inflate(inflater, parent, false),
                     productClick,
-                    likeClick,
                 )
 
             else -> throw ClassCastException(

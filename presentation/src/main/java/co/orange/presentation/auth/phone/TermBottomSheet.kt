@@ -1,18 +1,16 @@
-package co.orange.presentation.auth.signup_x
+package co.orange.presentation.auth.phone
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.auth.submit.SubmitActivity
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetTermBinding
 
 class TermBottomSheet :
     BaseBottomSheet<BottomSheetTermBinding>(R.layout.bottom_sheet_term) {
-    private val viewModel by activityViewModels<SignUpViewModel>()
+    private val viewModel by activityViewModels<PhoneViewModel>()
 
     override fun onStart() {
         super.onStart()
@@ -25,11 +23,12 @@ class TermBottomSheet :
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        initTermBtnsListener()
+        binding.vm = viewModel
+        initTermDetailBtnsListener()
         initSubmitBtnListener()
     }
 
-    private fun initTermBtnsListener() {
+    private fun initTermDetailBtnsListener() {
         with(binding) {
             // TODO
         }
@@ -37,10 +36,7 @@ class TermBottomSheet :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            Intent(requireActivity(), SubmitActivity::class.java).apply {
-                startActivity(this)
-            }
-            requireActivity().finish()
+            viewModel.clickSubmitBtn(true)
             dismiss()
         }
     }

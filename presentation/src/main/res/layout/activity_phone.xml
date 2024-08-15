@@ -11,22 +11,69 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/tv_phone_title"
+            style="@style/TextAppearance.DDanzi.Title4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="22dp"
+            android:layout_marginTop="130dp"
+            android:text="@string/phone_tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_phone_subtitle"
+            style="@style/TextAppearance.DDanzi.Body4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="22dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/phone_tv_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_phone_title" />
+
+        <TextView
             android:id="@+id/btn_phone_auth"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/shape_black_fill_10_rect"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/sel_btn"
+            android:enabled="true"
             android:gravity="center"
             android:paddingVertical="16dp"
-            android:text="본인 인증하기"
+            android:text="@string/phone_btn_auth"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent_50"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/lottie_loading" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

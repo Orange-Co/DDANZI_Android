@@ -80,7 +80,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             HomeAdapter(
                 bannerClick = ::initBannerClickListener,
                 productClick = ::initProductClickListener,
-                likeClick = ::initLikeClickListener,
             )
         binding.rvHome.adapter = adapter
     }
@@ -92,11 +91,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         DetailActivity.createIntent(
             requireContext(),
             item.productId,
-        )
-            .apply { startActivity(this) }
+        ).apply { startActivity(this) }
     }
-
-    private fun initLikeClickListener(unit: Unit) {}
 
     private fun initSearchBtnListener() {
         binding.btnSearch.setOnSingleClickListener {
@@ -108,7 +104,13 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
-            activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            if (viewModel.getUserLogined()) {
+                activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            } else {
+                Intent(requireActivity(), LoginActivity::class.java).apply {
+                    startActivity(this)
+                }
+            }
         }
     }
 

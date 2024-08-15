@@ -9,33 +9,33 @@ data class IamportCertificationDto(
     @SerialName("imp_uid")
     val impUid: String,
     @SerialName("merchant_uid")
-    val merchantUid: String?,
+    val merchantUid: String? = null,
     @SerialName("pg_uid")
-    val pgUid: String?,
+    val pgUid: String? = null,
     @SerialName("pg_provider")
     val pgProvider: String,
     @SerialName("name")
-    val name: String?,
+    val name: String? = null,
     @SerialName("gender")
-    val gender: String?,
+    val gender: String? = null,
     @SerialName("birthday")
-    val birthday: String?,
+    val birthday: String? = null,
     @SerialName("foreigner")
     val foreigner: Boolean,
     @SerialName("phone")
-    val phone: String?,
+    val phone: String? = null,
     @SerialName("carrier")
-    val carrier: String?,
+    val carrier: String? = null,
     @SerialName("certified")
-    val certified: Boolean?,
+    val certified: Boolean? = null,
     @SerialName("unique_key")
-    val uniqueKey: String?,
+    val uniqueKey: String? = null,
     @SerialName("unique_in_site")
-    val uniqueInSite: String?,
+    val uniqueInSite: String? = null,
     @SerialName("origin")
-    val origin: String?,
+    val origin: String? = null,
     @SerialName("foreigner_v2")
-    val foreignerV2: Boolean?,
+    val foreignerV2: Boolean? = null,
 ) {
     fun toModel() =
         IamportCertificationModel(

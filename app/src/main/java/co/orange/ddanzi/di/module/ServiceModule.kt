@@ -40,7 +40,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideSearchService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): SearchService = retrofit.create(SearchService::class.java)
 
     @Provides

@@ -11,6 +11,7 @@ import co.orange.domain.entity.response.AuthTokenModel
 import co.orange.domain.entity.response.ReissueTokenModel
 import co.orange.domain.entity.response.SignUpModel
 import co.orange.domain.repository.AuthRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthRepositoryImpl
@@ -35,6 +36,7 @@ class AuthRepositoryImpl
             request: SignUpRequestModel,
         ): Result<SignUpModel> =
             runCatching {
+                Timber.tag("okhttp").d("ACCESS TOKEN : $BEARER $accesstoken")
                 authDataSource.postToSignUp(
                     "$BEARER $accesstoken",
                     request.toDto(),

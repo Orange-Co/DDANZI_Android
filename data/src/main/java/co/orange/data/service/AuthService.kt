@@ -25,7 +25,7 @@ interface AuthService {
 
     @POST("/api/v1/auth/verification")
     suspend fun postToSignUp(
-        @Header("accesstoken") accesstoken: String,
+        @Header("Authorization") accesstoken: String,
         @Body request: SignUpRequestDto,
     ): BaseResponse<SignUpDto>
 }

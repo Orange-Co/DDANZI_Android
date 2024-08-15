@@ -109,7 +109,7 @@ class PhoneViewModel
                                 SignUpRequestModel(
                                     it.name.orEmpty(),
                                     it.phone.orEmpty(),
-                                    it.birthday?.replace("-", ".").orEmpty(),
+                                    it.birthday.orEmpty(),
                                     it.gender?.uppercase().orEmpty(),
                                 ),
                             )
@@ -130,12 +130,12 @@ class PhoneViewModel
 
         private fun postToSignUpFromServer(request: SignUpRequestModel) {
             viewModelScope.launch {
+                Timber.tag("qqqq").d(userRepository.getAccessToken())
                 authRepository.postToSignUp(userRepository.getAccessToken(), request)
                     .onSuccess {
                         _postSignUpState.value = UiState.Success(it.nickname)
                     }
                     .onFailure {
-                        Timber.tag("okhttp").d(it)
                         _postSignUpState.value = UiState.Failure(it.message.orEmpty())
                     }
             }

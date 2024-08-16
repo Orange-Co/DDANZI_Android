@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
-import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
@@ -48,7 +47,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
         initAdapter()
         initSearchBtnListener()
         initSellBtnListener()
@@ -59,10 +57,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         observeCheckedAgainState()
         observeGetHomeDataState()
         observeGetProductIdState()
-    }
-
-    private fun initView() {
-        initOnBackPressedListener(binding.root)
     }
 
     private fun initAdapter() {

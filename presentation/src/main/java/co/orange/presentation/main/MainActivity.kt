@@ -6,6 +6,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.colorOf
+import co.orange.core.extension.initOnBackPressedListener
 import co.orange.presentation.main.home.HomeFragment
 import co.orange.presentation.main.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initOnBackPressedListener(binding.root)
         initBnvItemIconTintList()
         initBnvItemSelectedListener()
         setNavigationBarBlack()

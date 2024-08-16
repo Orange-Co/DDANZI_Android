@@ -61,6 +61,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun initLikeBtnListener() {
         binding.btnLike.setOnSingleClickListener {
+            if (!viewModel.getUserLogined()) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                return@setOnSingleClickListener
+            }
             viewModel.setLikeStateWithServer()
         }
     }
@@ -121,7 +125,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     private fun observeLikeState() {
         viewModel.likeState.flowWithLifecycle(lifecycle).distinctUntilChanged().onEach { isLiked ->
             with(binding) {
-                btnLike.isEnabled = isLiked
+                ivDetailLike.isEnabled = isLiked
                 tvDetailLike.text = viewModel.interestCount.setOverThousand()
             }
         }.launchIn(lifecycleScope)

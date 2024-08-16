@@ -25,7 +25,7 @@ class SearchItemViewHolder(
             }
             tvSearchItemNowPrice.text = item.salePrice.setNumberForm()
             tvSearchItemLike.text = item.interestCount.setOverThousand()
-            ivSearchItemLike.isEnabled = item.isInterested
+            ivSearchItemLike.isSelected = item.isInterested
 
             root.setOnSingleClickListener {
                 itemClick(item)

@@ -57,6 +57,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         observeCheckedAgainState()
         observeGetHomeDataState()
         observeGetProductIdState()
+        observeLikeResult()
     }
 
     private fun initAdapter() {
@@ -64,6 +65,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             HomeAdapter(
                 bannerClick = ::initBannerClickListener,
                 productClick = ::initProductClickListener,
+                likeClick = ::initLikeClickListener,
             )
         binding.rvHome.adapter = adapter
     }
@@ -76,6 +78,17 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             requireContext(),
             item.productId,
         ).apply { startActivity(this) }
+    }
+
+    private fun initLikeClickListener(
+        productId: String,
+        isInterested: Boolean,
+    ) {
+        if (!viewModel.getUserLogined()) {
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            return
+        }
+        viewModel.setLikeStateWithServer(productId, isInterested)
     }
 
     private fun initSearchBtnListener() {
@@ -181,6 +194,14 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeLikeResult() {
+        viewModel.likeResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (!isSuccess) toast(stringOf(R.string.error_msg))
+                viewModel.resetLikeState()
             }.launchIn(lifecycleScope)
     }
 

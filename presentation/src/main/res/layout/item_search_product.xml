@@ -54,7 +54,7 @@
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_gravity="center"
-                android:src="@drawable/sel_item_like_yellow" />
+                android:src="@drawable/sel_item_like_white" />
 
             <TextView
                 android:id="@+id/tv_search_item_like"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="3dp"
                 android:textColor="@color/white"
                 android:textSize="8sp"
                 tools:text="999+" />

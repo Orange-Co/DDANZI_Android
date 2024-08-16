@@ -66,6 +66,7 @@
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="50dp"
                     android:layout_marginTop="15dp"
+                    android:background="@color/gray_1"
                     android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -99,8 +100,8 @@
                     style="@style/TextAppearance.DDanzi.Body4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:ellipsize="end"
+                    android:gravity="end"
                     android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="@id/tv_sell_info_name_title"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -256,8 +257,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/gray_2"
-                        android:text="첫번째 약관" />
+                        android:text="첫번째 약관"
+                        android:textColor="@color/gray_2" />
 
                 </LinearLayout>
 
@@ -284,8 +285,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/gray_2"
-                        android:text="두번째 약관" />
+                        android:text="두번째 약관"
+                        android:textColor="@color/gray_2" />
 
                 </LinearLayout>
 
@@ -312,8 +313,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/gray_2"
-                        android:text="세번째 약관" />
+                        android:text="세번째 약관"
+                        android:textColor="@color/gray_2" />
 
                 </LinearLayout>
 

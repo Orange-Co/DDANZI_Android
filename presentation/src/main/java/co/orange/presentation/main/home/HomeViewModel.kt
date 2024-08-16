@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.HomeModel
 import co.orange.domain.repository.HomeRepository
+import co.orange.domain.repository.InterestRepository
 import co.orange.domain.repository.UserRepository
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -25,11 +26,8 @@ class HomeViewModel
     constructor(
         private val homeRepository: HomeRepository,
         private val userRepository: UserRepository,
+        private val interestRepository: InterestRepository,
     ) : ViewModel() {
-        init {
-            getHomeDataFromServer()
-        }
-
         var selectedImageUri = Uri.EMPTY
         var productId = ""
 
@@ -41,6 +39,13 @@ class HomeViewModel
 
         private val _getProductIdState = MutableStateFlow<UiState<String>>(UiState.Empty)
         val getProductIdState: StateFlow<UiState<String>> = _getProductIdState
+
+        private val _likeResult = MutableSharedFlow<Boolean>()
+        val likeResult: SharedFlow<Boolean> = _likeResult
+
+        init {
+            getHomeDataFromServer()
+        }
 
         fun setCheckedState(state: Boolean) {
             viewModelScope.launch {
@@ -81,6 +86,35 @@ class HomeViewModel
 
         fun resetProductIdState() {
             _getProductIdState.value = UiState.Empty
+        }
+
+        fun setLikeStateWithServer(
+            productId: String,
+            isInterested: Boolean,
+        ) {
+            viewModelScope.launch {
+                if (isInterested) {
+                    interestRepository.deleteInterest(productId)
+                        .onSuccess {
+                            _likeResult.emit(true)
+                        }
+                        .onFailure {
+                            _likeResult.emit(false)
+                        }
+                } else {
+                    interestRepository.postInterest(productId)
+                        .onSuccess {
+                            _likeResult.emit(true)
+                        }
+                        .onFailure {
+                            _likeResult.emit(false)
+                        }
+                }
+            }
+        }
+
+        fun resetLikeState() {
+            _likeResult.resetReplayCache()
         }
 
         fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()

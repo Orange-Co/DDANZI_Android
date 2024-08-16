@@ -40,8 +40,11 @@ class HomeViewModel
         private val _getProductIdState = MutableStateFlow<UiState<String>>(UiState.Empty)
         val getProductIdState: StateFlow<UiState<String>> = _getProductIdState
 
-        private val _itemLikeState = MutableStateFlow<UiState<Int>>(UiState.Empty)
-        val itemLikeState: StateFlow<UiState<Int>> = _itemLikeState
+        private val _itemLikePlusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
+        val itemLikePlusState: StateFlow<UiState<Int>> = _itemLikePlusState
+
+        private val _itemLikeMinusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
+        val itemLikeMinusState: StateFlow<UiState<Int>> = _itemLikeMinusState
 
         init {
             getHomeDataFromServer()
@@ -97,25 +100,26 @@ class HomeViewModel
                 if (isInterested) {
                     interestRepository.deleteInterest(productId)
                         .onSuccess {
-                            _itemLikeState.value = UiState.Success(position)
+                            _itemLikeMinusState.value = UiState.Success(position)
                         }
                         .onFailure {
-                            _itemLikeState.value = UiState.Failure(it.message.orEmpty())
+                            _itemLikeMinusState.value = UiState.Failure(it.message.orEmpty())
                         }
                 } else {
                     interestRepository.postInterest(productId)
                         .onSuccess {
-                            _itemLikeState.value = UiState.Success(position)
+                            _itemLikePlusState.value = UiState.Success(position)
                         }
                         .onFailure {
-                            _itemLikeState.value = UiState.Failure(it.message.orEmpty())
+                            _itemLikePlusState.value = UiState.Failure(it.message.orEmpty())
                         }
                 }
             }
         }
 
         fun resetLikeState() {
-            _itemLikeState.value = UiState.Empty
+            _itemLikePlusState.value = UiState.Empty
+            _itemLikeMinusState.value = UiState.Empty
         }
 
         fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()

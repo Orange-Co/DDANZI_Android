@@ -8,5 +8,5 @@ data class ProductModel(
     val originPrice: Int,
     val salePrice: Int,
     var isInterested: Boolean,
-    val interestCount: Int,
+    var interestCount: Int,
 )

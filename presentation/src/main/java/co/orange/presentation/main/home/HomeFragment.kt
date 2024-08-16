@@ -57,7 +57,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         observeCheckedAgainState()
         observeGetHomeDataState()
         observeGetProductIdState()
-        observeItemLikeState()
+        observeItemLikePlusState()
+        observeItemLikeMinusState()
     }
 
     private fun initAdapter() {
@@ -198,11 +199,23 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             }.launchIn(lifecycleScope)
     }
 
-    private fun observeItemLikeState() {
-        viewModel.itemLikeState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+    private fun observeItemLikePlusState() {
+        viewModel.itemLikePlusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> adapter.updateItem(state.data)
+                    is UiState.Success -> adapter.plusItemLike(state.data)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+                viewModel.resetLikeState()
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeItemLikeMinusState() {
+        viewModel.itemLikeMinusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> adapter.minusItemLike(state.data)
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }

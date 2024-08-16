@@ -85,8 +85,15 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateItem(position: Int) {
-        itemList[position].isInterested = !itemList[position].isInterested
+    fun plusItemLike(position: Int) {
+        itemList[position].isInterested = true
+        itemList[position].interestCount += 1
+        notifyItemChanged(position + HEADER_COUNT)
+    }
+
+    fun minusItemLike(position: Int) {
+        itemList[position].isInterested = false
+        itemList[position].interestCount -= 1
         notifyItemChanged(position + HEADER_COUNT)
     }
 

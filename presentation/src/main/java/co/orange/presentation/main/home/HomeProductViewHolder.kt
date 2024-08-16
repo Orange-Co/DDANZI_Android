@@ -13,15 +13,18 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 class HomeProductViewHolder(
     val binding: ItemHomeProductBinding,
     val productClick: (ProductModel) -> (Unit),
-    val likeClick: (String, Boolean) -> (Unit),
+    val likeClick: (String, Boolean, Int) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
-    fun onBind(item: ProductModel) {
+    fun onBind(
+        item: ProductModel,
+        position: Int,
+    ) {
         with(binding) {
             root.setOnSingleClickListener { productClick(item) }
 
             btnItemLike.setOnSingleClickListener {
-                likeClick(item.productId, item.isInterested)
+                likeClick(item.productId, item.isInterested, position)
             }
 
             tvHomeItemTitle.text = item.name.breakLines()
@@ -29,11 +32,15 @@ class HomeProductViewHolder(
 
             tvHomeItemRealPrice.apply {
                 text = item.originPrice.setNumberForm()
-                setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
+                paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
             tvHomeItemNowPrice.text = item.salePrice.setNumberForm()
             tvHomeItemLike.text = item.interestCount.setOverThousand()
             btnItemLike.isSelected = item.isInterested
         }
+    }
+
+    fun updateItemLikeState() {
+        binding.btnItemLike.isSelected = !binding.btnItemLike.isSelected
     }
 }

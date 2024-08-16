@@ -7,6 +7,6 @@ data class ProductModel(
     val imgUrl: String,
     val originPrice: Int,
     val salePrice: Int,
-    val isInterested: Boolean,
+    var isInterested: Boolean,
     val interestCount: Int,
 )

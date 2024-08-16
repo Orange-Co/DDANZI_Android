@@ -13,7 +13,7 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 class HomeAdapter(
     private val bannerClick: (Unit) -> (Unit),
     private val productClick: (ProductModel) -> (Unit),
-    private val likeClick: (String, Boolean) -> (Unit),
+    private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()
 
@@ -59,7 +59,7 @@ class HomeAdapter(
 
             is HomeProductViewHolder -> {
                 val itemPosition = position - HEADER_COUNT
-                holder.onBind(itemList[itemPosition])
+                holder.onBind(itemList[itemPosition], itemPosition)
             }
         }
         val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
@@ -83,6 +83,11 @@ class HomeAdapter(
     fun setItemList(itemList: List<ProductModel>) {
         this.itemList = itemList.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun updateItem(position: Int) {
+        itemList[position].isInterested = !itemList[position].isInterested
+        notifyItemChanged(position + HEADER_COUNT)
     }
 
     companion object {

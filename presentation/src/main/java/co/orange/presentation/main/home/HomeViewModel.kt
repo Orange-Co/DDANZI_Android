@@ -40,8 +40,8 @@ class HomeViewModel
         private val _getProductIdState = MutableStateFlow<UiState<String>>(UiState.Empty)
         val getProductIdState: StateFlow<UiState<String>> = _getProductIdState
 
-        private val _likeResult = MutableSharedFlow<Boolean>()
-        val likeResult: SharedFlow<Boolean> = _likeResult
+        private val _itemLikeState = MutableStateFlow<UiState<Int>>(UiState.Empty)
+        val itemLikeState: StateFlow<UiState<Int>> = _itemLikeState
 
         init {
             getHomeDataFromServer()
@@ -91,30 +91,31 @@ class HomeViewModel
         fun setLikeStateWithServer(
             productId: String,
             isInterested: Boolean,
+            position: Int,
         ) {
             viewModelScope.launch {
                 if (isInterested) {
                     interestRepository.deleteInterest(productId)
                         .onSuccess {
-                            _likeResult.emit(true)
+                            _itemLikeState.value = UiState.Success(position)
                         }
                         .onFailure {
-                            _likeResult.emit(false)
+                            _itemLikeState.value = UiState.Failure(it.message.orEmpty())
                         }
                 } else {
                     interestRepository.postInterest(productId)
                         .onSuccess {
-                            _likeResult.emit(true)
+                            _itemLikeState.value = UiState.Success(position)
                         }
                         .onFailure {
-                            _likeResult.emit(false)
+                            _itemLikeState.value = UiState.Failure(it.message.orEmpty())
                         }
                 }
             }
         }
 
         fun resetLikeState() {
-            _likeResult.resetReplayCache()
+            _itemLikeState.value = UiState.Empty
         }
 
         fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()

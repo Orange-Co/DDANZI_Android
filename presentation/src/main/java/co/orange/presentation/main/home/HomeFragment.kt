@@ -17,7 +17,6 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
@@ -61,6 +60,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         observeItemLikeMinusState()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getHomeDataFromServer()
+    }
+
     private fun initAdapter() {
         _adapter =
             HomeAdapter(
@@ -74,10 +79,10 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     // TODO: 버튼 리스너 설정
     private fun initBannerClickListener(unit: Unit) {}
 
-    private fun initProductClickListener(item: ProductModel) {
+    private fun initProductClickListener(productId: String) {
         DetailActivity.createIntent(
             requireContext(),
-            item.productId,
+            productId,
         ).apply { startActivity(this) }
     }
 
@@ -174,6 +179,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 when (state) {
                     is UiState.Success -> {
                         adapter.addBannerItem(state.data.homeImgUrl)
+                        adapter.setItemList(listOf())
                         adapter.setItemList(state.data.productList)
                     }
 

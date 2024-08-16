@@ -46,17 +46,13 @@ class HomeViewModel
         private val _itemLikeMinusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
         val itemLikeMinusState: StateFlow<UiState<Int>> = _itemLikeMinusState
 
-        init {
-            getHomeDataFromServer()
-        }
-
         fun setCheckedState(state: Boolean) {
             viewModelScope.launch {
                 _isCheckedAgain.emit(state)
             }
         }
 
-        private fun getHomeDataFromServer() {
+        fun getHomeDataFromServer() {
             viewModelScope.launch {
                 homeRepository.getHomeData()
                     .onSuccess {

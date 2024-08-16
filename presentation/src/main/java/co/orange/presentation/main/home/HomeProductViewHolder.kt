@@ -12,7 +12,7 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HomeProductViewHolder(
     val binding: ItemHomeProductBinding,
-    val productClick: (ProductModel) -> (Unit),
+    val productClick: (String) -> (Unit),
     val likeClick: (String, Boolean, Int) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
@@ -21,7 +21,7 @@ class HomeProductViewHolder(
         position: Int,
     ) {
         with(binding) {
-            root.setOnSingleClickListener { productClick(item) }
+            root.setOnSingleClickListener { productClick(item.productId) }
 
             btnItemLike.setOnSingleClickListener {
                 likeClick(item.productId, item.isInterested, position)

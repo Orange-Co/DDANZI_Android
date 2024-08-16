@@ -12,7 +12,7 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HomeAdapter(
     private val bannerClick: (Unit) -> (Unit),
-    private val productClick: (ProductModel) -> (Unit),
+    private val productClick: (String) -> (Unit),
     private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()
@@ -94,6 +94,10 @@ class HomeAdapter(
     fun minusItemLike(position: Int) {
         itemList[position].isInterested = false
         itemList[position].interestCount -= 1
+        notifyItemChanged(position + HEADER_COUNT)
+    }
+
+    fun updateItemLike(position: Int) {
         notifyItemChanged(position + HEADER_COUNT)
     }
 

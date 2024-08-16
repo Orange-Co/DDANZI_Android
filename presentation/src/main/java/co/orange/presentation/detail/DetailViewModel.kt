@@ -23,6 +23,7 @@ class DetailViewModel
         private val userRepository: UserRepository,
     ) : ViewModel() {
         var productId: String = ""
+        var isLiked = false
 
         var infoUrl: String = ""
         var interestCount: Int = 0
@@ -32,8 +33,7 @@ class DetailViewModel
             MutableStateFlow<UiState<ProductDetailModel>>(UiState.Empty)
         val getProductDetailState: StateFlow<UiState<ProductDetailModel>> = _getProductDetailState
 
-        private val _likeState =
-            MutableStateFlow<Boolean>(false)
+        private val _likeState = MutableStateFlow<Boolean>(false)
         val likeState: StateFlow<Boolean> = _likeState
 
         fun getProductDetailFromServer() {
@@ -43,7 +43,7 @@ class DetailViewModel
                         infoUrl = it.infoUrl
                         interestCount = it.interestCount
                         optionList = it.optionList
-                        _likeState.value = it.isInterested
+                        isLiked = it.isInterested
                         _getProductDetailState.value = UiState.Success(it)
                     }
                     .onFailure {
@@ -54,16 +54,18 @@ class DetailViewModel
 
         fun setLikeStateWithServer() {
             viewModelScope.launch {
-                if (likeState.value) {
+                if (isLiked) {
                     interestRepository.deleteInterest(productId)
                         .onSuccess {
                             interestCount -= 1
+                            isLiked = false
                             _likeState.value = false
                         }
                 } else {
                     interestRepository.postInterest(productId)
                         .onSuccess {
                             interestCount += 1
+                            isLiked = true
                             _likeState.value = true
                         }
                 }

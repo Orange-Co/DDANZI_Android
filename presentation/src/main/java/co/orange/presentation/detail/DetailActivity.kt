@@ -13,6 +13,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setOnSingleClickShortListener
 import co.orange.core.extension.setOverThousand
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
@@ -22,6 +23,7 @@ import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.buy.confirm.BuyConfirmActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -60,10 +62,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun initLikeBtnListener() {
-        binding.btnLike.setOnSingleClickListener {
+        binding.btnLike.setOnSingleClickShortListener {
             if (!viewModel.getUserLogined()) {
                 startActivity(Intent(this, LoginActivity::class.java))
-                return@setOnSingleClickListener
+                return@setOnSingleClickShortListener
             }
             viewModel.setLikeStateWithServer()
         }
@@ -112,6 +114,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             chipsDetailImminent.isVisible = item.isImminent
             tvDetailDiscountRate.text = item.discountRate.toString()
             tvDetailStockCount.text = item.stockCount.toString()
+            ivDetailLike.isEnabled = item.isInterested
             tvDetailLike.text = item.interestCount.setOverThousand()
             ivDetailProduct.load(item.imgUrl)
             tvDetailRealPrice.apply {
@@ -127,6 +130,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             with(binding) {
                 ivDetailLike.isEnabled = isLiked
                 tvDetailLike.text = viewModel.interestCount.setOverThousand()
+                if (isLiked) {
+                    lottieLike.isVisible = true
+                    lottieLike.playAnimation()
+                    delay(500)
+                    lottieLike.isVisible = false
+                }
             }
         }.launchIn(lifecycleScope)
     }

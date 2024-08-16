@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.HomeModel
 import co.orange.domain.repository.HomeRepository
+import co.orange.domain.repository.InterestRepository
 import co.orange.domain.repository.UserRepository
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -25,11 +26,8 @@ class HomeViewModel
     constructor(
         private val homeRepository: HomeRepository,
         private val userRepository: UserRepository,
+        private val interestRepository: InterestRepository,
     ) : ViewModel() {
-        init {
-            getHomeDataFromServer()
-        }
-
         var selectedImageUri = Uri.EMPTY
         var productId = ""
 
@@ -42,13 +40,19 @@ class HomeViewModel
         private val _getProductIdState = MutableStateFlow<UiState<String>>(UiState.Empty)
         val getProductIdState: StateFlow<UiState<String>> = _getProductIdState
 
+        private val _itemLikePlusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
+        val itemLikePlusState: StateFlow<UiState<Int>> = _itemLikePlusState
+
+        private val _itemLikeMinusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
+        val itemLikeMinusState: StateFlow<UiState<Int>> = _itemLikeMinusState
+
         fun setCheckedState(state: Boolean) {
             viewModelScope.launch {
                 _isCheckedAgain.emit(state)
             }
         }
 
-        private fun getHomeDataFromServer() {
+        fun getHomeDataFromServer() {
             viewModelScope.launch {
                 homeRepository.getHomeData()
                     .onSuccess {
@@ -81,6 +85,37 @@ class HomeViewModel
 
         fun resetProductIdState() {
             _getProductIdState.value = UiState.Empty
+        }
+
+        fun setLikeStateWithServer(
+            productId: String,
+            isInterested: Boolean,
+            position: Int,
+        ) {
+            viewModelScope.launch {
+                if (isInterested) {
+                    interestRepository.deleteInterest(productId)
+                        .onSuccess {
+                            _itemLikeMinusState.value = UiState.Success(position)
+                        }
+                        .onFailure {
+                            _itemLikeMinusState.value = UiState.Failure(it.message.orEmpty())
+                        }
+                } else {
+                    interestRepository.postInterest(productId)
+                        .onSuccess {
+                            _itemLikePlusState.value = UiState.Success(position)
+                        }
+                        .onFailure {
+                            _itemLikePlusState.value = UiState.Failure(it.message.orEmpty())
+                        }
+                }
+            }
+        }
+
+        fun resetLikeState() {
+            _itemLikePlusState.value = UiState.Empty
+            _itemLikeMinusState.value = UiState.Empty
         }
 
         fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()

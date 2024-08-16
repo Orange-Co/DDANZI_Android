@@ -12,7 +12,8 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HomeAdapter(
     private val bannerClick: (Unit) -> (Unit),
-    private val productClick: (ProductModel) -> (Unit),
+    private val productClick: (String) -> (Unit),
+    private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()
 
@@ -35,6 +36,7 @@ class HomeAdapter(
                 HomeProductViewHolder(
                     ItemHomeProductBinding.inflate(inflater, parent, false),
                     productClick,
+                    likeClick,
                 )
 
             else -> throw ClassCastException(
@@ -57,7 +59,7 @@ class HomeAdapter(
 
             is HomeProductViewHolder -> {
                 val itemPosition = position - HEADER_COUNT
-                holder.onBind(itemList[itemPosition])
+                holder.onBind(itemList[itemPosition], itemPosition)
             }
         }
         val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
@@ -81,6 +83,22 @@ class HomeAdapter(
     fun setItemList(itemList: List<ProductModel>) {
         this.itemList = itemList.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun plusItemLike(position: Int) {
+        itemList[position].isInterested = true
+        itemList[position].interestCount += 1
+        notifyItemChanged(position + HEADER_COUNT)
+    }
+
+    fun minusItemLike(position: Int) {
+        itemList[position].isInterested = false
+        itemList[position].interestCount -= 1
+        notifyItemChanged(position + HEADER_COUNT)
+    }
+
+    fun updateItemLike(position: Int) {
+        notifyItemChanged(position + HEADER_COUNT)
     }
 
     companion object {

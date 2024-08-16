@@ -7,23 +7,23 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
-import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,7 +48,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
         initAdapter()
         initSearchBtnListener()
         initSellBtnListener()
@@ -59,10 +58,14 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         observeCheckedAgainState()
         observeGetHomeDataState()
         observeGetProductIdState()
+        observeItemLikePlusState()
+        observeItemLikeMinusState()
     }
 
-    private fun initView() {
-        initOnBackPressedListener(binding.root)
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getHomeDataFromServer()
     }
 
     private fun initAdapter() {
@@ -70,6 +73,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             HomeAdapter(
                 bannerClick = ::initBannerClickListener,
                 productClick = ::initProductClickListener,
+                likeClick = ::initLikeClickListener,
             )
         binding.rvHome.adapter = adapter
     }
@@ -77,11 +81,23 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     // TODO: 버튼 리스너 설정
     private fun initBannerClickListener(unit: Unit) {}
 
-    private fun initProductClickListener(item: ProductModel) {
+    private fun initProductClickListener(productId: String) {
         DetailActivity.createIntent(
             requireContext(),
-            item.productId,
+            productId,
         ).apply { startActivity(this) }
+    }
+
+    private fun initLikeClickListener(
+        productId: String,
+        isInterested: Boolean,
+        position: Int,
+    ) {
+        if (!viewModel.getUserLogined()) {
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            return
+        }
+        viewModel.setLikeStateWithServer(productId, isInterested, position)
     }
 
     private fun initSearchBtnListener() {
@@ -187,6 +203,38 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeItemLikePlusState() {
+        viewModel.itemLikePlusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        adapter.plusItemLike(state.data)
+                        with(binding) {
+                            lottieLike.isVisible = true
+                            lottieLike.playAnimation()
+                            delay(500)
+                            lottieLike.isVisible = false
+                        }
+                    }
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+                viewModel.resetLikeState()
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeItemLikeMinusState() {
+        viewModel.itemLikeMinusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> adapter.minusItemLike(state.data)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+                viewModel.resetLikeState()
             }.launchIn(lifecycleScope)
     }
 

@@ -28,7 +28,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideHomeService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): HomeService = retrofit.create(HomeService::class.java)
 
     @Provides
@@ -40,7 +40,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideSearchService(
-        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+        @RetrofitQualifier.JWT retrofit: Retrofit,
     ): SearchService = retrofit.create(SearchService::class.java)
 
     @Provides

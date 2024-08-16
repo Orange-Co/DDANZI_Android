@@ -3,6 +3,7 @@ package co.orange.presentation.auth.login
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.orange.core.state.UiState
 import co.orange.domain.entity.request.AuthRequestModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.UserRepository
@@ -11,12 +12,9 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,8 +27,8 @@ class LoginViewModel
         private val _isAppLoginAvailable = MutableStateFlow(true)
         val isAppLoginAvailable: StateFlow<Boolean> = _isAppLoginAvailable
 
-        private val _changeTokenResult = MutableSharedFlow<Boolean>()
-        val changeTokenResult: SharedFlow<Boolean> = _changeTokenResult
+        private val _changeTokenState = MutableStateFlow<UiState<String>>(UiState.Empty)
+        val changeTokenState: StateFlow<UiState<String>> = _changeTokenState
 
         private var appLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
@@ -69,12 +67,10 @@ class LoginViewModel
                         with(userRepository) {
                             setTokens(it.accesstoken, it.refreshtoken)
                         }
-                        Timber.tag("qqqq").d(it.accesstoken)
-                        Timber.tag("qqqq").d(userRepository.getAccessToken())
-                        _changeTokenResult.emit(true)
+                        _changeTokenState.value = UiState.Success(it.status)
                     }
                     .onFailure {
-                        _changeTokenResult.emit(false)
+                        _changeTokenState.value = UiState.Failure(it.message.orEmpty())
                     }
             }
         }

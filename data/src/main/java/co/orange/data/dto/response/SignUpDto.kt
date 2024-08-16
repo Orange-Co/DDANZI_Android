@@ -10,6 +10,8 @@ data class SignUpDto(
     val nickname: String,
     @SerialName("phone")
     val phone: String,
+    @SerialName("status")
+    val status: String,
 ) {
-    fun toModel() = SignUpModel(nickname, phone)
+    fun toModel() = SignUpModel(nickname, phone, status)
 }

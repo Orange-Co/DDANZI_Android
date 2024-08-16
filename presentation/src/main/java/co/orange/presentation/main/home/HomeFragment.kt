@@ -48,7 +48,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        moveToLogin()
         initView()
         initAdapter()
         initSearchBtnListener()
@@ -64,15 +63,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     private fun initView() {
         initOnBackPressedListener(binding.root)
-    }
-
-    // TODO 삭제
-    private fun moveToLogin() {
-        binding.ivHomeLogo.setOnSingleClickListener {
-            Intent(requireActivity(), LoginActivity::class.java).apply {
-                startActivity(this)
-            }
-        }
     }
 
     private fun initAdapter() {

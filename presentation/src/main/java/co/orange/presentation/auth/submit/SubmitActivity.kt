@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySubmitBinding
@@ -38,7 +37,7 @@ class SubmitActivity : BaseActivity<ActivitySubmitBinding>(R.layout.activity_sub
             context: Context,
             nickname: String,
         ): Intent =
-            Intent(context, DetailActivity::class.java).apply {
+            Intent(context, SubmitActivity::class.java).apply {
                 putExtra(EXTRA_NICKNAME, nickname)
             }
     }

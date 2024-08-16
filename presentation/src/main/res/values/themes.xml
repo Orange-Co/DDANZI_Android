@@ -16,4 +16,8 @@
 
     <style name="Theme.DDANZI" parent="Base.Theme.DDANZI" />
 
+    <style name="Theme.DDANZI.NoSplash" parent="Base.Theme.DDANZI">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

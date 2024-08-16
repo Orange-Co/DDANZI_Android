@@ -12,6 +12,8 @@ data class AuthTokenDto(
     val refreshtoken: String,
     @SerialName("nickname")
     val nickname: String,
+    @SerialName("status")
+    val status: String,
 ) {
-    fun toModel() = AuthTokenModel(accesstoken, refreshtoken, nickname)
+    fun toModel() = AuthTokenModel(accesstoken, refreshtoken, nickname, status)
 }

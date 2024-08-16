@@ -9,6 +9,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.presentation.auth.phone.PhoneActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -42,16 +43,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     private fun observeChangeTokenResult() {
-        viewModel.changeTokenResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isSuccess ->
-                if (isSuccess) {
-                    Intent(this, PhoneActivity::class.java).apply {
-                        startActivity(this)
+        viewModel.changeTokenState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        if (state.data != USER_ALREADY_SIGNED) {
+                            Intent(this, PhoneActivity::class.java).apply {
+                                startActivity(this)
+                            }
+                        }
+                        finish()
                     }
-                    finish()
-                } else {
-                    toast(stringOf(R.string.error_msg))
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    companion object {
+        private const val USER_ALREADY_SIGNED = "ACTIVE"
     }
 }

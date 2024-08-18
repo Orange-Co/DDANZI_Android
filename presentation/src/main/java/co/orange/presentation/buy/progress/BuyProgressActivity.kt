@@ -4,13 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.buy.push.BuyPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyProgressBinding
 
@@ -27,7 +35,14 @@ class BuyProgressActivity :
         initTermBtnListener()
         initConfirmBtnListener()
         getIntentInfo()
-        setIntentUi(viewModel.mockBuyInfo)
+        observeGetBuyProgressDataState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // TODO 추후 주소지 비교 후 호출
+        viewModel.getBuyProgressDataFromServer()
     }
 
     private fun initExitBtnListener() {
@@ -35,8 +50,11 @@ class BuyProgressActivity :
     }
 
     private fun initDeliveryChangeBtnListener() {
-        // TODO
-        binding.btnChangeDelivery.setOnSingleClickListener { }
+        binding.btnChangeDelivery.setOnSingleClickListener {
+            BuyPushActivity.createIntent(this, viewModel.productId).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun initTermBtnListener() {
@@ -57,9 +75,26 @@ class BuyProgressActivity :
 
     private fun getIntentInfo() {
         viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+        viewModel.getBuyProgressDataFromServer()
     }
 
-    private fun setIntentUi(item: BuyProgressModel) {
+    private fun observeGetBuyProgressDataState() {
+        viewModel.getBuyProgressDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> setBuyProgressUi(state.data)
+
+                    is UiState.Failure -> {
+                        toast(stringOf(R.string.error_msg))
+                        finish()
+                    }
+
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun setBuyProgressUi(item: BuyProgressModel) {
         with(binding) {
             tvConfirmProductName.text = item.productName
             ivConfirmProduct.load(item.imgUrl)

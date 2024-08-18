@@ -1,34 +1,39 @@
 package co.orange.presentation.buy.progress
 
 import androidx.lifecycle.ViewModel
-import co.orange.domain.entity.response.AddressInfoModel
+import androidx.lifecycle.viewModelScope
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.domain.repository.BuyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BuyProgressViewModel
     @Inject
     constructor(
-        // private val feedRepository: FeedRepository,
+        private val buyRepository: BuyRepository,
     ) : ViewModel() {
         var productId: String = ""
 
-        val mockBuyInfo =
-            BuyProgressModel(
-                "상품이름은 한줄로만 보여줄거에야야야야야야",
-                "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
-                24000,
-                listOf(
-                    AddressInfoModel(
-                        "김상호",
-                        "04567",
-                        "서울특벌시 성동구 성수이로 137 107동 903호",
-                        "010-3259-0327",
-                    ),
-                ),
-                3000,
-                350,
-                21350,
-            )
+        private val _getBuyProgressDataState =
+            MutableStateFlow<UiState<BuyProgressModel>>(UiState.Empty)
+        val getBuyProgressDataState: StateFlow<UiState<BuyProgressModel>> = _getBuyProgressDataState
+
+        fun getBuyProgressDataFromServer() {
+            _getBuyProgressDataState.value = UiState.Loading
+            viewModelScope.launch {
+                // TODO 추후 productId 활용
+                buyRepository.getBuyProgressData("0110055338")
+                    .onSuccess {
+                        _getBuyProgressDataState.value = UiState.Success(it)
+                    }
+                    .onFailure {
+                        _getBuyProgressDataState.value = UiState.Failure(it.message.toString())
+                    }
+            }
+        }
     }

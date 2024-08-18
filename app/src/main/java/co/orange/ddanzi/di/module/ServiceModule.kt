@@ -1,6 +1,7 @@
 package co.orange.ddanzi.di.module
 
 import co.orange.data.service.AuthService
+import co.orange.data.service.BuyService
 import co.orange.data.service.DeviceService
 import co.orange.data.service.HomeService
 import co.orange.data.service.IamportService
@@ -33,7 +34,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideDetailService(
+    fun provideDeviceService(
         @RetrofitQualifier.DEVICE retrofit: Retrofit,
     ): DeviceService = retrofit.create(DeviceService::class.java)
 
@@ -42,6 +43,12 @@ object ServiceModule {
     fun provideSearchService(
         @RetrofitQualifier.JWT retrofit: Retrofit,
     ): SearchService = retrofit.create(SearchService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideBuyService(
+        @RetrofitQualifier.JWT retrofit: Retrofit,
+    ): BuyService = retrofit.create(BuyService::class.java)
 
     @Provides
     @Singleton

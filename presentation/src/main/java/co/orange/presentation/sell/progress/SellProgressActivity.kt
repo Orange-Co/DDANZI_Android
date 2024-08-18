@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.confirm
+package co.orange.presentation.sell.progress
 
 import android.content.Context
 import android.content.Intent
@@ -12,12 +12,12 @@ import co.orange.presentation.sell.push.SellPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
-import kr.genti.presentation.databinding.ActivitySellConfirmBinding
+import kr.genti.presentation.databinding.ActivitySellProgressBinding
 
 @AndroidEntryPoint
-class SellConfirmActivity :
-    BaseActivity<ActivitySellConfirmBinding>(R.layout.activity_sell_confirm) {
-    private val viewModel by viewModels<SellConfirmViewModel>()
+class SellProgressActivity :
+    BaseActivity<ActivitySellProgressBinding>(R.layout.activity_sell_progress) {
+    private val viewModel by viewModels<SellProgressViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,7 @@ class SellConfirmActivity :
             context: Context,
             productId: Long,
         ): Intent =
-            Intent(context, SellConfirmActivity::class.java).apply {
+            Intent(context, SellProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)
             }
     }

@@ -38,7 +38,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.confirm.BuyConfirmActivity"
+            android:name="co.orange.presentation.buy.progress.BuyProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -83,7 +83,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.confirm.SellConfirmActivity"
+            android:name="co.orange.presentation.sell.progress.SellProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

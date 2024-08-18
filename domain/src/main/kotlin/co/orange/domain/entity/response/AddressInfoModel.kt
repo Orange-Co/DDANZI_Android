@@ -1,8 +1,8 @@
 package co.orange.domain.entity.response
 
 data class AddressInfoModel(
-    val recipient: String,
-    val zipCode: String,
-    val address: String,
-    val phone: String
+    val recipient: String? = null,
+    val zipCode: String? = null,
+    val address: String? = null,
+    val recipientPhone: String? = null,
 )

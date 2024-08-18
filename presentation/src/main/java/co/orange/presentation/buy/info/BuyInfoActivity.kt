@@ -8,7 +8,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.BuyDetailModel
+import co.orange.domain.entity.response.BuyInfoModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
@@ -41,7 +41,7 @@ class BuyInfoActivity :
         viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
     }
 
-    private fun setIntentUi(item: BuyDetailModel) {
+    private fun setIntentUi(item: BuyInfoModel) {
         with(binding) {
             tvInfoTransaction.text = getString(R.string.transaction_id, item.orderId).breakLines()
             ivInfoProduct.load(item.imgUrl)
@@ -55,7 +55,7 @@ class BuyInfoActivity :
                     item.addressInfo[0].zipCode,
                     item.addressInfo[0].address,
                 ).breakLines()
-            tvInfoDeliveryPhone.text = item.addressInfo[0].phone
+            tvInfoDeliveryPhone.text = item.addressInfo[0].recipientPhone
             tvInfoTransactionMethod.text = item.paymentInfo[0].method
             tvInfoTransactionDate.text = item.paymentInfo[0].completedAt
             tvInfoPayMoney.text = item.originPrice.setNumberForm()

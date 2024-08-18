@@ -2,7 +2,7 @@ package co.orange.presentation.buy.info
 
 import androidx.lifecycle.ViewModel
 import co.orange.domain.entity.response.AddressInfoModel
-import co.orange.domain.entity.response.BuyDetailModel
+import co.orange.domain.entity.response.BuyInfoModel
 import co.orange.domain.entity.response.PaymentInfoModel
 import co.orange.domain.enums.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ class BuyInfoViewModel
         var productId: String = ""
 
         val mockBuyInfo =
-            BuyDetailModel(
+            BuyInfoModel(
                 "123e4567-e89b-12d3-a456-426614174000",
                 OrderStatus.ORDER_PLACED,
                 "상품이름은 한줄로만 보여줄거에야야야야야야",

@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.SellInfoModel
+import co.orange.domain.entity.response.SellProgressModel
 import co.orange.presentation.main.MainActivity
 import co.orange.presentation.sell.info.SellInfoActivity
 import coil.load
@@ -58,7 +58,7 @@ class SellFinishedActivity :
         viewModel.itemId = intent.getLongExtra(EXTRA_ITEM_ID, -1)
     }
 
-    private fun setIntentUi(item: SellInfoModel) {
+    private fun setIntentUi(item: SellProgressModel) {
         with(binding) {
             // TODO 이미지 설정
             ivFinishedItem.load(R.drawable.mock_img_product)

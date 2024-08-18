@@ -12,8 +12,8 @@ data class AddressInfoDto(
     val zipCode: String? = null,
     @SerialName("address")
     val address: String? = null,
-    @SerialName("phone")
-    val phone: String? = null,
+    @SerialName("recipientPhone")
+    val recipientPhone: String? = null,
 ) {
-    fun toModel() = AddressInfoModel(recipient, zipCode, address, phone)
+    fun toModel() = AddressInfoModel(recipient, zipCode, address, recipientPhone)
 }

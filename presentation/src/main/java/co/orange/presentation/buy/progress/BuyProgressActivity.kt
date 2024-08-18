@@ -12,8 +12,10 @@ import co.orange.core.extension.breakLines
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
+import co.orange.core.extension.toPhoneFrom
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.buy.push.BuyPushActivity
 import co.orange.presentation.setting.delivery.DeliveryActivity
@@ -33,6 +35,7 @@ class BuyProgressActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.vm = viewModel
         initExitBtnListener()
         initDeliveryChangeBtnListener()
         initTermBtnListener()
@@ -52,10 +55,15 @@ class BuyProgressActivity :
     }
 
     private fun initDeliveryChangeBtnListener() {
-        binding.btnChangeDelivery.setOnSingleClickListener {
-            Intent(this, DeliveryActivity::class.java).apply {
-                startActivity(this)
-            }
+        with(binding) {
+            btnChangeDelivery.setOnSingleClickListener { navigateToAddAddress() }
+            btnDeliveryAdd.setOnSingleClickListener { navigateToAddAddress() }
+        }
+    }
+
+    private fun navigateToAddAddress() {
+        Intent(this, DeliveryActivity::class.java).apply {
+            startActivity(this)
         }
     }
 
@@ -117,17 +125,23 @@ class BuyProgressActivity :
             tvConfirmPriceCharge.text =
                 getString(R.string.add_plus, item.charge.setNumberForm())
             tvConfirmPriceTotal.text = item.totalPrice.setNumberForm()
-            if (item.addressInfo.recipient != null) {
+        }
+        setAddress(item.addressInfo)
+    }
+
+    private fun setAddress(address: AddressInfoModel) {
+        if (address.recipient != null) {
+            with(binding) {
                 btnDeliveryAdd.isVisible = false
                 layoutDeliveryItem.isVisible = true
-                tvDeliveryName.text = item.addressInfo.recipient
+                tvDeliveryName.text = address.recipient
                 tvDeliveryAddress.text =
                     getString(
                         R.string.address_short_format,
-                        item.addressInfo.zipCode,
-                        item.addressInfo.address,
+                        address.zipCode,
+                        address.address,
                     ).breakLines()
-                tvDeliveryPhone.text = item.addressInfo.phone
+                tvDeliveryPhone.text = address.recipientPhone?.toPhoneFrom()
             }
         }
     }

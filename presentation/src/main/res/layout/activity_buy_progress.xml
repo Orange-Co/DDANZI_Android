@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="co.orange.presentation.buy.progress.BuyProgressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -335,6 +340,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> vm.checkAllTerm()}"
                     android:orientation="horizontal"
                     android:paddingVertical="11dp"
                     android:paddingStart="4dp"
@@ -345,7 +351,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_check_circle_filled" />
+                        android:src="@{vm.isTermAllSelected ? @drawable/ic_check_circle_filled : @drawable/ic_check_circle_unfilled}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body1"
@@ -360,8 +366,9 @@
                     android:id="@+id/btn_term_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:background="@{vm.isTermServiceSelected ? @drawable/shape_black_line_5_rect : @drawable/shape_gray1_line_5_rect}"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> vm.checkServiceTerm()}"
                     android:orientation="horizontal"
                     android:padding="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -372,7 +379,7 @@
                         android:id="@+id/iv_buy_term_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_check_term" />
+                        android:src="@{vm.isTermServiceSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}" />
 
                     <TextView
                         android:id="@+id/tv_buy_term_service"
@@ -381,7 +388,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="@string/confirm_term_tv_first"
-                        android:textColor="@color/gray_2" />
+                        android:textColor="@{vm.isTermServiceSelected ? @color/black : @color/gray_2}" />
 
                 </LinearLayout>
 
@@ -403,8 +410,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:background="@{vm.isTermPurchaseSelected ? @drawable/shape_black_line_5_rect : @drawable/shape_gray1_line_5_rect}"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> vm.checkPurchaseTerm()}"
                     android:orientation="horizontal"
                     android:padding="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -415,7 +423,7 @@
                         android:id="@+id/iv_buy_term_purchase"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_check_term" />
+                        android:src="@{vm.isTermPurchaseSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}" />
 
                     <TextView
                         android:id="@+id/tv_buy_term_purchase"
@@ -424,7 +432,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="@string/confirm_term_tv_second"
-                        android:textColor="@color/gray_2" />
+                        android:textColor="@{vm.isTermPurchaseSelected ? @color/black : @color/gray_2}" />
 
                 </LinearLayout>
 
@@ -459,7 +467,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/shape_black_fill_10_rect"
+            android:background="@drawable/sel_btn"
+            android:enabled="@{vm.isCompleted}"
             android:gravity="center"
             android:paddingVertical="15dp"
             android:text="@string/buy_confirm_tv_title"

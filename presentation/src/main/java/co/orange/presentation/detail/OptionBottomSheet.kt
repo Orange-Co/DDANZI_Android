@@ -80,7 +80,6 @@ class OptionBottomSheet :
     }
 
     private fun initItemClickListener(
-        position: Int,
         optionId: Long,
         optionDetailId: Long,
     ) {

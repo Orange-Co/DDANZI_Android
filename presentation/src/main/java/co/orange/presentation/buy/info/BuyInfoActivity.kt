@@ -55,7 +55,7 @@ class BuyInfoActivity :
                     item.addressInfo[0].zipCode,
                     item.addressInfo[0].address,
                 ).breakLines()
-            tvInfoDeliveryPhone.text = item.addressInfo[0].phone
+            tvInfoDeliveryPhone.text = item.addressInfo[0].recipientPhone
             tvInfoTransactionMethod.text = item.paymentInfo[0].method
             tvInfoTransactionDate.text = item.paymentInfo[0].completedAt
             tvInfoPayMoney.text = item.originPrice.setNumberForm()

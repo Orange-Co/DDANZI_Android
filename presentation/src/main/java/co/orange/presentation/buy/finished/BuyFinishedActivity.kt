@@ -69,7 +69,7 @@ class BuyFinishedActivity :
                     item.addressInfo[0].zipCode,
                     item.addressInfo[0].address,
                 ).breakLines()
-            tvFinishedDeliveryPhone.text = item.addressInfo[0].phone
+            tvFinishedDeliveryPhone.text = item.addressInfo[0].recipientPhone
             tvFinishedTransactionMethod.text = item.paymentInfo[0].method
             tvFinishedTransactionDate.text = item.paymentInfo[0].completedAt
             tvFinishedPayMoney.text = item.originPrice.setNumberForm()

@@ -293,7 +293,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_term_first"
+                    android:id="@+id/btn_term_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_gray1_line_5_rect"
@@ -305,22 +305,24 @@
                     app:layout_constraintTop_toBottomOf="@id/btn_term_all">
 
                     <ImageView
+                        android:id="@+id/iv_buy_term_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/sel_check_term" />
 
                     <TextView
+                        android:id="@+id/tv_buy_term_service"
                         style="@style/TextAppearance.DDanzi.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/gray_2"
-                        tools:text="첫번째 약관" />
+                        android:text="@string/confirm_term_tv_first"
+                        android:textColor="@color/gray_2" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_term_second"
+                    android:id="@+id/btn_term_purchase"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -330,48 +332,22 @@
                     android:padding="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_term_first">
+                    app:layout_constraintTop_toBottomOf="@id/btn_term_service">
 
                     <ImageView
+                        android:id="@+id/iv_buy_term_purchase"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/sel_check_term" />
 
                     <TextView
+                        android:id="@+id/tv_buy_term_purchase"
                         style="@style/TextAppearance.DDanzi.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/gray_2"
-                        tools:text="두번째 약관" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_term_third"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_gray1_line_5_rect"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="11dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_term_second">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/sel_check_term" />
-
-                    <TextView
-                        style="@style/TextAppearance.DDanzi.Body4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/gray_2"
-                        tools:text="세번째 약관" />
+                        android:text="@string/confirm_term_tv_second"
+                        android:textColor="@color/gray_2" />
 
                 </LinearLayout>
 
@@ -380,7 +356,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_term_third" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_term_purchase" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

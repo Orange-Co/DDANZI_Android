@@ -15,7 +15,7 @@ data class BuyProgressDto(
     @SerialName("originPrice")
     val originPrice: Int,
     @SerialName("addressInfo")
-    val addressInfo: List<AddressInfoDto>,
+    val addressInfo: AddressInfoDto,
     @SerialName("discountPrice")
     val discountPrice: Int,
     @SerialName("charge")
@@ -29,7 +29,7 @@ data class BuyProgressDto(
             productName,
             imgUrl,
             originPrice,
-            addressInfo.map { it.toModel() },
+            addressInfo.toModel(),
             discountPrice,
             charge,
             totalPrice,

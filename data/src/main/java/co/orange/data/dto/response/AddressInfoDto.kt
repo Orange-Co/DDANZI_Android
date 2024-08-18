@@ -7,13 +7,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AddressInfoDto(
     @SerialName("recipient")
-    val recipient: String,
+    val recipient: String? = null,
     @SerialName("zipCode")
-    val zipCode: String,
+    val zipCode: String? = null,
     @SerialName("address")
-    val address: String,
+    val address: String? = null,
     @SerialName("phone")
-    val phone: String,
+    val phone: String? = null,
 ) {
     fun toModel() = AddressInfoModel(recipient, zipCode, address, phone)
 }

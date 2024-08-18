@@ -6,7 +6,7 @@ import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.sell.confirm.SellConfirmActivity
+import co.orange.presentation.sell.progress.SellProgressActivity
 import coil.load
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogSellProductBinding
@@ -45,7 +45,7 @@ class SellProductDialog :
     private fun initConfirmBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
             // TODO intent값 수정
-            SellConfirmActivity.createIntent(requireContext(), -1).apply {
+            SellProgressActivity.createIntent(requireContext(), -1).apply {
                 startActivity(this)
             }
             dismiss()

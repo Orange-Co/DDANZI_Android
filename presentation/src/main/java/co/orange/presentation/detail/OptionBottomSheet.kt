@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOverThousand
-import co.orange.presentation.buy.confirm.BuyConfirmActivity
+import co.orange.presentation.buy.progress.BuyProgressActivity
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -56,7 +56,7 @@ class OptionBottomSheet :
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
             // TODO 버튼 활성화 설정
-            BuyConfirmActivity.createIntent(
+            BuyProgressActivity.createIntent(
                 requireContext(),
                 viewModel.productId,
             ).apply {

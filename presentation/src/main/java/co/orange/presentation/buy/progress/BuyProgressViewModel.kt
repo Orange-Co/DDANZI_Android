@@ -1,4 +1,4 @@
-package co.orange.presentation.buy.confirm
+package co.orange.presentation.buy.progress
 
 import androidx.lifecycle.ViewModel
 import co.orange.domain.entity.response.AddressInfoModel
@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class BuyConfirmViewModel
+class BuyProgressViewModel
     @Inject
     constructor(
         // private val feedRepository: FeedRepository,

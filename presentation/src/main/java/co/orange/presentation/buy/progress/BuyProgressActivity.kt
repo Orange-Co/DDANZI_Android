@@ -1,4 +1,4 @@
-package co.orange.presentation.buy.confirm
+package co.orange.presentation.buy.progress
 
 import android.content.Context
 import android.content.Intent
@@ -12,11 +12,12 @@ import co.orange.presentation.buy.push.BuyPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
-import kr.genti.presentation.databinding.ActivityBuyConfirmBinding
+import kr.genti.presentation.databinding.ActivityBuyProgressBinding
 
 @AndroidEntryPoint
-class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.activity_buy_confirm) {
-    private val viewModel by viewModels<BuyConfirmViewModel>()
+class BuyProgressActivity :
+    BaseActivity<ActivityBuyProgressBinding>(R.layout.activity_buy_progress) {
+    private val viewModel by viewModels<BuyProgressViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +42,8 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
     private fun initTermBtnListener() {
         // TODO
         binding.btnTermAll.setOnSingleClickListener { }
-        binding.btnTermFirst.setOnSingleClickListener { }
-        binding.btnTermSecond.setOnSingleClickListener { }
-        binding.btnTermThird.setOnSingleClickListener { }
+        binding.btnTermService.setOnSingleClickListener { }
+        binding.btnTermPurchase.setOnSingleClickListener { }
     }
 
     private fun initConfirmBtnListener() {
@@ -81,7 +81,7 @@ class BuyConfirmActivity : BaseActivity<ActivityBuyConfirmBinding>(R.layout.acti
             context: Context,
             productId: String,
         ): Intent =
-            Intent(context, BuyConfirmActivity::class.java).apply {
+            Intent(context, BuyProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)
             }
     }

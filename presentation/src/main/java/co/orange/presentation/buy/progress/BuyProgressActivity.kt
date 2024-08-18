@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
+import co.orange.core.extension.breakLines
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -34,6 +36,7 @@ class BuyProgressActivity :
         initExitBtnListener()
         initDeliveryChangeBtnListener()
         initTermBtnListener()
+        initTermDetailBtnListener()
         initConfirmBtnListener()
         observeGetBuyProgressDataState()
     }
@@ -61,6 +64,14 @@ class BuyProgressActivity :
         binding.btnTermAll.setOnSingleClickListener { }
         binding.btnTermService.setOnSingleClickListener { }
         binding.btnTermPurchase.setOnSingleClickListener { }
+    }
+
+    private fun initTermDetailBtnListener() {
+        // TODO
+        with(binding) {
+            btnTermServiceDetail.setOnSingleClickListener { }
+            btnTermPurchaseDetail.setOnSingleClickListener { }
+        }
     }
 
     private fun initConfirmBtnListener() {
@@ -106,6 +117,18 @@ class BuyProgressActivity :
             tvConfirmPriceCharge.text =
                 getString(R.string.add_plus, item.charge.setNumberForm())
             tvConfirmPriceTotal.text = item.totalPrice.setNumberForm()
+            if (item.addressInfo.recipient != null) {
+                btnDeliveryAdd.isVisible = false
+                layoutDeliveryItem.isVisible = true
+                tvDeliveryName.text = item.addressInfo.recipient
+                tvDeliveryAddress.text =
+                    getString(
+                        R.string.address_short_format,
+                        item.addressInfo.zipCode,
+                        item.addressInfo.address,
+                    ).breakLines()
+                tvDeliveryPhone.text = item.addressInfo.phone
+            }
         }
     }
 

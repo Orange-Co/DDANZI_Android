@@ -66,6 +66,7 @@
     <string name="buy_finished_btn_show_detail">상세 내역 보러가기</string>
 
     <string name="transaction_id">거래 번호 %s</string>
+    <string name="address_short_format">(%s) %s</string>
     <string name="address_format">(%s) %s %s</string>
 
     <string name="buy_info_tv_title">구매 상세</string>

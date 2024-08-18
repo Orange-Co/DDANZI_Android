@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.BuyInfoModel
+import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.buy.push.BuyPushActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +59,7 @@ class BuyProgressActivity :
         viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
     }
 
-    private fun setIntentUi(item: BuyInfoModel) {
+    private fun setIntentUi(item: BuyProgressModel) {
         with(binding) {
             tvConfirmProductName.text = item.productName
             ivConfirmProduct.load(item.imgUrl)

@@ -8,7 +8,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.SellDetailModel
+import co.orange.domain.entity.response.SellInfoModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
@@ -41,7 +41,7 @@ class SellInfoActivity :
         viewModel.productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
     }
 
-    private fun setIntentUi(item: SellDetailModel) {
+    private fun setIntentUi(item: SellInfoModel) {
         with(binding) {
             tvInfoTransaction.text = getString(R.string.transaction_id, item.orderId).breakLines()
             ivInfoProduct.load(item.imgUrl)

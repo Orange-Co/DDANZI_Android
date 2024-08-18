@@ -14,6 +14,7 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.buy.push.BuyPushActivity
+import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -34,15 +35,13 @@ class BuyProgressActivity :
         initDeliveryChangeBtnListener()
         initTermBtnListener()
         initConfirmBtnListener()
-        getIntentInfo()
         observeGetBuyProgressDataState()
     }
 
     override fun onResume() {
         super.onResume()
 
-        // TODO 추후 주소지 비교 후 호출
-        viewModel.getBuyProgressDataFromServer()
+        getIntentInfo()
     }
 
     private fun initExitBtnListener() {
@@ -51,7 +50,7 @@ class BuyProgressActivity :
 
     private fun initDeliveryChangeBtnListener() {
         binding.btnChangeDelivery.setOnSingleClickListener {
-            BuyPushActivity.createIntent(this, viewModel.productId).apply {
+            Intent(this, DeliveryActivity::class.java).apply {
                 startActivity(this)
             }
         }
@@ -74,8 +73,10 @@ class BuyProgressActivity :
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
-        viewModel.getBuyProgressDataFromServer()
+        with(viewModel) {
+            if (productId.isEmpty()) productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+            getBuyProgressDataFromServer()
+        }
     }
 
     private fun observeGetBuyProgressDataState() {

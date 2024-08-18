@@ -36,12 +36,12 @@
                 android:id="@+id/btn_exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:padding="12dp"
                 android:src="@drawable/ic_exit"
-                app:layout_constraintBottom_toBottomOf="@id/tv_confirm_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_confirm_title" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

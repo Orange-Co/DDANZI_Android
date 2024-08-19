@@ -5,7 +5,9 @@ import co.orange.data.dto.request.OrderRequestDto
 import co.orange.data.dto.request.PayEndRequestDto
 import co.orange.data.dto.request.PayStartRequestDto
 import co.orange.data.dto.response.BuyProgressDto
+import co.orange.data.dto.response.OrderConfirmDto
 import co.orange.data.dto.response.OrderIdDto
+import co.orange.data.dto.response.OrderInfoDto
 import co.orange.data.dto.response.PayEndDto
 import co.orange.data.dto.response.PayStartDto
 import retrofit2.http.Body
@@ -34,4 +36,14 @@ interface BuyService {
     suspend fun postToRequestOrder(
         @Body request: OrderRequestDto,
     ): BaseResponse<OrderIdDto>
+
+    @GET("/api/v1/order/{id}")
+    suspend fun getOrderInfo(
+        @Path("id") orderId: String,
+    ): BaseResponse<OrderInfoDto>
+
+    @PATCH("/api/v1/order/{id}/buy")
+    suspend fun patchOrderConfirm(
+        @Path("id") orderId: String,
+    ): BaseResponse<OrderConfirmDto>
 }

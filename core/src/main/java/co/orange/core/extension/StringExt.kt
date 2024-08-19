@@ -1,6 +1,8 @@
 package co.orange.core.extension
 
 import java.text.BreakIterator
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
 
@@ -30,3 +32,10 @@ fun String.toPhoneFrom(): String? {
         null
     }
 }
+
+fun String.convertDateTime(
+    oldPattern: String,
+    newPattern: String,
+): String =
+    LocalDateTime.parse(this, DateTimeFormatter.ofPattern(oldPattern))
+        .format(DateTimeFormatter.ofPattern(newPattern))

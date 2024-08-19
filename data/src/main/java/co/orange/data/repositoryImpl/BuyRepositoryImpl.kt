@@ -8,7 +8,9 @@ import co.orange.domain.entity.request.OrderRequestModel
 import co.orange.domain.entity.request.PayEndRequestModel
 import co.orange.domain.entity.request.PayStartRequestModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.domain.entity.response.OrderConfirmModel
 import co.orange.domain.entity.response.OrderIdModel
+import co.orange.domain.entity.response.OrderInfoModel
 import co.orange.domain.entity.response.PayEndModel
 import co.orange.domain.entity.response.PayStartModel
 import co.orange.domain.repository.BuyRepository
@@ -37,5 +39,15 @@ class BuyRepositoryImpl
         override suspend fun postToRequestOrder(request: OrderRequestModel): Result<OrderIdModel> =
             runCatching {
                 buyDataSource.postToRequestOrder(request.toDto()).data.toModel()
+            }
+
+        override suspend fun getOrderInfo(orderId: String): Result<OrderInfoModel> =
+            runCatching {
+                buyDataSource.getOrderInfo(orderId).data.toModel()
+            }
+
+        override suspend fun patchOrderConfirm(orderId: String): Result<OrderConfirmModel> =
+            runCatching {
+                buyDataSource.patchOrderConfirm(orderId).data.toModel()
             }
     }

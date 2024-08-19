@@ -1,16 +1,15 @@
 package co.orange.domain.entity.response
 
-import co.orange.domain.enums.OrderStatus
-
-data class BuyInfoModel(
+data class OrderInfoModel(
     val orderId: String,
-    val orderStatus: OrderStatus,
+    val orderStatus: String,
     val productName: String,
     val imgUrl: String,
     val originPrice: Int,
+    val addressInfo: AddressInfoModel,
     val sellerNickname: String,
-    val addressInfo: List<AddressInfoModel>,
-    val paymentInfo: List<PaymentInfoModel>,
+    val paymentMethod: String,
+    val paidAt: String,
     val discountPrice: Int,
     val charge: Int,
     val totalPrice: Int,

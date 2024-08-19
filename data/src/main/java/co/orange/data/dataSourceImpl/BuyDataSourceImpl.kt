@@ -7,6 +7,7 @@ import co.orange.data.dto.request.PayEndRequestDto
 import co.orange.data.dto.request.PayStartRequestDto
 import co.orange.data.dto.response.BuyProgressDto
 import co.orange.data.dto.response.OrderIdDto
+import co.orange.data.dto.response.OrderInfoDto
 import co.orange.data.dto.response.PayEndDto
 import co.orange.data.dto.response.PayStartDto
 import co.orange.data.service.BuyService
@@ -24,4 +25,6 @@ data class BuyDataSourceImpl
         override suspend fun patchPaymentEnd(request: PayEndRequestDto): BaseResponse<PayEndDto> = buyService.patchPaymentEnd(request)
 
         override suspend fun postToRequestOrder(request: OrderRequestDto): BaseResponse<OrderIdDto> = buyService.postToRequestOrder(request)
+
+        override suspend fun getOrderInfo(orderId: String): BaseResponse<OrderInfoDto> = buyService.getOrderInfo(orderId)
     }

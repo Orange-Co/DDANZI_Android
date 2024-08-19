@@ -4,13 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
+import co.orange.core.extension.convertDateTime
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.OrderInfoModel
+import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
+import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyInfoBinding
 
@@ -25,7 +36,7 @@ class BuyInfoActivity :
         initExitBtnListener()
         initFixPurchaseBtnListener()
         getIntentInfo()
-        setIntentUi(viewModel.mockBuyInfo)
+        observeGetOrderInfoState()
     }
 
     private fun initExitBtnListener() {
@@ -38,7 +49,21 @@ class BuyInfoActivity :
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+        with(viewModel) {
+            orderId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
+            getOrderInfoFromServer()
+        }
+    }
+
+    private fun observeGetOrderInfoState() {
+        viewModel.getOrderInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> setIntentUi(state.data)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun setIntentUi(item: OrderInfoModel) {
@@ -48,16 +73,17 @@ class BuyInfoActivity :
             tvInfoProductName.text = item.productName
             tvInfoProductPrice.text = item.originPrice.setNumberForm()
             tvInfoSellerNickname.text = item.sellerNickname
-            tvInfoDeliveryName.text = item.addressInfo[0].recipient
+            tvInfoDeliveryName.text = item.addressInfo.recipient
             tvInfoDeliveryAddress.text =
                 getString(
-                    R.string.address_format,
-                    item.addressInfo[0].zipCode,
-                    item.addressInfo[0].address,
+                    R.string.address_short_format,
+                    item.addressInfo.zipCode,
+                    item.addressInfo.address,
                 ).breakLines()
-            tvInfoDeliveryPhone.text = item.addressInfo[0].recipientPhone
-            tvInfoTransactionMethod.text = item.paymentInfo[0].method
-            tvInfoTransactionDate.text = item.paymentInfo[0].completedAt
+            tvInfoDeliveryPhone.text = item.addressInfo.recipientPhone
+            tvInfoTransactionMethod.text = item.paymentMethod
+            tvInfoTransactionDate.text =
+                item.paidAt.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
             tvInfoPayMoney.text = item.originPrice.setNumberForm()
             tvInfoPayDiscount.text =
                 getString(R.string.add_minus, item.discountPrice.setNumberForm())
@@ -67,15 +93,15 @@ class BuyInfoActivity :
     }
 
     companion object {
-        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: String,
+            orderId: String,
         ): Intent =
             Intent(context, BuyInfoActivity::class.java).apply {
-                putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_ORDER_ID, orderId)
             }
     }
 }

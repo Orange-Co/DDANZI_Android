@@ -1,45 +1,37 @@
 package co.orange.presentation.buy.info
 
 import androidx.lifecycle.ViewModel
-import co.orange.domain.entity.response.AddressInfoModel
+import androidx.lifecycle.viewModelScope
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.OrderInfoModel
-import co.orange.domain.entity.response.PaymentInfoModel
-import co.orange.domain.enums.OrderStatus
+import co.orange.domain.repository.BuyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BuyInfoViewModel
     @Inject
     constructor(
-        // private val feedRepository: FeedRepository,
+        private val buyRepository: BuyRepository,
     ) : ViewModel() {
-        var productId: String = ""
+        var orderId: String = ""
 
-        val mockBuyInfo =
-            OrderInfoModel(
-                "123e4567-e89b-12d3-a456-426614174000",
-                OrderStatus.ORDER_PLACED,
-                "상품이름은 한줄로만 보여줄거에야야야야야야",
-                "https://github.com/Marchbreeze/Marchbreeze/assets/97405341/cd2c0454-92b4-41e7-ae2f-319f83e2426f",
-                24000,
-                "등둔",
-                listOf(
-                    AddressInfoModel(
-                        "김상호",
-                        "04567",
-                        "서울특벌시 성동구 성수이로 137 107동 903호",
-                        "010-3259-0327",
-                    ),
-                ),
-                listOf(
-                    PaymentInfoModel(
-                        "NAVERPAY",
-                        "2024.06.06",
-                    ),
-                ),
-                3000,
-                350,
-                21350,
-            )
+        private val _getOrderInfoState = MutableStateFlow<UiState<OrderInfoModel>>(UiState.Empty)
+        val getOrderInfoState: StateFlow<UiState<OrderInfoModel>> = _getOrderInfoState
+
+        fun getOrderInfoFromServer() {
+            _getOrderInfoState.value = UiState.Loading
+            viewModelScope.launch {
+                buyRepository.getOrderInfo(orderId)
+                    .onSuccess {
+                        _getOrderInfoState.value = UiState.Success(it)
+                    }
+                    .onFailure {
+                        _getOrderInfoState.value = UiState.Failure(it.message.orEmpty())
+                    }
+            }
+        }
     }

@@ -134,6 +134,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
 
     override fun onDestroy() {
         super.onDestroy()
+
         Iamport.close()
         termBottomSheet = null
     }

@@ -6,10 +6,12 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.domain.repository.BuyRepository
+import com.iamport.sdk.data.sdk.IamPortRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kr.genti.presentation.BuildConfig.MERCHANT_UID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +21,8 @@ class BuyProgressViewModel
         private val buyRepository: BuyRepository,
     ) : ViewModel() {
         var productId: String = ""
+        var buyProgressData: BuyProgressModel? = null
+        var payMethod: String = ""
 
         var isTermAllSelected = MutableLiveData<Boolean>(false)
         var isTermServiceSelected = MutableLiveData<Boolean>(false)
@@ -63,11 +67,32 @@ class BuyProgressViewModel
                     .onSuccess {
                         isAddressSelected = !it.addressInfo.address.isNullOrEmpty()
                         checkIsCompleted()
+                        buyProgressData = it
                         _getBuyProgressDataState.value = UiState.Success(it)
                     }
                     .onFailure {
                         _getBuyProgressDataState.value = UiState.Failure(it.message.toString())
                     }
             }
+        }
+
+        fun createIamportRequest(): IamPortRequest? {
+            return if (buyProgressData?.productName.isNullOrBlank() || payMethod.isBlank()) {
+                null
+            } else {
+                IamPortRequest(
+                    pg = NICE_PAYMENTS,
+                    pay_method = payMethod,
+                    name = buyProgressData?.productName,
+                    merchant_uid = MERCHANT_UID,
+                    amount = buyProgressData?.totalPrice.toString(),
+                    buyer_name = buyProgressData?.addressInfo?.recipient,
+                    buyer_tel = buyProgressData?.addressInfo?.recipientPhone,
+                )
+            }
+        }
+
+        companion object {
+            private const val NICE_PAYMENTS = "nice_v2"
         }
     }

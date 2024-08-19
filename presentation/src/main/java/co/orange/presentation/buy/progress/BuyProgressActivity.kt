@@ -17,13 +17,16 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
-import co.orange.presentation.buy.push.BuyPushActivity
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
+import com.iamport.sdk.data.sdk.IamPortResponse
+import com.iamport.sdk.domain.core.ICallbackPaymentResult
+import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kr.genti.presentation.BuildConfig.IAMPORT_CODE
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyProgressBinding
 
@@ -35,7 +38,7 @@ class BuyProgressActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.vm = viewModel
+        initView()
         initExitBtnListener()
         initDeliveryChangeBtnListener()
         initTermBtnListener()
@@ -48,6 +51,11 @@ class BuyProgressActivity :
         super.onResume()
 
         getIntentInfo()
+    }
+
+    private fun initView() {
+        binding.vm = viewModel
+        Iamport.init(this)
     }
 
     private fun initExitBtnListener() {
@@ -85,9 +93,10 @@ class BuyProgressActivity :
     private fun initConfirmBtnListener() {
         binding.btnConfirmPurchase.setOnSingleClickListener {
             // TODO 구매 요청 서버통신 이후
-            BuyPushActivity.createIntent(this, viewModel.productId).apply {
-                startActivity(this)
-            }
+            startIamportPurchase()
+//            BuyPushActivity.createIntent(this, viewModel.productId).apply {
+//                startActivity(this)
+//            }
         }
     }
 
@@ -97,6 +106,21 @@ class BuyProgressActivity :
             getBuyProgressDataFromServer()
         }
     }
+
+    private fun startIamportPurchase() {
+        val request = viewModel.createIamportRequest()
+        if (request == null) {
+            toast(stringOf(R.string.error_msg))
+        } else {
+            Iamport.payment(IAMPORT_CODE, iamPortRequest = request) { callBackListener.result(it) }
+        }
+    }
+
+    private val callBackListener =
+        object : ICallbackPaymentResult {
+            override fun result(result: IamPortResponse?) {
+            }
+        }
 
     private fun observeGetBuyProgressDataState() {
         viewModel.getBuyProgressDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
@@ -144,6 +168,12 @@ class BuyProgressActivity :
                 tvDeliveryPhone.text = address.recipientPhone?.toPhoneFrom()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Iamport.close()
     }
 
     companion object {

@@ -17,6 +17,8 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.presentation.buy.finished.BuyFinishedActivity
+import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
 import com.iamport.sdk.domain.core.Iamport
@@ -44,6 +46,7 @@ class BuyProgressActivity :
         initConfirmBtnListener()
         observeGetBuyDataState()
         observePostPayStartState()
+        observePatchPayEndState()
     }
 
     override fun onResume() {
@@ -170,11 +173,33 @@ class BuyProgressActivity :
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
             if (response != null && response.success == true) {
-                // TODO
+                viewModel.patchPayEndToServer(true)
             } else {
-                toast(stringOf(R.string.error_msg))
+                viewModel.patchPayEndToServer(false)
             }
         }
+    }
+
+    private fun observePatchPayEndState() {
+        viewModel.patchPayEndState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        if (state.data.payStatus == PAY_SUCCESS) {
+                            // TODO 추후 푸쉬알림뷰로 이동
+                            BuyFinishedActivity.createIntent(this, viewModel.productId).apply {
+                                startActivity(this)
+                            }
+                            finish()
+                        } else {
+                            toast(stringOf(R.string.error_msg))
+                        }
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

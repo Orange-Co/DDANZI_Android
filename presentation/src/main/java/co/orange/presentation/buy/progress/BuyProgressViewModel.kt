@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
+import co.orange.domain.entity.request.PayEndRequestModel
 import co.orange.domain.entity.request.PayStartRequestModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.domain.entity.response.PayEndModel
 import co.orange.domain.entity.response.PayStartModel
 import co.orange.domain.repository.BuyRepository
 import com.iamport.sdk.data.sdk.IamPortRequest
@@ -42,6 +44,9 @@ class BuyProgressViewModel
 
         private val _postPayStartState = MutableStateFlow<UiState<PayStartModel>>(UiState.Empty)
         val postPayStartState: StateFlow<UiState<PayStartModel>> = _postPayStartState
+
+        private val _patchPayEndState = MutableStateFlow<UiState<PayEndModel>>(UiState.Empty)
+        val patchPayEndState: StateFlow<UiState<PayEndModel>> = _patchPayEndState
 
         fun checkAllTerm() {
             isTermServiceSelected.value = isTermAllSelected.value?.not()
@@ -138,9 +143,27 @@ class BuyProgressViewModel
             }
         }
 
+        fun patchPayEndToServer(isSuccess: Boolean) {
+            _patchPayEndState.value = UiState.Loading
+            viewModelScope.launch {
+                buyRepository.patchPaymentEnd(
+                    PayEndRequestModel(
+                        paymentId,
+                        if (isSuccess) PAY_SUCCESS else PAY_FAILURE,
+                    ),
+                ).onSuccess {
+                    _patchPayEndState.value = UiState.Success(it)
+                }.onFailure {
+                    _patchPayEndState.value = UiState.Failure(it.message.orEmpty())
+                }
+            }
+        }
+
         companion object {
             private const val NICE_PAYMENTS = "nice_v2.{$PAYMENT_UID}"
 
             private const val PAY_STATUS_PENDING = "PAY_STATUS_PENDING"
+            const val PAY_SUCCESS = "PAID"
+            const val PAY_FAILURE = "FAILED"
         }
     }

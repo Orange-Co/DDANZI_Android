@@ -17,6 +17,8 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.presentation.buy.finished.BuyFinishedActivity
+import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
 import com.iamport.sdk.domain.core.Iamport
@@ -40,10 +42,12 @@ class BuyProgressActivity :
         initView()
         initExitBtnListener()
         initDeliveryChangeBtnListener()
-        initTermBtnListener()
         initTermDetailBtnListener()
         initConfirmBtnListener()
-        observeGetBuyProgressDataState()
+        observeGetBuyDataState()
+        observePostPayStartState()
+        observePatchPayEndState()
+        observePostOrderState()
     }
 
     override fun onResume() {
@@ -74,13 +78,6 @@ class BuyProgressActivity :
         }
     }
 
-    private fun initTermBtnListener() {
-        // TODO
-        binding.btnTermAll.setOnSingleClickListener { }
-        binding.btnTermService.setOnSingleClickListener { }
-        binding.btnTermPurchase.setOnSingleClickListener { }
-    }
-
     private fun initTermDetailBtnListener() {
         // TODO
         with(binding) {
@@ -91,11 +88,7 @@ class BuyProgressActivity :
 
     private fun initConfirmBtnListener() {
         binding.btnConfirmPurchase.setOnSingleClickListener {
-            // TODO 구매 요청 서버통신 이후
-            startIamportPurchase()
-//            BuyPushActivity.createIntent(this, viewModel.productId).apply {
-//                startActivity(this)
-//            }
+            viewModel.postPayStartToServer()
         }
     }
 
@@ -105,32 +98,12 @@ class BuyProgressActivity :
                 productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
                 optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList()
             }
-            getBuyProgressDataFromServer()
+            getBuyDataFromServer()
         }
     }
 
-    private fun startIamportPurchase() {
-        val request = viewModel.createIamportRequest()
-        if (request == null) {
-            toast(stringOf(R.string.error_msg))
-            return
-        }
-        Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST : $request")
-        Iamport.payment(
-            userCode = IAMPORT_CODE,
-            iamPortRequest = request,
-        ) { response ->
-            Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            if (response != null && response.success == true) {
-                // TODO
-            } else {
-                toast(stringOf(R.string.error_msg))
-            }
-        }
-    }
-
-    private fun observeGetBuyProgressDataState() {
-        viewModel.getBuyProgressDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+    private fun observeGetBuyDataState() {
+        viewModel.getBuyDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> setBuyProgressUi(state.data)
@@ -175,6 +148,73 @@ class BuyProgressActivity :
                 tvDeliveryPhone.text = address.recipientPhone?.toPhoneFrom()
             }
         }
+    }
+
+    private fun observePostPayStartState() {
+        viewModel.postPayStartState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> startIamportPurchase()
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun startIamportPurchase() {
+        val request = viewModel.createIamportRequest()
+        if (request == null) {
+            toast(stringOf(R.string.error_msg))
+            return
+        }
+        Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST : $request")
+        Iamport.payment(
+            userCode = IAMPORT_CODE,
+            iamPortRequest = request,
+        ) { response ->
+            Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
+            if (response != null && response.success == true) {
+                viewModel.patchPayEndToServer(true)
+            } else {
+                viewModel.patchPayEndToServer(false)
+            }
+        }
+    }
+
+    private fun observePatchPayEndState() {
+        viewModel.patchPayEndState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        if (state.data.payStatus == PAY_SUCCESS) {
+                            viewModel.postToRequestOrderToServer()
+                        } else {
+                            toast(stringOf(R.string.error_msg))
+                        }
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observePostOrderState() {
+        viewModel.postOrderState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        // TODO 추후 푸쉬알림뷰 연결
+                        BuyFinishedActivity.createIntent(this, state.data).apply {
+                            startActivity(this)
+                        }
+                        finish()
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

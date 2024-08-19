@@ -52,7 +52,7 @@ class BuyFinishedActivity :
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+        viewModel.productId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
     }
 
     private fun setIntentUi(item: BuyInfoModel) {
@@ -65,7 +65,7 @@ class BuyFinishedActivity :
             tvFinishedDeliveryName.text = item.addressInfo[0].recipient
             tvFinishedDeliveryAddress.text =
                 getString(
-                    R.string.address_format,
+                    R.string.address_short_format,
                     item.addressInfo[0].zipCode,
                     item.addressInfo[0].address,
                 ).breakLines()
@@ -73,22 +73,23 @@ class BuyFinishedActivity :
             tvFinishedTransactionMethod.text = item.paymentInfo[0].method
             tvFinishedTransactionDate.text = item.paymentInfo[0].completedAt
             tvFinishedPayMoney.text = item.originPrice.setNumberForm()
-            tvFinishedPayDiscount.text = getString(R.string.add_minus, item.discountPrice.setNumberForm())
+            tvFinishedPayDiscount.text =
+                getString(R.string.add_minus, item.discountPrice.setNumberForm())
             tvFinishedPayCharge.text = getString(R.string.add_plus, item.charge.setNumberForm())
             tvFinishedPayTotal.text = item.totalPrice.setNumberForm()
         }
     }
 
     companion object {
-        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: String,
+            orderId: String,
         ): Intent =
             Intent(context, BuyFinishedActivity::class.java).apply {
-                putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_ORDER_ID, orderId)
             }
     }
 }

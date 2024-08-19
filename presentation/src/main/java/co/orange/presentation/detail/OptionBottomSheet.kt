@@ -80,10 +80,13 @@ class OptionBottomSheet :
     }
 
     private fun initItemClickListener(
-        optionId: Long,
+        position: Int,
         optionDetailId: Long,
     ) {
-        // TODO 옵션 저장
+        if (position < viewModel.selectedOptionList.size) {
+            viewModel.selectedOptionList[position] = optionDetailId
+        }
+        binding.btnPurchase.isEnabled = !viewModel.selectedOptionList.contains(-1)
     }
 
     private fun setInterestCount() {

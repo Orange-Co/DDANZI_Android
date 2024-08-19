@@ -8,7 +8,7 @@ import co.orange.domain.entity.response.ProductOptionModel
 import kr.genti.presentation.databinding.ItemOptionBinding
 
 class OptionAdapter(
-    private val itemClick: (Long, Long) -> Unit,
+    private val itemClick: (Int, Long) -> Unit,
 ) : ListAdapter<ProductOptionModel, OptionViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,

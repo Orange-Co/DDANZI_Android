@@ -138,14 +138,15 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginEnd="23dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/shape_black_fill_10_rect"
+                android:background="@drawable/sel_btn"
+                android:enabled="false"
                 android:gravity="center"
                 android:paddingVertical="15dp"
                 android:text="@string/detail_btn_purchase"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

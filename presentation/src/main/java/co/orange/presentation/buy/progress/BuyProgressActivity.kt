@@ -43,7 +43,8 @@ class BuyProgressActivity :
         initTermBtnListener()
         initTermDetailBtnListener()
         initConfirmBtnListener()
-        observeGetBuyProgressDataState()
+        observeGetBuyDataState()
+        observePostPayStartState()
     }
 
     override fun onResume() {
@@ -91,8 +92,7 @@ class BuyProgressActivity :
 
     private fun initConfirmBtnListener() {
         binding.btnConfirmPurchase.setOnSingleClickListener {
-            // TODO 구매 요청 서버통신 이후
-            startIamportPurchase()
+            viewModel.postPayStartToServer()
 //            BuyPushActivity.createIntent(this, viewModel.productId).apply {
 //                startActivity(this)
 //            }
@@ -105,32 +105,12 @@ class BuyProgressActivity :
                 productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
                 optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList()
             }
-            getBuyProgressDataFromServer()
+            getBuyDataFromServer()
         }
     }
 
-    private fun startIamportPurchase() {
-        val request = viewModel.createIamportRequest()
-        if (request == null) {
-            toast(stringOf(R.string.error_msg))
-            return
-        }
-        Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST : $request")
-        Iamport.payment(
-            userCode = IAMPORT_CODE,
-            iamPortRequest = request,
-        ) { response ->
-            Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            if (response != null && response.success == true) {
-                // TODO
-            } else {
-                toast(stringOf(R.string.error_msg))
-            }
-        }
-    }
-
-    private fun observeGetBuyProgressDataState() {
-        viewModel.getBuyProgressDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+    private fun observeGetBuyDataState() {
+        viewModel.getBuyDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> setBuyProgressUi(state.data)
@@ -173,6 +153,37 @@ class BuyProgressActivity :
                         address.address,
                     ).breakLines()
                 tvDeliveryPhone.text = address.recipientPhone?.toPhoneFrom()
+            }
+        }
+    }
+
+    private fun observePostPayStartState() {
+        viewModel.postPayStartState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> startIamportPurchase()
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun startIamportPurchase() {
+        val request = viewModel.createIamportRequest()
+        if (request == null) {
+            toast(stringOf(R.string.error_msg))
+            return
+        }
+        Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST : $request")
+        Iamport.payment(
+            userCode = IAMPORT_CODE,
+            iamPortRequest = request,
+        ) { response ->
+            Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
+            if (response != null && response.success == true) {
+                // TODO
+            } else {
+                toast(stringOf(R.string.error_msg))
             }
         }
     }

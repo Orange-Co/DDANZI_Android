@@ -4,15 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
+import co.orange.core.extension.convertDateTime
 import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.OrderInfoModel
 import co.orange.presentation.buy.info.BuyInfoActivity
 import co.orange.presentation.main.MainActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyFinishedBinding
 
@@ -27,7 +36,7 @@ class BuyFinishedActivity :
         initReturnBtnListener()
         initDetailBtnListener()
         getIntentInfo()
-        setIntentUi(viewModel.mockBuyInfo)
+        observeGetOrderInfoState()
     }
 
     private fun initReturnBtnListener() {
@@ -45,14 +54,28 @@ class BuyFinishedActivity :
 
     private fun initDetailBtnListener() {
         binding.btnShowDetail.setOnSingleClickListener {
-            BuyInfoActivity.createIntent(this, viewModel.productId).apply {
+            BuyInfoActivity.createIntent(this, viewModel.orderId).apply {
                 startActivity(this)
             }
         }
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
+        with(viewModel) {
+            orderId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
+            getOrderInfoFromServer()
+        }
+    }
+
+    private fun observeGetOrderInfoState() {
+        viewModel.getOrderInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> setIntentUi(state.data)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun setIntentUi(item: OrderInfoModel) {
@@ -62,16 +85,17 @@ class BuyFinishedActivity :
             ivFinishedItem.load(item.imgUrl)
             tvFinishedItemName.text = item.productName
             tvFinishedItemPrice.text = item.originPrice.setNumberForm()
-            tvFinishedDeliveryName.text = item.addressInfo[0].recipient
+            tvFinishedDeliveryName.text = item.addressInfo.recipient
             tvFinishedDeliveryAddress.text =
                 getString(
                     R.string.address_short_format,
-                    item.addressInfo[0].zipCode,
-                    item.addressInfo[0].address,
+                    item.addressInfo.zipCode,
+                    item.addressInfo.address,
                 ).breakLines()
-            tvFinishedDeliveryPhone.text = item.addressInfo[0].recipientPhone
-            tvFinishedTransactionMethod.text = item.paymentInfo[0].method
-            tvFinishedTransactionDate.text = item.paymentInfo[0].completedAt
+            tvFinishedDeliveryPhone.text = item.addressInfo.recipientPhone
+            tvFinishedTransactionMethod.text = item.paymentMethod
+            tvFinishedTransactionDate.text =
+                item.paidAt.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
             tvFinishedPayMoney.text = item.originPrice.setNumberForm()
             tvFinishedPayDiscount.text =
                 getString(R.string.add_minus, item.discountPrice.setNumberForm())
@@ -82,6 +106,9 @@ class BuyFinishedActivity :
 
     companion object {
         private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
+
+        const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        const val NEW_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
 
         @JvmStatic
         fun createIntent(

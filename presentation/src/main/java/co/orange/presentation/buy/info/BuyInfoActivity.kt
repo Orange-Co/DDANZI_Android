@@ -19,6 +19,7 @@ import co.orange.domain.entity.response.OrderInfoModel
 import co.orange.domain.enums.OrderStatus
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
+import co.orange.presentation.main.MainActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -39,6 +40,7 @@ class BuyInfoActivity :
         initOrderConfirmBtnListener()
         getIntentInfo()
         observeGetOrderInfoState()
+        observePatchOrderConfirmResult()
     }
 
     private fun initExitBtnListener() {
@@ -46,8 +48,9 @@ class BuyInfoActivity :
     }
 
     private fun initOrderConfirmBtnListener() {
-        // TODO
-        binding.btnOrderConfirm.setOnSingleClickListener { }
+        binding.btnOrderConfirm.setOnSingleClickListener {
+            viewModel.patchOrderConfirmToServer()
+        }
     }
 
     private fun getIntentInfo() {
@@ -122,6 +125,22 @@ class BuyInfoActivity :
             btnOrderConfirm.isEnabled = isButtonEnabled
             ivBuyToast.isVisible = isButtonEnabled
         }
+    }
+
+    private fun observePatchOrderConfirmResult() {
+        viewModel.patchOrderConfirmResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (isSuccess) {
+                    toast(stringOf(R.string.buy_order_success_msg))
+                    Intent(this, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                        startActivity(this)
+                    }
+                } else {
+                    toast(stringOf(R.string.error_msg))
+                }
+            }.launchIn(lifecycleScope)
     }
 
     companion object {

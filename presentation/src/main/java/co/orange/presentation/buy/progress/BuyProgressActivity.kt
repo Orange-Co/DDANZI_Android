@@ -101,7 +101,10 @@ class BuyProgressActivity :
 
     private fun getIntentInfo() {
         with(viewModel) {
-            if (productId.isEmpty()) productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+            if (productId.isEmpty()) {
+                productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+                optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList()
+            }
             getBuyProgressDataFromServer()
         }
     }
@@ -182,14 +185,17 @@ class BuyProgressActivity :
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_OPTION_LIST = "EXTRA_OPTION_LIST"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             productId: String,
+            optionList: Array<Long>? = null,
         ): Intent =
             Intent(context, BuyProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_OPTION_LIST, optionList)
             }
     }
 }

@@ -55,13 +55,11 @@ class OptionBottomSheet :
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            // TODO 버튼 활성화 설정
             BuyProgressActivity.createIntent(
                 requireContext(),
                 viewModel.productId,
-            ).apply {
-                startActivity(this)
-            }
+                viewModel.selectedOptionList.toTypedArray(),
+            ).apply { startActivity(this) }
         }
     }
 

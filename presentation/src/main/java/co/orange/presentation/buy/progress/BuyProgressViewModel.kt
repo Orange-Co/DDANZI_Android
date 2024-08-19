@@ -23,6 +23,7 @@ class BuyProgressViewModel
         private val buyRepository: BuyRepository,
     ) : ViewModel() {
         var productId: String = ""
+        var optionList: List<Long>? = null
         var buyProgressData: BuyProgressModel? = null
         var payMethod: String = ""
 

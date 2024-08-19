@@ -17,15 +17,17 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
-import co.orange.presentation.buy.push.BuyPushActivity
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
+import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kr.genti.presentation.BuildConfig.IAMPORT_CODE
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyProgressBinding
+import timber.log.Timber
 
 @AndroidEntryPoint
 class BuyProgressActivity :
@@ -35,7 +37,7 @@ class BuyProgressActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.vm = viewModel
+        initView()
         initExitBtnListener()
         initDeliveryChangeBtnListener()
         initTermBtnListener()
@@ -48,6 +50,11 @@ class BuyProgressActivity :
         super.onResume()
 
         getIntentInfo()
+    }
+
+    private fun initView() {
+        binding.vm = viewModel
+        Iamport.init(this)
     }
 
     private fun initExitBtnListener() {
@@ -85,16 +92,40 @@ class BuyProgressActivity :
     private fun initConfirmBtnListener() {
         binding.btnConfirmPurchase.setOnSingleClickListener {
             // TODO 구매 요청 서버통신 이후
-            BuyPushActivity.createIntent(this, viewModel.productId).apply {
-                startActivity(this)
-            }
+            startIamportPurchase()
+//            BuyPushActivity.createIntent(this, viewModel.productId).apply {
+//                startActivity(this)
+//            }
         }
     }
 
     private fun getIntentInfo() {
         with(viewModel) {
-            if (productId.isEmpty()) productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+            if (productId.isEmpty()) {
+                productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+                optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList()
+            }
             getBuyProgressDataFromServer()
+        }
+    }
+
+    private fun startIamportPurchase() {
+        val request = viewModel.createIamportRequest()
+        if (request == null) {
+            toast(stringOf(R.string.error_msg))
+            return
+        }
+        Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST : $request")
+        Iamport.payment(
+            userCode = IAMPORT_CODE,
+            iamPortRequest = request,
+        ) { response ->
+            Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
+            if (response != null && response.success == true) {
+                // TODO
+            } else {
+                toast(stringOf(R.string.error_msg))
+            }
         }
     }
 
@@ -146,16 +177,25 @@ class BuyProgressActivity :
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Iamport.close()
+    }
+
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_OPTION_LIST = "EXTRA_OPTION_LIST"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             productId: String,
+            optionList: Array<Long>? = null,
         ): Intent =
             Intent(context, BuyProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_OPTION_LIST, optionList)
             }
     }
 }

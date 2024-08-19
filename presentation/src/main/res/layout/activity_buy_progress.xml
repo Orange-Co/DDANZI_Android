@@ -141,6 +141,7 @@
                     android:id="@+id/layout_confirm_delivery"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_confirm_delivery_title">
@@ -222,15 +223,93 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/layout_confirm_delivery" />
 
-                <View
-                    android:id="@+id/layout_confirm_pay_empty"
+                <GridLayout
+                    android:id="@+id/layout_confirm_pay_method"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/shape_gray2_dash_line_5_rect"
+                    android:columnCount="3"
+                    android:rowCount="2"
+                    android:useDefaultMargins="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_confirm_pay_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_confirm_pay_title">
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:background="@{vm.payMethodId == 0 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(0)}"
+                        android:paddingVertical="14dp"
+                        android:text="@string/pay_method_card"
+                        android:textColor="@{vm.payMethodId == 0 ? @color/black : @color/gray_3}" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:background="@{vm.payMethodId == 1 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(1)}"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="14dp"
+                        android:text="@string/pay_method_naver"
+                        android:textColor="@{vm.payMethodId == 1 ? @color/black : @color/gray_3}" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:background="@{vm.payMethodId == 2 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(2)}"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="14dp"
+                        android:text="@string/pay_method_kakao"
+                        android:textColor="@{vm.payMethodId == 2 ? @color/black : @color/gray_3}" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:background="@{vm.payMethodId == 3 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(3)}"
+                        android:paddingVertical="14dp"
+                        android:text="@string/pay_method_samsung"
+                        android:textColor="@{vm.payMethodId == 3 ? @color/black : @color/gray_3}" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:background="@{vm.payMethodId == 4 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(4)}"
+                        android:paddingVertical="14dp"
+                        android:text="@string/pay_method_trans"
+                        android:textColor="@{vm.payMethodId == 4 ? @color/black : @color/gray_3}" />
+
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Body5"
+                        android:layout_row="1"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:background="@{vm.payMethodId == 5 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(5)}"
+                        android:paddingVertical="14dp"
+                        android:text="@string/pay_method_phone"
+                        android:textColor="@{vm.payMethodId == 5 ? @color/black : @color/gray_3}" />
+
+                </GridLayout>
 
                 <TextView
                     android:id="@+id/tv_confirm_price_title"
@@ -241,7 +320,7 @@
                     android:text="@string/confirm_tv_price_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layout_confirm_pay_empty" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_confirm_pay_method" />
 
                 <TextView
                     android:id="@+id/tv_confirm_price_money_title"

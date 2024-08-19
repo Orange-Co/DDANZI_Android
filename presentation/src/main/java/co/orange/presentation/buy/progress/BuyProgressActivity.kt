@@ -17,6 +17,7 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
@@ -46,6 +47,7 @@ class BuyProgressActivity :
         observeGetBuyDataState()
         observePostPayStartState()
         observePatchPayEndState()
+        observePostOrderState()
     }
 
     override fun onResume() {
@@ -202,7 +204,13 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
+                        // TODO 추후 푸쉬알림뷰 연결
+                        BuyFinishedActivity.createIntent(this, state.data).apply {
+                            startActivity(this)
+                        }
+                        finish()
                     }
+
                     is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
                     else -> return@onEach
                 }

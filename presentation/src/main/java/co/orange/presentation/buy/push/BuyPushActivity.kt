@@ -39,14 +39,14 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
     }
 
     private fun navigateToFinishedActivity() {
-        val productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
-        BuyFinishedActivity.createIntent(this, productId).apply {
+        val orderId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
+        BuyFinishedActivity.createIntent(this, orderId).apply {
             startActivity(this)
         }
     }
 
     companion object {
-        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
 
         @JvmStatic
         fun createIntent(
@@ -54,7 +54,7 @@ class BuyPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push
             productId: String,
         ): Intent =
             Intent(context, BuyPushActivity::class.java).apply {
-                putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_ORDER_ID, productId)
             }
     }
 }

@@ -36,7 +36,7 @@ class BuyInfoActivity :
         super.onCreate(savedInstanceState)
 
         initExitBtnListener()
-        initFixPurchaseBtnListener()
+        initOrderConfirmBtnListener()
         getIntentInfo()
         observeGetOrderInfoState()
     }
@@ -45,9 +45,9 @@ class BuyInfoActivity :
         binding.btnExit.setOnSingleClickListener { finish() }
     }
 
-    private fun initFixPurchaseBtnListener() {
+    private fun initOrderConfirmBtnListener() {
         // TODO
-        binding.btnFixPurchase.setOnSingleClickListener { }
+        binding.btnOrderConfirm.setOnSingleClickListener { }
     }
 
     private fun getIntentInfo() {
@@ -118,8 +118,8 @@ class BuyInfoActivity :
             }
         with(binding) {
             tvInfoMessage.setText(infoMsgResId)
-            btnFixPurchase.setText(btnTextResId)
-            btnFixPurchase.isEnabled = isButtonEnabled
+            btnOrderConfirm.setText(btnTextResId)
+            btnOrderConfirm.isEnabled = isButtonEnabled
             ivBuyToast.isVisible = isButtonEnabled
         }
     }

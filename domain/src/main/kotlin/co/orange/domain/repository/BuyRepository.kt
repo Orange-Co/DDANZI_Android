@@ -4,6 +4,7 @@ import co.orange.domain.entity.request.OrderRequestModel
 import co.orange.domain.entity.request.PayEndRequestModel
 import co.orange.domain.entity.request.PayStartRequestModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.domain.entity.response.OrderConfirmModel
 import co.orange.domain.entity.response.OrderIdModel
 import co.orange.domain.entity.response.OrderInfoModel
 import co.orange.domain.entity.response.PayEndModel
@@ -19,4 +20,6 @@ interface BuyRepository {
     suspend fun postToRequestOrder(request: OrderRequestModel): Result<OrderIdModel>
 
     suspend fun getOrderInfo(orderId: String): Result<OrderInfoModel>
+
+    suspend fun patchOrderConfirm(orderId: String): Result<OrderConfirmModel>
 }

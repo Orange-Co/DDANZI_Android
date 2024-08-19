@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
@@ -15,6 +16,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.OrderInfoModel
+import co.orange.domain.enums.OrderStatus
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import coil.load
@@ -89,6 +91,36 @@ class BuyInfoActivity :
                 getString(R.string.add_minus, item.discountPrice.setNumberForm())
             tvInfoPayCharge.text = getString(R.string.add_plus, item.charge.setNumberForm())
             tvInfoPayTotal.text = item.totalPrice.setNumberForm()
+        }
+        setOrderStatus(item.orderStatus)
+    }
+
+    private fun setOrderStatus(status: String) {
+        val (infoMsgResId, btnTextResId, isButtonEnabled) =
+            when (status) {
+                OrderStatus.ORDER_PLACED.name -> {
+                    Triple(R.string.buy_info_msg_placed, R.string.buy_info_btn_fix, false)
+                }
+
+                OrderStatus.SHIPPING.name -> {
+                    Triple(R.string.buy_info_msg_shipping, R.string.buy_info_btn_fix, true)
+                }
+
+                OrderStatus.COMPLETED.name -> {
+                    Triple(R.string.buy_info_msg_completed, R.string.buy_info_btn_completed, false)
+                }
+
+                OrderStatus.CANCELLED.name -> {
+                    Triple(R.string.buy_info_msg_cancelled, R.string.buy_info_btn_cancelled, false)
+                }
+
+                else -> return
+            }
+        with(binding) {
+            tvInfoMessage.setText(infoMsgResId)
+            btnFixPurchase.setText(btnTextResId)
+            btnFixPurchase.isEnabled = isButtonEnabled
+            ivBuyToast.isVisible = isButtonEnabled
         }
     }
 

@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kr.genti.presentation.BuildConfig.MERCHANT_UID
+import kr.genti.presentation.BuildConfig.PAYMENT_UID
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -77,12 +79,15 @@ class BuyProgressViewModel
         }
 
         fun createIamportRequest(): IamPortRequest? {
-            return if (buyProgressData?.productName.isNullOrBlank() || payMethod.isBlank()) {
+            // TODO  || payMethod.isBlank() 추가
+            return if (buyProgressData?.productName.isNullOrBlank()) {
+                Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST ERROR : $buyProgressData & $payMethod")
                 null
             } else {
                 IamPortRequest(
                     pg = NICE_PAYMENTS,
-                    pay_method = payMethod,
+                    // TODO 결제방법 수정
+                    pay_method = "kakaopay",
                     name = buyProgressData?.productName,
                     merchant_uid = MERCHANT_UID,
                     amount = buyProgressData?.totalPrice.toString(),
@@ -93,6 +98,6 @@ class BuyProgressViewModel
         }
 
         companion object {
-            private const val NICE_PAYMENTS = "nice_v2"
+            private const val NICE_PAYMENTS = "nice_v2.{$PAYMENT_UID}"
         }
     }

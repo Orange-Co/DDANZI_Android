@@ -60,6 +60,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
     }
 
     private fun startIamportCertification() {
+        Timber.tag("okhttp").d("START IAMPORT CERTIFICATION")
         Iamport.certification(
             userCode = IAMPORT_CODE,
             iamPortCertification =
@@ -75,6 +76,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone
                 }
             } else {
                 Timber.tag("okhttp").d("IAMPORT CERTIFICATION ERROR : $response")
+                toast(stringOf(R.string.error_msg))
                 setLoadingScreen(false)
             }
         }

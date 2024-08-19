@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.BuildConfig.IAMPORT_CODE
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyProgressBinding
+import timber.log.Timber
 
 @AndroidEntryPoint
 class BuyProgressActivity :
@@ -108,6 +109,7 @@ class BuyProgressActivity :
     }
 
     private fun startIamportPurchase() {
+        Timber.tag("okhttp").d("START IAMPORT PURCHASE")
         val request = viewModel.createIamportRequest()
         if (request == null) {
             toast(stringOf(R.string.error_msg))
@@ -118,7 +120,13 @@ class BuyProgressActivity :
 
     private val callBackListener =
         object : ICallbackPaymentResult {
-            override fun result(result: IamPortResponse?) {
+            override fun result(iamPortResponse: IamPortResponse?) {
+                if (iamPortResponse != null && iamPortResponse.success == true) {
+                    Timber.tag("okhttp").d("IAMPORT PURCHASE SUCCESS : $iamPortResponse")
+                } else {
+                    Timber.tag("okhttp").d("IAMPORT PURCHASE ERROR : $iamPortResponse")
+                    toast(stringOf(R.string.error_msg))
+                }
             }
         }
 

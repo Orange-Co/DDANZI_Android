@@ -17,7 +17,6 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
-import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
@@ -186,17 +185,25 @@ class BuyProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         if (state.data.payStatus == PAY_SUCCESS) {
-                            // TODO 추후 푸쉬알림뷰로 이동
-                            BuyFinishedActivity.createIntent(this, viewModel.productId).apply {
-                                startActivity(this)
-                            }
-                            finish()
+                            viewModel.postToRequestOrderToServer()
                         } else {
                             toast(stringOf(R.string.error_msg))
                         }
                     }
 
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observePostOrderState() {
+        viewModel.postOrderState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                    }
+                    is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)

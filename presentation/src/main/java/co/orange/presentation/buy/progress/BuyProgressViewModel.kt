@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
+import co.orange.domain.entity.request.OrderRequestModel
 import co.orange.domain.entity.request.PayEndRequestModel
 import co.orange.domain.entity.request.PayStartRequestModel
 import co.orange.domain.entity.response.BuyProgressModel
@@ -47,6 +48,9 @@ class BuyProgressViewModel
 
         private val _patchPayEndState = MutableStateFlow<UiState<PayEndModel>>(UiState.Empty)
         val patchPayEndState: StateFlow<UiState<PayEndModel>> = _patchPayEndState
+
+        private val _postOrderState = MutableStateFlow<UiState<String>>(UiState.Empty)
+        val postOrderState: StateFlow<UiState<String>> = _postOrderState
 
         fun checkAllTerm() {
             isTermServiceSelected.value = isTermAllSelected.value?.not()
@@ -155,6 +159,23 @@ class BuyProgressViewModel
                     _patchPayEndState.value = UiState.Success(it)
                 }.onFailure {
                     _patchPayEndState.value = UiState.Failure(it.message.orEmpty())
+                }
+            }
+        }
+
+        fun postToRequestOrderToServer() {
+            _postOrderState.value = UiState.Loading
+            viewModelScope.launch {
+                buyRepository.postToRequestOrder(
+                    OrderRequestModel(
+                        buyProgressData?.itemId ?: return@launch,
+                        paymentId,
+                        optionList ?: return@launch,
+                    ),
+                ).onSuccess {
+                    _postOrderState.value = UiState.Success(it.orderId)
+                }.onFailure {
+                    _postOrderState.value = UiState.Failure(it.message.orEmpty())
                 }
             }
         }

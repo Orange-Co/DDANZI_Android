@@ -83,6 +83,7 @@
     <string name="buy_info_tv_nickname">닉네임</string>
     <string name="buy_info_tv_delivery_title">배송지 정보</string>
     <string name="buy_info_btn_fix_purchase">구매 확정하기</string>
+    <string name="buy_order_error_msg">오류가 발생했습니다. 고객센터로 문의해주세요.</string>
 
     <string name="search_tv_hint">검색어를 입력하세요</string>
     <string name="search_tv_word_title">인기 검색어</string>

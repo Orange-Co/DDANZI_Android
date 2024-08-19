@@ -19,8 +19,6 @@ import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
-import com.iamport.sdk.data.sdk.IamPortResponse
-import com.iamport.sdk.domain.core.ICallbackPaymentResult
 import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -109,26 +107,24 @@ class BuyProgressActivity :
     }
 
     private fun startIamportPurchase() {
-        Timber.tag("okhttp").d("START IAMPORT PURCHASE")
         val request = viewModel.createIamportRequest()
         if (request == null) {
             toast(stringOf(R.string.error_msg))
-        } else {
-            Iamport.payment(IAMPORT_CODE, iamPortRequest = request) { callBackListener.result(it) }
+            return
         }
-    }
-
-    private val callBackListener =
-        object : ICallbackPaymentResult {
-            override fun result(iamPortResponse: IamPortResponse?) {
-                if (iamPortResponse != null && iamPortResponse.success == true) {
-                    Timber.tag("okhttp").d("IAMPORT PURCHASE SUCCESS : $iamPortResponse")
-                } else {
-                    Timber.tag("okhttp").d("IAMPORT PURCHASE ERROR : $iamPortResponse")
-                    toast(stringOf(R.string.error_msg))
-                }
+        Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST : $request")
+        Iamport.payment(
+            userCode = IAMPORT_CODE,
+            iamPortRequest = request,
+        ) { response ->
+            Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
+            if (response != null && response.success == true) {
+                // TODO
+            } else {
+                toast(stringOf(R.string.error_msg))
             }
         }
+    }
 
     private fun observeGetBuyProgressDataState() {
         viewModel.getBuyProgressDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()

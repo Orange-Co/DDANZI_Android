@@ -7,11 +7,11 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.domain.repository.BuyRepository
 import com.iamport.sdk.data.sdk.IamPortRequest
+import com.iamport.sdk.data.sdk.PayMethod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kr.genti.presentation.BuildConfig.MERCHANT_UID
 import kr.genti.presentation.BuildConfig.PAYMENT_UID
 import timber.log.Timber
 import javax.inject.Inject
@@ -87,9 +87,10 @@ class BuyProgressViewModel
                 IamPortRequest(
                     pg = NICE_PAYMENTS,
                     // TODO 결제방법 수정
-                    pay_method = "kakaopay",
-                    name = buyProgressData?.productName,
-                    merchant_uid = MERCHANT_UID,
+                    pay_method = PayMethod.card.name,
+                    // TODO 추후 수정
+                    name = "예시상품",
+                    merchant_uid = "0123456789",
                     amount = buyProgressData?.totalPrice.toString(),
                     buyer_name = buyProgressData?.addressInfo?.recipient,
                     buyer_tel = buyProgressData?.addressInfo?.recipientPhone,

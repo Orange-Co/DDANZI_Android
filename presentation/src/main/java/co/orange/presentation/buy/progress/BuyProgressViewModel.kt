@@ -123,15 +123,13 @@ class BuyProgressViewModel
 
         fun createIamportRequest(): IamPortRequest? {
             return if (buyProgressData?.productName.isNullOrBlank() || payMethod.isBlank() || paymentId.isBlank()) {
-                Timber.tag("okhttp")
-                    .d("IAMPORT PURCHASE REQUEST ERROR : $buyProgressData & $payMethod & $paymentId")
+                Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST ERROR : $buyProgressData")
                 null
             } else {
                 IamPortRequest(
                     pg = NICE_PAYMENTS,
                     pay_method = payMethod,
-                    // TODO 추후 수정
-                    name = "예시상품",
+                    name = buyProgressData?.modifiedProductName,
                     merchant_uid = paymentId,
                     amount = buyProgressData?.totalPrice.toString(),
                     buyer_name = buyProgressData?.addressInfo?.recipient,

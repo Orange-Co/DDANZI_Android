@@ -40,7 +40,6 @@ class BuyProgressActivity :
         initView()
         initExitBtnListener()
         initDeliveryChangeBtnListener()
-        initTermBtnListener()
         initTermDetailBtnListener()
         initConfirmBtnListener()
         observeGetBuyDataState()
@@ -75,13 +74,6 @@ class BuyProgressActivity :
         }
     }
 
-    private fun initTermBtnListener() {
-        // TODO
-        binding.btnTermAll.setOnSingleClickListener { }
-        binding.btnTermService.setOnSingleClickListener { }
-        binding.btnTermPurchase.setOnSingleClickListener { }
-    }
-
     private fun initTermDetailBtnListener() {
         // TODO
         with(binding) {
@@ -93,9 +85,6 @@ class BuyProgressActivity :
     private fun initConfirmBtnListener() {
         binding.btnConfirmPurchase.setOnSingleClickListener {
             viewModel.postPayStartToServer()
-//            BuyPushActivity.createIntent(this, viewModel.productId).apply {
-//                startActivity(this)
-//            }
         }
     }
 

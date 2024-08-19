@@ -10,6 +10,8 @@ data class BuyProgressDto(
     val itemId: String,
     @SerialName("productName")
     val productName: String,
+    @SerialName("modifiedProductName")
+    val modifiedProductName: String,
     @SerialName("imgUrl")
     val imgUrl: String,
     @SerialName("originPrice")
@@ -27,6 +29,7 @@ data class BuyProgressDto(
         BuyProgressModel(
             itemId,
             productName,
+            modifiedProductName,
             imgUrl,
             originPrice,
             addressInfo.toModel(),

@@ -55,13 +55,11 @@ class OptionBottomSheet :
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            // TODO 버튼 활성화 설정
             BuyProgressActivity.createIntent(
                 requireContext(),
                 viewModel.productId,
-            ).apply {
-                startActivity(this)
-            }
+                viewModel.selectedOptionList.toTypedArray(),
+            ).apply { startActivity(this) }
         }
     }
 
@@ -80,10 +78,13 @@ class OptionBottomSheet :
     }
 
     private fun initItemClickListener(
-        optionId: Long,
+        position: Int,
         optionDetailId: Long,
     ) {
-        // TODO 옵션 저장
+        if (position < viewModel.selectedOptionList.size) {
+            viewModel.selectedOptionList[position] = optionDetailId
+        }
+        binding.btnPurchase.isEnabled = !viewModel.selectedOptionList.contains(-1)
     }
 
     private fun setInterestCount() {

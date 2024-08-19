@@ -29,6 +29,12 @@ android {
             "MERCHANT_UID",
             gradleLocalProperties(rootDir).getProperty("merchant.uid"),
         )
+
+        buildConfigField(
+            "String",
+            "PAYMENT_UID",
+            gradleLocalProperties(rootDir).getProperty("payment.uid"),
+        )
     }
 
     compileOptions {

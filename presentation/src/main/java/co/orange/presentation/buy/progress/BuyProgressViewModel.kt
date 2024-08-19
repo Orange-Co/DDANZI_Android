@@ -19,6 +19,7 @@ class BuyProgressViewModel
         private val buyRepository: BuyRepository,
     ) : ViewModel() {
         var productId: String = ""
+        var paymentId: Long = -1
 
         var isTermAllSelected = MutableLiveData<Boolean>(false)
         var isTermServiceSelected = MutableLiveData<Boolean>(false)

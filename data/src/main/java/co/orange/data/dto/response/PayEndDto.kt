@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PayEndDto(
     @SerialName("paymentId")
-    val paymentId: Long,
+    val paymentId: String,
     @SerialName("payStatus")
     val payStatus: String,
     @SerialName("endedAt")

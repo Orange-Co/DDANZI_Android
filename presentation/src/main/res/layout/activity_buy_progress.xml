@@ -141,6 +141,7 @@
                     android:id="@+id/layout_confirm_delivery"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_confirm_delivery_title">
@@ -239,68 +240,74 @@
                         android:layout_row="0"
                         android:layout_column="0"
                         android:layout_columnWeight="1"
-                        android:background="@drawable/shape_gray2_line_10_rect"
+                        android:background="@{vm.payMethodId == 0 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
                         android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(0)}"
                         android:paddingVertical="14dp"
-                        android:text="신용/체크카드"
-                        android:textColor="@color/gray_3" />
+                        android:text="@string/pay_method_card"
+                        android:textColor="@{vm.payMethodId == 0 ? @color/black : @color/gray_3}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_row="0"
                         android:layout_column="1"
                         android:layout_columnWeight="1"
-                        android:background="@drawable/shape_gray2_line_10_rect"
+                        android:background="@{vm.payMethodId == 1 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
                         android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(1)}"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="14dp"
-                        android:text="네이버페이"
-                        android:textColor="@color/gray_3" />
+                        android:text="@string/pay_method_naver"
+                        android:textColor="@{vm.payMethodId == 1 ? @color/black : @color/gray_3}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_row="0"
                         android:layout_column="2"
                         android:layout_columnWeight="1"
-                        android:background="@drawable/shape_gray2_line_10_rect"
+                        android:background="@{vm.payMethodId == 2 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
                         android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(2)}"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="14dp"
-                        android:text="카카오페이"
-                        android:textColor="@color/gray_3" />
+                        android:text="@string/pay_method_kakao"
+                        android:textColor="@{vm.payMethodId == 2 ? @color/black : @color/gray_3}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_row="1"
                         android:layout_column="0"
                         android:layout_columnWeight="1"
-                        android:background="@drawable/shape_gray2_line_10_rect"
+                        android:background="@{vm.payMethodId == 3 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
                         android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(3)}"
                         android:paddingVertical="14dp"
-                        android:text="삼성페이"
-                        android:textColor="@color/gray_3" />
+                        android:text="@string/pay_method_samsung"
+                        android:textColor="@{vm.payMethodId == 3 ? @color/black : @color/gray_3}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_row="1"
                         android:layout_column="1"
                         android:layout_columnWeight="1"
-                        android:background="@drawable/shape_gray2_line_10_rect"
+                        android:background="@{vm.payMethodId == 4 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
                         android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(4)}"
                         android:paddingVertical="14dp"
-                        android:text="계좌이체"
-                        android:textColor="@color/gray_3" />
+                        android:text="@string/pay_method_trans"
+                        android:textColor="@{vm.payMethodId == 4 ? @color/black : @color/gray_3}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_row="1"
                         android:layout_column="2"
                         android:layout_columnWeight="1"
-                        android:background="@drawable/shape_gray2_line_10_rect"
+                        android:background="@{vm.payMethodId == 5 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
                         android:gravity="center"
+                        android:onClick="@{() -> vm.setPayMethod(5)}"
                         android:paddingVertical="14dp"
-                        android:text="휴대폰 결제"
-                        android:textColor="@color/gray_3" />
+                        android:text="@string/pay_method_phone"
+                        android:textColor="@{vm.payMethodId == 5 ? @color/black : @color/gray_3}" />
 
                 </GridLayout>
 

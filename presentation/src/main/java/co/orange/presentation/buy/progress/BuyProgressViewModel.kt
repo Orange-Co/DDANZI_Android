@@ -7,7 +7,6 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.domain.repository.BuyRepository
 import com.iamport.sdk.data.sdk.IamPortRequest
-import com.iamport.sdk.data.sdk.PayMethod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,13 +24,13 @@ class BuyProgressViewModel
         var productId: String = ""
         var optionList: List<Long>? = null
         var buyProgressData: BuyProgressModel? = null
-        var payMethod: String = ""
+
+        var payMethodId = MutableLiveData<Int>(-1)
+        var payMethod = ""
 
         var isTermAllSelected = MutableLiveData<Boolean>(false)
         var isTermServiceSelected = MutableLiveData<Boolean>(false)
         var isTermPurchaseSelected = MutableLiveData<Boolean>(false)
-        var isAddressSelected = false
-        var isMethodSelected = true
         var isCompleted = MutableLiveData<Boolean>(false)
 
         private val _getBuyProgressDataState =
@@ -55,11 +54,26 @@ class BuyProgressViewModel
             checkIsCompleted()
         }
 
+        fun setPayMethod(methodId: Int) {
+            payMethodId.value = methodId
+            payMethod =
+                when (methodId) {
+                    0 -> "card"
+                    1 -> "naverpay_card"
+                    2 -> "kakao"
+                    3 -> "samsungpay"
+                    4 -> "trans"
+                    5 -> "phone"
+                    else -> return
+                }
+            checkIsCompleted()
+        }
+
         private fun checkIsCompleted() {
             isTermAllSelected.value =
                 (isTermServiceSelected.value == true && isTermPurchaseSelected.value == true)
             isCompleted.value =
-                (isTermServiceSelected.value == true && isTermPurchaseSelected.value == true && isAddressSelected && isMethodSelected)
+                (isTermAllSelected.value == true && !buyProgressData?.addressInfo?.address.isNullOrBlank() && payMethod.isNotBlank())
         }
 
         fun getBuyProgressDataFromServer() {
@@ -68,7 +82,6 @@ class BuyProgressViewModel
                 // TODO 추후 productId 활용
                 buyRepository.getBuyProgressData("0110055338")
                     .onSuccess {
-                        isAddressSelected = !it.addressInfo.address.isNullOrEmpty()
                         checkIsCompleted()
                         buyProgressData = it
                         _getBuyProgressDataState.value = UiState.Success(it)
@@ -80,15 +93,13 @@ class BuyProgressViewModel
         }
 
         fun createIamportRequest(): IamPortRequest? {
-            // TODO  || payMethod.isBlank() 추가
-            return if (buyProgressData?.productName.isNullOrBlank()) {
+            return if (buyProgressData?.productName.isNullOrBlank() || payMethod.isBlank()) {
                 Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST ERROR : $buyProgressData & $payMethod")
                 null
             } else {
                 IamPortRequest(
                     pg = NICE_PAYMENTS,
-                    // TODO 결제방법 수정
-                    pay_method = PayMethod.card.name,
+                    pay_method = payMethod,
                     // TODO 추후 수정
                     name = "예시상품",
                     merchant_uid = "0123456789",

@@ -1,9 +1,11 @@
 package co.orange.data.service
 
 import co.orange.data.dto.BaseResponse
+import co.orange.data.dto.request.OrderRequestDto
 import co.orange.data.dto.request.PayEndRequestDto
 import co.orange.data.dto.request.PayStartRequestDto
 import co.orange.data.dto.response.BuyProgressDto
+import co.orange.data.dto.response.OrderIdDto
 import co.orange.data.dto.response.PayEndDto
 import co.orange.data.dto.response.PayStartDto
 import retrofit2.http.Body
@@ -27,4 +29,9 @@ interface BuyService {
     suspend fun patchPaymentEnd(
         @Body request: PayEndRequestDto,
     ): BaseResponse<PayEndDto>
+
+    @POST("/api/v1/order")
+    suspend fun postToRequestOrder(
+        @Body request: OrderRequestDto,
+    ): BaseResponse<OrderIdDto>
 }

@@ -58,7 +58,6 @@ class OptionBottomSheet :
             BuyProgressActivity.createIntent(
                 requireContext(),
                 viewModel.productId,
-                viewModel.selectedOptionList.toTypedArray(),
             ).apply { startActivity(this) }
         }
     }

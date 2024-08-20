@@ -143,6 +143,8 @@ class BuyProgressViewModel
                     amount = buyProgressData?.totalPrice.toString(),
                     buyer_name = buyProgressData?.addressInfo?.recipient,
                     buyer_tel = buyProgressData?.addressInfo?.recipientPhone,
+                    digital = false,
+                    vbank_due = "2024-10-10",
                 )
             }
         }
@@ -181,9 +183,9 @@ class BuyProgressViewModel
         }
 
         companion object {
-            private const val NICE_PAYMENTS = "nice_v2.{$PAYMENT_UID}"
+            private const val NICE_PAYMENTS = "nice_v2.$PAYMENT_UID"
 
-            private const val PAY_STATUS_PENDING = "PAY_STATUS_PENDING"
+            private const val PAY_STATUS_PENDING = "PENDING"
             const val PAY_SUCCESS = "PAID"
             const val PAY_FAILURE = "FAILED"
         }

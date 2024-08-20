@@ -28,12 +28,6 @@ class HistoryBuyAdapter(
         holder.onBind(item)
     }
 
-    fun addList(newItems: List<OrderProductModel>) {
-        val currentItems = currentList.toMutableList()
-        currentItems.addAll(newItems)
-        submitList(currentItems)
-    }
-
     companion object {
         private val diffUtil =
             ItemDiffCallback<OrderProductModel>(

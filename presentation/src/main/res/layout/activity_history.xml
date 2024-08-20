@@ -73,6 +73,45 @@
             app:spanCount="2"
             tools:listitem="@layout/item_home_product" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_history_empty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_count">
+
+            <ImageView
+                android:id="@+id/iv_history_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_empty"
+                app:layout_constraintBottom_toTopOf="@id/tv_history_empty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_history_empty"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"
+                android:gravity="center"
+                android:textColor="@color/gray_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_history_empty"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="구매한 상품이 없어요" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

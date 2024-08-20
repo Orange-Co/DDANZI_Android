@@ -218,5 +218,7 @@
     <string name="profile_history_sell_title">판매 목록</string>
     <string name="profile_history_interest_title">내 관심</string>
     <string name="profile_history_count">총 %d건</string>
+    <string name="profile_history_buy_empty">구매한 상품이 없어요</string>
+    <string name="profile_history_interest_empty">좋아요를 누른 상품이 없어요</string>
 
 </resources>

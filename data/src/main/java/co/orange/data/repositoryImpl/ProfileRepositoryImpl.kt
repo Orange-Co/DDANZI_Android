@@ -1,6 +1,7 @@
 package co.orange.data.repositoryImpl
 
 import co.orange.data.dataSource.ProfileDataSource
+import co.orange.domain.entity.response.HistoryBuyModel
 import co.orange.domain.entity.response.HistoryInterestModel
 import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.repository.ProfileRepository
@@ -18,6 +19,11 @@ class ProfileRepositoryImpl
 
         override suspend fun getInterestHistory(): Result<HistoryInterestModel> =
             runCatching {
-                profileDataSource.getInterestList().data.toModel()
+                profileDataSource.getInterestHistory().data.toModel()
+            }
+
+        override suspend fun getBuyHistory(): Result<HistoryBuyModel> =
+            runCatching {
+                profileDataSource.getBuyHistory().data.toModel()
             }
     }

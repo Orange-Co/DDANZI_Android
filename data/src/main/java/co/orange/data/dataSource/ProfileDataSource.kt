@@ -1,11 +1,14 @@
 package co.orange.data.dataSource
 
 import co.orange.data.dto.BaseResponse
-import co.orange.data.dto.response.ProfileInterestDto
-import co.orange.data.dto.response.ProfileNicknameDto
+import co.orange.data.dto.response.HistoryBuyDto
+import co.orange.data.dto.response.HistoryInterestDto
+import co.orange.data.dto.response.NicknameDto
 
 interface ProfileDataSource {
-    suspend fun getNickname(): BaseResponse<ProfileNicknameDto>
+    suspend fun getNickname(): BaseResponse<NicknameDto>
 
-    suspend fun getInterestList(): BaseResponse<ProfileInterestDto>
+    suspend fun getInterestHistory(): BaseResponse<HistoryInterestDto>
+
+    suspend fun getBuyHistory(): BaseResponse<HistoryBuyDto>
 }

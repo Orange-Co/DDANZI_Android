@@ -3,6 +3,7 @@ package co.orange.presentation.main.profile.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
+import co.orange.domain.entity.response.HistoryBuyModel
 import co.orange.domain.entity.response.HistoryInterestModel
 import co.orange.domain.repository.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,9 +20,26 @@ class HistoryViewModel
     ) : ViewModel() {
         var currentType: Int = -1
 
+        private val _getBuyListState =
+            MutableStateFlow<UiState<HistoryBuyModel>>(UiState.Empty)
+        val getBuyListState: StateFlow<UiState<HistoryBuyModel>> = _getBuyListState
+
         private val _getInterestListState =
             MutableStateFlow<UiState<HistoryInterestModel>>(UiState.Empty)
         val getInterestListState: StateFlow<UiState<HistoryInterestModel>> = _getInterestListState
+
+        fun getBuyListFromServer() {
+            _getBuyListState.value = UiState.Loading
+            viewModelScope.launch {
+                profileRepository.getBuyHistory()
+                    .onSuccess {
+                        _getBuyListState.value = UiState.Success(it)
+                    }
+                    .onFailure {
+                        _getBuyListState.value = UiState.Failure(it.message.toString())
+                    }
+            }
+        }
 
         fun getInterestListFromServer() {
             _getInterestListState.value = UiState.Loading

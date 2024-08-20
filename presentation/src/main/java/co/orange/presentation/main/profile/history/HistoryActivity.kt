@@ -11,6 +11,7 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,32 +28,21 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
     val interestAdapter
         get() = requireNotNull(_interestAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
+    private var _buyAdapter: HistoryBuyAdapter? = null
+    val buyAdapter
+        get() = requireNotNull(_buyAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBackBtnListener()
-        initAdapter()
         getTypeFromIntent()
+        observeGetBuyListState()
         observeGetInterestListState()
     }
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
-    }
-
-    private fun initAdapter() {
-        _interestAdapter =
-            HistoryInterestAdapter(
-                itemClick = ::initItemClickListener,
-            )
-        binding.rvHistory.adapter = interestAdapter
-    }
-
-    private fun initItemClickListener(productId: String) {
-        DetailActivity.createIntent(
-            this,
-            productId,
-        ).apply { startActivity(this) }
     }
 
     private fun getTypeFromIntent() {
@@ -64,6 +54,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         when (viewModel.currentType) {
             TYPE_BUY -> {
                 binding.tvHistoryTitle.text = stringOf(R.string.profile_history_buy_title)
+                viewModel.getBuyListFromServer()
             }
 
             TYPE_SELL -> {
@@ -79,6 +70,43 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         }
     }
 
+    private fun initBuyAdapter() {
+        _buyAdapter =
+            HistoryBuyAdapter { orderId ->
+                BuyFinishedActivity.createIntent(this, orderId).apply {
+                    startActivity(this)
+                }
+            }
+        binding.rvHistory.adapter = interestAdapter
+    }
+
+    private fun initInterestAdapter() {
+        _interestAdapter =
+            HistoryInterestAdapter { productId ->
+                DetailActivity.createIntent(this, productId).apply {
+                    startActivity(this)
+                }
+            }
+        binding.rvHistory.adapter = interestAdapter
+    }
+
+    private fun observeGetBuyListState() {
+        viewModel.getBuyListState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        binding.tvHistoryCount.text =
+                            getString(R.string.profile_history_count, state.data.totalCount)
+                        initBuyAdapter()
+                        buyAdapter.addList(state.data.orderProductList)
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
     private fun observeGetInterestListState() {
         viewModel.getInterestListState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
@@ -86,6 +114,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
                     is UiState.Success -> {
                         binding.tvHistoryCount.text =
                             getString(R.string.profile_history_count, state.data.totalCount)
+                        initInterestAdapter()
                         interestAdapter.addList(state.data.productList)
                     }
 

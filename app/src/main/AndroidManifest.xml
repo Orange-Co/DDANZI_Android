@@ -119,7 +119,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.setting.history.HistoryActivity"
+            android:name="co.orange.presentation.main.profile.history.HistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

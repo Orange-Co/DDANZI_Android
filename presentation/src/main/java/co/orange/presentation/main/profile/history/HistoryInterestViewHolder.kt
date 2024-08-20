@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.history
+package co.orange.presentation.main.profile.history
 
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +10,9 @@ import co.orange.domain.entity.response.ProductModel
 import coil.load
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
-class HistoryViewHolder(
+class HistoryInterestViewHolder(
     val binding: ItemHomeProductBinding,
-    val itemClick: (ProductModel) -> (Unit),
+    val itemClick: (String) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: ProductModel) {
@@ -28,7 +28,7 @@ class HistoryViewHolder(
             btnItemLike.isEnabled = item.isInterested
 
             root.setOnSingleClickListener {
-                itemClick(item)
+                itemClick(item.productId)
             }
         }
     }

@@ -1,8 +1,9 @@
 package co.orange.data.repositoryImpl
 
 import co.orange.data.dataSource.ProfileDataSource
-import co.orange.domain.entity.response.ProfileInterestModel
-import co.orange.domain.entity.response.ProfileNicknameModel
+import co.orange.domain.entity.response.HistoryBuyModel
+import co.orange.domain.entity.response.HistoryInterestModel
+import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.repository.ProfileRepository
 import javax.inject.Inject
 
@@ -11,13 +12,18 @@ class ProfileRepositoryImpl
     constructor(
         private val profileDataSource: ProfileDataSource,
     ) : ProfileRepository {
-        override suspend fun getNickname(): Result<ProfileNicknameModel> =
+        override suspend fun getNickname(): Result<NicknameModel> =
             runCatching {
                 profileDataSource.getNickname().data.toModel()
             }
 
-        override suspend fun getInterestList(): Result<ProfileInterestModel> =
+        override suspend fun getInterestHistory(): Result<HistoryInterestModel> =
             runCatching {
-                profileDataSource.getInterestList().data.toModel()
+                profileDataSource.getInterestHistory().data.toModel()
+            }
+
+        override suspend fun getBuyHistory(): Result<HistoryBuyModel> =
+            runCatching {
+                profileDataSource.getBuyHistory().data.toModel()
             }
     }

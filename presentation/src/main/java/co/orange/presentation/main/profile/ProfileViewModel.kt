@@ -3,7 +3,7 @@ package co.orange.presentation.main.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProfileNicknameModel
+import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.repository.ProfileRepository
 import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +19,8 @@ class ProfileViewModel
         private val profileRepository: ProfileRepository,
         private val userRepository: UserRepository,
     ) : ViewModel() {
-        private val _getNicknameState = MutableStateFlow<UiState<ProfileNicknameModel>>(UiState.Empty)
-        val getNicknameState: StateFlow<UiState<ProfileNicknameModel>> = _getNicknameState
+        private val _getNicknameState = MutableStateFlow<UiState<NicknameModel>>(UiState.Empty)
+        val getNicknameState: StateFlow<UiState<NicknameModel>> = _getNicknameState
 
         fun getNicknameFromServer() {
             viewModelScope.launch {

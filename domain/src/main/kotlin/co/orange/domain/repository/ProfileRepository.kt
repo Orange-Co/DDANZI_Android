@@ -1,10 +1,13 @@
 package co.orange.domain.repository
 
-import co.orange.domain.entity.response.ProfileInterestModel
-import co.orange.domain.entity.response.ProfileNicknameModel
+import co.orange.domain.entity.response.HistoryBuyModel
+import co.orange.domain.entity.response.HistoryInterestModel
+import co.orange.domain.entity.response.NicknameModel
 
 interface ProfileRepository {
-    suspend fun getNickname(): Result<ProfileNicknameModel>
+    suspend fun getNickname(): Result<NicknameModel>
 
-    suspend fun getInterestList(): Result<ProfileInterestModel>
+    suspend fun getInterestHistory(): Result<HistoryInterestModel>
+
+    suspend fun getBuyHistory(): Result<HistoryBuyModel>
 }

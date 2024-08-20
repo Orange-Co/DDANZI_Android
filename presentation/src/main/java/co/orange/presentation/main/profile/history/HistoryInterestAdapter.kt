@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.history
+package co.orange.presentation.main.profile.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,31 +7,25 @@ import co.orange.core.util.ItemDiffCallback
 import co.orange.domain.entity.response.ProductModel
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
-class HistoryAdapter(
-    private val itemClick: (ProductModel) -> (Unit),
-) : ListAdapter<ProductModel, HistoryViewHolder>(diffUtil) {
+class HistoryInterestAdapter(
+    private val itemClick: (String) -> (Unit),
+) : ListAdapter<ProductModel, HistoryInterestViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): HistoryViewHolder {
+    ): HistoryInterestViewHolder {
         val inflater by lazy { LayoutInflater.from(parent.context) }
         val binding: ItemHomeProductBinding =
             ItemHomeProductBinding.inflate(inflater, parent, false)
-        return HistoryViewHolder(binding, itemClick)
+        return HistoryInterestViewHolder(binding, itemClick)
     }
 
     override fun onBindViewHolder(
-        holder: HistoryViewHolder,
+        holder: HistoryInterestViewHolder,
         position: Int,
     ) {
         val item = getItem(position) ?: return
         holder.onBind(item)
-    }
-
-    fun addList(newItems: List<ProductModel>) {
-        val currentItems = currentList.toMutableList()
-        currentItems.addAll(newItems)
-        submitList(currentItems)
     }
 
     companion object {

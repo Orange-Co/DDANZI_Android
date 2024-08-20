@@ -103,8 +103,7 @@ class SearchActivity :
         DetailActivity.createIntent(
             this,
             item.productId,
-        )
-            .apply { startActivity(this) }
+        ).apply { startActivity(this) }
     }
 
     private fun setDebounceSearch() {
@@ -135,6 +134,8 @@ class SearchActivity :
                     is UiState.Success -> {
                         keywordAdapter.addList(state.data.topSearchedList)
                         recentAdapter.addList(state.data.recentlyViewedList)
+                        binding.layoutRecentEmpty.isVisible =
+                            state.data.recentlyViewedList.isEmpty()
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
@@ -149,6 +150,8 @@ class SearchActivity :
                 when (state) {
                     is UiState.Success -> {
                         resultAdapter.addList(state.data.searchedProductList)
+                        binding.layoutResultEmpty.isVisible =
+                            state.data.searchedProductList.isEmpty()
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

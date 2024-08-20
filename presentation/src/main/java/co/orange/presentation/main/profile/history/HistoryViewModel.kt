@@ -1,9 +1,9 @@
-package co.orange.presentation.setting.history
+package co.orange.presentation.main.profile.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProfileInterestModel
+import co.orange.domain.entity.response.HistoryInterestModel
 import co.orange.domain.repository.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,13 +20,13 @@ class HistoryViewModel
         var currentType: Int = -1
 
         private val _getInterestListState =
-            MutableStateFlow<UiState<ProfileInterestModel>>(UiState.Empty)
-        val getInterestListState: StateFlow<UiState<ProfileInterestModel>> = _getInterestListState
+            MutableStateFlow<UiState<HistoryInterestModel>>(UiState.Empty)
+        val getInterestListState: StateFlow<UiState<HistoryInterestModel>> = _getInterestListState
 
         fun getInterestListFromServer() {
             _getInterestListState.value = UiState.Loading
             viewModelScope.launch {
-                profileRepository.getInterestList()
+                profileRepository.getInterestHistory()
                     .onSuccess {
                         _getInterestListState.value = UiState.Success(it)
                     }

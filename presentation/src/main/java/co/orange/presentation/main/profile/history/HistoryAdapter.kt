@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.history
+package co.orange.presentation.main.profile.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

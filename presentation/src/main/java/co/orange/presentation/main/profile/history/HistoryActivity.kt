@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.history
+package co.orange.presentation.main.profile.history
 
 import android.content.Context
 import android.content.Intent
@@ -53,8 +53,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         DetailActivity.createIntent(
             this,
             item.productId,
-        )
-            .apply { startActivity(this) }
+        ).apply { startActivity(this) }
     }
 
     private fun getTypeFromIntent() {

@@ -1,6 +1,6 @@
 package co.orange.data.dto.response
 
-import co.orange.domain.entity.response.ProfileInterestModel
+import co.orange.domain.entity.response.HistoryInterestModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,5 +11,5 @@ data class ProfileInterestDto(
     @SerialName("productList")
     val productList: List<ProductDto>,
 ) {
-    fun toModel() = ProfileInterestModel(totalCount, productList.map { it.toModel() })
+    fun toModel() = HistoryInterestModel(totalCount, productList.map { it.toModel() })
 }

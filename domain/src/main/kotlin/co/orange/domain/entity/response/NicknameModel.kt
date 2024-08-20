@@ -1,7 +1,5 @@
 package co.orange.domain.entity.response
 
-data class SettingModel(
-    val name: String,
+data class NicknameModel(
     val nickname: String,
-    val phone: String,
 )

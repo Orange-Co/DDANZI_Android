@@ -145,6 +145,42 @@
                 app:spanCount="2"
                 tools:listitem="@layout/item_search_product" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_recent_empty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_search_resent_title">
+
+                <ImageView
+                    android:id="@+id/iv_recent_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:src="@drawable/img_empty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_recent_empty"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="100dp"
+                    android:gravity="center"
+                    android:text="@string/search_recent_empty"
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_recent_empty" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -193,6 +229,42 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_searched_text"
                 app:spanCount="2"
                 tools:listitem="@layout/item_search_product" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_result_empty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_searched_text">
+
+                <ImageView
+                    android:id="@+id/iv_result_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:src="@drawable/img_empty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_result_empty"
+                    style="@style/TextAppearance.DDanzi.Body4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="100dp"
+                    android:gravity="center"
+                    android:text="@string/search_result_empty"
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_result_empty" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

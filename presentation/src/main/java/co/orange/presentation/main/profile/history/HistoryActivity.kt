@@ -137,6 +137,8 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
 
     override fun onDestroy() {
         super.onDestroy()
+
+        _buyAdapter = null
         _interestAdapter = null
     }
 

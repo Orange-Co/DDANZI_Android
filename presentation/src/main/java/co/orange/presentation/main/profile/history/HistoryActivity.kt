@@ -11,7 +11,6 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.domain.entity.response.ProductModel
 import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -49,10 +48,10 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         binding.rvHistory.adapter = interestAdapter
     }
 
-    private fun initItemClickListener(item: ProductModel) {
+    private fun initItemClickListener(productId: String) {
         DetailActivity.createIntent(
             this,
-            item.productId,
+            productId,
         ).apply { startActivity(this) }
     }
 

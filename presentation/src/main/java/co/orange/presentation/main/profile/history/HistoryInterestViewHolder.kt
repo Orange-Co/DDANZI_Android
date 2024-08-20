@@ -12,7 +12,7 @@ import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HistoryInterestViewHolder(
     val binding: ItemHomeProductBinding,
-    val itemClick: (ProductModel) -> (Unit),
+    val itemClick: (String) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: ProductModel) {
@@ -28,7 +28,7 @@ class HistoryInterestViewHolder(
             btnItemLike.isEnabled = item.isInterested
 
             root.setOnSingleClickListener {
-                itemClick(item)
+                itemClick(item.productId)
             }
         }
     }

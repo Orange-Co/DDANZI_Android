@@ -53,7 +53,7 @@ class BuyProgressActivity :
     override fun onResume() {
         super.onResume()
 
-        getIntentInfo()
+        if (!viewModel.isOrderStarted) getIntentInfo()
     }
 
     private fun initView() {
@@ -201,6 +201,7 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
+                        toast(stringOf(R.string.buy_order_success_msg))
                         // TODO 추후 푸쉬알림뷰 연결
                         BuyFinishedActivity.createIntent(this, state.data).apply {
                             startActivity(this)

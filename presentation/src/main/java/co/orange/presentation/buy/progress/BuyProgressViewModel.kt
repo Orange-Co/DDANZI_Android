@@ -38,6 +38,7 @@ class BuyProgressViewModel
         var isTermServiceSelected = MutableLiveData<Boolean>(false)
         var isTermPurchaseSelected = MutableLiveData<Boolean>(false)
         var isCompleted = MutableLiveData<Boolean>(false)
+        var isOrderStarted = false
 
         private val _getBuyDataState = MutableStateFlow<UiState<BuyProgressModel>>(UiState.Empty)
         val getBuyDataState: StateFlow<UiState<BuyProgressModel>> = _getBuyDataState
@@ -106,6 +107,7 @@ class BuyProgressViewModel
 
         fun postPayStartToServer() {
             _postPayStartState.value = UiState.Loading
+            isOrderStarted = true
             viewModelScope.launch {
                 buyRepository.postPaymentStart(
                     PayStartRequestModel(

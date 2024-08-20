@@ -62,6 +62,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     companion object {
-        private const val USER_ALREADY_SIGNED = "ACTIVE"
+        private const val USER_ALREADY_SIGNED = "ACTIVATE"
     }
 }

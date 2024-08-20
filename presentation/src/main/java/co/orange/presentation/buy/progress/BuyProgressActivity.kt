@@ -96,7 +96,7 @@ class BuyProgressActivity :
         with(viewModel) {
             if (productId.isEmpty()) {
                 productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
-                optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList()
+                optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList() ?: listOf()
             }
             getBuyDataFromServer()
         }
@@ -173,7 +173,7 @@ class BuyProgressActivity :
             iamPortRequest = request,
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            if (response != null && response.success == true) {
+            if (response?.imp_uid?.isEmpty() == false) {
                 viewModel.patchPayEndToServer(true)
             } else {
                 viewModel.patchPayEndToServer(false)

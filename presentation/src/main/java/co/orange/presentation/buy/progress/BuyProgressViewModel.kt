@@ -29,7 +29,7 @@ class BuyProgressViewModel
         var productId: String = ""
         var paymentId: String = ""
 
-        var optionList: List<Long>? = null
+        var optionList = listOf<Long>()
         var buyProgressData: BuyProgressModel? = null
 
         var payMethodId = MutableLiveData<Int>(-1)
@@ -75,10 +75,9 @@ class BuyProgressViewModel
                 when (methodId) {
                     0 -> "card"
                     1 -> "naverpay_card"
-                    2 -> "kakao"
+                    2 -> "kakaopay"
                     3 -> "samsungpay"
-                    4 -> "trans"
-                    5 -> "phone"
+                    4 -> "phone"
                     else -> return
                 }
             checkIsCompleted()
@@ -94,8 +93,7 @@ class BuyProgressViewModel
         fun getBuyDataFromServer() {
             _getBuyDataState.value = UiState.Loading
             viewModelScope.launch {
-                // TODO 추후 productId 활용
-                buyRepository.getBuyProgressData("0110055338")
+                buyRepository.getBuyProgressData(productId)
                     .onSuccess {
                         checkIsCompleted()
                         buyProgressData = it
@@ -112,9 +110,9 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.postPaymentStart(
                     PayStartRequestModel(
-                        buyProgressData?.itemId ?: return@launch,
-                        buyProgressData?.charge ?: return@launch,
-                        buyProgressData?.totalPrice ?: return@launch,
+                        buyProgressData?.itemId.orEmpty(),
+                        buyProgressData?.charge ?: -1,
+                        buyProgressData?.totalPrice ?: -1,
                         payMethod,
                     ),
                 ).onSuccess {
@@ -144,7 +142,6 @@ class BuyProgressViewModel
                     buyer_name = buyProgressData?.addressInfo?.recipient,
                     buyer_tel = buyProgressData?.addressInfo?.recipientPhone,
                     digital = false,
-                    vbank_due = "2024-10-10",
                 )
             }
         }
@@ -170,9 +167,9 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.postToRequestOrder(
                     OrderRequestModel(
-                        buyProgressData?.itemId ?: return@launch,
+                        buyProgressData?.itemId.orEmpty(),
                         paymentId,
-                        optionList ?: return@launch,
+                        optionList,
                     ),
                 ).onSuccess {
                     _postOrderState.value = UiState.Success(it.orderId)

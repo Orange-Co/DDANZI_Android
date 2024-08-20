@@ -294,20 +294,8 @@
                         android:gravity="center"
                         android:onClick="@{() -> vm.setPayMethod(4)}"
                         android:paddingVertical="14dp"
-                        android:text="@string/pay_method_trans"
-                        android:textColor="@{vm.payMethodId == 4 ? @color/black : @color/gray_3}" />
-
-                    <TextView
-                        style="@style/TextAppearance.DDanzi.Body5"
-                        android:layout_row="1"
-                        android:layout_column="2"
-                        android:layout_columnWeight="1"
-                        android:background="@{vm.payMethodId == 5 ? @drawable/shape_black_line_10_rect : @drawable/shape_gray2_line_10_rect}"
-                        android:gravity="center"
-                        android:onClick="@{() -> vm.setPayMethod(5)}"
-                        android:paddingVertical="14dp"
                         android:text="@string/pay_method_phone"
-                        android:textColor="@{vm.payMethodId == 5 ? @color/black : @color/gray_3}" />
+                        android:textColor="@{vm.payMethodId == 4 ? @color/black : @color/gray_3}" />
 
                 </GridLayout>
 

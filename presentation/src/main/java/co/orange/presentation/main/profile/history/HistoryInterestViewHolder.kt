@@ -10,7 +10,7 @@ import co.orange.domain.entity.response.ProductModel
 import coil.load
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
-class HistoryViewHolder(
+class HistoryInterestViewHolder(
     val binding: ItemHomeProductBinding,
     val itemClick: (ProductModel) -> (Unit),
 ) :

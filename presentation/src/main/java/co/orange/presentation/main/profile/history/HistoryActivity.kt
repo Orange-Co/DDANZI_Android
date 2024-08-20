@@ -24,9 +24,9 @@ import kr.genti.presentation.databinding.ActivityHistoryBinding
 class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_history) {
     val viewModel by viewModels<HistoryViewModel>()
 
-    private var _adapter: HistoryAdapter? = null
-    val adapter
-        get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
+    private var _interestAdapter: HistoryInterestAdapter? = null
+    val interestAdapter
+        get() = requireNotNull(_interestAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +42,11 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
     }
 
     private fun initAdapter() {
-        _adapter =
-            HistoryAdapter(
+        _interestAdapter =
+            HistoryInterestAdapter(
                 itemClick = ::initItemClickListener,
             )
-        binding.rvHistory.adapter = adapter
+        binding.rvHistory.adapter = interestAdapter
     }
 
     private fun initItemClickListener(item: ProductModel) {
@@ -87,7 +87,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
                     is UiState.Success -> {
                         binding.tvHistoryCount.text =
                             getString(R.string.profile_history_count, state.data.totalCount)
-                        adapter.addList(state.data.productList)
+                        interestAdapter.addList(state.data.productList)
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
@@ -98,7 +98,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
 
     override fun onDestroy() {
         super.onDestroy()
-        _adapter = null
+        _interestAdapter = null
     }
 
     companion object {

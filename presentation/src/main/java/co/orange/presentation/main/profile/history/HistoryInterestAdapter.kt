@@ -7,21 +7,21 @@ import co.orange.core.util.ItemDiffCallback
 import co.orange.domain.entity.response.ProductModel
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
-class HistoryAdapter(
+class HistoryInterestAdapter(
     private val itemClick: (ProductModel) -> (Unit),
-) : ListAdapter<ProductModel, HistoryViewHolder>(diffUtil) {
+) : ListAdapter<ProductModel, HistoryInterestViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): HistoryViewHolder {
+    ): HistoryInterestViewHolder {
         val inflater by lazy { LayoutInflater.from(parent.context) }
         val binding: ItemHomeProductBinding =
             ItemHomeProductBinding.inflate(inflater, parent, false)
-        return HistoryViewHolder(binding, itemClick)
+        return HistoryInterestViewHolder(binding, itemClick)
     }
 
     override fun onBindViewHolder(
-        holder: HistoryViewHolder,
+        holder: HistoryInterestViewHolder,
         position: Int,
     ) {
         val item = getItem(position) ?: return

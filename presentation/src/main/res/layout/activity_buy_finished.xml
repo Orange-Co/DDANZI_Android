@@ -134,7 +134,7 @@
                             android:layout_height="match_parent"
                             android:background="@color/gray_1"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/mock_img_product" />
+                            tools:src="@drawable/mock_img_product" />
 
                     </androidx.cardview.widget.CardView>
 

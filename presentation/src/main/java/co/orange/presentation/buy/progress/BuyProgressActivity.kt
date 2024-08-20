@@ -53,7 +53,7 @@ class BuyProgressActivity :
     override fun onResume() {
         super.onResume()
 
-        getIntentInfo()
+        if (!viewModel.isOrderStarted) getIntentInfo()
     }
 
     private fun initView() {
@@ -94,10 +94,7 @@ class BuyProgressActivity :
 
     private fun getIntentInfo() {
         with(viewModel) {
-            if (productId.isEmpty()) {
-                productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
-                optionList = intent.getLongArrayExtra(EXTRA_OPTION_LIST)?.toList()
-            }
+            if (productId.isEmpty()) productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
             getBuyDataFromServer()
         }
     }
@@ -173,7 +170,7 @@ class BuyProgressActivity :
             iamPortRequest = request,
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            if (response != null && response.success == true) {
+            if (response?.imp_uid?.isEmpty() == false) {
                 viewModel.patchPayEndToServer(true)
             } else {
                 viewModel.patchPayEndToServer(false)
@@ -204,6 +201,7 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
+                        toast(stringOf(R.string.buy_order_success_msg))
                         // TODO 추후 푸쉬알림뷰 연결
                         BuyFinishedActivity.createIntent(this, state.data).apply {
                             startActivity(this)
@@ -225,17 +223,14 @@ class BuyProgressActivity :
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        private const val EXTRA_OPTION_LIST = "EXTRA_OPTION_LIST"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             productId: String,
-            optionList: Array<Long>? = null,
         ): Intent =
             Intent(context, BuyProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)
-                putExtra(EXTRA_OPTION_LIST, optionList)
             }
     }
 }

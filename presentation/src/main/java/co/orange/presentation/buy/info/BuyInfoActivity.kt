@@ -131,7 +131,7 @@ class BuyInfoActivity :
         viewModel.patchOrderConfirmResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
                 if (isSuccess) {
-                    toast(stringOf(R.string.buy_order_success_msg))
+                    toast(stringOf(R.string.buy_order_fix_msg))
                     Intent(this, MainActivity::class.java).apply {
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)

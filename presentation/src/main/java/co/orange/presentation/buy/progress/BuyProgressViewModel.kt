@@ -29,7 +29,6 @@ class BuyProgressViewModel
         var productId: String = ""
         var paymentId: String = ""
 
-        var optionList: List<Long>? = null
         var buyProgressData: BuyProgressModel? = null
 
         var payMethodId = MutableLiveData<Int>(-1)
@@ -39,6 +38,7 @@ class BuyProgressViewModel
         var isTermServiceSelected = MutableLiveData<Boolean>(false)
         var isTermPurchaseSelected = MutableLiveData<Boolean>(false)
         var isCompleted = MutableLiveData<Boolean>(false)
+        var isOrderStarted = false
 
         private val _getBuyDataState = MutableStateFlow<UiState<BuyProgressModel>>(UiState.Empty)
         val getBuyDataState: StateFlow<UiState<BuyProgressModel>> = _getBuyDataState
@@ -75,10 +75,9 @@ class BuyProgressViewModel
                 when (methodId) {
                     0 -> "card"
                     1 -> "naverpay_card"
-                    2 -> "kakao"
+                    2 -> "kakaopay"
                     3 -> "samsungpay"
-                    4 -> "trans"
-                    5 -> "phone"
+                    4 -> "phone"
                     else -> return
                 }
             checkIsCompleted()
@@ -94,8 +93,7 @@ class BuyProgressViewModel
         fun getBuyDataFromServer() {
             _getBuyDataState.value = UiState.Loading
             viewModelScope.launch {
-                // TODO 추후 productId 활용
-                buyRepository.getBuyProgressData("0110055338")
+                buyRepository.getBuyProgressData(productId)
                     .onSuccess {
                         checkIsCompleted()
                         buyProgressData = it
@@ -109,12 +107,13 @@ class BuyProgressViewModel
 
         fun postPayStartToServer() {
             _postPayStartState.value = UiState.Loading
+            isOrderStarted = true
             viewModelScope.launch {
                 buyRepository.postPaymentStart(
                     PayStartRequestModel(
-                        buyProgressData?.itemId ?: return@launch,
-                        buyProgressData?.charge ?: return@launch,
-                        buyProgressData?.totalPrice ?: return@launch,
+                        buyProgressData?.itemId.orEmpty(),
+                        buyProgressData?.charge ?: -1,
+                        buyProgressData?.totalPrice ?: -1,
                         payMethod,
                     ),
                 ).onSuccess {
@@ -143,6 +142,7 @@ class BuyProgressViewModel
                     amount = buyProgressData?.totalPrice.toString(),
                     buyer_name = buyProgressData?.addressInfo?.recipient,
                     buyer_tel = buyProgressData?.addressInfo?.recipientPhone,
+                    digital = false,
                 )
             }
         }
@@ -168,9 +168,10 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.postToRequestOrder(
                     OrderRequestModel(
-                        buyProgressData?.itemId ?: return@launch,
+                        buyProgressData?.itemId.orEmpty(),
                         paymentId,
-                        optionList ?: return@launch,
+                        // TODO 추후 옵션 대응
+                        listOf(),
                     ),
                 ).onSuccess {
                     _postOrderState.value = UiState.Success(it.orderId)
@@ -181,9 +182,9 @@ class BuyProgressViewModel
         }
 
         companion object {
-            private const val NICE_PAYMENTS = "nice_v2.{$PAYMENT_UID}"
+            private const val NICE_PAYMENTS = "nice_v2.$PAYMENT_UID"
 
-            private const val PAY_STATUS_PENDING = "PAY_STATUS_PENDING"
+            private const val PAY_STATUS_PENDING = "PENDING"
             const val PAY_SUCCESS = "PAID"
             const val PAY_FAILURE = "FAILED"
         }

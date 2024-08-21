@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setPriceForm
 import co.orange.domain.entity.response.SellInfoModel
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +46,7 @@ class SellInfoActivity :
             tvInfoTransaction.text = getString(R.string.transaction_id, item.orderId).breakLines()
             ivInfoProduct.load(item.imgUrl)
             tvInfoProductName.text = item.productName
-            tvInfoProductPrice.text = item.originPrice.setNumberForm()
+            tvInfoProductPrice.text = item.originPrice.setPriceForm()
             tvInfoBuyerNickname.text = item.buyerNickname
             tvInfoDeliveryName.text = item.addressInfo[0].recipient
             tvInfoDeliveryAddress.text =
@@ -58,9 +58,9 @@ class SellInfoActivity :
             tvInfoDeliveryPhone.text = item.addressInfo[0].recipientPhone
             tvInfoTransactionMethod.text = item.paymentInfo[0].method
             tvInfoTransactionDate.text = item.paymentInfo[0].completedAt
-            tvInfoPayKakao.text = item.originPrice.setNumberForm()
-            tvInfoPayReal.text = item.salePrice.setNumberForm()
-            tvInfoPayTotal.text = item.salePrice.setNumberForm()
+            tvInfoPayKakao.text = item.originPrice.setPriceForm()
+            tvInfoPayReal.text = item.salePrice.setPriceForm()
+            tvInfoPayTotal.text = item.salePrice.setPriceForm()
         }
     }
 

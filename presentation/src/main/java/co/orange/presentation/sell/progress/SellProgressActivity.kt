@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setPriceForm
 import co.orange.domain.entity.response.SellProductModel
 import co.orange.presentation.sell.push.SellPushActivity
 import coil.load
@@ -62,8 +62,8 @@ class SellProgressActivity :
     private fun setIntentUi(item: SellProductModel) {
         with(binding) {
             tvSellInfoName.text = item.productName
-            tvSellInfoOriginPrice.text = item.originPrice.setNumberForm()
-            tvSellInfoSellPrice.text = item.salePrice.setNumberForm()
+            tvSellInfoOriginPrice.text = item.originPrice.setPriceForm()
+            tvSellInfoSellPrice.text = item.salePrice.setPriceForm()
             // TODO : intent 수정
             ivSellProduct.load(R.drawable.mock_img_product)
             tvSellDate.text = "2024.06.28"

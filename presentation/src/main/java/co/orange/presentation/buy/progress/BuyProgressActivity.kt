@@ -10,8 +10,8 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toPhoneFrom
 import co.orange.core.extension.toast
@@ -128,13 +128,13 @@ class BuyProgressActivity :
         with(binding) {
             tvConfirmProductName.text = item.productName
             ivConfirmProduct.load(item.imgUrl)
-            tvConfirmProductPrice.text = item.originPrice.setNumberForm()
-            tvConfirmPriceMoney.text = item.originPrice.setNumberForm()
+            tvConfirmProductPrice.text = item.originPrice.setPriceForm()
+            tvConfirmPriceMoney.text = item.originPrice.setPriceForm()
             tvConfirmPriceDiscount.text =
-                getString(R.string.add_minus, item.discountPrice.setNumberForm())
+                getString(R.string.add_minus, item.discountPrice.setPriceForm())
             tvConfirmPriceCharge.text =
-                getString(R.string.add_plus, item.charge.setNumberForm())
-            tvConfirmPriceTotal.text = item.totalPrice.setNumberForm()
+                getString(R.string.add_plus, item.charge.setPriceForm())
+            tvConfirmPriceTotal.text = item.totalPrice.setPriceForm()
         }
         setAddress(item.addressInfo)
     }

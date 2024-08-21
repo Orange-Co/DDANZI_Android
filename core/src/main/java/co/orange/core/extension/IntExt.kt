@@ -9,9 +9,9 @@ fun Int.dpToPx(context: Context): Int {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics).toInt()
 }
 
-fun Int.setNumberForm(): String {
+fun Int.setPriceForm(): String {
     val decimal = DecimalFormat("#,###")
-    return decimal.format(this)
+    return decimal.format(this) + "원"
 }
 
 fun Int.setOverThousand(): String =

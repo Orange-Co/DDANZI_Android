@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setPriceForm
 import co.orange.domain.entity.response.SellProgressModel
 import co.orange.presentation.main.MainActivity
 import co.orange.presentation.sell.info.SellInfoActivity
@@ -63,7 +63,7 @@ class SellFinishedActivity :
             // TODO 이미지 설정
             ivFinishedItem.load(R.drawable.mock_img_product)
             tvFinishedItemName.text = item.productName
-            tvFinishedItemPrice.text = item.originPrice.setNumberForm()
+            tvFinishedItemPrice.text = item.originPrice.setPriceForm()
         }
     }
 

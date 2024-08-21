@@ -1,5 +1,6 @@
 package co.orange.presentation.search
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -13,6 +14,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductModel
+import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -87,6 +89,7 @@ class SearchActivity :
         _recentAdapter =
             SearchItemAdapter(
                 itemClick = ::initItemClickListener,
+                likeClick = ::initLikeClickListener,
             )
         binding.rvSearchRecent.adapter = recentAdapter
     }
@@ -95,6 +98,7 @@ class SearchActivity :
         _resultAdapter =
             SearchItemAdapter(
                 itemClick = ::initItemClickListener,
+                likeClick = ::initLikeClickListener,
             )
         binding.rvSearchResult.adapter = resultAdapter
     }
@@ -104,6 +108,18 @@ class SearchActivity :
             this,
             item.productId,
         ).apply { startActivity(this) }
+    }
+
+    private fun initLikeClickListener(
+        productId: String,
+        isInterested: Boolean,
+        position: Int,
+    ) {
+        if (!viewModel.getUserLogined()) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            return
+        }
+        viewModel.setLikeStateWithServer(productId, isInterested, position)
     }
 
     private fun setDebounceSearch() {
@@ -133,7 +149,7 @@ class SearchActivity :
                 when (state) {
                     is UiState.Success -> {
                         keywordAdapter.addList(state.data.topSearchedList)
-                        recentAdapter.addList(state.data.recentlyViewedList)
+                        recentAdapter.setItemList(state.data.recentlyViewedList)
                         binding.layoutRecentEmpty.isVisible =
                             state.data.recentlyViewedList.isEmpty()
                     }
@@ -149,7 +165,7 @@ class SearchActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        resultAdapter.addList(state.data.searchedProductList)
+                        resultAdapter.setItemList(state.data.searchedProductList)
                         binding.layoutResultEmpty.isVisible =
                             state.data.searchedProductList.isEmpty()
                     }
@@ -157,6 +173,39 @@ class SearchActivity :
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeItemLikePlusState() {
+        viewModel.itemLikePlusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        adapter.plusItemLike(state.data)
+                        with(binding) {
+                            lottieLike.isVisible = true
+                            lottieLike.playAnimation()
+                            delay(500)
+                            lottieLike.isVisible = false
+                        }
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+                viewModel.resetLikeState()
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeItemLikeMinusState() {
+        viewModel.itemLikeMinusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> adapter.minusItemLike(state.data)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+                viewModel.resetLikeState()
             }.launchIn(lifecycleScope)
     }
 

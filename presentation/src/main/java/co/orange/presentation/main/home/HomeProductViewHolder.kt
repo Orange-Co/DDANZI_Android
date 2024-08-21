@@ -39,8 +39,4 @@ class HomeProductViewHolder(
             btnItemLike.isSelected = item.isInterested
         }
     }
-
-    fun updateItemLikeState() {
-        binding.btnItemLike.isSelected = !binding.btnItemLike.isSelected
-    }
 }

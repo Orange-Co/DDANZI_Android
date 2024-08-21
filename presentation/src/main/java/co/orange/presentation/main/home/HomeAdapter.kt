@@ -97,10 +97,6 @@ class HomeAdapter(
         notifyItemChanged(position + HEADER_COUNT)
     }
 
-    fun updateItemLike(position: Int) {
-        notifyItemChanged(position + HEADER_COUNT)
-    }
-
     companion object {
         private val diffUtil =
             ItemDiffCallback<ProductModel>(

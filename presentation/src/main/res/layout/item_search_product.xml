@@ -35,7 +35,7 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/layout_search_like"
+            android:id="@+id/btn_search_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -43,9 +43,9 @@
             android:background="@drawable/shape_tran30_fill_100_rect"
             android:elevation="1dp"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="5dp"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="7dp"
             app:layout_constraintEnd_toEndOf="@id/cv_search_item"
             app:layout_constraintTop_toTopOf="@id/cv_search_item">
 

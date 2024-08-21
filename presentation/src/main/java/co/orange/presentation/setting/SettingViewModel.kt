@@ -6,8 +6,11 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SettingInfoModel
 import co.orange.domain.repository.SettingRepository
 import co.orange.domain.repository.UserRepository
+import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,6 +24,9 @@ class SettingViewModel
     ) : ViewModel() {
         private val _getSettingInfoState = MutableStateFlow<UiState<SettingInfoModel>>(UiState.Empty)
         val getSettingInfoState: StateFlow<UiState<SettingInfoModel>> = _getSettingInfoState
+
+        private val _kakaoLogoutResult = MutableSharedFlow<Boolean>()
+        val kakaoLogoutResult: SharedFlow<Boolean> = _kakaoLogoutResult
 
         private val _userLogoutState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
         val userLogoutState: StateFlow<UiState<Boolean>> = _userLogoutState
@@ -43,7 +49,19 @@ class SettingViewModel
             }
         }
 
-        fun logoutFromServer() {
+        fun logoutKakaoAccount() {
+            UserApiClient.instance.logout { error ->
+                viewModelScope.launch {
+                    if (error == null) {
+                        logoutFromServer()
+                    } else {
+                        _kakaoLogoutResult.emit(false)
+                    }
+                }
+            }
+        }
+
+        private fun logoutFromServer() {
             _userLogoutState.value = UiState.Loading
             viewModelScope.launch {
                 settingRepository.postUserLogout()

@@ -43,6 +43,7 @@ class AccountLogoutDialog :
 
         initReturnBtnListener()
         initLogoutBtnListener()
+        observeKakaoLogoutResult()
         observeUserLogoutState()
     }
 
@@ -52,8 +53,15 @@ class AccountLogoutDialog :
 
     private fun initLogoutBtnListener() {
         binding.btnLogout.setOnSingleClickListener {
-            viewModel.logoutFromServer()
+            viewModel.logoutKakaoAccount()
         }
+    }
+
+    private fun observeKakaoLogoutResult() {
+        viewModel.kakaoLogoutResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (!isSuccess)toast(stringOf(R.string.error_msg))
+            }.launchIn(lifecycleScope)
     }
 
     private fun observeUserLogoutState() {

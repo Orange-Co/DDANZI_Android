@@ -11,7 +11,7 @@ import kr.genti.presentation.databinding.ItemHomeBannerBinding
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HomeAdapter(
-    private val bannerClick: (Unit) -> (Unit),
+    private val bannerClick: (String) -> (Unit),
     private val productClick: (String) -> (Unit),
     private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {

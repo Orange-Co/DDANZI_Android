@@ -1,6 +1,7 @@
 package co.orange.presentation.main.profile
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -37,7 +38,8 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
 
         initSettingBtnListener()
         initLoginBtnListener()
-        initWebBtnsListener()
+        initQuestionBtnListener()
+        initCenterBtnListener()
         initHistoryBtnsListener()
         observeGetNicknameState()
     }
@@ -64,10 +66,16 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         }
     }
 
-    private fun initWebBtnsListener() {
+    private fun initQuestionBtnListener() {
+        binding.btnCenterQuestion.setOnSingleClickListener {
+            Intent(Intent.ACTION_VIEW, Uri.parse(WEB_QUESTION)).apply {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun initCenterBtnListener() {
         // TODO
-        binding.btnBenefit.setOnSingleClickListener { }
-        binding.btnCenterQuestion.setOnSingleClickListener { }
         binding.btnCenterOneOnOne.setOnSingleClickListener { }
     }
 
@@ -104,5 +112,10 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    companion object {
+        const val WEB_QUESTION =
+            "https://brawny-guan-098.notion.site/0e7b016d88fb4b8ab066f45e644f365b?pvs=4"
     }
 }

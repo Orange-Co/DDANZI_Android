@@ -1,6 +1,7 @@
 package co.orange.presentation.main.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -78,8 +79,11 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         binding.rvHome.adapter = adapter
     }
 
-    // TODO: 버튼 리스너 설정
-    private fun initBannerClickListener(unit: Unit) {}
+    private fun initBannerClickListener(x: String) {
+        Intent(Intent.ACTION_VIEW, Uri.parse(WEB_BANNER)).apply {
+            startActivity(this)
+        }
+    }
 
     private fun initProductClickListener(productId: String) {
         DetailActivity.createIntent(
@@ -219,6 +223,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                             lottieLike.isVisible = false
                         }
                     }
+
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
@@ -246,5 +251,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
     companion object {
         private const val SELL_PRODUCT_DIALOG = "SELL_PRODUCT_DIALOG"
+        const val WEB_BANNER =
+            "https://brawny-guan-098.notion.site/d1259ed5fdfd489eb6cc23a4312c13a0?pvs=4"
     }
 }

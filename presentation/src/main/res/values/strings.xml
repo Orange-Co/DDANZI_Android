@@ -99,7 +99,7 @@
     <string name="search_recent_empty">최근 본 상품이 없어요</string>
     <string name="search_result_empty">검색된 상품이 없어요</string>
 
-    <string name="profile_btn_login">로그인 해주세요</string>
+    <string name="profile_btn_login">회원가입 / 로그인</string>
     <string name="profile_btn_benefit"><u>회원가입 시 혜택 보기</u></string>
     <string name="profile_tv_center_title">고객 센터</string>
     <string name="profile_btn_center_question">자주 묻는 질문</string>

@@ -2,6 +2,7 @@ package co.orange.presentation.buy.progress
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -17,6 +18,7 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.presentation.auth.phone.TermBottomSheet.Companion.WEB_TERM_SERVICE
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.presentation.setting.delivery.DeliveryActivity
@@ -79,10 +81,17 @@ class BuyProgressActivity :
     }
 
     private fun initTermDetailBtnListener() {
-        // TODO
         with(binding) {
-            btnTermServiceDetail.setOnSingleClickListener { }
-            btnTermPurchaseDetail.setOnSingleClickListener { }
+            btnTermServiceDetail.setOnSingleClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_SERVICE)).apply {
+                    startActivity(this)
+                }
+            }
+            btnTermPurchaseDetail.setOnSingleClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_PURCHASE)).apply {
+                    startActivity(this)
+                }
+            }
         }
     }
 
@@ -222,6 +231,9 @@ class BuyProgressActivity :
     }
 
     companion object {
+        const val WEB_TERM_PURCHASE =
+            "https://brawny-guan-098.notion.site/56bcbc1ed0f3454ba08fa1070fa5413d?pvs=4"
+
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic

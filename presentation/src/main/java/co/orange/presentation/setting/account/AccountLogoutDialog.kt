@@ -28,7 +28,7 @@ class AccountLogoutDialog :
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
@@ -60,7 +60,7 @@ class AccountLogoutDialog :
     private fun observeKakaoLogoutResult() {
         viewModel.kakaoLogoutResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
-                if (!isSuccess)toast(stringOf(R.string.error_msg))
+                if (!isSuccess) toast(stringOf(R.string.error_msg))
             }.launchIn(lifecycleScope)
     }
 

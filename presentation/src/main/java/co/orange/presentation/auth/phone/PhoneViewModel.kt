@@ -130,7 +130,6 @@ class PhoneViewModel
 
         private fun postToSignUpFromServer(request: SignUpRequestModel) {
             viewModelScope.launch {
-                Timber.tag("qqqq").d(userRepository.getAccessToken())
                 authRepository.postToSignUp(userRepository.getAccessToken(), request)
                     .onSuccess {
                         _postSignUpState.value = UiState.Success(it.nickname)

@@ -130,7 +130,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             with(binding) {
                 ivDetailLike.isEnabled = isLiked
                 tvDetailLike.text = viewModel.interestCount.setOverThousand()
-                if (isLiked) {
+                if (isLiked && viewModel.isLikeLottieNeeded) {
                     lottieLike.isVisible = true
                     lottieLike.playAnimation()
                     delay(500)

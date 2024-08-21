@@ -64,18 +64,6 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/btn_benefit"
-                    style="@style/TextAppearance.DDanzi.Body3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:padding="10dp"
-                    android:text="@string/profile_btn_benefit"
-                    android:textColor="@color/hyper_link_blue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_login" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

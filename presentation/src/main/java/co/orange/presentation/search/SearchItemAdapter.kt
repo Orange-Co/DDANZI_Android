@@ -8,7 +8,8 @@ import co.orange.domain.entity.response.ProductModel
 import kr.genti.presentation.databinding.ItemSearchProductBinding
 
 class SearchItemAdapter(
-    private val itemClick: (ProductModel) -> (Unit),
+    private val itemClick: (ProductModel) -> Unit,
+    private val likeClick: (String, Boolean, Int) -> Unit,
 ) : ListAdapter<ProductModel, SearchItemViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -17,7 +18,7 @@ class SearchItemAdapter(
         val inflater by lazy { LayoutInflater.from(parent.context) }
         val binding: ItemSearchProductBinding =
             ItemSearchProductBinding.inflate(inflater, parent, false)
-        return SearchItemViewHolder(binding, itemClick)
+        return SearchItemViewHolder(binding, itemClick, likeClick)
     }
 
     override fun onBindViewHolder(
@@ -25,13 +26,25 @@ class SearchItemAdapter(
         position: Int,
     ) {
         val item = getItem(position) ?: return
-        holder.onBind(item)
+        holder.onBind(item, position)
     }
 
-    fun addList(newItems: List<ProductModel>) {
-        val currentItems = currentList.toMutableList()
-        currentItems.addAll(newItems)
-        submitList(currentItems)
+    fun plusItemLike(position: Int) {
+        currentList.toMutableList()[position].apply {
+            isInterested = true
+            interestCount += 1
+        }
+        submitList(currentList)
+        notifyItemChanged(position)
+    }
+
+    fun minusItemLike(position: Int) {
+        currentList.toMutableList()[position].apply {
+            isInterested = false
+            interestCount -= 1
+        }
+        submitList(currentList)
+        notifyItemChanged(position)
     }
 
     companion object {

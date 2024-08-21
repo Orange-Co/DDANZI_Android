@@ -99,7 +99,7 @@
     <string name="search_recent_empty">최근 본 상품이 없어요</string>
     <string name="search_result_empty">검색된 상품이 없어요</string>
 
-    <string name="profile_btn_login">로그인 해주세요</string>
+    <string name="profile_btn_login">회원가입 / 로그인</string>
     <string name="profile_btn_benefit"><u>회원가입 시 혜택 보기</u></string>
     <string name="profile_tv_center_title">고객 센터</string>
     <string name="profile_btn_center_question">자주 묻는 질문</string>
@@ -222,5 +222,10 @@
     <string name="profile_history_count">총 %d건</string>
     <string name="profile_history_buy_empty">구매한 상품이 없어요</string>
     <string name="profile_history_interest_empty">좋아요를 누른 상품이 없어요</string>
+
+    <string name="report_tv_title">상담 센터</string>
+    <string name="report_tv_subtitle">거래에 문제가 있나요?</string>
+    <string name="report_tv_body">거래, 배송 거래에 문제가 생겼어요\n\n딴지 채널톡으로 문의해주세요</string>
+    <string name="report_btn_channel">채널톡 연결</string>
 
 </resources>

@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.convertDateTime
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
@@ -84,7 +84,7 @@ class BuyFinishedActivity :
                 getString(R.string.transaction_id, item.orderId).breakLines()
             ivFinishedItem.load(item.imgUrl)
             tvFinishedItemName.text = item.productName
-            tvFinishedItemPrice.text = item.originPrice.setNumberForm()
+            tvFinishedItemPrice.text = item.originPrice.setPriceForm()
             tvFinishedDeliveryName.text = item.addressInfo.recipient
             tvFinishedDeliveryAddress.text =
                 getString(
@@ -96,11 +96,11 @@ class BuyFinishedActivity :
             tvFinishedTransactionMethod.text = item.paymentMethod
             tvFinishedTransactionDate.text =
                 item.paidAt.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
-            tvFinishedPayMoney.text = item.originPrice.setNumberForm()
+            tvFinishedPayMoney.text = item.originPrice.setPriceForm()
             tvFinishedPayDiscount.text =
-                getString(R.string.add_minus, item.discountPrice.setNumberForm())
-            tvFinishedPayCharge.text = getString(R.string.add_plus, item.charge.setNumberForm())
-            tvFinishedPayTotal.text = item.totalPrice.setNumberForm()
+                getString(R.string.add_minus, item.discountPrice.setPriceForm())
+            tvFinishedPayCharge.text = getString(R.string.add_plus, item.charge.setPriceForm())
+            tvFinishedPayTotal.text = item.totalPrice.setPriceForm()
         }
     }
 

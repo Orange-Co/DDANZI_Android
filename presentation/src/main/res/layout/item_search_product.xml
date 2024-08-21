@@ -35,7 +35,7 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/layout_search_like"
+            android:id="@+id/btn_search_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -51,8 +51,8 @@
 
             <ImageView
                 android:id="@+id/iv_search_item_like"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:layout_gravity="center"
                 android:src="@drawable/sel_item_like_white" />
 
@@ -64,7 +64,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="3dp"
                 android:textColor="@color/white"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 tools:text="999+" />
 
         </LinearLayout>
@@ -74,9 +74,9 @@
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:minLines="2"

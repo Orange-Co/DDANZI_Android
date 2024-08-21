@@ -11,10 +11,10 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOnSingleClickShortListener
 import co.orange.core.extension.setOverThousand
+import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
@@ -118,10 +118,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             tvDetailLike.text = item.interestCount.setOverThousand()
             ivDetailProduct.load(item.imgUrl)
             tvDetailRealPrice.apply {
-                text = item.originPrice.setNumberForm()
+                text = item.originPrice.setPriceForm()
                 setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
             }
-            tvDetailNowPrice.text = item.salePrice.setNumberForm()
+            tvDetailNowPrice.text = item.salePrice.setPriceForm()
         }
     }
 
@@ -130,7 +130,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             with(binding) {
                 ivDetailLike.isEnabled = isLiked
                 tvDetailLike.text = viewModel.interestCount.setOverThousand()
-                if (isLiked) {
+                if (isLiked && viewModel.isLikeLottieNeeded) {
                     lottieLike.isVisible = true
                     lottieLike.playAnimation()
                     delay(500)

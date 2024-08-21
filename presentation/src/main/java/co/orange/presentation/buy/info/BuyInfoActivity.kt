@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.convertDateTime
-import co.orange.core.extension.setNumberForm
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
@@ -76,7 +76,7 @@ class BuyInfoActivity :
             tvInfoTransaction.text = getString(R.string.transaction_id, item.orderId).breakLines()
             ivInfoProduct.load(item.imgUrl)
             tvInfoProductName.text = item.productName
-            tvInfoProductPrice.text = item.originPrice.setNumberForm()
+            tvInfoProductPrice.text = item.originPrice.setPriceForm()
             tvInfoSellerNickname.text = item.sellerNickname
             tvInfoDeliveryName.text = item.addressInfo.recipient
             tvInfoDeliveryAddress.text =
@@ -89,11 +89,11 @@ class BuyInfoActivity :
             tvInfoTransactionMethod.text = item.paymentMethod
             tvInfoTransactionDate.text =
                 item.paidAt.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
-            tvInfoPayMoney.text = item.originPrice.setNumberForm()
+            tvInfoPayMoney.text = item.originPrice.setPriceForm()
             tvInfoPayDiscount.text =
-                getString(R.string.add_minus, item.discountPrice.setNumberForm())
-            tvInfoPayCharge.text = getString(R.string.add_plus, item.charge.setNumberForm())
-            tvInfoPayTotal.text = item.totalPrice.setNumberForm()
+                getString(R.string.add_minus, item.discountPrice.setPriceForm())
+            tvInfoPayCharge.text = getString(R.string.add_plus, item.charge.setPriceForm())
+            tvInfoPayTotal.text = item.totalPrice.setPriceForm()
         }
         setOrderStatus(item.orderStatus)
     }

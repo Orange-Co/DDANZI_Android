@@ -61,6 +61,22 @@ class SearchActivity :
         observeItemLikeMinusState()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        getSearchData()
+    }
+
+    private fun getSearchData() {
+        with(viewModel) {
+            if (currentKeyword.isEmpty()) {
+                getSearchInfoFromServer()
+            } else {
+                getSearchResultFromServer(currentKeyword)
+            }
+        }
+    }
+
     private fun initFocus() {
         initFocusWithKeyboard(binding.etSearch)
     }
@@ -150,7 +166,7 @@ class SearchActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        keywordAdapter.addList(state.data.topSearchedList)
+                        keywordAdapter.submitList(state.data.topSearchedList)
                         recentAdapter.submitList(state.data.recentlyViewedList)
                         binding.layoutRecentEmpty.isVisible =
                             state.data.recentlyViewedList.isEmpty()

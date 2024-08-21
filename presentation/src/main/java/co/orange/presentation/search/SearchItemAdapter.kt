@@ -25,7 +25,8 @@ class SearchItemAdapter(
         holder: SearchItemViewHolder,
         position: Int,
     ) {
-        holder.onBind(getItem(position), position)
+        val item = getItem(position) ?: return
+        holder.onBind(item, position)
     }
 
     fun plusItemLike(position: Int) {

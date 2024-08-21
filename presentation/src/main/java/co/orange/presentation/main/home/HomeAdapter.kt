@@ -57,7 +57,8 @@ class HomeAdapter(
 
             is HomeProductViewHolder -> {
                 val itemPosition = position - HEADER_COUNT
-                holder.onBind(getItem(position), itemPosition)
+                val item = getItem(itemPosition) ?: return
+                holder.onBind(item, itemPosition)
             }
         }
         val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
@@ -79,7 +80,7 @@ class HomeAdapter(
     }
 
     fun plusItemLike(position: Int) {
-        currentList.toMutableList()[position + HEADER_COUNT].apply {
+        currentList.toMutableList()[position ].apply {
             isInterested = true
             interestCount += 1
         }
@@ -88,7 +89,7 @@ class HomeAdapter(
     }
 
     fun minusItemLike(position: Int) {
-        currentList.toMutableList()[position + HEADER_COUNT].apply {
+        currentList.toMutableList()[position].apply {
             isInterested = false
             interestCount -= 1
         }

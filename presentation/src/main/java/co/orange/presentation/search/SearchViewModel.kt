@@ -38,11 +38,7 @@ class SearchViewModel
         private val _itemLikeMinusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
         val itemLikeMinusState: StateFlow<UiState<Int>> = _itemLikeMinusState
 
-        init {
-            getSearchInfoFromServer()
-        }
-
-        private fun getSearchInfoFromServer() {
+        fun getSearchInfoFromServer() {
             _getSearchInfoState.value = UiState.Loading
             viewModelScope.launch {
                 deviceRepository.getSearchInfo()

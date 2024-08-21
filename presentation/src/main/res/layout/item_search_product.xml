@@ -43,16 +43,16 @@
             android:background="@drawable/shape_tran30_fill_100_rect"
             android:elevation="1dp"
             android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="7dp"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="@id/cv_search_item"
             app:layout_constraintTop_toTopOf="@id/cv_search_item">
 
             <ImageView
                 android:id="@+id/iv_search_item_like"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:layout_gravity="center"
                 android:src="@drawable/sel_item_like_white" />
 
@@ -64,7 +64,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="3dp"
                 android:textColor="@color/white"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 tools:text="999+" />
 
         </LinearLayout>

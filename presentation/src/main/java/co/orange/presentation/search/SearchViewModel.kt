@@ -24,6 +24,8 @@ class SearchViewModel
         private val userRepository: UserRepository,
         private val interestRepository: InterestRepository,
     ) : ViewModel() {
+        var currentKeyword = ""
+
         private val _getSearchInfoState = MutableStateFlow<UiState<SearchInfoModel>>(UiState.Empty)
         val getSearchInfoState: StateFlow<UiState<SearchInfoModel>> = _getSearchInfoState
 
@@ -55,6 +57,7 @@ class SearchViewModel
 
         fun getSearchResultFromServer(keyword: String) {
             _getSearchResultState.value = UiState.Loading
+            currentKeyword = keyword
             viewModelScope.launch {
                 searchRepository.getSearchResult(keyword)
                     .onSuccess {

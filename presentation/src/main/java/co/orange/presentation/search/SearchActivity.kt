@@ -57,6 +57,8 @@ class SearchActivity :
         setDebounceSearch()
         observeGetSearchViewInfoState()
         observeGetSearchResultState()
+        observeItemLikePlusState()
+        observeItemLikeMinusState()
     }
 
     private fun initFocus() {
@@ -149,7 +151,7 @@ class SearchActivity :
                 when (state) {
                     is UiState.Success -> {
                         keywordAdapter.addList(state.data.topSearchedList)
-                        recentAdapter.setItemList(state.data.recentlyViewedList)
+                        recentAdapter.submitList(state.data.recentlyViewedList)
                         binding.layoutRecentEmpty.isVisible =
                             state.data.recentlyViewedList.isEmpty()
                     }
@@ -165,7 +167,7 @@ class SearchActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        resultAdapter.setItemList(state.data.searchedProductList)
+                        resultAdapter.submitList(state.data.searchedProductList)
                         binding.layoutResultEmpty.isVisible =
                             state.data.searchedProductList.isEmpty()
                     }
@@ -181,7 +183,11 @@ class SearchActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        adapter.plusItemLike(state.data)
+                        if (viewModel.currentKeyword.isEmpty()) {
+                            recentAdapter.plusItemLike(state.data)
+                        } else {
+                            resultAdapter.plusItemLike(state.data)
+                        }
                         with(binding) {
                             lottieLike.isVisible = true
                             lottieLike.playAnimation()
@@ -201,7 +207,14 @@ class SearchActivity :
         viewModel.itemLikeMinusState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> adapter.minusItemLike(state.data)
+                    is UiState.Success -> {
+                        if (viewModel.currentKeyword.isEmpty()) {
+                            recentAdapter.minusItemLike(state.data)
+                        } else {
+                            resultAdapter.minusItemLike(state.data)
+                        }
+                    }
+
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }

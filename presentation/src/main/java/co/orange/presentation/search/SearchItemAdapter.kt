@@ -5,15 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import co.orange.core.util.ItemDiffCallback
 import co.orange.domain.entity.response.ProductModel
-import co.orange.presentation.main.home.HomeAdapter
 import kr.genti.presentation.databinding.ItemSearchProductBinding
 
 class SearchItemAdapter(
-    private val itemClick: (ProductModel) -> (Unit),
-    private val likeClick: (String, Boolean, Int) -> (Unit),
+    private val itemClick: (ProductModel) -> Unit,
+    private val likeClick: (String, Boolean, Int) -> Unit,
 ) : ListAdapter<ProductModel, SearchItemViewHolder>(diffUtil) {
-    private var itemList = mutableListOf<ProductModel>()
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -28,24 +25,25 @@ class SearchItemAdapter(
         holder: SearchItemViewHolder,
         position: Int,
     ) {
-        holder.onBind(itemList[position], position)
-    }
-
-    fun setItemList(itemList: List<ProductModel>) {
-        this.itemList = itemList.toMutableList()
-        notifyDataSetChanged()
+        holder.onBind(getItem(position), position)
     }
 
     fun plusItemLike(position: Int) {
-        itemList[position].isInterested = true
-        itemList[position].interestCount += 1
-        notifyItemChanged(position + HomeAdapter.HEADER_COUNT)
+        currentList.toMutableList()[position].apply {
+            isInterested = true
+            interestCount += 1
+        }
+        submitList(currentList)
+        notifyItemChanged(position)
     }
 
     fun minusItemLike(position: Int) {
-        itemList[position].isInterested = false
-        itemList[position].interestCount -= 1
-        notifyItemChanged(position + HomeAdapter.HEADER_COUNT)
+        currentList.toMutableList()[position].apply {
+            isInterested = false
+            interestCount -= 1
+        }
+        submitList(currentList)
+        notifyItemChanged(position)
     }
 
     companion object {

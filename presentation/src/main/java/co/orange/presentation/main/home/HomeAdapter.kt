@@ -15,8 +15,6 @@ class HomeAdapter(
     private val productClick: (String) -> (Unit),
     private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
-    private var itemList = mutableListOf<ProductModel>()
-
     private var bannerItem: String? = null
 
     override fun onCreateViewHolder(
@@ -59,15 +57,15 @@ class HomeAdapter(
 
             is HomeProductViewHolder -> {
                 val itemPosition = position - HEADER_COUNT
-                holder.onBind(itemList[itemPosition], itemPosition)
+                holder.onBind(getItem(position), itemPosition)
             }
         }
         val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
-        layoutParams.bottomMargin = if (position == itemList.size) 24 else 0
+        layoutParams.bottomMargin = if (position == currentList.size) 24 else 0
         holder.itemView.layoutParams = layoutParams
     }
 
-    override fun getItemCount() = itemList.size + HEADER_COUNT
+    override fun getItemCount() = currentList.size + HEADER_COUNT
 
     override fun getItemViewType(position: Int) =
         when (position) {
@@ -80,20 +78,20 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
-    fun setItemList(itemList: List<ProductModel>) {
-        this.itemList = itemList.toMutableList()
-        notifyDataSetChanged()
-    }
-
     fun plusItemLike(position: Int) {
-        itemList[position].isInterested = true
-        itemList[position].interestCount += 1
+        currentList.toMutableList()[position + HEADER_COUNT].apply {
+            isInterested = true
+            interestCount += 1
+        }
+        submitList(currentList)
         notifyItemChanged(position + HEADER_COUNT)
     }
 
     fun minusItemLike(position: Int) {
-        itemList[position].isInterested = false
-        itemList[position].interestCount -= 1
+        currentList.toMutableList()[position + HEADER_COUNT].apply {
+            isInterested = false
+            interestCount -= 1
+        }
         notifyItemChanged(position + HEADER_COUNT)
     }
 

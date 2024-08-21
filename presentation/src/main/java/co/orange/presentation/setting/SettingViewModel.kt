@@ -22,6 +22,9 @@ class SettingViewModel
         private val _getSettingInfoState = MutableStateFlow<UiState<SettingInfoModel>>(UiState.Empty)
         val getSettingInfoState: StateFlow<UiState<SettingInfoModel>> = _getSettingInfoState
 
+        private val _userLogoutState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+        val userLogoutState: StateFlow<UiState<Boolean>> = _userLogoutState
+
         init {
             getSettingInfoFromServer()
         }
@@ -36,6 +39,19 @@ class SettingViewModel
                     }
                     .onFailure {
                         _getSettingInfoState.value = UiState.Failure(it.message.toString())
+                    }
+            }
+        }
+
+        fun logoutFromServer() {
+            _userLogoutState.value = UiState.Loading
+            viewModelScope.launch {
+                settingRepository.postUserLogout()
+                    .onSuccess {
+                        userRepository.clearInfo()
+                        _userLogoutState.value = UiState.Success(it)
+                    }.onFailure {
+                        _userLogoutState.value = UiState.Failure(it.message.toString())
                     }
             }
         }

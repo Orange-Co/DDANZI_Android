@@ -18,4 +18,6 @@ interface SettingDataSource {
     suspend fun getUserAddress(): BaseResponse<AddressDto>
 
     suspend fun deleteUserAddress(addressId: Long): BaseResponse<Boolean>
+
+    suspend fun postUserLogout(): BaseResponse<Boolean>
 }

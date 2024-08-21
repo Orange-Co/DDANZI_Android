@@ -10,8 +10,6 @@ data class ReissueTokenDto(
     val accessToken: String,
     @SerialName("refreshToken")
     val refreshToken: String,
-    @SerialName("userId")
-    val userId: Long,
 ) {
-    fun toModel() = ReissueTokenModel(accessToken = accessToken, refreshToken = refreshToken, userId = userId)
+    fun toModel() = ReissueTokenModel(accessToken = accessToken, refreshToken = refreshToken)
 }

@@ -34,5 +34,5 @@ class ProfileViewModel
             }
         }
 
-        fun getUserLogined() = userRepository.getUserName().isNotEmpty()
+        fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()
     }

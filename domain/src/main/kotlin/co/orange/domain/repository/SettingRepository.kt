@@ -17,4 +17,6 @@ interface SettingRepository {
     suspend fun getUserAddress(): Result<AddressModel>
 
     suspend fun deleteUserAddress(addressId: Long): Result<Boolean>
+
+    suspend fun postUserLogout(): Result<Boolean>
 }

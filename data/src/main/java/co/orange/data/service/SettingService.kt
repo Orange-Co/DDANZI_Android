@@ -33,4 +33,7 @@ interface SettingService {
     suspend fun deleteUserAddress(
         @Path("id") addressId: Long,
     ): BaseResponse<Boolean>
+
+    @POST("/api/v1/auth/logout")
+    suspend fun postUserLogout(): BaseResponse<Boolean>
 }

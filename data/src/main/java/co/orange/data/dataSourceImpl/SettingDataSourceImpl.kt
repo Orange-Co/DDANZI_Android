@@ -26,4 +26,6 @@ data class SettingDataSourceImpl
         override suspend fun getUserAddress(): BaseResponse<AddressDto> = settingService.getUserAddress()
 
         override suspend fun deleteUserAddress(addressId: Long): BaseResponse<Boolean> = settingService.deleteUserAddress(addressId)
+
+        override suspend fun postUserLogout(): BaseResponse<Boolean> = settingService.postUserLogout()
     }

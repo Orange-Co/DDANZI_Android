@@ -1,9 +1,16 @@
 package co.orange.ddanzi.di.interceptor
 
 import android.content.Context
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import co.orange.core.extension.toast
+import co.orange.domain.entity.request.ReissueRequestModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.UserRepository
+import co.orange.presentation.auth.login.LoginActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -31,48 +38,45 @@ class AuthInterceptor
 
             val response = chain.proceed(authRequest)
 
-//            if (response.code == CODE_TOKEN_EXPIRED) {
-//                try {
-//                    runBlocking {
-//                        authRepository.postReissueTokens(
-//                            ReissueRequestModel(
-//                                userRepository.getAccessToken(),
-//                                userRepository.getRefreshToken(),
-//                            ),
-//                        )
-//                    }.onSuccess { data ->
-//                        userRepository.setTokens(
-//                            data.accessToken,
-//                            data.refreshToken,
-//                        )
-//                        response.close()
-//
-//                        val newRequest =
-//                            authRequest.newBuilder().removeHeader(AUTHORIZATION).newAuthBuilder()
-//                                .build()
-//                        return chain.proceed(newRequest)
-//                    }
-//                } catch (t: Throwable) {
-//                    Timber.tag("okhttp").d(t)
-//                }
-//
-//                userRepository.clearInfo()
-//
-//                Handler(Looper.getMainLooper()).post {
-//                    context.toast(TOKEN_EXPIRED_ERROR)
-//                    Intent(context, LoginActivity::class.java).apply {
-//                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//                        context.startActivity(this)
-//                    }
-//                }
-//            }
+            if (response.code == CODE_TOKEN_EXPIRED) {
+                try {
+                    runBlocking {
+                        authRepository.postReissueTokens(
+                            ReissueRequestModel(userRepository.getRefreshToken()),
+                        )
+                    }.onSuccess { data ->
+                        userRepository.setTokens(
+                            data.accessToken,
+                            data.refreshToken,
+                        )
+                        response.close()
+
+                        val newRequest =
+                            authRequest.newBuilder().removeHeader(AUTHORIZATION).newAuthBuilder()
+                                .build()
+                        return chain.proceed(newRequest)
+                    }
+                } catch (t: Throwable) {
+                    Timber.tag("okhttp").d(t)
+                }
+
+                userRepository.clearInfo()
+
+                Handler(Looper.getMainLooper()).post {
+                    context.toast(TOKEN_EXPIRED_ERROR)
+                    Intent(context, LoginActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        context.startActivity(this)
+                    }
+                }
+            }
             return response
         }
 
         private fun Request.Builder.newAuthBuilder() = this.addHeader(AUTHORIZATION, "$BEARER ${userRepository.getAccessToken()}")
 
         companion object {
-            private const val CODE_TOKEN_EXPIRED = 401
+            private const val CODE_TOKEN_EXPIRED = 403
             private const val TOKEN_EXPIRED_ERROR = "토큰이 만료되었어요\n다시 로그인 해주세요"
             private const val BEARER = "Bearer"
             private const val AUTHORIZATION = "Authorization"

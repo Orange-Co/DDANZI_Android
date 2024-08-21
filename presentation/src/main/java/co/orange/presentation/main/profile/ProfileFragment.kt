@@ -39,8 +39,13 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         initLoginBtnListener()
         initWebBtnsListener()
         initHistoryBtnsListener()
-        checkIsLogined()
         observeGetNicknameState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        checkIsLogined()
     }
 
     private fun initSettingBtnListener() {
@@ -68,19 +73,15 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
 
     private fun initHistoryBtnsListener() {
         with(binding) {
-            btnHistoryPurchase.setOnSingleClickListener {
-                HistoryActivity.createIntent(requireContext(), TYPE_BUY)
-                    .apply { startActivity(this) }
-            }
-            btnHistorySell.setOnSingleClickListener {
-                HistoryActivity.createIntent(requireContext(), TYPE_SELL)
-                    .apply { startActivity(this) }
-            }
-            btnHistoryLike.setOnSingleClickListener {
-                HistoryActivity.createIntent(requireContext(), TYPE_INTEREST)
-                    .apply { startActivity(this) }
-            }
+            btnHistoryPurchase.setOnSingleClickListener { navigateToHistory(TYPE_BUY) }
+            btnHistorySell.setOnSingleClickListener { navigateToHistory(TYPE_SELL) }
+            btnHistoryLike.setOnSingleClickListener { navigateToHistory(TYPE_INTEREST) }
         }
+    }
+
+    private fun navigateToHistory(type: Int) {
+        HistoryActivity.createIntent(requireContext(), type)
+            .apply { startActivity(this) }
     }
 
     private fun checkIsLogined() {

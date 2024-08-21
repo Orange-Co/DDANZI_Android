@@ -5,9 +5,11 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.AccountModel
+import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankBinding
 
+@AndroidEntryPoint
 class BankActivity : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) {
     val viewModel by viewModels<BankViewModel>()
 

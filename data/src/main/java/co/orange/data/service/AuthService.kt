@@ -12,8 +12,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthService {
-    // TODO
-    @POST("auth/v1/reissue")
+    @POST("/api/v1/auth/refreshtoken")
     suspend fun postReissueTokens(
         @Body request: ReissueRequestDto,
     ): BaseResponse<ReissueTokenDto>

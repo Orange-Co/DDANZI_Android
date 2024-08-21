@@ -40,4 +40,9 @@ class SettingRepositoryImpl
             runCatching {
                 settingDataSource.deleteUserAddress(addressId).data
             }
+
+        override suspend fun postUserLogout(): Result<Boolean> =
+            runCatching {
+                settingDataSource.postUserLogout().data
+            }
     }

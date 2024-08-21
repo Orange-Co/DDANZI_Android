@@ -15,6 +15,7 @@ class HomeAdapter(
     private val productClick: (String) -> (Unit),
     private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
+    private var itemList = mutableListOf<ProductModel>()
     private var bannerItem: String? = null
 
     override fun onCreateViewHolder(
@@ -57,8 +58,7 @@ class HomeAdapter(
 
             is HomeProductViewHolder -> {
                 val itemPosition = position - HEADER_COUNT
-                val item = getItem(itemPosition) ?: return
-                holder.onBind(item, itemPosition)
+                holder.onBind(itemList[itemPosition], itemPosition)
             }
         }
         val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
@@ -66,7 +66,7 @@ class HomeAdapter(
         holder.itemView.layoutParams = layoutParams
     }
 
-    override fun getItemCount() = currentList.size + HEADER_COUNT
+    override fun getItemCount() = itemList.size + HEADER_COUNT
 
     override fun getItemViewType(position: Int) =
         when (position) {
@@ -79,17 +79,21 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
+    fun setItemList(itemList: List<ProductModel>) {
+        this.itemList = itemList.toMutableList()
+        notifyDataSetChanged()
+    }
+
     fun plusItemLike(position: Int) {
-        currentList.toMutableList()[position ].apply {
+        itemList[position].apply {
             isInterested = true
             interestCount += 1
         }
-        submitList(currentList)
         notifyItemChanged(position + HEADER_COUNT)
     }
 
     fun minusItemLike(position: Int) {
-        currentList.toMutableList()[position].apply {
+        itemList[position].apply {
             isInterested = false
             interestCount -= 1
         }

@@ -185,7 +185,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 when (state) {
                     is UiState.Success -> {
                         adapter.addBannerItem(state.data.homeImgUrl)
-                        adapter.submitList(state.data.productList)
+                        adapter.setItemList(state.data.productList)
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

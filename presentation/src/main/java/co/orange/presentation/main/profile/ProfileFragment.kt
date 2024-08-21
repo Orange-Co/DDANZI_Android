@@ -75,8 +75,11 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     }
 
     private fun initCenterBtnListener() {
-        // TODO
-        binding.btnCenterOneOnOne.setOnSingleClickListener { }
+        binding.btnCenterOneOnOne.setOnSingleClickListener {
+            Intent(requireContext(), ReportActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun initHistoryBtnsListener() {

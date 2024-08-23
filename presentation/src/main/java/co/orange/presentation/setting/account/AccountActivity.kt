@@ -12,7 +12,8 @@ import kr.genti.presentation.databinding.ActivityAccountBinding
 class AccountActivity : BaseActivity<ActivityAccountBinding>(R.layout.activity_account) {
     val viewModel by viewModels<AccountViewModel>()
 
-    var accountLogoutDialog: AccountLogoutDialog? = null
+    private var accountLogoutDialog: AccountLogoutDialog? = null
+    private var accountQuitDialog: AccountQuitDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +35,20 @@ class AccountActivity : BaseActivity<ActivityAccountBinding>(R.layout.activity_a
     }
 
     private fun initQuitBtnListener() {
-        // TODO
-        binding.btnQuit.setOnSingleClickListener { }
+        binding.btnQuit.setOnSingleClickListener {
+            accountQuitDialog = AccountQuitDialog()
+            accountQuitDialog?.show(supportFragmentManager, DIALOG_QUIT)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         accountLogoutDialog = null
+        accountQuitDialog = null
     }
 
     companion object {
         private const val DIALOG_LOGOUT = "DIALOG_LOGOUT"
+        private const val DIALOG_QUIT = "DIALOG_QUIT"
     }
 }

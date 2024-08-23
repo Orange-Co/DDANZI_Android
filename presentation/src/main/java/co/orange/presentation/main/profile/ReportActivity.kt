@@ -31,8 +31,6 @@ class ReportActivity : BaseActivity<ActivityReportBinding>(R.layout.activity_rep
     }
 
     companion object {
-        // TODO 추가
-        const val WEB_CHANNEL_TALK =
-            ""
+        const val WEB_CHANNEL_TALK = "https://open.kakao.com/o/sJ9nJsKg"
     }
 }

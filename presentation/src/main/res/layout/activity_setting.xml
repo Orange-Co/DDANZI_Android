@@ -142,21 +142,21 @@
             style="@style/TextAppearance.DDanzi.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="25dp"
             android:text="@string/setting_tv_manage_title"
-            android:layout_marginHorizontal="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_setting_info_nickname_title"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_setting_info_nickname_title" />
 
         <View
             android:id="@+id/border_setting_manage_title"
             android:layout_width="0dp"
             android:layout_height="3dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="12dp"
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_setting_manage_title" />
 
@@ -201,8 +201,8 @@
             android:id="@+id/btn_manage_bank"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginHorizontal="20dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_manage_delivery">
@@ -271,6 +271,18 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_setting_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_0"
+            android:paddingTop="20dp"
+            android:paddingBottom="40dp"
+            android:src="@drawable/img_setting_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

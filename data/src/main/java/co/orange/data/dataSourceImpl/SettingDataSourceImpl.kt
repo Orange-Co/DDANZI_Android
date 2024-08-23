@@ -4,6 +4,7 @@ import co.orange.data.dataSource.SettingDataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.AddressRequestDto
 import co.orange.data.dto.response.AddressDto
+import co.orange.data.dto.response.NicknameDto
 import co.orange.data.dto.response.SettingInfoDto
 import co.orange.data.service.SettingService
 import javax.inject.Inject
@@ -28,4 +29,6 @@ data class SettingDataSourceImpl
         override suspend fun deleteUserAddress(addressId: Long): BaseResponse<Boolean> = settingService.deleteUserAddress(addressId)
 
         override suspend fun postUserLogout(): BaseResponse<Boolean> = settingService.postUserLogout()
+
+        override suspend fun deleteToUserQuit(): BaseResponse<NicknameDto> = settingService.deleteToUserQuit()
     }

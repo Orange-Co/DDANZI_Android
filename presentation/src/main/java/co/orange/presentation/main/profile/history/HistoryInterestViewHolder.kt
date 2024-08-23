@@ -8,6 +8,7 @@ import co.orange.core.extension.setOverThousand
 import co.orange.core.extension.setPriceForm
 import co.orange.domain.entity.response.ProductModel
 import coil.load
+import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 
 class HistoryInterestViewHolder(
@@ -21,11 +22,11 @@ class HistoryInterestViewHolder(
             ivHomeItem.load(item.imgUrl)
             tvHomeItemRealPrice.apply {
                 text = item.originPrice.setPriceForm()
-                setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
+                paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
             tvHomeItemNowPrice.text = item.salePrice.setPriceForm()
             tvHomeItemLike.text = item.interestCount.setOverThousand()
-            btnItemLike.isEnabled = item.isInterested
+            btnItemLike.load(R.drawable.ic_like_yellow)
 
             root.setOnSingleClickListener {
                 itemClick(item.productId)

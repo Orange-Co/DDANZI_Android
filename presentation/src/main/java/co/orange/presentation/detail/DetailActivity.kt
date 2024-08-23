@@ -114,7 +114,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             chipsDetailImminent.isVisible = item.isImminent
             tvDetailDiscountRate.text = item.discountRate.toString()
             tvDetailStockCount.text = item.stockCount.toString()
-            ivDetailLike.isEnabled = item.isInterested
+            ivDetailLike.isSelected = item.isInterested
             tvDetailLike.text = item.interestCount.setOverThousand()
             ivDetailProduct.load(item.imgUrl)
             tvDetailRealPrice.apply {
@@ -128,7 +128,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     private fun observeLikeState() {
         viewModel.likeState.flowWithLifecycle(lifecycle).distinctUntilChanged().onEach { isLiked ->
             with(binding) {
-                ivDetailLike.isEnabled = isLiked
+                ivDetailLike.isSelected = isLiked
                 tvDetailLike.text = viewModel.interestCount.setOverThousand()
                 if (isLiked && viewModel.isLikeLottieNeeded) {
                     lottieLike.isVisible = true

@@ -229,4 +229,8 @@
     <string name="report_tv_body_bottom">딴지 채널톡으로 문의해주세요.\n상담원이 순차적으로 답변 드리겠습니다.</string>
     <string name="report_btn_channel">채널톡 연결</string>
 
+    <string name="logout_tv_subtitle">로그아웃 하시겠습니까 ?</string>
+    <string name="logout_btn_return">계속 이용하기</string>
+    <string name="logout_btn_logout"><u>로그아웃</u></string>
+
 </resources>

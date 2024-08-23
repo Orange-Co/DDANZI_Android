@@ -232,5 +232,7 @@
     <string name="logout_tv_subtitle">로그아웃 하시겠습니까 ?</string>
     <string name="logout_btn_return">계속 이용하기</string>
     <string name="logout_btn_logout"><u>로그아웃</u></string>
+    <string name="quit_tv_subtitle">회원 탈퇴 시,\n계정은 삭제되며 복구되지 않습니다.</string>
+    <string name="quit_btn_quit"><u>탈퇴하기</u></string>
 
 </resources>

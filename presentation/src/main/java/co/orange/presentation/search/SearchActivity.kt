@@ -204,12 +204,12 @@ class SearchActivity :
                         } else {
                             resultAdapter.plusItemLike(state.data)
                         }
-                        with(binding) {
-                            lottieLike.isVisible = true
-                            lottieLike.playAnimation()
-                            delay(500)
-                            lottieLike.isVisible = false
-                        }
+//                        with(binding) {
+//                            lottieLike.isVisible = true
+//                            lottieLike.playAnimation()
+//                            delay(500)
+//                            lottieLike.isVisible = false
+//                        }
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

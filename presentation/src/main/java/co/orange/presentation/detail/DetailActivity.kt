@@ -23,7 +23,6 @@ import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.buy.progress.BuyProgressActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -130,12 +129,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             with(binding) {
                 ivDetailLike.isSelected = isLiked
                 tvDetailLike.text = viewModel.interestCount.setOverThousand()
-                if (isLiked && viewModel.isLikeLottieNeeded) {
-                    lottieLike.isVisible = true
-                    lottieLike.playAnimation()
-                    delay(500)
-                    lottieLike.isVisible = false
-                }
+//                if (isLiked && viewModel.isLikeLottieNeeded) {
+//                    lottieLike.isVisible = true
+//                    lottieLike.playAnimation()
+//                    delay(500)
+//                    lottieLike.isVisible = false
+//                }
             }
         }.launchIn(lifecycleScope)
     }

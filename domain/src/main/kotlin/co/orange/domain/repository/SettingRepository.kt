@@ -2,6 +2,7 @@ package co.orange.domain.repository
 
 import co.orange.domain.entity.request.AddressRequestModel
 import co.orange.domain.entity.response.AddressModel
+import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.entity.response.SettingInfoModel
 
 interface SettingRepository {
@@ -19,4 +20,6 @@ interface SettingRepository {
     suspend fun deleteUserAddress(addressId: Long): Result<Boolean>
 
     suspend fun postUserLogout(): Result<Boolean>
+
+    suspend fun deleteToUserQuit(): Result<NicknameModel>
 }

@@ -225,7 +225,14 @@
 
     <string name="report_tv_title">상담 센터</string>
     <string name="report_tv_subtitle">거래에 문제가 있나요?</string>
-    <string name="report_tv_body">거래, 배송 거래에 문제가 생겼어요\n\n딴지 채널톡으로 문의해주세요</string>
+    <string name="report_tv_body_top">거래, 결제, 배송등에 문제가 생기셨나요?</string>
+    <string name="report_tv_body_bottom">딴지 채널톡으로 문의해주세요.\n상담원이 순차적으로 답변 드리겠습니다.</string>
     <string name="report_btn_channel">채널톡 연결</string>
+
+    <string name="logout_tv_subtitle">로그아웃 하시겠습니까 ?</string>
+    <string name="logout_btn_return">계속 이용하기</string>
+    <string name="logout_btn_logout"><u>로그아웃</u></string>
+    <string name="quit_tv_subtitle">회원 탈퇴 시,\n계정은 삭제되며 복구되지 않습니다.</string>
+    <string name="quit_btn_quit"><u>탈퇴하기</u></string>
 
 </resources>

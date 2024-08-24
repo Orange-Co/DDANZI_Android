@@ -3,6 +3,7 @@ package co.orange.data.dataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.AddressRequestDto
 import co.orange.data.dto.response.AddressDto
+import co.orange.data.dto.response.NicknameDto
 import co.orange.data.dto.response.SettingInfoDto
 
 interface SettingDataSource {
@@ -20,4 +21,6 @@ interface SettingDataSource {
     suspend fun deleteUserAddress(addressId: Long): BaseResponse<Boolean>
 
     suspend fun postUserLogout(): BaseResponse<Boolean>
+
+    suspend fun deleteToUserQuit(): BaseResponse<NicknameDto>
 }

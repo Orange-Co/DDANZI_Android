@@ -55,21 +55,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_report_error" />
 
-        <TextView
-            android:id="@+id/tv_report_body"
-            style="@style/TextAppearance.DDanzi.Body4"
+        <LinearLayout
+            android:id="@+id/layout_report_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="60dp"
             android:background="@drawable/shape_black_line_10_rect"
-            android:gravity="center"
-            android:paddingVertical="48dp"
-            android:text="@string/report_tv_body"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:paddingVertical="40dp"
             app:layout_constraintBottom_toTopOf="@id/btn_enter_channel"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_report_subtitle" />
+            app:layout_constraintTop_toBottomOf="@id/tv_report_subtitle">
+
+            <TextView
+                android:id="@+id/tv_report_body_top"
+                style="@style/TextAppearance.DDanzi.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:gravity="center"
+                android:paddingHorizontal="21dp"
+                android:text="@string/report_tv_body_top" />
+
+            <TextView
+                android:id="@+id/tv_report_body_bottom"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="21dp"
+                android:text="@string/report_tv_body_bottom" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/btn_enter_channel"

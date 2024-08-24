@@ -4,6 +4,7 @@ import co.orange.data.dataSource.SettingDataSource
 import co.orange.data.dto.request.AddressRequestDto.Companion.toDto
 import co.orange.domain.entity.request.AddressRequestModel
 import co.orange.domain.entity.response.AddressModel
+import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.entity.response.SettingInfoModel
 import co.orange.domain.repository.SettingRepository
 import javax.inject.Inject
@@ -44,5 +45,10 @@ class SettingRepositoryImpl
         override suspend fun postUserLogout(): Result<Boolean> =
             runCatching {
                 settingDataSource.postUserLogout().data
+            }
+
+        override suspend fun deleteToUserQuit(): Result<NicknameModel> =
+            runCatching {
+                settingDataSource.deleteToUserQuit().data.toModel()
             }
     }

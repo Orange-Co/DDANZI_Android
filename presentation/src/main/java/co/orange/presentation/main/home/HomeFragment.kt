@@ -8,7 +8,6 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +23,6 @@ import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -216,12 +214,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 when (state) {
                     is UiState.Success -> {
                         adapter.plusItemLike(state.data)
-                        with(binding) {
-                            lottieLike.isVisible = true
-                            lottieLike.playAnimation()
-                            delay(500)
-                            lottieLike.isVisible = false
-                        }
+//                        with(binding) {
+//                            lottieLike.isVisible = true
+//                            lottieLike.playAnimation()
+//                            delay(500)
+//                            lottieLike.isVisible = false
+//                        }
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

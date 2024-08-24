@@ -3,6 +3,7 @@
 
     <!-- Monochrome -->
     <color name="white">#FFFFFF</color>
+    <color name="gray_0">#F0F0F0</color>
     <color name="gray_1">#D9D9D9</color>
     <color name="gray_2">#B4B4B4</color>
     <color name="gray_3">#696969</color>

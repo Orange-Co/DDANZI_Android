@@ -3,6 +3,7 @@ package co.orange.data.service
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.AddressRequestDto
 import co.orange.data.dto.response.AddressDto
+import co.orange.data.dto.response.NicknameDto
 import co.orange.data.dto.response.SettingInfoDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,4 +37,7 @@ interface SettingService {
 
     @POST("/api/v1/auth/logout")
     suspend fun postUserLogout(): BaseResponse<Boolean>
+
+    @DELETE("/api/v1/auth/withdraw")
+    suspend fun deleteToUserQuit(): BaseResponse<NicknameDto>
 }

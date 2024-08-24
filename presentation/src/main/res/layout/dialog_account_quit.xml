@@ -14,35 +14,35 @@
         android:paddingVertical="34dp">
 
         <TextView
-            android:id="@+id/tv_logout_title"
+            android:id="@+id/tv_quit_title"
             style="@style/TextAppearance.DDanzi.Title4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/setting_btn_logout"
+            android:text="@string/setting_btn_quit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_logout_subtitle"
+            android:id="@+id/tv_quit_subtitle"
             style="@style/TextAppearance.DDanzi.Body5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/logout_tv_subtitle"
+            android:text="@string/quit_tv_subtitle"
             android:textColor="@color/gray_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_logout_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_quit_title" />
 
         <TextView
             android:id="@+id/btn_return"
             style="@style/TextAppearance.DDanzi.Body4"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/shape_black_fill_5_rect"
             android:gravity="center"
             android:paddingVertical="16dp"
@@ -50,17 +50,17 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_logout_subtitle" />
+            app:layout_constraintTop_toBottomOf="@id/tv_quit_subtitle" />
 
         <TextView
-            android:id="@+id/btn_logout"
+            android:id="@+id/btn_quit"
             style="@style/TextAppearance.DDanzi.Body6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:gravity="center"
             android:paddingVertical="8dp"
-            android:text="@string/logout_btn_logout"
+            android:text="@string/quit_btn_quit"
             android:textColor="@color/gray_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

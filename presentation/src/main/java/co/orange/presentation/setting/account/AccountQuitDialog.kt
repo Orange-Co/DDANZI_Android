@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
-import kr.genti.presentation.databinding.DialogAccountLogoutBinding
+import kr.genti.presentation.databinding.DialogAccountQuitBinding
 
-class AccountLogoutDialog :
-    BaseDialog<DialogAccountLogoutBinding>(R.layout.dialog_account_logout) {
+class AccountQuitDialog :
+    BaseDialog<DialogAccountQuitBinding>(R.layout.dialog_account_quit) {
     private val viewModel by activityViewModels<AccountViewModel>()
 
     override fun onStart() {
@@ -41,30 +41,30 @@ class AccountLogoutDialog :
         super.onViewCreated(view, savedInstanceState)
 
         initReturnBtnListener()
-        initLogoutBtnListener()
-        observeKakaoLogoutResult()
-        observeUserLogoutState()
+        initQuitBtnListener()
+        observeKakaoQuitResult()
+        observeUserQuitState()
     }
 
     private fun initReturnBtnListener() {
         binding.btnReturn.setOnSingleClickListener { dismiss() }
     }
 
-    private fun initLogoutBtnListener() {
-        binding.btnLogout.setOnSingleClickListener {
-            viewModel.logoutKakaoAccount()
+    private fun initQuitBtnListener() {
+        binding.btnQuit.setOnSingleClickListener {
+            viewModel.quitKakaoAccount()
         }
     }
 
-    private fun observeKakaoLogoutResult() {
-        viewModel.kakaoLogoutResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+    private fun observeKakaoQuitResult() {
+        viewModel.kakaoQuitResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
                 if (!isSuccess) toast(stringOf(R.string.error_msg))
             }.launchIn(lifecycleScope)
     }
 
-    private fun observeUserLogoutState() {
-        viewModel.userLogoutState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+    private fun observeUserQuitState() {
+        viewModel.userQuitState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {

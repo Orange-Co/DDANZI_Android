@@ -118,7 +118,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             ivDetailProduct.load(item.imgUrl)
             tvDetailRealPrice.apply {
                 text = item.originPrice.setPriceForm()
-                setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
+                paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
             tvDetailNowPrice.text = item.salePrice.setPriceForm()
         }

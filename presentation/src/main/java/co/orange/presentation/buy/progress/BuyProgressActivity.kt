@@ -128,7 +128,7 @@ class BuyProgressActivity :
         with(binding) {
             tvConfirmProductName.text = item.productName
             ivConfirmProduct.load(item.imgUrl)
-            tvConfirmProductPrice.text = item.originPrice.setPriceForm()
+            tvConfirmProductPrice.text = item.totalPrice.setPriceForm()
             tvConfirmPriceMoney.text = item.originPrice.setPriceForm()
             tvConfirmPriceDiscount.text =
                 getString(R.string.add_minus, item.discountPrice.setPriceForm())

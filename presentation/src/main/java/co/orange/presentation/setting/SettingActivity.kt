@@ -1,6 +1,7 @@
 package co.orange.presentation.setting
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -31,6 +32,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         initDeliveryManageBtnListener()
         initBankManageBtnListener()
         initAccountManageBtnListener()
+        initTermBtnsListener()
         observeGetSettingInfoState()
     }
 
@@ -62,6 +64,21 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         }
     }
 
+    private fun initTermBtnsListener() {
+        with(binding) {
+            btnTermPrivate.setOnSingleClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_PRIVATE)).apply {
+                    startActivity(this)
+                }
+            }
+            btnTermService.setOnSingleClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_SERVICE)).apply {
+                    startActivity(this)
+                }
+            }
+        }
+    }
+
     private fun observeGetSettingInfoState() {
         viewModel.getSettingInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
@@ -78,5 +95,16 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    companion object {
+        const val WEB_TERM_PRIVATE =
+            "https://brawny-guan-098.notion.site/5a8b57e78f594988aaab08b8160c3072?pvs=4"
+        const val WEB_TERM_SERVICE =
+            "https://brawny-guan-098.notion.site/faa1517ffed44f6a88021a41407ed736?pvs=4"
+        const val WEB_TERM_PURCHASE =
+            "https://brawny-guan-098.notion.site/56bcbc1ed0f3454ba08fa1070fa5413d?pvs=4"
+        const val WEB_TERM_SELL =
+            "https://brawny-guan-098.notion.site/6d77260d027148ceb0f806f0911c284a?pvs=4"
     }
 }

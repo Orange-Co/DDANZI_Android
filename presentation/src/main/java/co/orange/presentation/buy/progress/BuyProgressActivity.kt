@@ -179,11 +179,7 @@ class BuyProgressActivity :
             iamPortRequest = request,
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            if (response?.imp_uid?.isEmpty() == false) {
-                viewModel.patchPayEndToServer(true)
-            } else {
-                viewModel.patchPayEndToServer(false)
-            }
+            viewModel.patchPayEndToServer(response?.error_code)
         }
     }
 
@@ -193,6 +189,10 @@ class BuyProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         if (state.data.payStatus == PAY_SUCCESS) {
+                            if (viewModel.isOrderCanceled) {
+                                viewModel.isOrderCanceled = false
+                                return@onEach
+                            }
                             viewModel.postToRequestOrderToServer()
                         } else {
                             toast(stringOf(R.string.error_msg))
@@ -210,7 +210,6 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        toast(stringOf(R.string.buy_order_success_msg))
                         // TODO 추후 푸쉬알림뷰 연결
                         BuyFinishedActivity.createIntent(this, state.data).apply {
                             startActivity(this)

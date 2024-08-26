@@ -84,7 +84,7 @@ class BuyFinishedActivity :
                 getString(R.string.transaction_id, item.orderId).breakLines()
             ivFinishedItem.load(item.imgUrl)
             tvFinishedItemName.text = item.productName
-            tvFinishedItemPrice.text = item.originPrice.setPriceForm()
+            tvFinishedItemPrice.text = item.totalPrice.setPriceForm()
             tvFinishedDeliveryName.text = item.addressInfo.recipient
             tvFinishedDeliveryAddress.text =
                 getString(

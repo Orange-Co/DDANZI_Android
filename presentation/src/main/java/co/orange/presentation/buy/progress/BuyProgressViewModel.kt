@@ -39,6 +39,7 @@ class BuyProgressViewModel
         var isTermPurchaseSelected = MutableLiveData<Boolean>(false)
         var isCompleted = MutableLiveData<Boolean>(false)
         var isOrderStarted = false
+        var isOrderCanceled = false
 
         private val _getBuyDataState = MutableStateFlow<UiState<BuyProgressModel>>(UiState.Empty)
         val getBuyDataState: StateFlow<UiState<BuyProgressModel>> = _getBuyDataState
@@ -147,15 +148,16 @@ class BuyProgressViewModel
             }
         }
 
-        fun patchPayEndToServer(isSuccess: Boolean) {
+        fun patchPayEndToServer(errorCode: String?) {
             _patchPayEndState.value = UiState.Loading
             viewModelScope.launch {
                 buyRepository.patchPaymentEnd(
                     PayEndRequestModel(
                         paymentId,
-                        if (isSuccess) PAY_SUCCESS else PAY_FAILURE,
+                        if (errorCode.isNullOrEmpty()) PAY_SUCCESS else PAY_FAILURE,
                     ),
                 ).onSuccess {
+                    isOrderCanceled = errorCode == ERROR_CANCELED
                     _patchPayEndState.value = UiState.Success(it)
                 }.onFailure {
                     _patchPayEndState.value = UiState.Failure(it.message.orEmpty())
@@ -183,6 +185,8 @@ class BuyProgressViewModel
 
         companion object {
             private const val NICE_PAYMENTS = "nice_v2.$PAYMENT_UID"
+
+            private const val ERROR_CANCELED = "F400"
 
             private const val PAY_STATUS_PENDING = "PENDING"
             const val PAY_SUCCESS = "PAID"

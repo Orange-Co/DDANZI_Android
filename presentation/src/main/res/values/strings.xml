@@ -89,7 +89,6 @@
     <string name="buy_info_btn_completed">거래가 완료된 상품입니다.</string>
     <string name="buy_info_btn_cancelled">거래가 취소된 상품입니다.</string>
     <string name="buy_order_error_msg">오류가 발생했습니다. 고객센터로 문의해주세요.</string>
-    <string name="buy_order_success_msg">구매 확정을 완료했습니다.</string>
     <string name="buy_order_fix_msg">구매 확정을 완료했습니다.</string>
 
     <string name="search_tv_hint">검색어를 입력하세요</string>
@@ -120,6 +119,9 @@
     <string name="setting_tv_manage_delivery">배송지 관리</string>
     <string name="setting_tv_manage_bank">계좌 관리</string>
     <string name="setting_tv_manage_account">계정 관리</string>
+    <string name="setting_tv_term_title">약관</string>
+    <string name="setting_btn_term_private">개인정보 처리방침</string>
+    <string name="setting_btn_term_service">이용약관</string>
     <string name="setting_btn_logout">로그아웃</string>
     <string name="setting_btn_quit">회원 탈퇴</string>
     <string name="setting_btn_add">+ 등록</string>

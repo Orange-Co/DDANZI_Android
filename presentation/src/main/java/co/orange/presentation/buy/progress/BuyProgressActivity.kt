@@ -18,9 +18,10 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
-import co.orange.presentation.auth.phone.TermBottomSheet.Companion.WEB_TERM_SERVICE
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
+import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_PURCHASE
+import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
 import com.iamport.sdk.domain.core.Iamport
@@ -179,11 +180,7 @@ class BuyProgressActivity :
             iamPortRequest = request,
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            if (response?.imp_uid?.isEmpty() == false) {
-                viewModel.patchPayEndToServer(true)
-            } else {
-                viewModel.patchPayEndToServer(false)
-            }
+            viewModel.patchPayEndToServer(response?.error_code)
         }
     }
 
@@ -193,6 +190,10 @@ class BuyProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         if (state.data.payStatus == PAY_SUCCESS) {
+                            if (viewModel.isOrderCanceled) {
+                                viewModel.isOrderCanceled = false
+                                return@onEach
+                            }
                             viewModel.postToRequestOrderToServer()
                         } else {
                             toast(stringOf(R.string.error_msg))
@@ -210,7 +211,6 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        toast(stringOf(R.string.buy_order_success_msg))
                         // TODO 추후 푸쉬알림뷰 연결
                         BuyFinishedActivity.createIntent(this, state.data).apply {
                             startActivity(this)
@@ -231,9 +231,6 @@ class BuyProgressActivity :
     }
 
     companion object {
-        const val WEB_TERM_PURCHASE =
-            "https://brawny-guan-098.notion.site/56bcbc1ed0f3454ba08fa1070fa5413d?pvs=4"
-
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic

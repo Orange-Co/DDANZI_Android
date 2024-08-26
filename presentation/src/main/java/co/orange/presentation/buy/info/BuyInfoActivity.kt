@@ -76,7 +76,7 @@ class BuyInfoActivity :
             tvInfoTransaction.text = getString(R.string.transaction_id, item.orderId).breakLines()
             ivInfoProduct.load(item.imgUrl)
             tvInfoProductName.text = item.productName
-            tvInfoProductPrice.text = item.originPrice.setPriceForm()
+            tvInfoProductPrice.text = item.totalPrice.setPriceForm()
             tvInfoSellerNickname.text = item.sellerNickname
             tvInfoDeliveryName.text = item.addressInfo.recipient
             tvInfoDeliveryAddress.text =

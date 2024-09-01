@@ -7,7 +7,9 @@ import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetSellDateBinding
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class SellDateBottomSheet :
     BaseBottomSheet<BottomSheetSellDateBinding>(R.layout.bottom_sheet_sell_date) {
@@ -29,8 +31,20 @@ class SellDateBottomSheet :
     }
 
     private fun initSubmitBtnListener() {
-        binding.btnSubmit.setOnSingleClickListener { }
+        binding.btnSubmit.setOnSingleClickListener {
+            viewModel.sellDate = getDateFromDatePicker()
+            dismiss()
+        }
     }
+
+    private fun getDateFromDatePicker(): String =
+        with(binding.dpSell) {
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+                Calendar.getInstance().apply {
+                    set(year, month, dayOfMonth)
+                }.time,
+            )
+        }
 
     private fun setDatePicker() {
         binding.dpSell.apply {

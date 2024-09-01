@@ -7,10 +7,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.setStatusBarColorFromResource
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
@@ -52,10 +54,7 @@ class SellOnboardingActivity :
             photoPickerResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         } else {
             galleryPickerResult.launch(
-                Intent(Intent.ACTION_PICK).apply {
-                    type = "image/*"
-                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                },
+                Intent(Intent.ACTION_PICK).apply { type = "image/*" },
             )
         }
     }
@@ -99,15 +98,31 @@ class SellOnboardingActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-//                        sellProductDialog = SellProductDialog()
-//                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
+                        setLoadingScreen(false)
+                        sellProductDialog = SellProductDialog()
+                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
                         viewModel.resetProductIdState()
                     }
 
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
+                    is UiState.Failure -> {
+                        setLoadingScreen(false)
+                        toast(stringOf(R.string.error_msg))
+                    }
+
+                    is UiState.Loading -> setLoadingScreen(true)
+                    is UiState.Empty -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    private fun setLoadingScreen(isLoading: Boolean) {
+        if (isLoading) {
+            setStatusBarColorFromResource(R.color.background_50)
+            binding.layoutLoading.isVisible = true
+        } else {
+            setStatusBarColorFromResource(R.color.white)
+            binding.layoutLoading.isVisible = false
+        }
     }
 
     override fun onDestroy() {

@@ -43,8 +43,7 @@ class SellProductDialog :
 
     private fun initConfirmBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            // TODO intent값 수정
-            SellProgressActivity.createIntent(requireContext(), -1).apply {
+            SellProgressActivity.createIntent(requireContext(), viewModel.productId).apply {
                 startActivity(this)
             }
             dismiss()
@@ -62,7 +61,7 @@ class SellProductDialog :
         with(binding) {
             // TODO
             // ivSellProduct.load()
-            tvSellProductName.text = "퓨퓨어 오일 퍼퓸 긴제목 텍스트트트트트트"
+            tvSellProductName.text = viewModel.productName
         }
     }
 }

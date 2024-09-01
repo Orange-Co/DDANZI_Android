@@ -10,6 +10,7 @@ import co.orange.data.repositoryImpl.ProfileRepositoryImpl
 import co.orange.data.repositoryImpl.SearchRepositoryImpl
 import co.orange.data.repositoryImpl.SellRepositoryImpl
 import co.orange.data.repositoryImpl.SettingRepositoryImpl
+import co.orange.data.repositoryImpl.UploadRepositoryImpl
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.BuyRepository
 import co.orange.domain.repository.DeviceRepository
@@ -20,6 +21,7 @@ import co.orange.domain.repository.ProfileRepository
 import co.orange.domain.repository.SearchRepository
 import co.orange.domain.repository.SellRepository
 import co.orange.domain.repository.SettingRepository
+import co.orange.domain.repository.UploadRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,6 +66,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideInterestRepository(interestRepositoryImpl: InterestRepositoryImpl): InterestRepository = interestRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideUploadRepository(uploadRepositoryImpl: UploadRepositoryImpl): UploadRepository = uploadRepositoryImpl
 
     @Provides
     @Singleton

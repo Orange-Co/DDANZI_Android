@@ -1,23 +1,43 @@
 package co.orange.presentation.sell.progress
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
+import co.orange.domain.repository.SellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SellProgressViewModel
     @Inject
     constructor(
-        // private val feedRepository: FeedRepository,
+        private val sellRepository: SellRepository,
     ) : ViewModel() {
-        var productId: Long = -1
+        var productId = ""
+        var isAccountExist = false
 
-        var mockSellInfo =
-            SellProductModel(
-                1102303002,
-                "딴지 키링 세트",
-                9000,
-                7000,
-            )
+        private val _getProductState = MutableStateFlow<UiState<SellProductModel>>(UiState.Empty)
+        val getProductState: StateFlow<UiState<SellProductModel>> = _getProductState
+
+        fun getProductWIthId() {
+            if (productId.isEmpty()) {
+                _getProductState.value = UiState.Failure(productId)
+                return
+            }
+            _getProductState.value = UiState.Loading
+            viewModelScope.launch {
+                sellRepository.getProductToSell(productId)
+                    .onSuccess {
+                        isAccountExist = it.isAddressExist
+                        _getProductState.value = UiState.Success(it)
+                    }
+                    .onFailure {
+                        _getProductState.value = UiState.Failure(it.message.orEmpty())
+                    }
+            }
+        }
     }

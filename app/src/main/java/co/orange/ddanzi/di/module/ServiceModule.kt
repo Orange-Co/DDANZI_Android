@@ -10,6 +10,7 @@ import co.orange.data.service.ProfileService
 import co.orange.data.service.SearchService
 import co.orange.data.service.SellService
 import co.orange.data.service.SettingService
+import co.orange.data.service.UploadService
 import co.orange.ddanzi.di.interceptor.RetrofitQualifier
 import dagger.Module
 import dagger.Provides
@@ -74,6 +75,12 @@ object ServiceModule {
     fun provideInterestService(
         @RetrofitQualifier.JWT retrofit: Retrofit,
     ): InterestService = retrofit.create(InterestService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUploadService(
+        @RetrofitQualifier.NOTOKEN retrofit: Retrofit,
+    ): UploadService = retrofit.create(UploadService::class.java)
 
     @Provides
     @Singleton

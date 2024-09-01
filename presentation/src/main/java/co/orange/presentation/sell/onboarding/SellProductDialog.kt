@@ -7,7 +7,6 @@ import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.sell.progress.SellProgressActivity
-import coil.load
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogSellProductBinding
 
@@ -62,7 +61,7 @@ class SellProductDialog :
     private fun setSellProductUi() {
         with(binding) {
             // TODO
-            ivSellProduct.load(viewModel.selectedImageUri)
+            // ivSellProduct.load()
             tvSellProductName.text = "퓨퓨어 오일 퍼퓸 긴제목 텍스트트트트트트"
         }
     }

@@ -22,9 +22,6 @@ class SellOnboardingViewModel
     constructor(
         // private val homeRepository: HomeRepository,
     ) : ViewModel() {
-        var selectedImageUri = Uri.EMPTY
-        var productId = ""
-
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
 

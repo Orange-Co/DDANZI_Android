@@ -24,7 +24,7 @@ class SellOnboardingActivity :
     BaseActivity<ActivitySellOnboardingBinding>(R.layout.activity_sell_onboarding) {
     private val viewModel by viewModels<SellOnboardingViewModel>()
 
-    lateinit var activityResult: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var activityResult: ActivityResultLauncher<PickVisualMediaRequest>
     private var sellProductDialog: SellProductDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +45,7 @@ class SellOnboardingActivity :
     private fun findSelectedImage() {
         activityResult =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-                if (uri != null) {
-                    viewModel.selectedImageUri = uri
-                    viewModel.showCaptureImage(uri, this)
-                }
+                if (uri != null) viewModel.showCaptureImage(uri, this)
             }
     }
 
@@ -68,10 +65,7 @@ class SellOnboardingActivity :
                 when (state) {
                     is UiState.Success -> {
                         sellProductDialog = SellProductDialog()
-                        sellProductDialog?.show(
-                            supportFragmentManager,
-                            SELL_PRODUCT_DIALOG,
-                        )
+                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
                         viewModel.resetProductIdState()
                     }
 

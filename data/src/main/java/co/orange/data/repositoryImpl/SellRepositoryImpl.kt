@@ -1,6 +1,9 @@
 package co.orange.data.repositoryImpl
 
 import co.orange.data.dataSource.SellDataSource
+import co.orange.data.dto.request.SellCheckRequestDto.Companion.toDto
+import co.orange.domain.entity.request.SellCheckRequestModel
+import co.orange.domain.entity.response.SellCheckedProductModel
 import co.orange.domain.entity.response.SignedUrlModel
 import co.orange.domain.repository.SellRepository
 import javax.inject.Inject
@@ -13,5 +16,10 @@ class SellRepositoryImpl
         override suspend fun getSignedUrl(fileName: String): Result<SignedUrlModel> =
             runCatching {
                 sellDataSource.getSignedUrl(fileName).data.toModel()
+            }
+
+        override suspend fun postToCheckProduct(request: SellCheckRequestModel): Result<SellCheckedProductModel> =
+            runCatching {
+                sellDataSource.postToCheckProduct(request.toDto()).data.toModel()
             }
     }

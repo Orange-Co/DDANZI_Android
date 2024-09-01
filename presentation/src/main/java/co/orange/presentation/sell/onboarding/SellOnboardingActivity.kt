@@ -54,10 +54,7 @@ class SellOnboardingActivity :
             photoPickerResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         } else {
             galleryPickerResult.launch(
-                Intent(Intent.ACTION_PICK).apply {
-                    type = "image/*"
-                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                },
+                Intent(Intent.ACTION_PICK).apply { type = "image/*" },
             )
         }
     }

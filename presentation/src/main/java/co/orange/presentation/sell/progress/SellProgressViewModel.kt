@@ -20,6 +20,8 @@ class SellProgressViewModel
         var productId = ""
         var isAccountExist = false
 
+        var sellDate = ""
+
         private val _getProductState = MutableStateFlow<UiState<SellProductModel>>(UiState.Empty)
         val getProductState: StateFlow<UiState<SellProductModel>> = _getProductState
 

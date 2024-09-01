@@ -1,5 +1,7 @@
 package co.orange.presentation.sell.onboarding
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -24,28 +26,61 @@ class SellOnboardingActivity :
     BaseActivity<ActivitySellOnboardingBinding>(R.layout.activity_sell_onboarding) {
     private val viewModel by viewModels<SellOnboardingViewModel>()
 
-    private lateinit var activityResult: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var photoPickerResult: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var galleryPickerResult: ActivityResultLauncher<Intent>
+
     private var sellProductDialog: SellProductDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initSelectBtnListener()
-        findSelectedImage()
+        setGalleryImageWithPhotoPicker()
+        setGalleryImageWithGalleryPicker()
         observeCheckedAgainState()
         observeGetProductIdState()
     }
 
     private fun initSelectBtnListener() {
         binding.btnSelect.setOnSingleClickListener {
-            activityResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            checkAndGetImage()
         }
     }
 
-    private fun findSelectedImage() {
-        activityResult =
+    private fun checkAndGetImage() {
+        if (ActivityResultContracts.PickVisualMedia.isPhotoPickerAvailable(this)) {
+            photoPickerResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        } else {
+            galleryPickerResult.launch(
+                Intent(Intent.ACTION_PICK).apply {
+                    type = "image/*"
+                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                },
+            )
+        }
+    }
+
+    private fun setGalleryImageWithPhotoPicker() {
+        photoPickerResult =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) viewModel.showCaptureImage(uri, this)
+            }
+    }
+
+    private fun setGalleryImageWithGalleryPicker() {
+        galleryPickerResult =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+            ) { result ->
+                when (result.resultCode) {
+                    Activity.RESULT_OK ->
+                        result.data?.data?.let {
+                            viewModel.showCaptureImage(it, this)
+                        }
+
+                    Activity.RESULT_CANCELED -> return@registerForActivityResult
+                    else -> toast(getString(R.string.sell_product_picker_error))
+                }
             }
     }
 
@@ -53,7 +88,7 @@ class SellOnboardingActivity :
         viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isChecked ->
                 if (isChecked) {
-                    activityResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                    checkAndGetImage()
                     viewModel.setCheckedAgain(false)
                 }
             }.launchIn(lifecycleScope)

@@ -15,9 +15,10 @@ class SellProgressViewModel
 
         var mockSellInfo =
             SellProductModel(
-                1102303002,
+                "1102303002",
                 "딴지 키링 세트",
                 9000,
                 7000,
+                true,
             )
     }

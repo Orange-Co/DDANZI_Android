@@ -5,9 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +19,7 @@ import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
+import co.orange.presentation.sell.onboarding.SellOnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -31,15 +29,11 @@ import kr.genti.presentation.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    lateinit var activityResult: ActivityResultLauncher<PickVisualMediaRequest>
-
     private var _adapter: HomeAdapter? = null
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     private val viewModel by activityViewModels<HomeViewModel>()
-
-    private var sellProductDialog: SellProductDialog? = null
 
     override fun onViewCreated(
         view: View,
@@ -50,13 +44,10 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         initAdapter()
         initSearchBtnListener()
         initSellBtnListener()
-        searchSellProduct()
         setDeviceToken()
         setGridRecyclerView()
         setRecyclerViewDeco()
-        observeCheckedAgainState()
         observeGetHomeDataState()
-        observeGetProductIdState()
         observeItemLikePlusState()
         observeItemLikeMinusState()
     }
@@ -113,7 +104,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
             if (viewModel.getUserLogined()) {
-                activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+                Intent(requireActivity(), SellOnboardingActivity::class.java).apply {
+                    startActivity(this)
+                }
             } else {
                 Intent(requireActivity(), LoginActivity::class.java).apply {
                     startActivity(this)
@@ -122,18 +115,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         }
     }
 
-    private fun searchSellProduct() {
-        activityResult =
-            registerForActivityResult(PickVisualMedia()) { uri ->
-                if (uri != null) {
-                    viewModel.selectedImageUri = uri
-                    viewModel.showCaptureImage(uri, requireContext())
-                }
-            }
-    }
-
     private fun setDeviceToken() {
-        // TODO : FCM의 디바이스토큰으로 수정
+        // TODO : FCM의 디바이스토큰으로 수정 & 가입쪽으로 이동
         viewModel.setDeviceToken(
             Settings.Secure.getString(
                 requireContext().contentResolver,
@@ -167,16 +150,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         )
     }
 
-    private fun observeCheckedAgainState() {
-        viewModel.isCheckedAgain.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isChecked ->
-                if (isChecked) {
-                    activityResult.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-                    viewModel.setCheckedState(false)
-                }
-            }.launchIn(lifecycleScope)
-    }
-
     private fun observeGetHomeDataState() {
         viewModel.getHomeDataState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
@@ -184,22 +157,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                     is UiState.Success -> {
                         adapter.addBannerItem(state.data.homeImgUrl)
                         adapter.setItemList(state.data.productList)
-                    }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
-                }
-            }.launchIn(lifecycleScope)
-    }
-
-    private fun observeGetProductIdState() {
-        viewModel.getProductIdState.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        sellProductDialog = SellProductDialog()
-                        sellProductDialog?.show(parentFragmentManager, SELL_PRODUCT_DIALOG)
-                        viewModel.resetProductIdState()
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
@@ -244,11 +201,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
-        sellProductDialog = null
     }
 
     companion object {
-        private const val SELL_PRODUCT_DIALOG = "SELL_PRODUCT_DIALOG"
         const val WEB_BANNER =
             "https://brawny-guan-098.notion.site/d1259ed5fdfd489eb6cc23a4312c13a0?pvs=4"
     }

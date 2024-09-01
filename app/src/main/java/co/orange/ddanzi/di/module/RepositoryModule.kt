@@ -8,6 +8,7 @@ import co.orange.data.repositoryImpl.IamportRepositoryImpl
 import co.orange.data.repositoryImpl.InterestRepositoryImpl
 import co.orange.data.repositoryImpl.ProfileRepositoryImpl
 import co.orange.data.repositoryImpl.SearchRepositoryImpl
+import co.orange.data.repositoryImpl.SellRepositoryImpl
 import co.orange.data.repositoryImpl.SettingRepositoryImpl
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.BuyRepository
@@ -17,6 +18,7 @@ import co.orange.domain.repository.IamportRepository
 import co.orange.domain.repository.InterestRepository
 import co.orange.domain.repository.ProfileRepository
 import co.orange.domain.repository.SearchRepository
+import co.orange.domain.repository.SellRepository
 import co.orange.domain.repository.SettingRepository
 import dagger.Module
 import dagger.Provides
@@ -42,6 +44,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideSearchRepository(searchRepositoryImpl: SearchRepositoryImpl): SearchRepository = searchRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideSellRepository(sellRepositoryImpl: SellRepositoryImpl): SellRepository = sellRepositoryImpl
 
     @Provides
     @Singleton

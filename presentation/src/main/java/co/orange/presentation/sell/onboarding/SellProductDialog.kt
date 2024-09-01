@@ -1,4 +1,4 @@
-package co.orange.presentation.main.home
+package co.orange.presentation.sell.onboarding
 
 import android.os.Bundle
 import android.view.View
@@ -7,13 +7,12 @@ import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.sell.progress.SellProgressActivity
-import coil.load
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogSellProductBinding
 
 class SellProductDialog :
     BaseDialog<DialogSellProductBinding>(R.layout.dialog_sell_product) {
-    private val viewModel by activityViewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<SellOnboardingViewModel>()
 
     override fun onStart() {
         super.onStart()
@@ -54,7 +53,7 @@ class SellProductDialog :
 
     private fun initPickAgainBtnListener() {
         binding.btnPickAgain.setOnSingleClickListener {
-            viewModel.setCheckedState(true)
+            viewModel.setCheckedAgain(true)
             dismiss()
         }
     }
@@ -62,7 +61,7 @@ class SellProductDialog :
     private fun setSellProductUi() {
         with(binding) {
             // TODO
-            ivSellProduct.load(viewModel.selectedImageUri)
+            // ivSellProduct.load()
             tvSellProductName.text = "퓨퓨어 오일 퍼퓸 긴제목 텍스트트트트트트"
         }
     }

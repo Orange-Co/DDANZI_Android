@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import co.orange.core.extension.getFileName
 import co.orange.core.state.UiState
 import co.orange.domain.repository.SellRepository
+import co.orange.domain.repository.UploadRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,8 +21,9 @@ class SellOnboardingViewModel
     @Inject
     constructor(
         private val sellRepository: SellRepository,
+        private val uploadRepository: UploadRepository,
     ) : ViewModel() {
-        private var selectedImageId = ""
+        private var selectedImageUrl = ""
         private var selectedImageName = ""
 
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
@@ -41,17 +42,29 @@ class SellOnboardingViewModel
             uri: Uri,
             contentResolver: ContentResolver,
         ) {
-            selectedImageId = uri.hashCode().toString()
+            selectedImageUrl = uri.toString()
             selectedImageName = uri.getFileName(contentResolver).orEmpty()
             _changingImageState.value = UiState.Loading
             viewModelScope.launch {
                 sellRepository.getSignedUrl(selectedImageName)
                     .onSuccess {
-                        // 바로 이미지 보내기
-                        Timber.tag("okhttp").d("@@@@@@@@@@ ${it.signedUrl}")
+                        putImageToCloud(it.signedUrl)
                     }
                     .onFailure {
                         _changingImageState.value = UiState.Failure(it.message.toString())
+                        _changingImageState.value = UiState.Empty
+                    }
+            }
+        }
+
+        private fun putImageToCloud(url: String) {
+            viewModelScope.launch {
+                uploadRepository.putImageToCloud(url, selectedImageUrl)
+                    .onSuccess {
+                        // 성공 시 이미지 요청
+                    }.onFailure {
+                        _changingImageState.value = UiState.Failure(it.message.toString())
+                        _changingImageState.value = UiState.Empty
                     }
             }
         }

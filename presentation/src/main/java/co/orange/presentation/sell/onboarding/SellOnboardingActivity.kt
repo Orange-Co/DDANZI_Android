@@ -38,7 +38,7 @@ class SellOnboardingActivity :
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeCheckedAgainState()
-        observeGetProductIdState()
+        observeChangeImageState()
     }
 
     private fun initSelectBtnListener() {
@@ -94,7 +94,7 @@ class SellOnboardingActivity :
             }.launchIn(lifecycleScope)
     }
 
-    private fun observeGetProductIdState() {
+    private fun observeChangeImageState() {
         viewModel.changingImageState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {

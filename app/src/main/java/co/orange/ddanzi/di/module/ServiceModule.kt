@@ -8,6 +8,7 @@ import co.orange.data.service.IamportService
 import co.orange.data.service.InterestService
 import co.orange.data.service.ProfileService
 import co.orange.data.service.SearchService
+import co.orange.data.service.SellService
 import co.orange.data.service.SettingService
 import co.orange.ddanzi.di.interceptor.RetrofitQualifier
 import dagger.Module
@@ -43,6 +44,12 @@ object ServiceModule {
     fun provideSearchService(
         @RetrofitQualifier.JWT retrofit: Retrofit,
     ): SearchService = retrofit.create(SearchService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSellService(
+        @RetrofitQualifier.JWT retrofit: Retrofit,
+    ): SellService = retrofit.create(SellService::class.java)
 
     @Provides
     @Singleton

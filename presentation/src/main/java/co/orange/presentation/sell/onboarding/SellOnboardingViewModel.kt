@@ -1,32 +1,35 @@
 package co.orange.presentation.sell.onboarding
 
-import android.content.Context
+import android.content.ContentResolver
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.orange.core.extension.getFileName
 import co.orange.core.state.UiState
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
+import co.orange.domain.repository.SellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SellOnboardingViewModel
     @Inject
     constructor(
-        // private val homeRepository: HomeRepository,
+        private val sellRepository: SellRepository,
     ) : ViewModel() {
+        private var selectedImageId = ""
+        private var selectedImageName = ""
+
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
 
-        private val _getProductIdState = MutableStateFlow<UiState<String>>(UiState.Empty)
-        val getProductIdState: StateFlow<UiState<String>> = _getProductIdState
+        private val _changingImageState = MutableStateFlow<UiState<String>>(UiState.Empty)
+        val changingImageState: StateFlow<UiState<String>> = _changingImageState
 
         fun setCheckedAgain(state: Boolean) {
             viewModelScope.launch {
@@ -34,26 +37,26 @@ class SellOnboardingViewModel
             }
         }
 
-        fun showCaptureImage(
-            img: Uri,
-            context: Context,
+        fun startSendingImage(
+            uri: Uri,
+            contentResolver: ContentResolver,
         ) {
-            runCatching {
-                val image = InputImage.fromFilePath(context, img)
-                val recognizer =
-                    TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
-                recognizer.process(image)
-                    .addOnSuccessListener {
-                        // TODO 서버통신으로 ID값 가져오기
-                        _getProductIdState.value = UiState.Success(it.text)
+            selectedImageId = uri.hashCode().toString()
+            selectedImageName = uri.getFileName(contentResolver).orEmpty()
+            _changingImageState.value = UiState.Loading
+            viewModelScope.launch {
+                sellRepository.getSignedUrl(selectedImageName)
+                    .onSuccess {
+                        // 바로 이미지 보내기
+                        Timber.tag("okhttp").d("@@@@@@@@@@ ${it.signedUrl}")
                     }
-                    .addOnFailureListener {
-                        _getProductIdState.value = UiState.Failure(it.message.toString())
+                    .onFailure {
+                        _changingImageState.value = UiState.Failure(it.message.toString())
                     }
             }
         }
 
         fun resetProductIdState() {
-            _getProductIdState.value = UiState.Empty
+            _changingImageState.value = UiState.Empty
         }
     }

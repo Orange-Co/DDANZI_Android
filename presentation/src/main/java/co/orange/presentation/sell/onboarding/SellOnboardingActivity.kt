@@ -63,7 +63,7 @@ class SellOnboardingActivity :
     private fun setGalleryImageWithPhotoPicker() {
         photoPickerResult =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-                if (uri != null) viewModel.showCaptureImage(uri, this)
+                uri?.let { viewModel.startSendingImage(it, this.contentResolver) }
             }
     }
 
@@ -75,7 +75,7 @@ class SellOnboardingActivity :
                 when (result.resultCode) {
                     Activity.RESULT_OK ->
                         result.data?.data?.let {
-                            viewModel.showCaptureImage(it, this)
+                            viewModel.startSendingImage(it, this.contentResolver)
                         }
 
                     Activity.RESULT_CANCELED -> return@registerForActivityResult
@@ -95,12 +95,12 @@ class SellOnboardingActivity :
     }
 
     private fun observeGetProductIdState() {
-        viewModel.getProductIdState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+        viewModel.changingImageState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        sellProductDialog = SellProductDialog()
-                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
+//                        sellProductDialog = SellProductDialog()
+//                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
                         viewModel.resetProductIdState()
                     }
 

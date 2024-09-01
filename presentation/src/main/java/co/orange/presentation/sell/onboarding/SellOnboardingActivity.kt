@@ -99,8 +99,8 @@ class SellOnboardingActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-//                        sellProductDialog = SellProductDialog()
-//                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
+                        sellProductDialog = SellProductDialog()
+                        sellProductDialog?.show(supportFragmentManager, SELL_PRODUCT_DIALOG)
                         viewModel.resetProductIdState()
                     }
 

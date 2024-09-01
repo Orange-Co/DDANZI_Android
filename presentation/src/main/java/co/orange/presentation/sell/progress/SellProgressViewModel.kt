@@ -11,7 +11,7 @@ class SellProgressViewModel
     constructor(
         // private val feedRepository: FeedRepository,
     ) : ViewModel() {
-        var productId: Long = -1
+        var productId = ""
 
         var mockSellInfo =
             SellProductModel(

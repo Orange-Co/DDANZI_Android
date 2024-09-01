@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.extension.getFileName
 import co.orange.core.state.UiState
+import co.orange.domain.entity.request.SellCheckRequestModel
 import co.orange.domain.repository.SellRepository
 import co.orange.domain.repository.UploadRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,9 @@ class SellOnboardingViewModel
         private var selectedImageUri = ""
         private var selectedImageName = ""
         private var uploadedUrl = ""
+
+        var productId = ""
+        var productName = ""
 
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
@@ -63,8 +67,23 @@ class SellOnboardingViewModel
             viewModelScope.launch {
                 uploadRepository.putImageToCloud(url, selectedImageUri)
                     .onSuccess {
-                        // 성공 시 이미지 요청
+                        postToCheckProduct()
                     }.onFailure {
+                        _changingImageState.value = UiState.Failure(it.message.toString())
+                        _changingImageState.value = UiState.Empty
+                    }
+            }
+        }
+
+        private fun postToCheckProduct() {
+            viewModelScope.launch {
+                sellRepository.postToCheckProduct(SellCheckRequestModel(uploadedUrl))
+                    .onSuccess {
+                        productId = it.productId
+                        productName = it.productName
+                        _changingImageState.value = UiState.Success(it.productId)
+                    }
+                    .onFailure {
                         _changingImageState.value = UiState.Failure(it.message.toString())
                         _changingImageState.value = UiState.Empty
                     }

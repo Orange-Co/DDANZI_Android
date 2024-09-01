@@ -23,8 +23,9 @@ class SellOnboardingViewModel
         private val sellRepository: SellRepository,
         private val uploadRepository: UploadRepository,
     ) : ViewModel() {
-        private var selectedImageUrl = ""
+        private var selectedImageUri = ""
         private var selectedImageName = ""
+        private var uploadedUrl = ""
 
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
@@ -42,12 +43,13 @@ class SellOnboardingViewModel
             uri: Uri,
             contentResolver: ContentResolver,
         ) {
-            selectedImageUrl = uri.toString()
+            selectedImageUri = uri.toString()
             selectedImageName = uri.getFileName(contentResolver).orEmpty()
             _changingImageState.value = UiState.Loading
             viewModelScope.launch {
                 sellRepository.getSignedUrl(selectedImageName)
                     .onSuccess {
+                        uploadedUrl = it.signedUrl
                         putImageToCloud(it.signedUrl)
                     }
                     .onFailure {
@@ -59,7 +61,7 @@ class SellOnboardingViewModel
 
         private fun putImageToCloud(url: String) {
             viewModelScope.launch {
-                uploadRepository.putImageToCloud(url, selectedImageUrl)
+                uploadRepository.putImageToCloud(url, selectedImageUri)
                     .onSuccess {
                         // 성공 시 이미지 요청
                     }.onFailure {

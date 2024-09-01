@@ -1,4 +1,4 @@
-package co.orange.presentation.main.home
+package co.orange.presentation.sell.onboarding
 
 import android.os.Bundle
 import android.view.View
@@ -13,7 +13,7 @@ import kr.genti.presentation.databinding.DialogSellProductBinding
 
 class SellProductDialog :
     BaseDialog<DialogSellProductBinding>(R.layout.dialog_sell_product) {
-    private val viewModel by activityViewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<SellOnboardingViewModel>()
 
     override fun onStart() {
         super.onStart()
@@ -54,7 +54,7 @@ class SellProductDialog :
 
     private fun initPickAgainBtnListener() {
         binding.btnPickAgain.setOnSingleClickListener {
-            viewModel.setCheckedState(true)
+            viewModel.setCheckedAgain(true)
             dismiss()
         }
     }

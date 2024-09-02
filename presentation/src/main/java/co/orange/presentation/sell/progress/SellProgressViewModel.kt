@@ -1,5 +1,6 @@
 package co.orange.presentation.sell.progress
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
@@ -22,8 +23,36 @@ class SellProgressViewModel
 
         var sellDate = ""
 
+        var isTermAllSelected = MutableLiveData<Boolean>(false)
+        var isTermServiceSelected = MutableLiveData<Boolean>(false)
+        var isTermSellSelected = MutableLiveData<Boolean>(false)
+        var isCompleted = MutableLiveData<Boolean>(false)
+
         private val _getProductState = MutableStateFlow<UiState<SellProductModel>>(UiState.Empty)
         val getProductState: StateFlow<UiState<SellProductModel>> = _getProductState
+
+        fun checkAllTerm() {
+            isTermServiceSelected.value = isTermAllSelected.value?.not()
+            isTermSellSelected.value = isTermAllSelected.value?.not()
+            isTermAllSelected.value = isTermAllSelected.value?.not()
+            checkIsCompleted()
+        }
+
+        fun checkServiceTerm() {
+            isTermServiceSelected.value = isTermServiceSelected.value?.not()
+            checkIsCompleted()
+        }
+
+        fun checkSellTerm() {
+            isTermSellSelected.value = isTermSellSelected.value?.not()
+            checkIsCompleted()
+        }
+
+        private fun checkIsCompleted() {
+            isTermAllSelected.value =
+                (isTermServiceSelected.value == true && isTermSellSelected.value == true)
+            isCompleted.value = (isTermAllSelected.value == true && sellDate.isNotEmpty())
+        }
 
         fun getProductWIthId() {
             if (productId.isEmpty()) {

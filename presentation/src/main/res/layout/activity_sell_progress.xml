@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="co.orange.presentation.sell.progress.SellProgressViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -284,9 +290,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@{vm.isTermPurchaseSelected ? @drawable/shape_black_line_5_rect : @drawable/shape_gray1_line_5_rect}"
+                    android:background="@{vm.isTermSellSelected ? @drawable/shape_black_line_5_rect : @drawable/shape_gray1_line_5_rect}"
                     android:gravity="center_vertical"
-                    android:onClick="@{() -> vm.checkPurchaseTerm()}"
+                    android:onClick="@{() -> vm.checkSellTerm()}"
                     android:orientation="horizontal"
                     android:padding="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -297,7 +303,7 @@
                         android:id="@+id/iv_buy_term_sell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@{vm.isTermPurchaseSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}" />
+                        android:src="@{vm.isTermSellSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}" />
 
                     <TextView
                         android:id="@+id/tv_buy_term_sell"
@@ -306,7 +312,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="@string/confirm_term_tv_third"
-                        android:textColor="@{vm.isTermPurchaseSelected ? @color/black : @color/gray_2}" />
+                        android:textColor="@{vm.isTermSellSelected ? @color/black : @color/gray_2}" />
 
                 </LinearLayout>
 
@@ -334,7 +340,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/shape_black_fill_10_rect"
+            android:background="@drawable/sel_btn"
+            android:enabled="@{vm.isCompleted}"
             android:gravity="center"
             android:paddingVertical="15dp"
             android:text="@string/confirm_tv_sell_title"

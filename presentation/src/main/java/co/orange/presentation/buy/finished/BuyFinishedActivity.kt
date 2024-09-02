@@ -107,7 +107,7 @@ class BuyFinishedActivity :
     companion object {
         private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
 
-        const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss[.SSSSSS]"
         const val NEW_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
 
         @JvmStatic

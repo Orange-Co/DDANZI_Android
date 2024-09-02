@@ -19,7 +19,8 @@ class SellProgressViewModel
         private val sellRepository: SellRepository,
     ) : ViewModel() {
         var productId = ""
-        var isAccountExist = false
+        var isBankExist = false
+        var isSentToBank = false
 
         var sellDate = MutableLiveData<String>()
         var isDateSelected = MutableLiveData<Boolean>(false)
@@ -63,7 +64,7 @@ class SellProgressViewModel
             viewModelScope.launch {
                 sellRepository.getProductToSell(productId)
                     .onSuccess {
-                        isAccountExist = it.isAddressExist
+                        isBankExist = it.isAddressExist
                         _getProductState.value = UiState.Success(it)
                     }
                     .onFailure {

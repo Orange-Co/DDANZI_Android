@@ -5,16 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
+import co.orange.core.extension.setStatusBarColorFromResource
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
-import co.orange.presentation.sell.push.SellPushActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,8 +40,12 @@ class SellProgressActivity :
         initTermDetailBtnListener()
         initConfirmBtnListener()
         initDateBtnListener()
-        getProductWithIdFromIntent()
         observeGetProductState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductWithIdFromIntent()
     }
 
     private fun initExitBtnListener() {
@@ -64,13 +69,14 @@ class SellProgressActivity :
 
     private fun initConfirmBtnListener() {
         binding.btnConfirmSell.setOnSingleClickListener {
-            // TODO 구매 요청 서버통신 이후
-            if (viewModel.isAccountExist) {
-                SellPushActivity.createIntent(this, -1).apply {
-                    startActivity(this)
-                }
+            setLoadingScreen(true)
+            if (viewModel.isBankExist) {
+                // TODO 뷰모델 구매 요청
+//                SellPushActivity.createIntent(this, -1).apply {
+//                    startActivity(this)
+//                }
             } else {
-                // TODO 다시 돌아왔을떄 바로 진행
+                viewModel.isSentToBank = true
                 bankDialog = BankDialog()
                 bankDialog?.show(supportFragmentManager, DIALOG_BANK)
             }
@@ -91,7 +97,7 @@ class SellProgressActivity :
 
     private fun getProductWithIdFromIntent() {
         with(viewModel) {
-            productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+            intent.getStringExtra(EXTRA_PRODUCT_ID)?.let { productId = it }
             getProductWIthId()
         }
     }
@@ -100,7 +106,11 @@ class SellProgressActivity :
         viewModel.getProductState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> setIntentUi(state.data)
+                    is UiState.Success -> {
+                        setIntentUi(state.data)
+                        // TODO 뷰모델 구매 요청
+                    }
+
                     is UiState.Failure -> {
                         toast(stringOf(R.string.error_msg))
                         finish()
@@ -108,6 +118,7 @@ class SellProgressActivity :
 
                     else -> return@onEach
                 }
+                setLoadingScreen(false)
             }.launchIn(lifecycleScope)
     }
 
@@ -118,6 +129,16 @@ class SellProgressActivity :
             tvSellInfoSellPrice.text = item.salePrice.setPriceForm()
             // TODO
             // ivSellProduct.load(R.drawable.mock_img_product)
+        }
+    }
+
+    private fun setLoadingScreen(isLoading: Boolean) {
+        if (isLoading) {
+            setStatusBarColorFromResource(R.color.background_50)
+            binding.layoutLoading.isVisible = true
+        } else {
+            setStatusBarColorFromResource(R.color.white)
+            binding.layoutLoading.isVisible = false
         }
     }
 

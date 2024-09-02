@@ -6,12 +6,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PayEndRequestDto(
-    @SerialName("paymentId")
-    val paymentId: String,
+    @SerialName("orderId")
+    val orderId: String,
     @SerialName("payStatus")
     val payStatus: String,
 ) {
     companion object {
-        fun PayEndRequestModel.toDto() = PayEndRequestDto(paymentId, payStatus)
+        fun PayEndRequestModel.toDto() = PayEndRequestDto(orderId, payStatus)
     }
 }

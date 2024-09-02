@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.sell.progress.SellProgressActivity
+import coil.load
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogSellProductBinding
 
@@ -43,9 +44,12 @@ class SellProductDialog :
 
     private fun initConfirmBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            SellProgressActivity.createIntent(requireContext(), viewModel.productId).apply {
-                startActivity(this)
-            }
+            SellProgressActivity.createIntent(
+                requireContext(),
+                viewModel.productId,
+                viewModel.productName,
+                viewModel.uploadedUrl,
+            ).apply { startActivity(this) }
             dismiss()
         }
     }
@@ -59,8 +63,7 @@ class SellProductDialog :
 
     private fun setSellProductUi() {
         with(binding) {
-            // TODO
-            // ivSellProduct.load()
+            ivSellProduct.load(viewModel.productImage)
             tvSellProductName.text = viewModel.productName
         }
     }

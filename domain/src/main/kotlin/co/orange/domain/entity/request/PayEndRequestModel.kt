@@ -1,6 +1,6 @@
 package co.orange.domain.entity.request
 
 data class PayEndRequestModel(
-    val paymentId: String,
+    val orderId: String,
     val payStatus: String,
 )

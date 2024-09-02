@@ -26,10 +26,11 @@ class SellOnboardingViewModel
     ) : ViewModel() {
         private var selectedImageUri = ""
         private var selectedImageName = ""
-        private var uploadedUrl = ""
+        var uploadedUrl = ""
 
         var productId = ""
         var productName = ""
+        var productImage = ""
 
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
@@ -81,6 +82,7 @@ class SellOnboardingViewModel
                     .onSuccess {
                         productId = it.productId
                         productName = it.productName
+                        productImage = it.imgUrl
                         _changingImageState.value = UiState.Success(it.productId)
                     }
                     .onFailure {

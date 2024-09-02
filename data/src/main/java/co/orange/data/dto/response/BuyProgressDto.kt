@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BuyProgressDto(
-    @SerialName("itemId")
-    val itemId: String,
+    @SerialName("productId")
+    val productId: String,
     @SerialName("productName")
     val productName: String,
     @SerialName("modifiedProductName")
@@ -27,7 +27,7 @@ data class BuyProgressDto(
 ) {
     fun toModel() =
         BuyProgressModel(
-            itemId,
+            productId,
             productName,
             modifiedProductName,
             imgUrl,

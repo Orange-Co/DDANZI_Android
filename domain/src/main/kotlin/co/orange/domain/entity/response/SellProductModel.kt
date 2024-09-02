@@ -5,5 +5,6 @@ data class SellProductModel(
     val productName: String,
     val originPrice: Int,
     val salePrice: Int,
-    val isAddressExist: Boolean,
+    val isAccountExist: Boolean,
+    val imgUrl: String,
 )

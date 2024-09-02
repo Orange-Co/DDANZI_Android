@@ -8,12 +8,12 @@ import kotlinx.serialization.Serializable
 data class OrderRequestDto(
     @SerialName("itemId")
     val itemId: String,
-    @SerialName("paymentId")
-    val paymentId: String,
+    @SerialName("orderId")
+    val orderId: String,
     @SerialName("selectedOptionDetailIdList")
     val selectedOptionDetailIdList: List<Long>,
 ) {
     companion object {
-        fun OrderRequestModel.toDto() = OrderRequestDto(itemId, paymentId, selectedOptionDetailIdList)
+        fun OrderRequestModel.toDto() = OrderRequestDto(itemId, orderId, selectedOptionDetailIdList)
     }
 }

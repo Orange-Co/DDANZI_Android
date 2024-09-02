@@ -3,8 +3,10 @@ package co.orange.data.dataSourceImpl
 import co.orange.data.dataSource.SellDataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
+import co.orange.data.dto.request.SellRegisterRequestDto
 import co.orange.data.dto.response.SellCheckedProductDto
 import co.orange.data.dto.response.SellProductDto
+import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
 import co.orange.data.service.SellService
 import javax.inject.Inject
@@ -20,4 +22,7 @@ data class SellDateSourceImpl
             sellService.postToCheckProduct(request)
 
         override suspend fun getProductToSell(productId: String): BaseResponse<SellProductDto> = sellService.getProductToSell(productId)
+
+        override suspend fun postToRegisterProduct(request: SellRegisterRequestDto): BaseResponse<SellRegisteredDto> =
+            sellService.postToRegisterProduct(request)
     }

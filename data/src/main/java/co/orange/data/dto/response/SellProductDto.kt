@@ -14,8 +14,10 @@ data class SellProductDto(
     val originPrice: Int,
     @SerialName("salePrice")
     val salePrice: Int,
-    @SerialName("isAddressExist")
-    val isAddressExist: Boolean,
+    @SerialName("isAccountExist")
+    val isAccountExist: Boolean,
+    @SerialName("imgUrl")
+    val imgUrl: String,
 ) {
-    fun toModel() = SellProductModel(productId, productName, originPrice, salePrice, isAddressExist)
+    fun toModel() = SellProductModel(productId, productName, originPrice, salePrice, isAccountExist, imgUrl)
 }

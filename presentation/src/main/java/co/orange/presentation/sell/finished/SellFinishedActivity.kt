@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
-import co.orange.domain.entity.response.SellProgressModel
 import co.orange.presentation.main.MainActivity
 import co.orange.presentation.sell.info.SellInfoActivity
 import coil.load
@@ -26,8 +25,7 @@ class SellFinishedActivity :
         initReturnBtnListener()
         initDetailBtnListener()
         initSellMoreListener()
-        getIntentInfo()
-        setIntentUi(viewModel.mockSellInfo)
+        setUiWithIntent()
     }
 
     private fun initReturnBtnListener() {
@@ -54,29 +52,34 @@ class SellFinishedActivity :
         }
     }
 
-    private fun getIntentInfo() {
-        viewModel.itemId = intent.getLongExtra(EXTRA_ITEM_ID, -1)
-    }
-
-    private fun setIntentUi(item: SellProgressModel) {
+    private fun setUiWithIntent() {
         with(binding) {
-            // TODO 이미지 설정
-            ivFinishedItem.load(R.drawable.mock_img_product)
-            tvFinishedItemName.text = item.productName
-            tvFinishedItemPrice.text = item.originPrice.setPriceForm()
+            intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
+            intent.getStringExtra(EXTRA_PRODUCT_NAME)?.let { tvFinishedItemName.text = it }
+            intent.getStringExtra(EXTRA_PRODUCT_IMAGE)?.let { ivFinishedItem.load(it) }
+            tvFinishedItemPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).setPriceForm()
         }
     }
 
     companion object {
         private const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
+        private const val EXTRA_PRODUCT_NAME = "EXTRA_PRODUCT_NAME"
+        private const val EXTRA_PRODUCT_IMAGE = "EXTRA_PRODUCT_IMAGE"
+        private const val EXTRA_SALE_PRICE = "EXTRA_SALE_PRICE"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            itemId: Long,
+            itemId: String,
+            productName: String,
+            productImage: String,
+            salePrice: Int,
         ): Intent =
             Intent(context, SellFinishedActivity::class.java).apply {
                 putExtra(EXTRA_ITEM_ID, itemId)
+                putExtra(EXTRA_PRODUCT_NAME, productName)
+                putExtra(EXTRA_PRODUCT_IMAGE, productImage)
+                putExtra(EXTRA_SALE_PRICE, salePrice)
             }
     }
 }

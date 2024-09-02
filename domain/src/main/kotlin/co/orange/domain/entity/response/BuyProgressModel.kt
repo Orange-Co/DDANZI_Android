@@ -1,7 +1,7 @@
 package co.orange.domain.entity.response
 
 data class BuyProgressModel(
-    val itemId: String,
+    val productId: String,
     val productName: String,
     val modifiedProductName: String,
     val imgUrl: String,

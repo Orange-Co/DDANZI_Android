@@ -27,9 +27,9 @@ class BuyProgressViewModel
         private val buyRepository: BuyRepository,
     ) : ViewModel() {
         var productId: String = ""
-        var paymentId: String = ""
+        private var orderId: String = ""
 
-        var buyProgressData: BuyProgressModel? = null
+        private var buyProgressData: BuyProgressModel? = null
 
         var payMethodId = MutableLiveData<Int>(-1)
         var payMethod = ""
@@ -112,13 +112,13 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.postPaymentStart(
                     PayStartRequestModel(
-                        buyProgressData?.itemId.orEmpty(),
+                        buyProgressData?.productId.orEmpty(),
                         buyProgressData?.charge ?: -1,
                         buyProgressData?.totalPrice ?: -1,
                         payMethod,
                     ),
                 ).onSuccess {
-                    paymentId = it.paymentId
+                    orderId = it.orderId
                     if (it.payStatus == PAY_STATUS_PENDING) {
                         _postPayStartState.value = UiState.Success(it)
                     } else {
@@ -131,7 +131,7 @@ class BuyProgressViewModel
         }
 
         fun createIamportRequest(): IamPortRequest? {
-            return if (buyProgressData?.productName.isNullOrBlank() || payMethod.isBlank() || paymentId.isBlank()) {
+            return if (buyProgressData?.productName.isNullOrBlank() || payMethod.isBlank() || orderId.isBlank()) {
                 Timber.tag("okhttp").d("IAMPORT PURCHASE REQUEST ERROR : $buyProgressData")
                 null
             } else {
@@ -139,7 +139,7 @@ class BuyProgressViewModel
                     pg = NICE_PAYMENTS,
                     pay_method = payMethod,
                     name = buyProgressData?.modifiedProductName,
-                    merchant_uid = paymentId,
+                    merchant_uid = orderId,
                     amount = buyProgressData?.totalPrice.toString(),
                     buyer_name = buyProgressData?.addressInfo?.recipient,
                     buyer_tel = buyProgressData?.addressInfo?.recipientPhone,
@@ -153,7 +153,7 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.patchPaymentEnd(
                     PayEndRequestModel(
-                        paymentId,
+                        orderId,
                         if (errorCode.isNullOrEmpty()) PAY_SUCCESS else PAY_FAILURE,
                     ),
                 ).onSuccess {
@@ -170,8 +170,8 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.postToRequestOrder(
                     OrderRequestModel(
-                        buyProgressData?.itemId.orEmpty(),
-                        paymentId,
+                        buyProgressData?.productId.orEmpty(),
+                        orderId,
                         // TODO 추후 옵션 대응
                         listOf(),
                     ),

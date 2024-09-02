@@ -32,7 +32,10 @@ class SellDateBottomSheet :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            viewModel.sellDate = getDateFromDatePicker()
+            with(viewModel) {
+                sellDate.value = getDateFromDatePicker()
+                isDateSelected.value = true
+            }
             dismiss()
         }
     }
@@ -49,9 +52,8 @@ class SellDateBottomSheet :
     private fun setDatePicker() {
         binding.dpSell.apply {
             val calendar = Calendar.getInstance()
-            calendar.add(Calendar.DAY_OF_YEAR, -7)
             minDate = calendar.timeInMillis
-            calendar.add(Calendar.DAY_OF_YEAR, 14)
+            calendar.add(Calendar.DAY_OF_YEAR, 7)
             maxDate = calendar.timeInMillis
         }
     }

@@ -1,7 +1,7 @@
 package co.orange.domain.entity.response
 
-data class SellProgressModel(
+data class SellRegisteredModel(
     val itemId: String,
     val productName: String,
-    val originPrice: Int,
+    val salePrice: Int,
 )

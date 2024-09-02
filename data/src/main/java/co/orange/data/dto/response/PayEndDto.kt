@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PayEndDto(
-    @SerialName("paymentId")
-    val paymentId: String,
+    @SerialName("orderId")
+    val orderId: String,
     @SerialName("payStatus")
     val payStatus: String,
     @SerialName("endedAt")
@@ -15,7 +15,7 @@ data class PayEndDto(
 ) {
     fun toModel() =
         PayEndModel(
-            paymentId = paymentId,
+            orderId = orderId,
             payStatus = payStatus,
             endedAt = endedAt,
         )

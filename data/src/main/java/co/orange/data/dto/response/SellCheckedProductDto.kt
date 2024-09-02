@@ -10,6 +10,8 @@ data class SellCheckedProductDto(
     val productId: String,
     @SerialName("productName")
     val productName: String,
+    @SerialName("imgUrl")
+    val imgUrl: String,
 ) {
-    fun toModel() = SellCheckedProductModel(productId, productName)
+    fun toModel() = SellCheckedProductModel(productId, productName, imgUrl)
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import co.orange.core.base.BaseActivity
+import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.sell.finished.SellFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +16,7 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TODO: 뒤로가기 방지 추가
+        initOnBackPressedListener(binding.root)
         initExitBtnListener()
         initAlarmBtnListener()
     }

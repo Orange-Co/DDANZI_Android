@@ -1,8 +1,10 @@
 package co.orange.domain.repository
 
 import co.orange.domain.entity.request.SellCheckRequestModel
+import co.orange.domain.entity.request.SellRegisterRequestModel
 import co.orange.domain.entity.response.SellCheckedProductModel
 import co.orange.domain.entity.response.SellProductModel
+import co.orange.domain.entity.response.SellRegisteredModel
 import co.orange.domain.entity.response.SignedUrlModel
 
 interface SellRepository {
@@ -11,4 +13,6 @@ interface SellRepository {
     suspend fun postToCheckProduct(request: SellCheckRequestModel): Result<SellCheckedProductModel>
 
     suspend fun getProductToSell(productId: String): Result<SellProductModel>
+
+    suspend fun postToRegisterProduct(request: SellRegisterRequestModel): Result<SellRegisteredModel>
 }

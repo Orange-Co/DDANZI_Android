@@ -38,7 +38,7 @@ class SellProgressActivity :
 
         initExitBtnListener()
         initTermDetailBtnListener()
-        initConfirmBtnListener()
+        initRegisterBtnListener()
         initDateBtnListener()
         observeGetProductState()
     }
@@ -67,8 +67,8 @@ class SellProgressActivity :
         }
     }
 
-    private fun initConfirmBtnListener() {
-        binding.btnConfirmSell.setOnSingleClickListener {
+    private fun initRegisterBtnListener() {
+        binding.btnRegister.setOnSingleClickListener {
             setLoadingScreen(true)
             if (viewModel.isBankExist) {
                 // TODO 뷰모델 구매 요청

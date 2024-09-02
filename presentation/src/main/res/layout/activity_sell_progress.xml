@@ -352,7 +352,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <TextView
-            android:id="@+id/btn_confirm_sell"
+            android:id="@+id/btn_register"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -374,7 +374,7 @@
             android:layout_height="1dp"
             android:layout_marginBottom="12dp"
             android:background="@color/border_gray"
-            app:layout_constraintBottom_toTopOf="@id/btn_confirm_sell"
+            app:layout_constraintBottom_toTopOf="@id/btn_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

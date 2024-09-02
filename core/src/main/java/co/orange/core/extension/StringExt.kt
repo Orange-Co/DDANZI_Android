@@ -37,5 +37,8 @@ fun String.convertDateTime(
     oldPattern: String,
     newPattern: String,
 ): String =
-    LocalDateTime.parse(this, DateTimeFormatter.ofPattern(oldPattern))
+    LocalDateTime.parse(
+        this.replace(Regex("\\.\\d{1,6}"), ""),
+        DateTimeFormatter.ofPattern(oldPattern),
+    )
         .format(DateTimeFormatter.ofPattern(newPattern))

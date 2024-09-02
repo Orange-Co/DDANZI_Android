@@ -27,7 +27,7 @@ class DetailViewModel
         var infoUrl: String = ""
         var interestCount: Int = 0
         var optionList = listOf<ProductOptionModel>()
-        var selectedOptionList = mutableListOf<Long>()
+        var selectedOptionList = arrayListOf<Int>()
 
         private val _getProductDetailState =
             MutableStateFlow<UiState<ProductDetailModel>>(UiState.Empty)
@@ -45,7 +45,10 @@ class DetailViewModel
                         infoUrl = it.infoUrl
                         interestCount = it.interestCount
                         optionList = it.optionList
-                        selectedOptionList = MutableList(optionList.size) { -1 }
+                        selectedOptionList =
+                            ArrayList<Int>(optionList.size).apply {
+                                repeat(optionList.size) { add(-1) }
+                            }
                         _likeState.value = it.isInterested
                         _getProductDetailState.value = UiState.Success(it)
                     }

@@ -38,12 +38,14 @@ class SellProgressActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.vm = viewModel
         initExitBtnListener()
         initTermDetailBtnListener()
         initRegisterBtnListener()
         initDateBtnListener()
         observeGetProductState()
         observePostRegisterState()
+        observeLoadingState()
     }
 
     override fun onResume() {
@@ -72,13 +74,14 @@ class SellProgressActivity :
 
     private fun initRegisterBtnListener() {
         binding.btnRegister.setOnSingleClickListener {
-            setLoadingScreen(true)
-            if (viewModel.isBankExist) {
-                viewModel.postToRegisterProduct()
-            } else {
-                viewModel.isSentToBank = true
-                bankDialog = BankDialog()
-                bankDialog?.show(supportFragmentManager, DIALOG_BANK)
+            with(viewModel) {
+                setLoadingState(true)
+                if (isBankExist) {
+                    postToRegisterProduct()
+                } else {
+                    bankDialog = BankDialog()
+                    bankDialog?.show(supportFragmentManager, DIALOG_BANK)
+                }
             }
         }
     }
@@ -110,9 +113,12 @@ class SellProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         setIntentUi(state.data)
-                        if (viewModel.isSentToBank) {
-                            viewModel.postToRegisterProduct()
-                            viewModel.isSentToBank = false
+                        with(viewModel) {
+                            if (isSentToBank) {
+                                if (isBankExist) postToRegisterProduct()
+                                isSentToBank = false
+                                setLoadingState(false)
+                            }
                         }
                     }
 
@@ -123,7 +129,6 @@ class SellProgressActivity :
 
                     else -> return@onEach
                 }
-                setLoadingScreen(false)
             }.launchIn(lifecycleScope)
     }
 
@@ -157,14 +162,17 @@ class SellProgressActivity :
             }.launchIn(lifecycleScope)
     }
 
-    private fun setLoadingScreen(isLoading: Boolean) {
-        if (isLoading) {
-            setStatusBarColorFromResource(R.color.background_50)
-            binding.layoutLoading.isVisible = true
-        } else {
-            setStatusBarColorFromResource(R.color.white)
-            binding.layoutLoading.isVisible = false
-        }
+    private fun observeLoadingState() {
+        viewModel.loadingState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isLoading ->
+                if (isLoading) {
+                    setStatusBarColorFromResource(R.color.background_50)
+                    binding.layoutLoading.isVisible = true
+                } else {
+                    setStatusBarColorFromResource(R.color.white)
+                    binding.layoutLoading.isVisible = false
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

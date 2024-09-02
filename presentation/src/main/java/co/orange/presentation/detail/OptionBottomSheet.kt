@@ -58,6 +58,7 @@ class OptionBottomSheet :
             BuyProgressActivity.createIntent(
                 requireContext(),
                 viewModel.productId,
+                viewModel.selectedOptionList,
             ).apply { startActivity(this) }
         }
     }
@@ -81,7 +82,7 @@ class OptionBottomSheet :
         optionDetailId: Long,
     ) {
         if (position < viewModel.selectedOptionList.size) {
-            viewModel.selectedOptionList[position] = optionDetailId
+            viewModel.selectedOptionList[position] = optionDetailId.toInt()
         }
         binding.btnPurchase.isEnabled = !viewModel.selectedOptionList.contains(-1)
     }

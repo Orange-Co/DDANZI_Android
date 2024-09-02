@@ -52,9 +52,8 @@ class SellDateBottomSheet :
     private fun setDatePicker() {
         binding.dpSell.apply {
             val calendar = Calendar.getInstance()
-            calendar.add(Calendar.DAY_OF_YEAR, -7)
             minDate = calendar.timeInMillis
-            calendar.add(Calendar.DAY_OF_YEAR, 14)
+            calendar.add(Calendar.DAY_OF_YEAR, 7)
             maxDate = calendar.timeInMillis
         }
     }

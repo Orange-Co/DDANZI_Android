@@ -2,8 +2,10 @@ package co.orange.data.dataSource
 
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
+import co.orange.data.dto.request.SellRegisterRequestDto
 import co.orange.data.dto.response.SellCheckedProductDto
 import co.orange.data.dto.response.SellProductDto
+import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
 
 interface SellDataSource {
@@ -12,4 +14,6 @@ interface SellDataSource {
     suspend fun postToCheckProduct(request: SellCheckRequestDto): BaseResponse<SellCheckedProductDto>
 
     suspend fun getProductToSell(productId: String): BaseResponse<SellProductDto>
+
+    suspend fun postToRegisterProduct(request: SellRegisterRequestDto): BaseResponse<SellRegisteredDto>
 }

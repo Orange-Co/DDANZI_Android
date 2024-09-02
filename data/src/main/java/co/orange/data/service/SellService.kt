@@ -2,8 +2,10 @@ package co.orange.data.service
 
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
+import co.orange.data.dto.request.SellRegisterRequestDto
 import co.orange.data.dto.response.SellCheckedProductDto
 import co.orange.data.dto.response.SellProductDto
+import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,4 +28,9 @@ interface SellService {
     suspend fun getProductToSell(
         @Path("id") productId: String,
     ): BaseResponse<SellProductDto>
+
+    @POST("/api/v1/item")
+    suspend fun postToRegisterProduct(
+        @Body request: SellRegisterRequestDto,
+    ): BaseResponse<SellRegisteredDto>
 }

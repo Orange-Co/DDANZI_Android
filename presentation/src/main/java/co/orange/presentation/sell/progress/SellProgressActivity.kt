@@ -16,6 +16,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
+import co.orange.presentation.sell.push.SellPushActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,7 @@ class SellProgressActivity :
         initRegisterBtnListener()
         initDateBtnListener()
         observeGetProductState()
+        observePostRegisterState()
     }
 
     override fun onResume() {
@@ -71,10 +73,7 @@ class SellProgressActivity :
         binding.btnRegister.setOnSingleClickListener {
             setLoadingScreen(true)
             if (viewModel.isBankExist) {
-                // TODO 뷰모델 구매 요청
-//                SellPushActivity.createIntent(this, -1).apply {
-//                    startActivity(this)
-//                }
+                viewModel.postToRegisterProduct()
             } else {
                 viewModel.isSentToBank = true
                 bankDialog = BankDialog()
@@ -98,6 +97,8 @@ class SellProgressActivity :
     private fun getProductWithIdFromIntent() {
         with(viewModel) {
             intent.getStringExtra(EXTRA_PRODUCT_ID)?.let { productId = it }
+            intent.getStringExtra(EXTRA_PRODUCT_NAME)?.let { productName = it }
+            intent.getStringExtra(EXTRA_IMAGE_URL)?.let { uploadedUrl = it }
             getProductWIthId()
         }
     }
@@ -108,7 +109,10 @@ class SellProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         setIntentUi(state.data)
-                        // TODO 뷰모델 구매 요청
+                        if (viewModel.isSentToBank) {
+                            viewModel.postToRegisterProduct()
+                            viewModel.isSentToBank = false
+                        }
                     }
 
                     is UiState.Failure -> {
@@ -132,6 +136,22 @@ class SellProgressActivity :
         }
     }
 
+    private fun observePostRegisterState() {
+        viewModel.postRegisterState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        SellPushActivity.createIntent(this, -1).apply {
+                            startActivity(this)
+                        }
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
     private fun setLoadingScreen(isLoading: Boolean) {
         if (isLoading) {
             setStatusBarColorFromResource(R.color.background_50)
@@ -151,15 +171,22 @@ class SellProgressActivity :
     companion object {
         private const val BOTTOM_SHEET_DATE = "BOTTOM_SHEET_DATE"
         private const val DIALOG_BANK = " DIALOG_BANK"
+
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_PRODUCT_NAME = "EXTRA_PRODUCT_NAME"
+        private const val EXTRA_IMAGE_URL = "EXTRA_IMAGE_URL"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             productId: String,
+            productName: String,
+            imageUrl: String,
         ): Intent =
             Intent(context, SellProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_PRODUCT_NAME, productName)
+                putExtra(EXTRA_IMAGE_URL, imageUrl)
             }
     }
 }

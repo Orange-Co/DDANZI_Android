@@ -43,9 +43,12 @@ class SellProductDialog :
 
     private fun initConfirmBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            SellProgressActivity.createIntent(requireContext(), viewModel.productId).apply {
-                startActivity(this)
-            }
+            SellProgressActivity.createIntent(
+                requireContext(),
+                viewModel.productId,
+                viewModel.productName,
+                viewModel.uploadedUrl,
+            ).apply { startActivity(this) }
             dismiss()
         }
     }

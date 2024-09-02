@@ -26,7 +26,7 @@ class SellOnboardingViewModel
     ) : ViewModel() {
         private var selectedImageUri = ""
         private var selectedImageName = ""
-        private var uploadedUrl = ""
+        var uploadedUrl = ""
 
         var productId = ""
         var productName = ""

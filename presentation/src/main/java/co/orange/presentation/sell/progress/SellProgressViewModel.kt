@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.state.UiState
+import co.orange.domain.entity.request.SellRegisterRequestModel
 import co.orange.domain.entity.response.SellProductModel
+import co.orange.domain.entity.response.SellRegisteredModel
 import co.orange.domain.repository.SellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +21,9 @@ class SellProgressViewModel
         private val sellRepository: SellRepository,
     ) : ViewModel() {
         var productId = ""
+        var productName = ""
+        var uploadedUrl = ""
+
         var isBankExist = false
         var isSentToBank = false
 
@@ -31,6 +36,9 @@ class SellProgressViewModel
 
         private val _getProductState = MutableStateFlow<UiState<SellProductModel>>(UiState.Empty)
         val getProductState: StateFlow<UiState<SellProductModel>> = _getProductState
+
+        private val _postRegisterState = MutableStateFlow<UiState<SellRegisteredModel>>(UiState.Empty)
+        val postRegisterState: StateFlow<UiState<SellRegisteredModel>> = _postRegisterState
 
         fun checkAllTerm() {
             isTermServiceSelected.value = isTermAllSelected.value?.not()
@@ -70,6 +78,28 @@ class SellProgressViewModel
                     .onFailure {
                         _getProductState.value = UiState.Failure(it.message.orEmpty())
                     }
+            }
+        }
+
+        fun postToRegisterProduct() {
+            _postRegisterState.value = UiState.Loading
+            viewModelScope.launch {
+                sellDate.value?.let { dueDate ->
+                    sellRepository.postToRegisterProduct(
+                        SellRegisterRequestModel(
+                            productId,
+                            productName,
+                            dueDate,
+                            uploadedUrl,
+                        ),
+                    ).onSuccess {
+                        _postRegisterState.value = UiState.Success(it)
+                    }.onFailure {
+                        _postRegisterState.value = UiState.Failure(it.message.orEmpty())
+                    }
+                } ?: {
+                    _postRegisterState.value = UiState.Failure(sellDate.value.orEmpty())
+                }
             }
         }
     }

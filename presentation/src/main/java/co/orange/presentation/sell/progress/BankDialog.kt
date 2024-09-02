@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.setting.bank.BankActivity
@@ -12,6 +13,8 @@ import kr.genti.presentation.databinding.DialogBankBinding
 
 class BankDialog :
     BaseDialog<DialogBankBinding>(R.layout.dialog_bank) {
+    private val viewModel by activityViewModels<SellProgressViewModel>()
+
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {
@@ -20,6 +23,9 @@ class BankDialog :
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
+        }
+        dialog?.setOnCancelListener {
+            viewModel.setLoadingState(false)
         }
     }
 
@@ -34,6 +40,7 @@ class BankDialog :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
+            viewModel.isSentToBank = true
             Intent(requireContext(), BankActivity::class.java).apply {
                 startActivity(this)
             }

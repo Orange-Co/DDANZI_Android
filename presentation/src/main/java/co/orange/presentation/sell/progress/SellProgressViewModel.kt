@@ -37,6 +37,9 @@ class SellProgressViewModel
         private val _getProductState = MutableStateFlow<UiState<SellProductModel>>(UiState.Empty)
         val getProductState: StateFlow<UiState<SellProductModel>> = _getProductState
 
+        private val _loadingState = MutableStateFlow(false)
+        val loadingState: StateFlow<Boolean> = _loadingState
+
         private val _postRegisterState = MutableStateFlow<UiState<SellRegisteredModel>>(UiState.Empty)
         val postRegisterState: StateFlow<UiState<SellRegisteredModel>> = _postRegisterState
 
@@ -79,6 +82,10 @@ class SellProgressViewModel
                         _getProductState.value = UiState.Failure(it.message.orEmpty())
                     }
             }
+        }
+
+        fun setLoadingState(isLoading: Boolean) {
+            _loadingState.value = isLoading
         }
 
         fun postToRegisterProduct() {

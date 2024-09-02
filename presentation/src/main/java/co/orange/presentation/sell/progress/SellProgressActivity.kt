@@ -30,6 +30,7 @@ class SellProgressActivity :
     private val viewModel by viewModels<SellProgressViewModel>()
 
     private var sellDateBottomSheet: SellDateBottomSheet? = null
+    private var bankDialog: BankDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +64,15 @@ class SellProgressActivity :
 
     private fun initConfirmBtnListener() {
         binding.btnConfirmSell.setOnSingleClickListener {
-            // TODO 계좌 확인 & 구매 요청 서버통신 이후
-            SellPushActivity.createIntent(this, -1).apply {
-                startActivity(this)
+            // TODO 구매 요청 서버통신 이후
+            if (viewModel.isAccountExist) {
+                SellPushActivity.createIntent(this, -1).apply {
+                    startActivity(this)
+                }
+            } else {
+                // TODO 다시 돌아왔을떄 바로 진행
+                bankDialog = BankDialog()
+                bankDialog?.show(supportFragmentManager, DIALOG_BANK)
             }
         }
     }
@@ -117,10 +124,12 @@ class SellProgressActivity :
     override fun onDestroy() {
         super.onDestroy()
         sellDateBottomSheet = null
+        bankDialog = null
     }
 
     companion object {
         private const val BOTTOM_SHEET_DATE = "BOTTOM_SHEET_DATE"
+        private const val DIALOG_BANK = " DIALOG_BANK"
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic

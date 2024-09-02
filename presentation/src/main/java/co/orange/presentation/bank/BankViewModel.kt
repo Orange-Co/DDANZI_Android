@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.bank
+package co.orange.presentation.bank
 
 import androidx.lifecycle.ViewModel
 import co.orange.domain.entity.response.AccountModel

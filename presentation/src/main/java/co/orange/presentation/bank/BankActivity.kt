@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.bank
+package co.orange.presentation.bank
 
 import android.os.Bundle
 import androidx.activity.viewModels

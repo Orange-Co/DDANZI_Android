@@ -11,9 +11,8 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.setting.account.AccountActivity
-import co.orange.presentation.setting.bank.BankActivity
-import co.orange.presentation.setting.delivery.DeliveryActivity
+import co.orange.presentation.bank.BankActivity
+import co.orange.presentation.delivery.DeliveryActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn

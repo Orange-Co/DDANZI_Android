@@ -1,4 +1,4 @@
-package co.orange.presentation.address
+package co.orange.presentation.delivery
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK

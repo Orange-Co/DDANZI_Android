@@ -68,17 +68,17 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.setting.delivery.DeliveryActivity"
+            android:name="co.orange.presentation.delivery.DeliveryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.setting.bank.BankActivity"
+            android:name="co.orange.presentation.bank.BankActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.setting.account.AccountActivity"
+            android:name="co.orange.presentation.setting.AccountActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -134,7 +134,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.address.AddressActivity"
+            android:name="co.orange.presentation.delivery.AddressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -144,7 +144,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.address.AddressWebActivity"
+            android:name="co.orange.presentation.delivery.AddressWebActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="co.orange.presentation.address.ADDRESS" />

@@ -1,4 +1,4 @@
-package co.orange.presentation.address
+package co.orange.presentation.delivery
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -7,7 +7,7 @@ import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.setting.bank.BankActivity
+import co.orange.presentation.bank.BankActivity
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogBankBinding
 

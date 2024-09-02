@@ -2,6 +2,7 @@ package co.orange.presentation.sell.progress
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -14,6 +15,8 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
 import co.orange.presentation.sell.push.SellPushActivity
+import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
+import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -30,7 +33,7 @@ class SellProgressActivity :
         super.onCreate(savedInstanceState)
 
         initExitBtnListener()
-        initTermBtnListener()
+        initTermDetailBtnListener()
         initConfirmBtnListener()
         initDateBtnListener()
         getProductWithIdFromIntent()
@@ -41,12 +44,19 @@ class SellProgressActivity :
         binding.btnExit.setOnSingleClickListener { finish() }
     }
 
-    private fun initTermBtnListener() {
-        // TODO
-        binding.btnTermAll.setOnSingleClickListener { }
-        binding.btnTermFirst.setOnSingleClickListener { }
-        binding.btnTermSecond.setOnSingleClickListener { }
-        binding.btnTermThird.setOnSingleClickListener { }
+    private fun initTermDetailBtnListener() {
+        with(binding) {
+            btnTermServiceDetail.setOnSingleClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_SERVICE)).apply {
+                    startActivity(this)
+                }
+            }
+            btnTermSellDetail.setOnSingleClickListener {
+                Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_SELL)).apply {
+                    startActivity(this)
+                }
+            }
+        }
     }
 
     private fun initConfirmBtnListener() {

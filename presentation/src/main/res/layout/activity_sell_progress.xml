@@ -214,6 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> vm.checkAllTerm()}"
                     android:orientation="horizontal"
                     android:paddingVertical="11dp"
                     android:paddingStart="4dp"
@@ -224,7 +225,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_check_circle_filled" />
+                        android:src="@{vm.isTermAllSelected ? @drawable/ic_check_circle_filled : @drawable/ic_check_circle_unfilled}" />
 
                     <TextView
                         style="@style/TextAppearance.DDanzi.Body1"
@@ -236,11 +237,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btn_term_first"
+                    android:id="@+id/btn_term_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:background="@{vm.isTermServiceSelected ? @drawable/shape_black_line_5_rect : @drawable/shape_gray1_line_5_rect}"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> vm.checkServiceTerm()}"
                     android:orientation="horizontal"
                     android:padding="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -248,75 +250,78 @@
                     app:layout_constraintTop_toBottomOf="@id/btn_term_all">
 
                     <ImageView
+                        android:id="@+id/iv_buy_term_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_check_term" />
+                        android:src="@{vm.isTermServiceSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}" />
 
                     <TextView
+                        android:id="@+id/tv_buy_term_service"
                         style="@style/TextAppearance.DDanzi.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="첫번째 약관"
-                        android:textColor="@color/gray_2" />
+                        android:text="@string/confirm_term_tv_first"
+                        android:textColor="@{vm.isTermServiceSelected ? @color/black : @color/gray_2}" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/btn_term_service_detail"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:padding="6dp"
+                    android:text="@string/sign_up_term_btn_detail"
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_term_service"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btn_term_service" />
+
                 <LinearLayout
-                    android:id="@+id/btn_term_second"
+                    android:id="@+id/btn_term_sell"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_gray1_line_5_rect"
+                    android:background="@{vm.isTermPurchaseSelected ? @drawable/shape_black_line_5_rect : @drawable/shape_gray1_line_5_rect}"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> vm.checkPurchaseTerm()}"
                     android:orientation="horizontal"
                     android:padding="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_term_first">
+                    app:layout_constraintTop_toBottomOf="@id/btn_term_service">
 
                     <ImageView
+                        android:id="@+id/iv_buy_term_sell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sel_check_term" />
+                        android:src="@{vm.isTermPurchaseSelected ? @drawable/ic_check_term_selected : @drawable/ic_check_term_unselected}" />
 
                     <TextView
+                        android:id="@+id/tv_buy_term_sell"
                         style="@style/TextAppearance.DDanzi.Body4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="두번째 약관"
-                        android:textColor="@color/gray_2" />
+                        android:text="@string/confirm_term_tv_third"
+                        android:textColor="@{vm.isTermPurchaseSelected ? @color/black : @color/gray_2}" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/btn_term_third"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/btn_term_sell_detail"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_gray1_line_5_rect"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="11dp"
+                    android:layout_marginEnd="14dp"
+                    android:padding="6dp"
+                    android:text="@string/sign_up_term_btn_detail"
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_term_sell"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_term_second">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/sel_check_term" />
-
-                    <TextView
-                        style="@style/TextAppearance.DDanzi.Body4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="세번째 약관"
-                        android:textColor="@color/gray_2" />
-
-                </LinearLayout>
+                    app:layout_constraintTop_toTopOf="@id/btn_term_sell" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -154,6 +154,7 @@
     <string name="confirm_btn_term_all">아래 약관에 전체동의해요</string>
     <string name="confirm_term_tv_first">서비스 이용 약관 (필수)</string>
     <string name="confirm_term_tv_second">딴지 구매 가이드 (필수)</string>
+    <string name="confirm_term_tv_third">딴지 판매 가이드 (필수)</string>
     <string name="confirm_tv_sell_title">판매하기</string>
     <string name="confirm_tv_product_name">상품명</string>
     <string name="confirm_tv_kakao_price">카카오톡 선물하기 가격</string>

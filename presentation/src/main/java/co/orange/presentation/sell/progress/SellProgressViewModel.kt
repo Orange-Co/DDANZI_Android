@@ -72,7 +72,7 @@ class SellProgressViewModel
             viewModelScope.launch {
                 sellRepository.getProductToSell(productId)
                     .onSuccess {
-                        isBankExist = it.isAddressExist
+                        isBankExist = it.isAccountExist
                         _getProductState.value = UiState.Success(it)
                     }
                     .onFailure {

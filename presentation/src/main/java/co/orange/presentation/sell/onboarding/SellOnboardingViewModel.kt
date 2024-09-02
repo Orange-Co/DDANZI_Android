@@ -30,6 +30,7 @@ class SellOnboardingViewModel
 
         var productId = ""
         var productName = ""
+        var productImage = ""
 
         private val _isCheckedAgain = MutableSharedFlow<Boolean>()
         val isCheckedAgain: SharedFlow<Boolean> = _isCheckedAgain
@@ -81,6 +82,7 @@ class SellOnboardingViewModel
                     .onSuccess {
                         productId = it.productId
                         productName = it.productName
+                        productImage = it.imgUrl
                         _changingImageState.value = UiState.Success(it.productId)
                     }
                     .onFailure {

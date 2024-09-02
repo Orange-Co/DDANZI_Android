@@ -19,6 +19,7 @@ import co.orange.domain.entity.response.SellProductModel
 import co.orange.presentation.sell.push.SellPushActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
+import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -131,8 +132,7 @@ class SellProgressActivity :
             tvSellInfoName.text = item.productName
             tvSellInfoOriginPrice.text = item.originPrice.setPriceForm()
             tvSellInfoSellPrice.text = item.salePrice.setPriceForm()
-            // TODO 이미지추가
-            // ivSellProduct.load(R.drawable.mock_img_product)
+            ivSellProduct.load(item.imgUrl)
         }
     }
 

@@ -10,6 +10,7 @@ import co.orange.domain.entity.request.PayStartRequestModel
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.domain.entity.response.PayEndModel
 import co.orange.domain.entity.response.PayStartModel
+import co.orange.domain.enums.PaymentMethod
 import co.orange.domain.repository.BuyRepository
 import com.iamport.sdk.data.sdk.IamPortRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -73,15 +74,7 @@ class BuyProgressViewModel
 
         fun setPayMethod(methodId: Int) {
             payMethodId.value = methodId
-            payMethod =
-                when (methodId) {
-                    0 -> "card"
-                    1 -> "naverpay_card"
-                    2 -> "kakaopay"
-                    3 -> "samsungpay"
-                    4 -> "phone"
-                    else -> return
-                }
+            payMethod = PaymentMethod.fromId(methodId)?.methodName ?: PAYMENT_DEFAULT
             checkIsCompleted()
         }
 
@@ -186,6 +179,7 @@ class BuyProgressViewModel
         companion object {
             private const val NICE_PAYMENTS = "nice_v2.$PAYMENT_UID"
 
+            private const val PAYMENT_DEFAULT = "card"
             private const val ERROR_CANCELED = "F400"
 
             private const val PAY_STATUS_PENDING = "PENDING"

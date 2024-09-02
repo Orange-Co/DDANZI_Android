@@ -63,7 +63,7 @@
                     android:id="@+id/layout_finished_product"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginHorizontal="16dp"
                     android:background="@drawable/shape_gray2_line_10_rect"
                     android:paddingVertical="27dp"
                     app:layout_constraintEnd_toEndOf="parent"

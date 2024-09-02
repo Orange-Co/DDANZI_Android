@@ -131,7 +131,7 @@ class SellProgressActivity :
             tvSellInfoName.text = item.productName
             tvSellInfoOriginPrice.text = item.originPrice.setPriceForm()
             tvSellInfoSellPrice.text = item.salePrice.setPriceForm()
-            // TODO
+            // TODO 이미지추가
             // ivSellProduct.load(R.drawable.mock_img_product)
         }
     }
@@ -141,9 +141,14 @@ class SellProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        SellPushActivity.createIntent(this, -1).apply {
-                            startActivity(this)
-                        }
+                        // TODO 이미지추가
+                        SellPushActivity.createIntent(
+                            this,
+                            state.data.itemId,
+                            state.data.productName,
+                            "",
+                            state.data.salePrice,
+                        ).apply { startActivity(this) }
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

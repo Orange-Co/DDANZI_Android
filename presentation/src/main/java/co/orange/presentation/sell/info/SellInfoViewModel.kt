@@ -15,7 +15,7 @@ class SellInfoViewModel
     constructor(
         // private val feedRepository: FeedRepository,
     ) : ViewModel() {
-        var productId: Long = -1
+        var productId = ""
 
         val mockSellInfo =
             SellInfoModel(

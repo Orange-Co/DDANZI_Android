@@ -38,7 +38,7 @@ class SellInfoActivity :
     }
 
     private fun getIntentInfo() {
-        viewModel.productId = intent.getLongExtra(EXTRA_PRODUCT_ID, -1)
+        intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.productId = it }
     }
 
     private fun setIntentUi(item: SellInfoModel) {
@@ -51,7 +51,7 @@ class SellInfoActivity :
             tvInfoDeliveryName.text = item.addressInfo[0].recipient
             tvInfoDeliveryAddress.text =
                 getString(
-                    R.string.address_format,
+                    R.string.address_short_format,
                     item.addressInfo[0].zipCode,
                     item.addressInfo[0].address,
                 ).breakLines()
@@ -65,15 +65,15 @@ class SellInfoActivity :
     }
 
     companion object {
-        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            productId: Long,
+            itemId: String,
         ): Intent =
             Intent(context, SellInfoActivity::class.java).apply {
-                putExtra(EXTRA_PRODUCT_ID, productId)
+                putExtra(EXTRA_ITEM_ID, itemId)
             }
     }
 }

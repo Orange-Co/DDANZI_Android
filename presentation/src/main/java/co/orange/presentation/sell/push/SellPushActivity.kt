@@ -40,22 +40,34 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
     }
 
     private fun navigateToFinishedActivity() {
-        val productId = intent.getLongExtra(EXTRA_ITEM_ID, -1)
-        SellFinishedActivity.createIntent(this, productId).apply {
-            startActivity(this)
-        }
+        SellFinishedActivity.createIntent(
+            this,
+            intent.getStringExtra(EXTRA_ITEM_ID).orEmpty(),
+            intent.getStringExtra(EXTRA_PRODUCT_NAME).orEmpty(),
+            intent.getStringExtra(EXTRA_PRODUCT_IMAGE).orEmpty(),
+            intent.getIntExtra(EXTRA_SALE_PRICE, 0),
+        ).apply { startActivity(this) }
     }
 
     companion object {
         private const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
+        private const val EXTRA_PRODUCT_NAME = "EXTRA_PRODUCT_NAME"
+        private const val EXTRA_PRODUCT_IMAGE = "EXTRA_PRODUCT_IMAGE"
+        private const val EXTRA_SALE_PRICE = "EXTRA_SALE_PRICE"
 
         @JvmStatic
         fun createIntent(
             context: Context,
-            itemId: Long,
+            itemId: String,
+            productName: String,
+            productImage: String,
+            salePrice: Int,
         ): Intent =
             Intent(context, SellPushActivity::class.java).apply {
                 putExtra(EXTRA_ITEM_ID, itemId)
+                putExtra(EXTRA_PRODUCT_NAME, productName)
+                putExtra(EXTRA_PRODUCT_IMAGE, productImage)
+                putExtra(EXTRA_SALE_PRICE, salePrice)
             }
     }
 }

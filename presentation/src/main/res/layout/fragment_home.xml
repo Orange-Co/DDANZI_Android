@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="37dp"
+            android:visibility="gone"
             android:background="@drawable/shape_yellow_fill_100_rect"
             android:orientation="horizontal"
             android:padding="15dp"

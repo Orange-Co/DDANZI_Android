@@ -240,4 +240,8 @@
     <string name="quit_tv_subtitle">회원 탈퇴 시,\n계정은 삭제되며 복구되지 않습니다.</string>
     <string name="quit_btn_quit"><u>탈퇴하기</u></string>
 
+    <string name="bank_dialog_tv_title">잠시만요!</string>
+    <string name="bank_dialog_tv_subtitle">상품 판매금액 정산을 위해 입금 받으실\n대표계좌 등록이 필요합니다.</string>
+    <string name="bank_dialog_btn_submit">계좌등록</string>
+
 </resources>

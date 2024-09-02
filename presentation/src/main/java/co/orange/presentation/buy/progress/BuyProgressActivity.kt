@@ -105,6 +105,9 @@ class BuyProgressActivity :
     private fun getIntentInfo() {
         with(viewModel) {
             if (productId.isEmpty()) productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
+            optionList =
+                intent.getIntegerArrayListExtra(EXTRA_OPTION_LIST)?.mapNotNull { it?.toLong() }
+                    ?: emptyList()
             getBuyDataFromServer()
         }
     }

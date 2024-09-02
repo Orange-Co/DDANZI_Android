@@ -30,6 +30,7 @@ class BuyProgressViewModel
         private var orderId: String = ""
 
         private var buyProgressData: BuyProgressModel? = null
+        var optionList = listOf<Long>()
 
         var payMethodId = MutableLiveData<Int>(-1)
         var payMethod = ""
@@ -172,8 +173,7 @@ class BuyProgressViewModel
                     OrderRequestModel(
                         buyProgressData?.productId.orEmpty(),
                         orderId,
-                        // TODO 추후 옵션 대응
-                        listOf(),
+                        optionList,
                     ),
                 ).onSuccess {
                     _postOrderState.value = UiState.Success(it.orderId)

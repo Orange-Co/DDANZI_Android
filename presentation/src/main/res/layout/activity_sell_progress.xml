@@ -15,7 +15,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_confirm_top"
@@ -190,7 +191,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_date_title" />
 
                 <TextView
-                    android:id="@+id/tv_sell_date"
+                    android:id="@+id/btn_sell_date"
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -199,10 +200,27 @@
                     android:gravity="center"
                     android:paddingVertical="8dp"
                     android:text="@string/confirm_tv_date_hint"
-                    android:textColor="@color/gray_4"
+                    android:textColor="@color/gray_3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_date_subtitle" />
+
+                <TextView
+                    android:id="@+id/tv_sell_date"
+                    style="@style/TextAppearance.DDanzi.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="@={vm.sellDate}"
+                    android:textColor="@color/gray_3"
+                    android:visibility="@{vm.isDateSelected ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_sell_date"
+                    app:layout_constraintEnd_toEndOf="@id/btn_sell_date"
+                    app:layout_constraintStart_toStartOf="@id/btn_sell_date"
+                    app:layout_constraintTop_toTopOf="@id/btn_sell_date"
+                    tools:text="2024-03-27" />
 
                 <View
                     android:id="@+id/border_sell_date"
@@ -212,7 +230,7 @@
                     android:background="@color/gray_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sell_date" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_sell_date" />
 
                 <LinearLayout
                     android:id="@+id/btn_term_all"

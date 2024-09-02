@@ -32,7 +32,10 @@ class SellDateBottomSheet :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            viewModel.sellDate = getDateFromDatePicker()
+            with(viewModel) {
+                sellDate.value = getDateFromDatePicker()
+                isDateSelected.value = true
+            }
             dismiss()
         }
     }

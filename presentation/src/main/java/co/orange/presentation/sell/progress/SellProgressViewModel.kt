@@ -21,8 +21,8 @@ class SellProgressViewModel
         var productId = ""
         var isAccountExist = false
 
-        var sellDate = ""
-
+        var sellDate = MutableLiveData<String>()
+        var isDateSelected = MutableLiveData<Boolean>(false)
         var isTermAllSelected = MutableLiveData<Boolean>(false)
         var isTermServiceSelected = MutableLiveData<Boolean>(false)
         var isTermSellSelected = MutableLiveData<Boolean>(false)
@@ -51,7 +51,7 @@ class SellProgressViewModel
         private fun checkIsCompleted() {
             isTermAllSelected.value =
                 (isTermServiceSelected.value == true && isTermSellSelected.value == true)
-            isCompleted.value = (isTermAllSelected.value == true && sellDate.isNotEmpty())
+            isCompleted.value = (isTermAllSelected.value == true && isDateSelected.value == true)
         }
 
         fun getProductWIthId() {

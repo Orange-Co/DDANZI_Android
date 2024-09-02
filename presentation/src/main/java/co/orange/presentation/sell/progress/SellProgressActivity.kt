@@ -29,6 +29,8 @@ class SellProgressActivity :
     BaseActivity<ActivitySellProgressBinding>(R.layout.activity_sell_progress) {
     private val viewModel by viewModels<SellProgressViewModel>()
 
+    private var sellDateBottomSheet: SellDateBottomSheet? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,8 +71,15 @@ class SellProgressActivity :
     }
 
     private fun initDateBtnListener() {
-        // TODO 데이트피커 구현
-        // tvSellDate.text = "2024.06.28"
+        with(binding) {
+            btnSellDate.setOnSingleClickListener { startSelectingDate() }
+            tvSellDate.setOnSingleClickListener { startSelectingDate() }
+        }
+    }
+
+    private fun startSelectingDate() {
+        sellDateBottomSheet = SellDateBottomSheet()
+        sellDateBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_DATE)
     }
 
     private fun getProductWithIdFromIntent() {
@@ -105,7 +114,13 @@ class SellProgressActivity :
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        sellDateBottomSheet = null
+    }
+
     companion object {
+        private const val BOTTOM_SHEET_DATE = "BOTTOM_SHEET_DATE"
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
 
         @JvmStatic

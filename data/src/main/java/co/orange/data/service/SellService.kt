@@ -4,6 +4,7 @@ import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
 import co.orange.data.dto.request.SellRegisterRequestDto
 import co.orange.data.dto.response.SellCheckedProductDto
+import co.orange.data.dto.response.SellInfoDto
 import co.orange.data.dto.response.SellProductDto
 import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
@@ -33,4 +34,9 @@ interface SellService {
     suspend fun postToRegisterProduct(
         @Body request: SellRegisterRequestDto,
     ): BaseResponse<SellRegisteredDto>
+
+    @GET("/api/v1/item/{id}")
+    suspend fun getItemDetailInfo(
+        @Path("id") itemId: String,
+    ): BaseResponse<SellInfoDto>
 }

@@ -31,4 +31,6 @@ interface SettingRepository {
         accountId: Long,
         request: BankRequestModel,
     ): Result<BankModel>
+
+    suspend fun getUserBank(): Result<BankModel>
 }

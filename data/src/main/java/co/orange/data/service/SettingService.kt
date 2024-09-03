@@ -53,4 +53,7 @@ interface SettingService {
         @Path("id") accountId: Long,
         @Body request: BankRequestDto,
     ): BaseResponse<BankDto>
+
+    @GET("/api/v1/mypage/setting/account")
+    suspend fun getUserBank(): BaseResponse<BankDto>
 }

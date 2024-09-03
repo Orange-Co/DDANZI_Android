@@ -187,6 +187,12 @@
     <string name="sell_info_btn_fix">판매 확정하기</string>
     <string name="sell_info_btn_shipping">배송 중인 상품입니다.</string>
 
+    <string name="sell_confirm_tv_title">판매 확정</string>
+    <string name="sell_confirm_tv_subtitle">카카오톡으로 이동해서\n배송지를 입력해주세요!</string>
+    <string name="sell_confirm_btn_guide"><u>가이드 보러가기</u></string>
+    <string name="sell_confirm_tv_buyer">구매자 정보</string>
+    <string name="sell_confirm_btn_copy">복사</string>
+
     <string name="sign_up_tv_title">본인 인증을\n진행해주세요</string>
     <string name="sign_up_tv_subtitle">본인 명의의 휴대폰 번호로 인증을 진행해주세요</string>
     <string name="sign_up_tv_name">이름</string>

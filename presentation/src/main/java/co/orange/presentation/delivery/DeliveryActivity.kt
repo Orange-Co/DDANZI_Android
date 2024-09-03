@@ -27,7 +27,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
 
         initBackBtnListener()
-        initWebBtnListener()
+        initAddressBtnListener()
         initDeleteBtnListener()
         observeUserAddressState()
         observeDeleteAddressResult()
@@ -43,7 +43,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         binding.btnBack.setOnSingleClickListener { finish() }
     }
 
-    private fun initWebBtnListener() {
+    private fun initAddressBtnListener() {
         with(binding) {
             btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView(DEFAULT_ID) }
             btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(viewModel.addressId) }

@@ -6,12 +6,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class BankViewModel
+class AddBankViewModel
     @Inject
     constructor(
         // private val feedRepository: FeedRepository,
     ) : ViewModel() {
-        var accountId: Long = -1
         val mockAccountModel =
             AccountModel(
                 0,

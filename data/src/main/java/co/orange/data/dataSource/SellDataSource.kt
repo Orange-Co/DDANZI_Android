@@ -3,6 +3,7 @@ package co.orange.data.dataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
 import co.orange.data.dto.request.SellRegisterRequestDto
+import co.orange.data.dto.response.OrderConfirmDto
 import co.orange.data.dto.response.SellBuyerInfoDto
 import co.orange.data.dto.response.SellCheckedProductDto
 import co.orange.data.dto.response.SellInfoDto
@@ -22,4 +23,6 @@ interface SellDataSource {
     suspend fun getItemDetailInfo(itemId: String): BaseResponse<SellInfoDto>
 
     suspend fun getBuyerInfo(orderId: String): BaseResponse<SellBuyerInfoDto>
+
+    suspend fun patchOrderConfirm(orderId: String): BaseResponse<OrderConfirmDto>
 }

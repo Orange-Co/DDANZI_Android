@@ -35,21 +35,21 @@ class AddBankActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_b
     }
 
     private fun initConfirmBtnListener() {
-        val addressId = intent.getLongExtra(EXTRA_ACCOUNT_ID, -1)
+        val accountId = intent.getLongExtra(EXTRA_ACCOUNT_ID, -1)
         binding.btnConfirm.setOnSingleClickListener {
-            if (addressId == DEFAULT_ID) {
-                viewModel.postToAddAddressToServer()
+            if (accountId == DEFAULT_ID) {
+                viewModel.postToAddBankToServer()
             } else {
-                viewModel.putToModAddressToServer(addressId)
+                viewModel.putToModBankToServer(accountId)
             }
         }
     }
 
     private fun observeAddressResult() {
-        viewModel.setAddressResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+        viewModel.setBankResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isSuccess ->
                 if (isSuccess) {
-                    toast(stringOf(R.string.address_toast))
+                    toast(stringOf(R.string.bank_toast))
                     finish()
                 } else {
                     toast(stringOf(R.string.error_msg))

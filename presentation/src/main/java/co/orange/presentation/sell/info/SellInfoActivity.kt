@@ -19,6 +19,7 @@ import co.orange.domain.entity.response.SellInfoModel
 import co.orange.domain.enums.ItemStatus
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
+import co.orange.presentation.sell.confirm.SellConfirmActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -46,8 +47,11 @@ class SellInfoActivity :
     }
 
     private fun initSellConfirmBtnListener() {
-        // TODO
-        binding.btnSellConfirm.setOnSingleClickListener { }
+        binding.btnSellConfirm.setOnSingleClickListener {
+            SellConfirmActivity.createIntent(this, viewModel.orderId).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun getIntentInfo() {

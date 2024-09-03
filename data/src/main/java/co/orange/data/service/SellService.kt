@@ -3,6 +3,8 @@ package co.orange.data.service
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
 import co.orange.data.dto.request.SellRegisterRequestDto
+import co.orange.data.dto.response.OrderConfirmDto
+import co.orange.data.dto.response.SellBuyerInfoDto
 import co.orange.data.dto.response.SellCheckedProductDto
 import co.orange.data.dto.response.SellInfoDto
 import co.orange.data.dto.response.SellProductDto
@@ -10,6 +12,7 @@ import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -39,4 +42,14 @@ interface SellService {
     suspend fun getItemDetailInfo(
         @Path("id") itemId: String,
     ): BaseResponse<SellInfoDto>
+
+    @GET("/api/v1/item/order/{id}")
+    suspend fun getBuyerInfo(
+        @Path("id") orderId: String,
+    ): BaseResponse<SellBuyerInfoDto>
+
+    @PATCH("/api/v1/order/{id}/sell")
+    suspend fun patchOrderConfirm(
+        @Path("id") orderId: String,
+    ): BaseResponse<OrderConfirmDto>
 }

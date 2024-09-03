@@ -5,6 +5,8 @@ import co.orange.data.dto.request.SellCheckRequestDto.Companion.toDto
 import co.orange.data.dto.request.SellRegisterRequestDto.Companion.toDto
 import co.orange.domain.entity.request.SellCheckRequestModel
 import co.orange.domain.entity.request.SellRegisterRequestModel
+import co.orange.domain.entity.response.OrderConfirmModel
+import co.orange.domain.entity.response.SellBuyerInfoModel
 import co.orange.domain.entity.response.SellCheckedProductModel
 import co.orange.domain.entity.response.SellInfoModel
 import co.orange.domain.entity.response.SellProductModel
@@ -41,5 +43,15 @@ class SellRepositoryImpl
         override suspend fun getItemDetailInfo(itemId: String): Result<SellInfoModel> =
             runCatching {
                 sellDataSource.getItemDetailInfo(itemId).data.toModel()
+            }
+
+        override suspend fun getBuyerInfo(orderId: String): Result<SellBuyerInfoModel> =
+            runCatching {
+                sellDataSource.getBuyerInfo(orderId).data.toModel()
+            }
+
+        override suspend fun patchOrderConfirm(orderId: String): Result<OrderConfirmModel> =
+            runCatching {
+                sellDataSource.patchOrderConfirm(orderId).data.toModel()
             }
     }

@@ -10,7 +10,7 @@ data class SellBuyerInfoDto(
     val address: String,
     @SerialName("detailAddress")
     val detailAddress: String,
-    @SerialName("zipcode")
+    @SerialName("zipCode")
     val zipCode: String,
     @SerialName("recipient")
     val recipient: String,

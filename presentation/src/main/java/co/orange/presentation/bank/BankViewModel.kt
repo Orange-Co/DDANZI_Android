@@ -1,7 +1,7 @@
-package co.orange.presentation.setting.bank
+package co.orange.presentation.bank
 
 import androidx.lifecycle.ViewModel
-import co.orange.domain.entity.response.AccountModel
+import co.orange.domain.entity.response.BankModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -11,8 +11,9 @@ class BankViewModel
     constructor(
         // private val feedRepository: FeedRepository,
     ) : ViewModel() {
-        val mockAccountModel =
-            AccountModel(
+        var accountId: Long = -1
+        val mockBankModel =
+            BankModel(
                 0,
                 "김상호",
                 "우리은행",

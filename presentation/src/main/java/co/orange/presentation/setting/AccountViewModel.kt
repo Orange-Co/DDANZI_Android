@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.account
+package co.orange.presentation.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

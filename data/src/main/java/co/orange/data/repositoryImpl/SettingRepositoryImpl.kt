@@ -2,8 +2,11 @@ package co.orange.data.repositoryImpl
 
 import co.orange.data.dataSource.SettingDataSource
 import co.orange.data.dto.request.AddressRequestDto.Companion.toDto
+import co.orange.data.dto.request.BankRequestDto.Companion.toDto
 import co.orange.domain.entity.request.AddressRequestModel
+import co.orange.domain.entity.request.BankRequestModel
 import co.orange.domain.entity.response.AddressModel
+import co.orange.domain.entity.response.BankModel
 import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.entity.response.SettingInfoModel
 import co.orange.domain.repository.SettingRepository
@@ -50,5 +53,18 @@ class SettingRepositoryImpl
         override suspend fun deleteToUserQuit(): Result<NicknameModel> =
             runCatching {
                 settingDataSource.deleteToUserQuit().data.toModel()
+            }
+
+        override suspend fun postToAddBank(request: BankRequestModel): Result<BankModel> =
+            runCatching {
+                settingDataSource.postToAddBank(request.toDto()).data.toModel()
+            }
+
+        override suspend fun putToModBank(
+            accountId: Long,
+            request: BankRequestModel,
+        ): Result<BankModel> =
+            runCatching {
+                settingDataSource.putToModBank(accountId, request.toDto()).data.toModel()
             }
     }

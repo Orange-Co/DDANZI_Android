@@ -1,4 +1,4 @@
-package co.orange.presentation.setting.delivery
+package co.orange.presentation.delivery
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -11,8 +11,8 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.address.AddressActivity
-import co.orange.presentation.address.AddressActivity.Companion.DEFAULT_ID
+import co.orange.presentation.delivery.address.AddressActivity
+import co.orange.presentation.delivery.address.AddressActivity.Companion.DEFAULT_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -28,7 +28,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
 
         initBackBtnListener()
-        initWebBtnListener()
+        initAddressBtnListener()
         initDeleteBtnListener()
         observeUserAddressState()
         observeDeleteAddressResult()
@@ -44,7 +44,7 @@ class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity
         binding.btnBack.setOnSingleClickListener { finish() }
     }
 
-    private fun initWebBtnListener() {
+    private fun initAddressBtnListener() {
         with(binding) {
             btnDeliveryAdd.setOnSingleClickListener { navigateToAddressView(DEFAULT_ID) }
             btnDeliveryMod.setOnSingleClickListener { navigateToAddressView(viewModel.addressId) }

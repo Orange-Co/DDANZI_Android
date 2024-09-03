@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="co.orange.presentation.address.AddressViewModel" />
+            type="co.orange.presentation.delivery.address.AddressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

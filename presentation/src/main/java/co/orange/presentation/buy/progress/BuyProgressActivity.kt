@@ -20,9 +20,9 @@ import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
+import co.orange.presentation.delivery.DeliveryActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_PURCHASE
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
-import co.orange.presentation.setting.delivery.DeliveryActivity
 import coil.load
 import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint

@@ -3,6 +3,7 @@ package co.orange.data.service
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
 import co.orange.data.dto.request.SellRegisterRequestDto
+import co.orange.data.dto.response.SellBuyerInfoDto
 import co.orange.data.dto.response.SellCheckedProductDto
 import co.orange.data.dto.response.SellInfoDto
 import co.orange.data.dto.response.SellProductDto
@@ -39,4 +40,9 @@ interface SellService {
     suspend fun getItemDetailInfo(
         @Path("id") itemId: String,
     ): BaseResponse<SellInfoDto>
+
+    @GET("/api/v1/item/order/{id}")
+    suspend fun getBuyerInfo(
+        @Path("id") orderId: String,
+    ): BaseResponse<SellBuyerInfoDto>
 }

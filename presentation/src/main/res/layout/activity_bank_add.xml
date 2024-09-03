@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
-            android:text="@={vm.ownerName}"
+            android:text="@={vm.maskedName}"
             android:textColor="@color/gray_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
             app:layout_constraintTop_toBottomOf="@id/border_add_bank_owner_name" />
 
         <LinearLayout
-            android:id="@+id/layout_add_bank_name"
+            android:id="@+id/btn_add_bank_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -140,7 +140,7 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_add_bank_name" />
+            app:layout_constraintTop_toBottomOf="@id/btn_add_bank_name" />
 
         <TextView
             android:id="@+id/tv_add_bank_number_title"

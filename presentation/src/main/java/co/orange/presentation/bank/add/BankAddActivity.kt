@@ -10,6 +10,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.presentation.bank.type.BankTypeBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -21,17 +22,27 @@ import kr.genti.presentation.databinding.ActivityBankAddBinding
 class BankAddActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_bank_add) {
     val viewModel by viewModels<BankAddViewModel>()
 
+    private var bankTypeBottomSheet: BankTypeBottomSheet? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.vm = viewModel
         initBackBtnListener()
+        initBankTypeListener()
         initConfirmBtnListener()
         observeAddressResult()
     }
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initBankTypeListener() {
+        binding.btnAddBankName.setOnSingleClickListener {
+            bankTypeBottomSheet = BankTypeBottomSheet()
+            bankTypeBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_BANK_TYPE)
+        }
     }
 
     private fun initConfirmBtnListener() {
@@ -57,9 +68,16 @@ class BankAddActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_b
             }.launchIn(lifecycleScope)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        bankTypeBottomSheet = null
+    }
+
     companion object {
-        private const val EXTRA_ACCOUNT_ID = "EXTRA_ACCOUNT_ID"
         const val DEFAULT_ID: Long = -1
+        private const val BOTTOM_SHEET_BANK_TYPE = "BOTTOM_SHEET_BANK_TYPE"
+
+        private const val EXTRA_ACCOUNT_ID = "EXTRA_ACCOUNT_ID"
 
         @JvmStatic
         fun createIntent(

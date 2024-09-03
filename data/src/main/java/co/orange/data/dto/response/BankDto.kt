@@ -7,13 +7,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BankDto(
     @SerialName("accountId")
-    val accountId: Long,
+    val accountId: Long? = null,
     @SerialName("name")
-    val name: String,
+    val name: String? = null,
     @SerialName("bank")
-    val bank: String,
+    val bank: String? = null,
     @SerialName("accountNumber")
-    val accountNumber: String,
+    val accountNumber: String? = null,
 ) {
     fun toModel() = BankModel(accountId, name, bank, accountNumber)
 }

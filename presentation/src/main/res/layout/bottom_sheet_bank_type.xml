@@ -16,7 +16,7 @@
             android:id="@+id/view_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="W, 4:3"
+            app:layout_constraintDimensionRatio="W, 5:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,27 +51,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/btn_submit"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bank_type_title"
             tools:listitem="@layout/item_bank_type" />
-
-        <TextView
-            android:id="@+id/btn_submit"
-            style="@style/TextAppearance.DDanzi.Body3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/shape_black_fill_10_rect"
-            android:gravity="center"
-            android:paddingVertical="16dp"
-            android:text="@string/okay"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

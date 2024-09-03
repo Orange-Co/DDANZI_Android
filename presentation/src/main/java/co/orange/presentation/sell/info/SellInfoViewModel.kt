@@ -18,6 +18,7 @@ class SellInfoViewModel
         private val sellRepository: SellRepository,
     ) : ViewModel() {
         var itemId = ""
+        var orderId = ""
 
         private val _getSellInfoState = MutableStateFlow<UiState<SellInfoModel>>(UiState.Empty)
         val getSellInfoState: StateFlow<UiState<SellInfoModel>> = _getSellInfoState
@@ -27,6 +28,7 @@ class SellInfoViewModel
             viewModelScope.launch {
                 sellRepository.getItemDetailInfo(itemId)
                     .onSuccess {
+                        orderId = it.orderId
                         _getSellInfoState.value = UiState.Success(it)
                     }.onFailure {
                         _getSellInfoState.value = UiState.Failure(it.message.orEmpty())

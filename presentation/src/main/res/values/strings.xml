@@ -191,6 +191,7 @@
     <string name="sell_confirm_tv_subtitle">카카오톡으로 이동해서\n배송지를 입력해주세요!</string>
     <string name="sell_confirm_btn_guide"><u>가이드 보러가기</u></string>
     <string name="sell_confirm_tv_buyer">구매자 정보</string>
+    <string name="sell_confirm_tv_option">선택 옵션</string>
     <string name="sell_confirm_btn_copy">복사</string>
 
     <string name="sign_up_tv_title">본인 인증을\n진행해주세요</string>

@@ -2,16 +2,19 @@ package co.orange.presentation.sell.confirm
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
+import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellBuyerInfoModel
+import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -27,13 +30,32 @@ class SellConfirmActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initBackBtnListener()
+        initGuideBtnListener()
         getIntentInfo()
         observeGetBuyerInfoState()
     }
 
+    private fun initBackBtnListener() {
+        binding.btnBack.setOnSingleClickListener { finish() }
+    }
+
+    private fun initGuideBtnListener() {
+        binding.btnSellGuide.setOnSingleClickListener {
+            Intent(Intent.ACTION_VIEW, Uri.parse(WEB_TERM_SELL)).apply {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun initConfirmBtnListener() {
+        binding.btnConfirm.setOnSingleClickListener { }
+    }
+
     private fun getIntentInfo() {
         with(viewModel) {
-            orderId = "082201407240828017AUC"
+            orderId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
+            // orderId = "082201407240828017AUC"
             getBuyerInfoFromServer()
         }
     }
@@ -42,7 +64,11 @@ class SellConfirmActivity :
         viewModel.getBuyerInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> setIntentUi(state.data)
+                    is UiState.Success -> {
+                        setIntentUi(state.data)
+                        setCopyBtnListener(state.data)
+                    }
+
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
@@ -60,7 +86,11 @@ class SellConfirmActivity :
             tvSellConfirmAddressDetail.text = item.detailAddress
             tvSellConfirmName.text = item.recipient
             tvSellConfirmPhone.text = item.recipientPhone
+            tvSellConfirmOption.text = item.selectedOptionList.joinToString(separator = "\n")
         }
+    }
+
+    private fun setCopyBtnListener(item: SellBuyerInfoModel) {
     }
 
     companion object {

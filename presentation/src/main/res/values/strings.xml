@@ -249,5 +249,6 @@
     <string name="bank_add_tv_number_title">계좌번호</string>
     <string name="bank_add_tv_number_hint">-를 제외한 계좌번호를 작성해주세요</string>
     <string name="bank_toast">계좌 입력이 완료되었습니다</string>
+    <string name="bank_type_tv_title">등록할 계좌의 은행을 선택해주세요</string>
 
 </resources>

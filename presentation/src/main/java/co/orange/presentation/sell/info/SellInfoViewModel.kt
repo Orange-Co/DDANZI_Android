@@ -2,7 +2,6 @@ package co.orange.presentation.sell.info
 
 import androidx.lifecycle.ViewModel
 import co.orange.domain.entity.response.AddressInfoModel
-import co.orange.domain.entity.response.PaymentInfoModel
 import co.orange.domain.entity.response.SellInfoModel
 import co.orange.domain.enums.ItemStatus
 import co.orange.domain.enums.OrderStatus

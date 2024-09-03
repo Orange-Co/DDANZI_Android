@@ -6,6 +6,7 @@ import co.orange.data.dto.request.SellRegisterRequestDto.Companion.toDto
 import co.orange.domain.entity.request.SellCheckRequestModel
 import co.orange.domain.entity.request.SellRegisterRequestModel
 import co.orange.domain.entity.response.SellCheckedProductModel
+import co.orange.domain.entity.response.SellInfoModel
 import co.orange.domain.entity.response.SellProductModel
 import co.orange.domain.entity.response.SellRegisteredModel
 import co.orange.domain.entity.response.SignedUrlModel
@@ -35,5 +36,10 @@ class SellRepositoryImpl
         override suspend fun postToRegisterProduct(request: SellRegisterRequestModel): Result<SellRegisteredModel> =
             runCatching {
                 sellDataSource.postToRegisterProduct(request.toDto()).data.toModel()
+            }
+
+        override suspend fun getItemDetailInfo(itemId: String): Result<SellInfoModel> =
+            runCatching {
+                sellDataSource.getItemDetailInfo(itemId).data.toModel()
             }
     }

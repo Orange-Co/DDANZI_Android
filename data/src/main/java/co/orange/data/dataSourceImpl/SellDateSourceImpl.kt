@@ -5,6 +5,7 @@ import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.SellCheckRequestDto
 import co.orange.data.dto.request.SellRegisterRequestDto
 import co.orange.data.dto.response.SellCheckedProductDto
+import co.orange.data.dto.response.SellInfoDto
 import co.orange.data.dto.response.SellProductDto
 import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
@@ -25,4 +26,6 @@ data class SellDateSourceImpl
 
         override suspend fun postToRegisterProduct(request: SellRegisterRequestDto): BaseResponse<SellRegisteredDto> =
             sellService.postToRegisterProduct(request)
+
+        override suspend fun getItemDetailInfo(itemId: String): BaseResponse<SellInfoDto> = sellService.getItemDetailInfo(itemId)
     }

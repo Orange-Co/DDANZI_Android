@@ -49,9 +49,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
     }
 
     private fun initVerifyBtnListener() {
-        binding.btnPhoneCertify.setOnSingleClickListener {
-            // TODO 서버통신
-        }
+        binding.btnPhoneCertify.setOnSingleClickListener { }
     }
 
     private fun observeBirthFrontFinished() {

@@ -76,7 +76,6 @@
                         style="@style/TextAppearance.DDanzi.Title4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:gravity="center"
                         android:text="@string/sell_info_tv_message"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -382,7 +381,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:paddingVertical="28dp"
-                        android:text="@string/buy_finished_tv_pay_total"
+                        android:text="@string/sell_info_tv_pay_total"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_info_pay_real_title" />
 
@@ -403,7 +402,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <TextView
-            android:id="@+id/btn_fix_sell"
+            android:id="@+id/btn_sell_confirm"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -425,34 +424,22 @@
             android:layout_height="1dp"
             android:layout_marginBottom="12dp"
             android:background="@color/border_gray"
-            app:layout_constraintBottom_toTopOf="@id/btn_fix_sell"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_info_tooltip"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/shape_red_fill_5_rect"
-            android:paddingHorizontal="22dp"
-            android:paddingVertical="6dp"
-            android:text="@string/sell_info_tv_tooltip"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/btn_fix_sell"
+            app:layout_constraintBottom_toTopOf="@id/btn_sell_confirm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_info_tooltip"
+            android:id="@+id/iv_sell_toast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-5dp"
-            android:src="@drawable/ic_tooltip_bottom"
+            android:layout_marginBottom="-5dp"
+            android:src="@drawable/img_buy_toast"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/border_sell_btn_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_info_tooltip" />
+            tools:visibility="visible" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

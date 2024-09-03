@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
@@ -15,6 +16,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellInfoModel
+import co.orange.domain.enums.ItemStatus
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
 import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import coil.load
@@ -34,7 +36,7 @@ class SellInfoActivity :
         super.onCreate(savedInstanceState)
 
         initExitBtnListener()
-        initFixPurchaseBtnListener()
+        initSellConfirmBtnListener()
         getIntentInfo()
         observeGetSellInfoState()
     }
@@ -43,9 +45,9 @@ class SellInfoActivity :
         binding.btnExit.setOnSingleClickListener { finish() }
     }
 
-    private fun initFixPurchaseBtnListener() {
+    private fun initSellConfirmBtnListener() {
         // TODO
-        binding.btnFixSell.setOnSingleClickListener { }
+        binding.btnSellConfirm.setOnSingleClickListener { }
     }
 
     private fun getIntentInfo() {
@@ -87,6 +89,46 @@ class SellInfoActivity :
             tvInfoPayKakao.text = item.originPrice.setPriceForm()
             tvInfoPayReal.text = item.salePrice.setPriceForm()
             tvInfoPayTotal.text = item.salePrice.setPriceForm()
+        }
+        setItemStatus(item.status)
+    }
+
+    private fun setItemStatus(status: String) {
+        val (infoMsgResId, btnTextResId, isButtonEnabled) =
+            when (status) {
+                ItemStatus.ON_SALE.name -> {
+                    Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_btn_fix, false)
+                }
+
+                ItemStatus.ORDERED.name -> {
+                    Triple(R.string.sell_info_msg_ordered, R.string.sell_info_btn_fix, true)
+                }
+
+                ItemStatus.SHIPPING.name -> {
+                    Triple(R.string.buy_info_msg_shipping, R.string.sell_info_btn_shipping, false)
+                }
+
+                ItemStatus.COMPLETED.name -> {
+                    Triple(R.string.buy_info_msg_completed, R.string.buy_info_btn_completed, false)
+                }
+
+                ItemStatus.CANCELLED.name -> {
+                    Triple(R.string.buy_info_msg_cancelled, R.string.buy_info_btn_cancelled, false)
+                }
+
+                else -> return
+            }
+        with(binding) {
+            tvInfoMessage.setText(infoMsgResId)
+            btnSellConfirm.setText(btnTextResId)
+            btnSellConfirm.isEnabled = isButtonEnabled
+            ivSellToast.isVisible = isButtonEnabled
+            if (status != ItemStatus.ON_SALE.name) {
+                tvInfoTransaction.isVisible = false
+                layoutInfoBuyer.isVisible = false
+                layoutInfoDelivery.isVisible = false
+                layoutInfoTransaction.isVisible = false
+            }
         }
     }
 

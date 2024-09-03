@@ -3,7 +3,9 @@ package co.orange.data.dataSourceImpl
 import co.orange.data.dataSource.SettingDataSource
 import co.orange.data.dto.BaseResponse
 import co.orange.data.dto.request.AddressRequestDto
+import co.orange.data.dto.request.BankRequestDto
 import co.orange.data.dto.response.AddressDto
+import co.orange.data.dto.response.BankDto
 import co.orange.data.dto.response.NicknameDto
 import co.orange.data.dto.response.SettingInfoDto
 import co.orange.data.service.SettingService
@@ -31,4 +33,11 @@ data class SettingDataSourceImpl
         override suspend fun postUserLogout(): BaseResponse<Boolean> = settingService.postUserLogout()
 
         override suspend fun deleteToUserQuit(): BaseResponse<NicknameDto> = settingService.deleteToUserQuit()
+
+        override suspend fun postToAddBank(request: BankRequestDto): BaseResponse<BankDto> = settingService.postToAddBank(request)
+
+        override suspend fun putToModBank(
+            accountId: Long,
+            request: BankRequestDto,
+        ): BaseResponse<BankDto> = settingService.putToModBank(accountId, request)
     }

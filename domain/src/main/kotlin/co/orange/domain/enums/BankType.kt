@@ -27,4 +27,11 @@ enum class BankType(val displayName: String, val code: String) {
     SAVING("저축은행", "SAVING"),
     HSBC("HSBC 은행", "HSBC"),
     DEUTSCHE("도이치 은행", "DEUTSCHE"),
+    ;
+
+    companion object {
+        fun fromCode(code: String): String? {
+            return values().find { it.code == code }?.displayName
+        }
+    }
 }

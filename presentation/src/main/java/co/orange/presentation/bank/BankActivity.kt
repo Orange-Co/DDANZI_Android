@@ -11,6 +11,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.BankModel
+import co.orange.domain.enums.BankType
 import co.orange.presentation.bank.add.BankAddActivity
 import co.orange.presentation.bank.add.BankAddActivity.Companion.DEFAULT_ID
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +72,7 @@ class BankActivity : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) {
             btnBankAdd.isVisible = item.accountId == null
             btnBankMod.isVisible = item.accountId != null
             if (item.accountId != null) {
-                tvBankName.text = item.bank
+                tvBankName.text = item.bank?.let { BankType.fromCode(it) }
                 tvBankAccount.text = item.accountNumber
                 tvBankOwner.text = item.name
             }

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
@@ -15,6 +16,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellBuyerInfoModel
+import co.orange.presentation.main.MainActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -33,8 +35,10 @@ class SellConfirmActivity :
 
         initBackBtnListener()
         initGuideBtnListener()
+        initConfirmBtnListener()
         getIntentInfo()
         observeGetBuyerInfoState()
+        observePatchOrderConfirmResult()
     }
 
     private fun initBackBtnListener() {
@@ -50,13 +54,14 @@ class SellConfirmActivity :
     }
 
     private fun initConfirmBtnListener() {
-        binding.btnConfirm.setOnSingleClickListener { }
+        binding.btnConfirm.setOnSingleClickListener {
+            viewModel.patchOrderConfirmToServer()
+        }
     }
 
     private fun getIntentInfo() {
         with(viewModel) {
             orderId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
-            // orderId = "082201407240828017AUC"
             getBuyerInfoFromServer()
         }
     }
@@ -82,7 +87,12 @@ class SellConfirmActivity :
             tvSellConfirmAddressDetail.text = item.detailAddress
             tvSellConfirmName.text = item.recipient
             tvSellConfirmPhone.text = item.recipientPhone
-            tvSellConfirmOption.text = item.selectedOptionList.joinToString(separator = "\n")
+            item.selectedOptionList.takeIf { it.isNotEmpty() }?.let {
+                tvSellConfirmOption.text = it.joinToString(separator = "\n")
+            } ?: run {
+                tvSellConfirmOptionTitle.isVisible = false
+                tvSellConfirmOption.isVisible = false
+            }
         }
     }
 
@@ -98,6 +108,22 @@ class SellConfirmActivity :
     private fun copyText(text: String) {
         val clipboardManager = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardManager.setPrimaryClip(ClipData.newPlainText(CLIP_LABEL, text))
+    }
+
+    private fun observePatchOrderConfirmResult() {
+        viewModel.patchOrderConfirmResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isSuccess ->
+                if (isSuccess) {
+                    toast(stringOf(R.string.sell_order_fix_msg))
+                    Intent(this, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                        startActivity(this)
+                    }
+                } else {
+                    toast(stringOf(R.string.error_msg))
+                }
+            }.launchIn(lifecycleScope)
     }
 
     companion object {

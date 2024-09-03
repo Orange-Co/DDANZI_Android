@@ -193,6 +193,7 @@
     <string name="sell_confirm_tv_buyer">구매자 정보</string>
     <string name="sell_confirm_tv_option">선택 옵션</string>
     <string name="sell_confirm_btn_copy">복사</string>
+    <string name="sell_order_fix_msg">판매 확정을 완료했습니다.</string>
 
     <string name="sign_up_tv_title">본인 인증을\n진행해주세요</string>
     <string name="sign_up_tv_subtitle">본인 명의의 휴대폰 번호로 인증을 진행해주세요</string>

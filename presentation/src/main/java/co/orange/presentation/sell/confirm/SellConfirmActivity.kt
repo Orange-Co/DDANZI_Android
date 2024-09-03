@@ -1,5 +1,7 @@
 package co.orange.presentation.sell.confirm
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -91,10 +93,22 @@ class SellConfirmActivity :
     }
 
     private fun setCopyBtnListener(item: SellBuyerInfoModel) {
+        with(binding) {
+            btnCopyAddress.setOnSingleClickListener { copyText(item.address) }
+            btnCopyAddressDetail.setOnSingleClickListener { copyText(item.detailAddress) }
+            btnCopyName.setOnSingleClickListener { copyText(item.recipient) }
+            btnCopyPhone.setOnSingleClickListener { copyText(item.recipientPhone) }
+        }
+    }
+
+    private fun copyText(text: String) {
+        val clipboardManager = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(CLIP_LABEL, text))
     }
 
     companion object {
         private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
+        private const val CLIP_LABEL = "BUYER_INFO"
 
         @JvmStatic
         fun createIntent(

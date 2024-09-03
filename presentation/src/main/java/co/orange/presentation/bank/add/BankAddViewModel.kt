@@ -20,8 +20,11 @@ class BankAddViewModel
         private val settingRepository: SettingRepository,
         private val userRepository: UserRepository,
     ) : ViewModel() {
-        var ownerName = MutableLiveData<String>()
+        var ownerName = ""
+        var maskedName = MutableLiveData<String>()
+
         var bankName = MutableLiveData<String>()
+        var bankCode = ""
         var accountNumber = MutableLiveData<String>()
 
         val isBankSelected = MutableLiveData(false)
@@ -35,21 +38,21 @@ class BankAddViewModel
         }
 
         private fun getUserName() {
-            ownerName.value =
-                userRepository.getUserName().takeIf { it.isNotEmpty() }?.maskName() ?: return
+            ownerName = userRepository.getUserName()
+            maskedName.value = ownerName.takeIf { it.isNotEmpty() }?.maskName() ?: return
         }
 
         fun checkIsCompleted() {
             isCompleted.value =
-                (ownerName.value != null && isBankSelected.value == true && accountNumber.value != null)
+                (!maskedName.value.isNullOrEmpty() && bankCode.isNotEmpty() && !accountNumber.value.isNullOrEmpty())
         }
 
         fun postToAddBankToServer() {
             viewModelScope.launch {
                 settingRepository.postToAddBank(
                     BankRequestModel(
-                        ownerName.value.orEmpty(),
-                        bankName.value.orEmpty(),
+                        ownerName,
+                        bankCode,
                         accountNumber.value.orEmpty(),
                     ),
                 ).onSuccess {
@@ -65,8 +68,8 @@ class BankAddViewModel
                 settingRepository.putToModBank(
                     accountId,
                     BankRequestModel(
-                        ownerName.value.orEmpty(),
-                        bankName.value.orEmpty(),
+                        ownerName,
+                        bankCode,
                         accountNumber.value.orEmpty(),
                     ),
                 ).onSuccess {

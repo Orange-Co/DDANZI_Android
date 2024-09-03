@@ -67,4 +67,9 @@ class SettingRepositoryImpl
             runCatching {
                 settingDataSource.putToModBank(accountId, request.toDto()).data.toModel()
             }
+
+        override suspend fun getUserBank(): Result<BankModel> =
+            runCatching {
+                settingDataSource.getUserBank().data.toModel()
+            }
     }

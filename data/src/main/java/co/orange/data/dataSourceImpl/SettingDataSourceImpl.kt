@@ -40,4 +40,6 @@ data class SettingDataSourceImpl
             accountId: Long,
             request: BankRequestDto,
         ): BaseResponse<BankDto> = settingService.putToModBank(accountId, request)
+
+        override suspend fun getUserBank(): BaseResponse<BankDto> = settingService.getUserBank()
     }

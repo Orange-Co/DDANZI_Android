@@ -32,4 +32,6 @@ interface SettingDataSource {
         accountId: Long,
         request: BankRequestDto,
     ): BaseResponse<BankDto>
+
+    suspend fun getUserBank(): BaseResponse<BankDto>
 }

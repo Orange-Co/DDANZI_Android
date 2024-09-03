@@ -42,7 +42,8 @@ class BankTypeBottomSheet :
 
     private fun initBankTypeClickListener(item: BankType) {
         with(viewModel) {
-            bankName.value = item.code
+            bankName.value = item.displayName
+            bankCode = item.code
             isBankSelected.value = true
         }
         dismiss()

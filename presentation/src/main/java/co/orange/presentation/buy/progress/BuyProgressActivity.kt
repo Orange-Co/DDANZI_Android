@@ -18,8 +18,8 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
-import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
+import co.orange.presentation.buy.push.BuyPushActivity
 import co.orange.presentation.delivery.DeliveryActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_PURCHASE
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
@@ -214,8 +214,7 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        // TODO 추후 푸쉬알림뷰 연결
-                        BuyFinishedActivity.createIntent(this, state.data).apply {
+                        BuyPushActivity.createIntent(this, state.data).apply {
                             startActivity(this)
                         }
                         finish()

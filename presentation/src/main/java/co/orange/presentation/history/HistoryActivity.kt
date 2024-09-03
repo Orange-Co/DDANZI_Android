@@ -1,4 +1,4 @@
-package co.orange.presentation.main.profile.history
+package co.orange.presentation.history
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,8 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.detail.DetailActivity
+import co.orange.presentation.history.buy.HistoryBuyAdapter
+import co.orange.presentation.history.interest.HistoryInterestAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn

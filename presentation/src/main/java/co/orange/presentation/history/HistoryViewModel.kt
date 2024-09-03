@@ -1,4 +1,4 @@
-package co.orange.presentation.main.profile.history
+package co.orange.presentation.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

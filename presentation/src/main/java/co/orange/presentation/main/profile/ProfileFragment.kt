@@ -14,10 +14,10 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.presentation.auth.login.LoginActivity
-import co.orange.presentation.main.profile.history.HistoryActivity
-import co.orange.presentation.main.profile.history.HistoryActivity.Companion.TYPE_BUY
-import co.orange.presentation.main.profile.history.HistoryActivity.Companion.TYPE_INTEREST
-import co.orange.presentation.main.profile.history.HistoryActivity.Companion.TYPE_SELL
+import co.orange.presentation.history.HistoryActivity
+import co.orange.presentation.history.HistoryActivity.Companion.TYPE_BUY
+import co.orange.presentation.history.HistoryActivity.Companion.TYPE_INTEREST
+import co.orange.presentation.history.HistoryActivity.Companion.TYPE_SELL
 import co.orange.presentation.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged

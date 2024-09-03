@@ -3,6 +3,7 @@ package co.orange.data.repositoryImpl
 import co.orange.data.dataSource.ProfileDataSource
 import co.orange.domain.entity.response.HistoryBuyModel
 import co.orange.domain.entity.response.HistoryInterestModel
+import co.orange.domain.entity.response.HistorySellModel
 import co.orange.domain.entity.response.NicknameModel
 import co.orange.domain.repository.ProfileRepository
 import javax.inject.Inject
@@ -25,5 +26,10 @@ class ProfileRepositoryImpl
         override suspend fun getBuyHistory(): Result<HistoryBuyModel> =
             runCatching {
                 profileDataSource.getBuyHistory().data.toModel()
+            }
+
+        override suspend fun getSellHistory(): Result<HistorySellModel> =
+            kotlin.runCatching {
+                profileDataSource.getSellHistory().data.toModel()
             }
     }

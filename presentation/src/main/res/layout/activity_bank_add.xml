@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="co.orange.presentation.delivery.AddressViewModel" />
+            type="co.orange.presentation.bank.AddBankViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_add_bank_title" />
 
         <TextView
-            android:id="@+id/tv_add_bank_name_title"
+            android:id="@+id/tv_add_bank_owner_name_title"
             style="@style/TextAppearance.DDanzi.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,17 +63,73 @@
             app:layout_constraintTop_toBottomOf="@id/border_add_bank" />
 
         <TextView
-            android:id="@+id/tv_add_bank_name"
+            android:id="@+id/tv_add_bank_owner_name"
             style="@style/TextAppearance.DDanzi.Body4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/gray_4"
+            android:text="@={vm.ownerName}"
+            android:textColor="@color/gray_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_name_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_owner_name_title"
             tools:text="김*호" />
+
+        <View
+            android:id="@+id/border_add_bank_owner_name"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_owner_name" />
+
+        <TextView
+            android:id="@+id/tv_add_bank_name_title"
+            style="@style/TextAppearance.DDanzi.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="21dp"
+            android:text="@string/bank_add_tv_where_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/border_add_bank_owner_name" />
+
+        <LinearLayout
+            android:id="@+id/layout_add_bank_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_name_title">
+
+            <TextView
+                android:id="@+id/tv_add_bank_name_hint"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bank_add_tv_where_hint"
+                android:textColor="@color/gray_2"
+                android:visibility="@{vm.isBankSelected ? View.GONE : View.VISIBLE}" />
+
+            <TextView
+                android:id="@+id/tv_add_bank_name"
+                style="@style/TextAppearance.DDanzi.Body4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={vm.bankName}"
+                android:textColor="@color/gray_3"
+                android:visibility="@{vm.isBankSelected ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone" />
+
+        </LinearLayout>
 
         <View
             android:id="@+id/border_add_bank_name"
@@ -84,43 +140,7 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_name" />
-
-        <TextView
-            android:id="@+id/tv_add_bank_where_title"
-            style="@style/TextAppearance.DDanzi.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/bank_add_tv_where_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/border_add_bank_name" />
-
-        <TextView
-            android:id="@+id/tv_add_bank_where"
-            style="@style/TextAppearance.DDanzi.Body4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/bank_add_tv_where_hint"
-            android:textColor="@color/gray_2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_where_title" />
-
-        <View
-            android:id="@+id/border_add_bank_where"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="9dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_bank_where" />
+            app:layout_constraintTop_toBottomOf="@id/layout_add_bank_name" />
 
         <TextView
             android:id="@+id/tv_add_bank_number_title"
@@ -132,7 +152,7 @@
             android:text="@string/bank_add_tv_number_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/border_add_bank_where" />
+            app:layout_constraintTop_toBottomOf="@id/border_add_bank_name" />
 
         <EditText
             android:id="@+id/et_add_bank_number"
@@ -147,8 +167,8 @@
             android:imeOptions="actionDone"
             android:inputType="number"
             android:paddingStart="1dp"
-            android:text="@={vm.detailAddress}"
-            android:textColor="@color/gray_4"
+            android:text="@={vm.accountNumber}"
+            android:textColor="@color/gray_3"
             android:textColorHint="@color/gray_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

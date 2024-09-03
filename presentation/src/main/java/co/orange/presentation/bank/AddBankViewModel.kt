@@ -1,7 +1,10 @@
 package co.orange.presentation.bank
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.orange.domain.entity.response.AccountModel
+import co.orange.core.extension.maskName
+import co.orange.domain.repository.SettingRepository
+import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,13 +12,27 @@ import javax.inject.Inject
 class AddBankViewModel
     @Inject
     constructor(
-        // private val feedRepository: FeedRepository,
+        private val settingRepository: SettingRepository,
+        private val userRepository: UserRepository,
     ) : ViewModel() {
-        val mockAccountModel =
-            AccountModel(
-                0,
-                "김상호",
-                "우리은행",
-                "82-12341234-1234",
-            )
+        var accountId: Long = -1
+        var ownerName = MutableLiveData<String>()
+        var bankName = MutableLiveData<String>()
+        var accountNumber = MutableLiveData<String>()
+
+        val isBankSelected = MutableLiveData(false)
+        val isCompleted = MutableLiveData(false)
+
+        init {
+            getUserName()
+        }
+
+        private fun getUserName() {
+            ownerName.value = userRepository.getUserName().takeIf { it.isNotEmpty() }?.maskName() ?: return
+        }
+
+        fun checkIsCompleted() {
+            isCompleted.value =
+                (ownerName.value != null && isBankSelected.value == true && accountNumber.value != null)
+        }
     }

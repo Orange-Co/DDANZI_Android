@@ -7,12 +7,9 @@ import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
-import co.orange.core.extension.colorOf
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
-import co.orange.presentation.delivery.AddressWebActivity
-import co.orange.presentation.delivery.AddressWebBridge
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -30,7 +27,6 @@ class AddBankActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_b
         binding.vm = viewModel
         initBackBtnListener()
         initConfirmBtnListener()
-        initAddressFindBtnListener()
         observeAddressResult()
     }
 
@@ -46,40 +42,6 @@ class AddBankActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_b
             } else {
                 viewModel.putToModAddressToServer(addressId)
             }
-        }
-    }
-
-    private fun initAddressFindBtnListener() {
-        with(binding) {
-            btnFindZipcode.setOnSingleClickListener { navigateToAddressWebView() }
-            btnFindAddress.setOnSingleClickListener { navigateToAddressWebView() }
-        }
-    }
-
-    private fun navigateToAddressWebView() {
-        AddressWebActivity.open { bundle ->
-            setResultBundle(
-                bundle.getString(AddressWebBridge.EXTRA_ZIPCODE),
-                bundle.getString(
-                    AddressWebBridge.EXTRA_ADDRESS,
-                ),
-            )
-        }
-    }
-
-    private fun setResultBundle(
-        resultZipCode: String?,
-        resultAddress: String?,
-    ) {
-        with(viewModel) {
-            zipCode = resultZipCode.orEmpty()
-            address = resultAddress.orEmpty()
-            checkIsCompleted()
-        }
-        with(binding) {
-            tvAddressZipcode.text = resultZipCode
-            tvAddressDelivery.text = resultAddress
-            tvAddressDelivery.setTextColor(colorOf(R.color.gray_3))
         }
     }
 

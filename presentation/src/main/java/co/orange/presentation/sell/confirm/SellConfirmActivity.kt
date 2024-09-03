@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
-import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
@@ -79,12 +78,7 @@ class SellConfirmActivity :
 
     private fun setIntentUi(item: SellBuyerInfoModel) {
         with(binding) {
-            tvSellConfirmAddress.text =
-                getString(
-                    R.string.address_short_format,
-                    item.zipCode,
-                    item.address,
-                ).breakLines()
+            tvSellConfirmAddress.text = item.address
             tvSellConfirmAddressDetail.text = item.detailAddress
             tvSellConfirmName.text = item.recipient
             tvSellConfirmPhone.text = item.recipientPhone

@@ -42,3 +42,10 @@ fun String.convertDateTime(
         DateTimeFormatter.ofPattern(oldPattern),
     )
         .format(DateTimeFormatter.ofPattern(newPattern))
+
+fun String.maskName(): String =
+    when (this.length) {
+        2 -> "${this[0]}*"
+        3 -> "${this[0]}*${this[2]}"
+        else -> "${this[0]}" + "*".repeat(this.length - 2) + "${this.last()}"
+    }

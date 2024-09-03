@@ -108,6 +108,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="co.orange.presentation.sell.confirm.SellConfirmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="co.orange.presentation.auth.login.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

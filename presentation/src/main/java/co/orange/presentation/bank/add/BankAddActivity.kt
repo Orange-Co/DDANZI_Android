@@ -1,4 +1,4 @@
-package co.orange.presentation.bank
+package co.orange.presentation.bank.add
 
 import android.content.Context
 import android.content.Intent
@@ -18,8 +18,8 @@ import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankAddBinding
 
 @AndroidEntryPoint
-class AddBankActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_bank_add) {
-    val viewModel by viewModels<AddBankViewModel>()
+class BankAddActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_bank_add) {
+    val viewModel by viewModels<BankAddViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class AddBankActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_b
             context: Context,
             accountId: Long,
         ): Intent =
-            Intent(context, AddBankActivity::class.java).apply {
+            Intent(context, BankAddActivity::class.java).apply {
                 putExtra(EXTRA_ACCOUNT_ID, accountId)
             }
     }

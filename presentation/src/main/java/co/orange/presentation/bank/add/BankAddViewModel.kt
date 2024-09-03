@@ -1,4 +1,4 @@
-package co.orange.presentation.bank
+package co.orange.presentation.bank.add
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddBankViewModel
+class BankAddViewModel
     @Inject
     constructor(
         private val settingRepository: SettingRepository,

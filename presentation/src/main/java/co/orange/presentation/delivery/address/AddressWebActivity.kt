@@ -1,4 +1,4 @@
-package co.orange.presentation.delivery
+package co.orange.presentation.delivery.address
 
 import android.content.Context
 import android.content.Intent

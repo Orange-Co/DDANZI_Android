@@ -1,4 +1,4 @@
-package co.orange.presentation.delivery
+package co.orange.presentation.delivery.address
 
 import android.content.Context
 import android.content.Intent
@@ -11,8 +11,8 @@ import co.orange.core.extension.colorOf
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
-import co.orange.presentation.delivery.AddressWebBridge.Companion.EXTRA_ADDRESS
-import co.orange.presentation.delivery.AddressWebBridge.Companion.EXTRA_ZIPCODE
+import co.orange.presentation.delivery.address.AddressWebBridge.Companion.EXTRA_ADDRESS
+import co.orange.presentation.delivery.address.AddressWebBridge.Companion.EXTRA_ZIPCODE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn

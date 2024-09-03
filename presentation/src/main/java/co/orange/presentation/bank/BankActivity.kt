@@ -5,7 +5,8 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.domain.entity.response.BankModel
-import co.orange.presentation.bank.AddBankActivity.Companion.DEFAULT_ID
+import co.orange.presentation.bank.add.BankAddActivity
+import co.orange.presentation.bank.add.BankAddActivity.Companion.DEFAULT_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankBinding
@@ -34,7 +35,7 @@ class BankActivity : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) {
     }
 
     private fun navigateToAddBankView(accountId: Long) {
-        AddBankActivity.createIntent(this, accountId).apply {
+        BankAddActivity.createIntent(this, accountId).apply {
             startActivity(this)
         }
     }

@@ -24,17 +24,21 @@ class SellFinishedActivity :
 
         initReturnBtnListener()
         initDetailBtnListener()
-        initSellMoreListener()
         setUiWithIntent()
     }
 
     private fun initReturnBtnListener() {
-        binding.btnExit.setOnSingleClickListener {
-            Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                startActivity(this)
-            }
+        with(binding) {
+            btnExit.setOnSingleClickListener { returnToMainActivity() }
+            btnSellMore.setOnSingleClickListener { returnToMainActivity() }
+        }
+    }
+
+    private fun returnToMainActivity() {
+        Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(this)
         }
     }
 
@@ -43,12 +47,6 @@ class SellFinishedActivity :
             SellInfoActivity.createIntent(this, viewModel.itemId).apply {
                 startActivity(this)
             }
-        }
-    }
-
-    private fun initSellMoreListener() {
-        binding.btnSellMore.setOnSingleClickListener {
-            // TODO
         }
     }
 

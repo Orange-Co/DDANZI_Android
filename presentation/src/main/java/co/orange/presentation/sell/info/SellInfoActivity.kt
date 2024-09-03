@@ -4,13 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
+import co.orange.core.extension.convertDateTime
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellInfoModel
+import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
+import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySellInfoBinding
 
@@ -25,7 +36,7 @@ class SellInfoActivity :
         initExitBtnListener()
         initFixPurchaseBtnListener()
         getIntentInfo()
-        setIntentUi(viewModel.mockSellInfo)
+        observeGetSellInfoState()
     }
 
     private fun initExitBtnListener() {
@@ -38,7 +49,21 @@ class SellInfoActivity :
     }
 
     private fun getIntentInfo() {
-        intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.productId = it }
+        with(viewModel) {
+            itemId = intent.getStringExtra(EXTRA_ITEM_ID).orEmpty()
+            getItemDetailInfoFromServer()
+        }
+    }
+
+    private fun observeGetSellInfoState() {
+        viewModel.getSellInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> setIntentUi(state.data)
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun setIntentUi(item: SellInfoModel) {
@@ -48,16 +73,17 @@ class SellInfoActivity :
             tvInfoProductName.text = item.productName
             tvInfoProductPrice.text = item.originPrice.setPriceForm()
             tvInfoBuyerNickname.text = item.buyerNickname
-            tvInfoDeliveryName.text = item.addressInfo[0].recipient
+            tvInfoDeliveryName.text = item.addressInfo.recipient
             tvInfoDeliveryAddress.text =
                 getString(
                     R.string.address_short_format,
-                    item.addressInfo[0].zipCode,
-                    item.addressInfo[0].address,
+                    item.addressInfo.zipCode,
+                    item.addressInfo.address,
                 ).breakLines()
-            tvInfoDeliveryPhone.text = item.addressInfo[0].recipientPhone
-            tvInfoTransactionMethod.text = item.paymentInfo[0].method
-            tvInfoTransactionDate.text = item.paymentInfo[0].completedAt
+            tvInfoDeliveryPhone.text = item.addressInfo.recipientPhone
+            tvInfoTransactionMethod.text = item.paymentMethod
+            tvInfoTransactionDate.text =
+                item.paidAt.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
             tvInfoPayKakao.text = item.originPrice.setPriceForm()
             tvInfoPayReal.text = item.salePrice.setPriceForm()
             tvInfoPayTotal.text = item.salePrice.setPriceForm()

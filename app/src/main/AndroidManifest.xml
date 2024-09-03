@@ -139,6 +139,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="co.orange.presentation.bank.add.BankAddActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="co.orange.presentation.main.profile.ReportActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

@@ -1,4 +1,4 @@
-package co.orange.presentation.history.sell
+package co.orange.presentation.history.item
 
 import android.graphics.Paint
 import androidx.core.view.isVisible

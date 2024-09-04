@@ -14,9 +14,9 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.detail.DetailActivity
-import co.orange.presentation.history.buy.HistoryBuyAdapter
 import co.orange.presentation.history.interest.HistoryInterestAdapter
-import co.orange.presentation.history.sell.HistorySellAdapter
+import co.orange.presentation.history.item.HistorySellAdapter
+import co.orange.presentation.history.order.HistoryBuyAdapter
 import co.orange.presentation.sell.info.SellInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged

@@ -1,27 +1,27 @@
-package co.orange.presentation.history.sell
+package co.orange.presentation.history.order
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import co.orange.core.util.ItemDiffCallback
-import co.orange.domain.entity.response.HistorySellModel.ItemProductModel
-import kr.genti.presentation.databinding.ItemHomeProductBinding
+import co.orange.domain.entity.response.HistoryBuyModel.OrderProductModel
+import kr.genti.presentation.databinding.ItemHistoryBuyBinding
 
-class HistorySellAdapter(
+class HistoryBuyAdapter(
     private val itemClick: (String) -> (Unit),
-) : ListAdapter<ItemProductModel, HistorySellViewHolder>(diffUtil) {
+) : ListAdapter<OrderProductModel, HistoryBuyViewHolder>(diffUtil) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): HistorySellViewHolder {
+    ): HistoryBuyViewHolder {
         val inflater by lazy { LayoutInflater.from(parent.context) }
-        val binding: ItemHomeProductBinding =
-            ItemHomeProductBinding.inflate(inflater, parent, false)
-        return HistorySellViewHolder(binding, itemClick)
+        val binding: ItemHistoryBuyBinding =
+            ItemHistoryBuyBinding.inflate(inflater, parent, false)
+        return HistoryBuyViewHolder(binding, itemClick)
     }
 
     override fun onBindViewHolder(
-        holder: HistorySellViewHolder,
+        holder: HistoryBuyViewHolder,
         position: Int,
     ) {
         val item = getItem(position) ?: return
@@ -30,8 +30,8 @@ class HistorySellAdapter(
 
     companion object {
         private val diffUtil =
-            ItemDiffCallback<ItemProductModel>(
-                onItemsTheSame = { old, new -> old.itemId == new.itemId },
+            ItemDiffCallback<OrderProductModel>(
+                onItemsTheSame = { old, new -> old.productId == new.productId },
                 onContentsTheSame = { old, new -> old == new },
             )
     }

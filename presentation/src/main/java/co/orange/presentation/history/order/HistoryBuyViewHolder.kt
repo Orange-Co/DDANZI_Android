@@ -1,4 +1,4 @@
-package co.orange.presentation.history.buy
+package co.orange.presentation.history.order
 
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView

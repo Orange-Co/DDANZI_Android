@@ -127,7 +127,7 @@ class SellInfoActivity :
             btnSellConfirm.setText(btnTextResId)
             btnSellConfirm.isEnabled = isButtonEnabled
             ivSellToast.isVisible = isButtonEnabled
-            if (status != ItemStatus.ON_SALE.name) {
+            if (status == ItemStatus.ON_SALE.name) {
                 tvInfoTransaction.isVisible = false
                 layoutInfoBuyer.isVisible = false
                 layoutInfoDelivery.isVisible = false

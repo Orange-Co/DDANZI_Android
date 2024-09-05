@@ -91,6 +91,7 @@ dependencies {
     GoogleDependencies.run {
         implementation(materialDesign)
         implementation(mlkit)
+        implementation(appUpdate)
     }
 
     TestDependencies.run {

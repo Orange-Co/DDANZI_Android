@@ -44,6 +44,7 @@ object GoogleDependencies {
     const val materialDesign =
         "com.google.android.material:material:${Versions.materialDesignVersion}"
     const val mlkit = "com.google.mlkit:text-recognition-korean:${Versions.mlkitVersion}"
+    const val appUpdate = "com.google.android.play:app-update-ktx:${Versions.appUpdateVersion}"
 }
 
 object KaptDependencies {

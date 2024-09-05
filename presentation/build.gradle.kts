@@ -88,8 +88,9 @@ dependencies {
         kapt(hiltWorkManagerCompiler)
     }
 
-    MaterialDesignDependencies.run {
+    GoogleDependencies.run {
         implementation(materialDesign)
+        implementation(mlkit)
     }
 
     TestDependencies.run {
@@ -101,13 +102,11 @@ dependencies {
     ThirdPartyDependencies.run {
         implementation(coil)
         implementation(timber)
-        implementation(ossLicense)
         implementation(progressView)
         implementation(balloon)
         implementation(lottie)
         implementation(circularProgressBar)
         implementation(circleIndicator)
-        implementation(mlkit)
     }
 
     JitpackDependencies.run {

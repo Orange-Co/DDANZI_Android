@@ -37,7 +37,7 @@ dependencies {
     implementation(AndroidXDependencies.lifeCycleKtx)
 
     // Material Design
-    implementation(MaterialDesignDependencies.materialDesign)
+    implementation(GoogleDependencies.materialDesign)
 
     // Hilt
     implementation(AndroidXDependencies.hilt)

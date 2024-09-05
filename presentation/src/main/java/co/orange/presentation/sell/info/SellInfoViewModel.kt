@@ -28,7 +28,7 @@ class SellInfoViewModel
             viewModelScope.launch {
                 sellRepository.getItemDetailInfo(itemId)
                     .onSuccess {
-                        orderId = it.orderId
+                        orderId = it.orderId.orEmpty()
                         _getSellInfoState.value = UiState.Success(it)
                     }.onFailure {
                         _getSellInfoState.value = UiState.Failure(it.message.orEmpty())

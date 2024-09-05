@@ -19,15 +19,15 @@ data class SellInfoDto(
     @SerialName("salePrice")
     val salePrice: Int,
     @SerialName("orderId")
-    val orderId: String,
-    @SerialName("buyerNickname")
-    val buyerNickname: String,
+    val orderId: String?,
+    @SerialName("buyerNickName")
+    val buyerNickname: String?,
     @SerialName("paidAt")
-    val paidAt: String,
+    val paidAt: String?,
     @SerialName("addressInfo")
     val addressInfo: AddressInfoDto,
     @SerialName("paymentMethod")
-    val paymentMethod: String,
+    val paymentMethod: String?,
 ) {
     fun toModel() =
         SellInfoModel(

@@ -6,7 +6,6 @@ plugins {
     kotlin("kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
@@ -108,7 +107,6 @@ dependencies {
         implementation(retrofit)
         implementation(retrofitJsonConverter)
         implementation(timber)
-        implementation(ossLicense)
     }
 
     KakaoDependencies.run {

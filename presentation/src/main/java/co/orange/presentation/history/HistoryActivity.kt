@@ -1,4 +1,4 @@
-package co.orange.presentation.main.profile.history
+package co.orange.presentation.history
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,10 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.detail.DetailActivity
+import co.orange.presentation.history.interest.HistoryInterestAdapter
+import co.orange.presentation.history.item.HistorySellAdapter
+import co.orange.presentation.history.order.HistoryBuyAdapter
+import co.orange.presentation.sell.info.SellInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -25,13 +29,17 @@ import kr.genti.presentation.databinding.ActivityHistoryBinding
 class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_history) {
     val viewModel by viewModels<HistoryViewModel>()
 
-    private var _interestAdapter: HistoryInterestAdapter? = null
-    val interestAdapter
-        get() = requireNotNull(_interestAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
-
     private var _buyAdapter: HistoryBuyAdapter? = null
     val buyAdapter
         get() = requireNotNull(_buyAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
+    private var _sellAdapter: HistorySellAdapter? = null
+    val sellAdapter
+        get() = requireNotNull(_sellAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
+    private var _interestAdapter: HistoryInterestAdapter? = null
+    val interestAdapter
+        get() = requireNotNull(_interestAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +47,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         initBackBtnListener()
         initAdapter()
         observeGetBuyListState()
+        observeGetSellListState()
         observeGetInterestListState()
     }
 
@@ -59,13 +68,18 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
                     startActivity(this)
                 }
             }
+        _sellAdapter =
+            HistorySellAdapter { itemId ->
+                SellInfoActivity.createIntent(this, itemId).apply {
+                    startActivity(this)
+                }
+            }
         _interestAdapter =
             HistoryInterestAdapter { productId ->
                 DetailActivity.createIntent(this, productId).apply {
                     startActivity(this)
                 }
             }
-        binding.rvHistory.adapter = interestAdapter
     }
 
     private fun getTypeFromIntent() {
@@ -82,6 +96,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
 
             TYPE_SELL -> {
                 binding.tvHistoryTitle.text = stringOf(R.string.profile_history_sell_title)
+                viewModel.getSellListFromServer()
             }
 
             TYPE_INTEREST -> {
@@ -106,6 +121,27 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
                             rvHistory.adapter = buyAdapter
                         }
                         buyAdapter.submitList(state.data.orderProductList)
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeGetSellListState() {
+        viewModel.getSellListState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        with(binding) {
+                            tvHistoryCount.text =
+                                getString(R.string.profile_history_count, state.data.totalCount)
+                            tvHistoryEmpty.text = getString(R.string.profile_history_buy_empty)
+                            layoutHistoryEmpty.isVisible = state.data.itemProductList.isEmpty()
+                            rvHistory.adapter = sellAdapter
+                        }
+                        sellAdapter.submitList(state.data.itemProductList)
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
@@ -139,6 +175,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         super.onDestroy()
 
         _buyAdapter = null
+        _sellAdapter = null
         _interestAdapter = null
     }
 

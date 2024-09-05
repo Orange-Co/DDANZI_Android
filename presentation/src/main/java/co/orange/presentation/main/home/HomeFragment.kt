@@ -116,7 +116,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     }
 
     private fun setDeviceToken() {
-        // TODO : FCM의 디바이스토큰으로 수정 & 가입쪽으로 이동
         viewModel.setDeviceToken(
             Settings.Secure.getString(
                 requireContext().contentResolver,

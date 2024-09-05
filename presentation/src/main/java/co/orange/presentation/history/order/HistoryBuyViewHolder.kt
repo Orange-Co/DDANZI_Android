@@ -1,4 +1,4 @@
-package co.orange.presentation.main.profile.history
+package co.orange.presentation.history.order
 
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView

@@ -12,6 +12,8 @@ data class SellRegisteredDto(
     val productName: String,
     @SerialName("salePrice")
     val salePrice: Int,
+    @SerialName("imgUrl")
+    val imgUrl: String,
 ) {
-    fun toModel() = SellRegisteredModel(itemId, productName, salePrice)
+    fun toModel() = SellRegisteredModel(itemId, productName, salePrice, imgUrl)
 }

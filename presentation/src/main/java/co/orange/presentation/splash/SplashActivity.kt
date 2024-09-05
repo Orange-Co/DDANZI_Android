@@ -66,6 +66,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                 } else {
                     navigateToMain()
                 }
+            }.addOnFailureListener {
+                toast("업데이트에 실패했습니다.")
+                navigateToMain()
             }
         }
     }

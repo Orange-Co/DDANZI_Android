@@ -89,7 +89,7 @@ class SellInfoActivity :
             tvInfoDeliveryPhone.text = item.addressInfo.recipientPhone
             tvInfoTransactionMethod.text = item.paymentMethod
             tvInfoTransactionDate.text =
-                item.paidAt.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
+                item.paidAt?.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
             tvInfoPayKakao.text = item.originPrice.setPriceForm()
             tvInfoPayReal.text = item.salePrice.setPriceForm()
             tvInfoPayTotal.text = item.salePrice.setPriceForm()

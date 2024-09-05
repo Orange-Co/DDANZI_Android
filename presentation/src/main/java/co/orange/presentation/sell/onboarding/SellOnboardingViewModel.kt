@@ -54,7 +54,7 @@ class SellOnboardingViewModel
             viewModelScope.launch {
                 sellRepository.getSignedUrl(selectedImageName)
                     .onSuccess {
-                        uploadedUrl = it.signedUrl
+                        uploadedUrl = URL_GCP + selectedImageName
                         putImageToCloud(it.signedUrl)
                     }
                     .onFailure {
@@ -94,5 +94,9 @@ class SellOnboardingViewModel
 
         fun resetProductIdState() {
             _changingImageState.value = UiState.Empty
+        }
+
+        companion object {
+            private const val URL_GCP = "https://storage.googleapis.com/ddanzi_bucket/"
         }
     }

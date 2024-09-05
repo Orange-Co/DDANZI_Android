@@ -7,9 +7,9 @@ data class SellInfoModel(
     val imgUrl: String,
     val originPrice: Int,
     val salePrice: Int,
-    val orderId: String,
-    val buyerNickname: String,
-    val paidAt: String,
+    val orderId: String?,
+    val buyerNickname: String?,
+    val paidAt: String?,
     val addressInfo: AddressInfoModel,
-    val paymentMethod: String,
+    val paymentMethod: String?,
 )

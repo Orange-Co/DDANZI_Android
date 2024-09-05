@@ -155,7 +155,11 @@ class SellProgressActivity :
                         ).apply { startActivity(this) }
                     }
 
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    is UiState.Failure -> {
+                        toast(stringOf(R.string.error_msg))
+                        viewModel.setLoadingState(false)
+                    }
+
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)

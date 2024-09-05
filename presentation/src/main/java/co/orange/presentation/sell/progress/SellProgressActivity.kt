@@ -146,12 +146,11 @@ class SellProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        // TODO 이미지추가
                         SellPushActivity.createIntent(
                             this,
                             state.data.itemId,
                             state.data.productName,
-                            "",
+                            state.data.imgUrl,
                             state.data.salePrice,
                         ).apply { startActivity(this) }
                     }

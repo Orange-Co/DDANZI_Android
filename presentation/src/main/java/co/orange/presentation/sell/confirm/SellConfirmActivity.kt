@@ -87,8 +87,9 @@ class SellConfirmActivity :
             tvSellConfirmAddressDetail.text = item.detailAddress
             tvSellConfirmName.text = item.recipient
             tvSellConfirmPhone.text = item.recipientPhone
-            item.selectedOptionList.takeIf { it.isNotEmpty() }?.let {
-                tvSellConfirmOption.text = it.joinToString(separator = "\n")
+            item.selectedOptionList.takeIf { it.isNotEmpty() }?.let { optionItem ->
+                tvSellConfirmOption.text =
+                    optionItem.joinToString(separator = "\n") { "${it.option}: ${it.selectedOption}" }
             } ?: run {
                 tvSellConfirmOptionTitle.isVisible = false
                 tvSellConfirmOption.isVisible = false

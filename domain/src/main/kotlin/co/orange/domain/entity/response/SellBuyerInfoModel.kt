@@ -6,5 +6,10 @@ data class SellBuyerInfoModel(
     val zipCode: String,
     val recipient: String,
     val recipientPhone: String,
-    val selectedOptionList: List<String>,
-)
+    val selectedOptionList: List<SellBuyerOptionModel>,
+) {
+    data class SellBuyerOptionModel(
+        val option: String,
+        val selectedOption: String,
+    )
+}

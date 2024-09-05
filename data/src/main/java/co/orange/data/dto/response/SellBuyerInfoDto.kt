@@ -17,7 +17,25 @@ data class SellBuyerInfoDto(
     @SerialName("recipientPhone")
     val recipientPhone: String,
     @SerialName("selectedOptionList")
-    val selectedOptionList: List<String>,
+    val selectedOptionList: List<SellBuyerOptionDto>,
 ) {
-    fun toModel() = SellBuyerInfoModel(address, detailAddress, zipCode, recipient, recipientPhone, selectedOptionList)
+    @Serializable
+    data class SellBuyerOptionDto(
+        @SerialName("option")
+        val option: String,
+        @SerialName("selectedOption")
+        val selectedOption: String,
+    ) {
+        fun toModel() = SellBuyerInfoModel.SellBuyerOptionModel(option, selectedOption)
+    }
+
+    fun toModel() =
+        SellBuyerInfoModel(
+            address,
+            detailAddress,
+            zipCode,
+            recipient,
+            recipientPhone,
+            selectedOptionList.map { it.toModel() },
+        )
 }

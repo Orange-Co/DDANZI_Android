@@ -189,6 +189,7 @@ class SellProgressActivity :
             item.imgUrl,
             item.salePrice,
         ).apply { startActivity(this) }
+        finish()
     }
 
     private fun navigateToPushActivity(item: SellRegisteredModel) {
@@ -201,6 +202,7 @@ class SellProgressActivity :
             item.imgUrl,
             item.salePrice,
         ).apply { startActivity(this) }
+        finish()
     }
 
     private fun observeLoadingState() {

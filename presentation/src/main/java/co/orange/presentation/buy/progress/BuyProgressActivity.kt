@@ -1,10 +1,14 @@
 package co.orange.presentation.buy.progress
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +22,7 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
+import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.presentation.delivery.DeliveryActivity
 import co.orange.presentation.push.PushActivity
@@ -213,16 +218,42 @@ class BuyProgressActivity :
         viewModel.postOrderState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> {
-                        PushActivity.createIntent(this, true, state.data, null, null, null, null)
-                            .apply { startActivity(this) }
-                        finish()
-                    }
+                    is UiState.Success -> navigateToPushOrFinish(state.data)
 
                     is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    private fun navigateToPushOrFinish(orderId: String) {
+        if (isPermissionNeeded()) {
+            navigateToPushActivity(orderId)
+        } else {
+            navigateToBuyFinishedActivity(orderId)
+        }
+    }
+
+    private fun isPermissionNeeded(): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) != PackageManager.PERMISSION_GRANTED
+        } else {
+            false
+        }
+
+    private fun navigateToBuyFinishedActivity(orderId: String) {
+        BuyFinishedActivity.createIntent(this, orderId)
+            .apply { startActivity(this) }
+        finish()
+    }
+
+    private fun navigateToPushActivity(orderId: String) {
+        PushActivity.createIntent(this, true, orderId, null, null, null, null)
+            .apply { startActivity(this) }
+        finish()
     }
 
     override fun onDestroy() {

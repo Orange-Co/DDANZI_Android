@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.push
+package co.orange.presentation.push
 
 import android.content.Context
 import android.content.Intent
@@ -6,13 +6,14 @@ import android.os.Bundle
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.sell.finished.SellFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityPushBinding
 
 @AndroidEntryPoint
-class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
+class PushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,10 +25,10 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
     private fun initExitBtnListener() {
         with(binding) {
             btnExit.setOnSingleClickListener {
-                navigateToFinishedActivity()
+                checkIsBuyOrSell()
             }
             btnLater.setOnSingleClickListener {
-                navigateToFinishedActivity()
+                checkIsBuyOrSell()
             }
         }
     }
@@ -35,11 +36,26 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
     private fun initAlarmBtnListener() {
         binding.btnAlarm.setOnSingleClickListener {
             // TODO 푸시알람
-            navigateToFinishedActivity()
+            checkIsBuyOrSell()
         }
     }
 
-    private fun navigateToFinishedActivity() {
+    private fun checkIsBuyOrSell() {
+        if (intent.getBooleanExtra(EXTRA_IS_BUYING, true)) {
+            navigateToBuyFinishedActivity()
+        } else {
+            navigateToSellFinishedActivity()
+        }
+    }
+
+    private fun navigateToBuyFinishedActivity() {
+        BuyFinishedActivity.createIntent(
+            this,
+            intent.getStringExtra(EXTRA_ORDER_ID).orEmpty(),
+        ).apply { startActivity(this) }
+    }
+
+    private fun navigateToSellFinishedActivity() {
         SellFinishedActivity.createIntent(
             this,
             intent.getStringExtra(EXTRA_ITEM_ID).orEmpty(),
@@ -50,6 +66,8 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
     }
 
     companion object {
+        private const val EXTRA_IS_BUYING = "EXTRA_IS_BUYING"
+        private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
         private const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
         private const val EXTRA_PRODUCT_NAME = "EXTRA_PRODUCT_NAME"
         private const val EXTRA_PRODUCT_IMAGE = "EXTRA_PRODUCT_IMAGE"
@@ -58,12 +76,16 @@ class SellPushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_pus
         @JvmStatic
         fun createIntent(
             context: Context,
-            itemId: String,
-            productName: String,
-            productImage: String,
-            salePrice: Int,
+            isBuying: Boolean,
+            orderId: String? = null,
+            itemId: String? = null,
+            productName: String? = null,
+            productImage: String? = null,
+            salePrice: Int? = null,
         ): Intent =
-            Intent(context, SellPushActivity::class.java).apply {
+            Intent(context, PushActivity::class.java).apply {
+                putExtra(EXTRA_IS_BUYING, isBuying)
+                putExtra(EXTRA_ORDER_ID, orderId)
                 putExtra(EXTRA_ITEM_ID, itemId)
                 putExtra(EXTRA_PRODUCT_NAME, productName)
                 putExtra(EXTRA_PRODUCT_IMAGE, productImage)

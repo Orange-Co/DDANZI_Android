@@ -94,7 +94,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.push.SellPushActivity"
+            android:name="co.orange.presentation.push.PushActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

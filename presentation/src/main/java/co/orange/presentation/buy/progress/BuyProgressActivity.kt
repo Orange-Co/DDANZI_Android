@@ -19,8 +19,8 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
 import co.orange.presentation.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
-import co.orange.presentation.buy.push.BuyPushActivity
 import co.orange.presentation.delivery.DeliveryActivity
+import co.orange.presentation.push.PushActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_PURCHASE
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import coil.load
@@ -214,9 +214,8 @@ class BuyProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        BuyPushActivity.createIntent(this, state.data).apply {
-                            startActivity(this)
-                        }
+                        PushActivity.createIntent(this, true, state.data, null, null, null, null)
+                            .apply { startActivity(this) }
                         finish()
                     }
 

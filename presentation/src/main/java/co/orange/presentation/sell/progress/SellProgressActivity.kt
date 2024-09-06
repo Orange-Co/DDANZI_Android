@@ -16,7 +16,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
-import co.orange.presentation.sell.push.SellPushActivity
+import co.orange.presentation.push.PushActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import coil.load
@@ -146,8 +146,10 @@ class SellProgressActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        SellPushActivity.createIntent(
+                        PushActivity.createIntent(
                             this,
+                            false,
+                            null,
                             state.data.itemId,
                             state.data.productName,
                             state.data.imgUrl,

@@ -1,10 +1,14 @@
 package co.orange.presentation.sell.progress
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +20,9 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
+import co.orange.domain.entity.response.SellRegisteredModel
 import co.orange.presentation.push.PushActivity
+import co.orange.presentation.sell.finished.SellFinishedActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import coil.load
@@ -145,17 +151,7 @@ class SellProgressActivity :
         viewModel.postRegisterState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> {
-                        PushActivity.createIntent(
-                            this,
-                            false,
-                            null,
-                            state.data.itemId,
-                            state.data.productName,
-                            state.data.imgUrl,
-                            state.data.salePrice,
-                        ).apply { startActivity(this) }
-                    }
+                    is UiState.Success -> navigateToPushOrFinish(state.data)
 
                     is UiState.Failure -> {
                         toast(stringOf(R.string.error_msg))
@@ -165,6 +161,46 @@ class SellProgressActivity :
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    private fun navigateToPushOrFinish(item: SellRegisteredModel) {
+        if (isPermissionNeeded()) {
+            navigateToPushActivity(item)
+        } else {
+            navigateToSellFinishedActivity(item)
+        }
+    }
+
+    private fun isPermissionNeeded(): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) != PackageManager.PERMISSION_GRANTED
+        } else {
+            false
+        }
+
+    private fun navigateToSellFinishedActivity(item: SellRegisteredModel) {
+        SellFinishedActivity.createIntent(
+            this,
+            item.itemId,
+            item.productName,
+            item.imgUrl,
+            item.salePrice,
+        ).apply { startActivity(this) }
+    }
+
+    private fun navigateToPushActivity(item: SellRegisteredModel) {
+        PushActivity.createIntent(
+            this,
+            false,
+            null,
+            item.itemId,
+            item.productName,
+            item.imgUrl,
+            item.salePrice,
+        ).apply { startActivity(this) }
     }
 
     private fun observeLoadingState() {

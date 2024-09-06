@@ -251,6 +251,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToPushActivity(orderId: String) {
+        // TODO 디바이스아이디 서버통신
         PushActivity.createIntent(this, true, orderId, null, null, null, null)
             .apply { startActivity(this) }
         finish()

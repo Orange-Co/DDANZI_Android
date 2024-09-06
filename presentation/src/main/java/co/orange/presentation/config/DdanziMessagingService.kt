@@ -11,6 +11,7 @@ import co.orange.presentation.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.R
+import timber.log.Timber
 import java.util.Random
 
 @AndroidEntryPoint
@@ -20,6 +21,8 @@ class DdanziMessagingService : FirebaseMessagingService() {
     }
 
     override fun handleIntent(intent: Intent?) {
+        Timber.tag("okhttp").d("NOTIFICATION RECEIVED : $intent")
+
         intent?.let {
             if (intent.getStringExtra(MSG_TITLE).isNullOrEmpty()) return
             sendNotification(
@@ -33,7 +36,8 @@ class DdanziMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(messageBody: Map<String, String>) {
         val notifyId = Random().nextInt()
-        val intent = MainActivity.getIntent(this, TYPE_DEFAULT).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent =
+            MainActivity.getIntent(this, TYPE_DEFAULT).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent =
             PendingIntent.getActivity(
                 this,
@@ -45,7 +49,7 @@ class DdanziMessagingService : FirebaseMessagingService() {
 
         val notificationBuilder =
             NotificationCompat.Builder(this, channelId).apply {
-                setSmallIcon(R.mipmap.ic_launcher)
+                setSmallIcon(R.drawable.img_logo_text)
                 setContentTitle(messageBody[MSG_TITLE])
                 setContentText(messageBody[MSG_BODY])
                 setAutoCancel(true)
@@ -66,8 +70,8 @@ class DdanziMessagingService : FirebaseMessagingService() {
     }
 
     companion object {
-        private const val MSG_TITLE = "MSG_TITLE"
-        private const val MSG_BODY = "MSG_BODY"
+        private const val MSG_TITLE = "title"
+        private const val MSG_BODY = "body"
 
         const val TYPE_DEFAULT = "TYPE_DEFAULT"
     }

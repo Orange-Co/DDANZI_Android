@@ -182,6 +182,7 @@ class SellProgressActivity :
         }
 
     private fun navigateToSellFinishedActivity(item: SellRegisteredModel) {
+        // TODO 디바이스아이디 서버통신
         SellFinishedActivity.createIntent(
             this,
             item.itemId,

@@ -33,7 +33,7 @@ class DdanziMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(messageBody: Map<String, String>) {
         val notifyId = Random().nextInt()
-        val intent = Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent = MainActivity.getIntent(this, TYPE_DEFAULT).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent =
             PendingIntent.getActivity(
                 this,
@@ -68,5 +68,7 @@ class DdanziMessagingService : FirebaseMessagingService() {
     companion object {
         private const val MSG_TITLE = "MSG_TITLE"
         private const val MSG_BODY = "MSG_BODY"
+
+        const val TYPE_DEFAULT = "TYPE_DEFAULT"
     }
 }

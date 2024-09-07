@@ -33,14 +33,56 @@ class SellOnboardingActivity :
 
     private var sellProductDialog: SellProductDialog? = null
 
+    private var _guideAdapter: GuideAdapter? = null
+    val guideAdapter
+        get() = requireNotNull(_guideAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initViewPager()
+        initExitBtnListener()
+        initNextBtnListener()
         initSelectBtnListener()
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeCheckedAgainState()
         observeChangeImageState()
+    }
+
+    private fun initViewPager() {
+        _guideAdapter = GuideAdapter()
+        binding.vpOnboarding.apply {
+            adapter = guideAdapter
+            getChildAt(0).setOnTouchListener { _, _ -> true }
+        }
+        binding.dotIndicator.setViewPager(binding.vpOnboarding)
+    }
+
+    private fun initExitBtnListener() {
+        binding.btnExit.setOnSingleClickListener { finish() }
+    }
+
+    private fun initNextBtnListener() {
+        with(binding) {
+            btnNext.setOnClickListener {
+                vpOnboarding.currentItem += 1
+                setGuideWIthPosition(vpOnboarding.currentItem)
+            }
+        }
+    }
+
+    private fun setGuideWIthPosition(position: Int) {
+        with(binding) {
+            when (position) {
+                1 -> tvOnboardingGuide.text = stringOf(R.string.sell_onboarding_guide_second)
+                2 -> {
+                    tvOnboardingGuide.text = stringOf(R.string.sell_onboarding_guide_third)
+                    btnNext.isVisible = false
+                    btnSelect.isVisible = true
+                }
+            }
+        }
     }
 
     private fun initSelectBtnListener() {

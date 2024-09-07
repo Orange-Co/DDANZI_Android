@@ -1,9 +1,17 @@
 package co.orange.presentation.push
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.provider.Settings
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
@@ -15,7 +23,7 @@ import kr.genti.presentation.databinding.ActivityPushBinding
 
 @AndroidEntryPoint
 class PushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
-    private val viewModel by viewModels<PushViewModel>()
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +31,13 @@ class PushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
         initOnBackPressedListener(binding.root)
         initExitBtnListener()
         initAlarmBtnListener()
+        setRequestPermissionLauncher()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        checkReturnedWIthAlarm()
     }
 
     private fun initExitBtnListener() {
@@ -38,7 +53,45 @@ class PushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
 
     private fun initAlarmBtnListener() {
         binding.btnAlarm.setOnSingleClickListener {
-            // TODO 푸시알람
+            requestAlarmPermission()
+        }
+    }
+
+    private fun setRequestPermissionLauncher() {
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                // TODO 앰플리튜드 적용
+                checkIsBuyOrSell()
+            }
+    }
+
+    private fun requestAlarmPermission() {
+        if (isAlreadyRejectedPermission()) {
+            // 이미 권한을 거절한 경우 권한 설정 화면으로 이동
+            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                data = Uri.parse("package:" + this@PushActivity.packageName)
+                startActivity(this)
+            }
+        } else {
+            // 처음 권한 요청을 할 경우 권한 동의 팝업 표시
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
+    private fun isAlreadyRejectedPermission(): Boolean =
+        ActivityCompat.shouldShowRequestPermissionRationale(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS,
+        )
+
+    private fun checkReturnedWIthAlarm() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            checkIsBuyOrSell()
         }
     }
 

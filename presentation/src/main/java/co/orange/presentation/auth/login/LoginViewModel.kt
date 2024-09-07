@@ -7,12 +7,15 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.request.AuthRequestModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.UserRepository
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,19 +33,22 @@ class LoginViewModel
         private val _changeTokenState = MutableStateFlow<UiState<String>>(UiState.Empty)
         val changeTokenState: StateFlow<UiState<String>> = _changeTokenState
 
+        private val _getFCMTokenResult = MutableSharedFlow<Boolean>()
+        val getFCMTokenResult: SharedFlow<Boolean> = _getFCMTokenResult
+
         private var appLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 if (!(error is ClientError && error.reason == ClientErrorCause.Cancelled)) {
                     _isAppLoginAvailable.value = false
                 }
             } else if (token != null) {
-                changeTokenFromServer(token.accessToken)
+                getFCMToken(token.accessToken)
             }
         }
 
         private var webLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error == null && token != null) {
-                changeTokenFromServer(token.accessToken)
+                getFCMToken(token.accessToken)
             }
         }
 
@@ -60,7 +66,22 @@ class LoginViewModel
             }
         }
 
-        private fun changeTokenFromServer(accessToken: String) {
+        private fun getFCMToken(accessToken: String) {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                viewModelScope.launch {
+                    if (task.isSuccessful) {
+                        changeTokenFromServer(accessToken, task.result)
+                    } else {
+                        _getFCMTokenResult.emit(false)
+                    }
+                }
+            }
+        }
+
+        private fun changeTokenFromServer(
+            accessToken: String,
+            fcmToken: String,
+        ) {
             viewModelScope.launch {
                 authRepository.postOauthDataToGetToken(AuthRequestModel(accessToken, KAKAO))
                     .onSuccess {

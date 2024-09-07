@@ -14,8 +14,10 @@ data class SignUpRequestDto(
     val birth: String,
     @SerialName("sex")
     val sex: String,
+    @SerialName("isAgreedMarketingTerm")
+    val isAgreedMarketingTerm: Boolean,
 ) {
     companion object {
-        fun SignUpRequestModel.toDto() = SignUpRequestDto(name, phone, birth, sex)
+        fun SignUpRequestModel.toDto() = SignUpRequestDto(name, phone, birth, sex, isAgreedMarketingTerm)
     }
 }

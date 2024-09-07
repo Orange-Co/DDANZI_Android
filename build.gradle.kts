@@ -6,9 +6,13 @@ buildscript {
     }
 
     dependencies {
-        classpath(ClassPathPlugins.gradle)
-        classpath(ClassPathPlugins.kotlinGradle)
-        classpath(ClassPathPlugins.hilt)
+        ClassPathPlugins.run {
+            classpath(gradle)
+            classpath(kotlinGradle)
+            classpath(hilt)
+            classpath(googleServices)
+            classpath(crashlyticsGradle)
+        }
     }
 }
 

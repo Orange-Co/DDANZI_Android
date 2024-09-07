@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".MyApp"
@@ -93,7 +94,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.push.SellPushActivity"
+            android:name="co.orange.presentation.push.PushActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -177,6 +178,18 @@
                     android:scheme="kakao${NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="co.orange.presentation.config.DdanziMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
 
     </application>
 

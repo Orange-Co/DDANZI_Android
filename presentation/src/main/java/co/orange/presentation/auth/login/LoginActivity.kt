@@ -27,6 +27,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
         initLoginBtnListener()
         observeAppLoginAvailable()
+        observeGetFCMTokenResult()
         observeChangeTokenResult()
     }
 
@@ -39,6 +40,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private fun observeAppLoginAvailable() {
         viewModel.isAppLoginAvailable.flowWithLifecycle(lifecycle).onEach { isAvailable ->
             if (!isAvailable) viewModel.startLogInWithKakao(this)
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observeGetFCMTokenResult() {
+        viewModel.getFCMTokenResult.flowWithLifecycle(lifecycle).onEach { isSuccess ->
+            if (!isSuccess) toast(stringOf(R.string.error_msg))
         }.launchIn(lifecycleScope)
     }
 

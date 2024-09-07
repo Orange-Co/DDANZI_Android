@@ -81,14 +81,16 @@ object ClassPathPlugins {
     const val gradle = "com.android.tools.build:gradle:${Versions.gradleVersion}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
+    const val googleServices = "com.google.gms:google-services:${Versions.googleServicesVersion}"
+    const val crashlyticsGradle =
+        "com.google.firebase:firebase-crashlytics-gradle:${Versions.crashlyticsVersion}"
 }
 
 object FirebaseDependencies {
-    const val bom = "com.google.firebase:firebase-bom:32.2.0"
+    const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBomVersion}"
     const val messaging = "com.google.firebase:firebase-messaging-ktx"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
     const val analytics = "com.google.firebase:firebase-analytics-ktx"
-    const val remoteConfig = "com.google.firebase:firebase-config-ktx"
 }
 
 object KakaoDependencies {

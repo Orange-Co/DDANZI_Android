@@ -107,15 +107,16 @@ class PhoneViewModel
                             _getIamportCertificationResult.emit(true)
                             postToSignUpFromServer(
                                 SignUpRequestModel(
-                                    it.name.orEmpty(),
-                                    it.phone.orEmpty(),
-                                    it.birthday.orEmpty(),
-                                    it.gender?.uppercase().orEmpty(),
+                                    name = it.name.orEmpty(),
+                                    phone = it.phone.orEmpty(),
+                                    birth = it.birthday.orEmpty(),
+                                    sex = it.gender?.uppercase().orEmpty(),
+                                    isAgreedMarketingTerm = isTermMarketingSelected.value ?: false,
                                 ),
                             )
                             userRepository.setUserInfo(
-                                it.name.orEmpty(),
-                                it.phone?.toPhoneFrom().orEmpty(),
+                                userName = it.name.orEmpty(),
+                                userPhone = it.phone?.toPhoneFrom().orEmpty(),
                             )
                         } else {
                             _getIamportCertificationResult.emit(false)

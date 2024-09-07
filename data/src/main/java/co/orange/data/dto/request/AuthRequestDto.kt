@@ -10,8 +10,14 @@ data class AuthRequestDto(
     val token: String,
     @SerialName("type")
     val type: String,
+    @SerialName("deviceToken")
+    val deviceToken: String,
+    @SerialName("deviceType")
+    val deviceType: String,
+    @SerialName("fcmToken")
+    val fcmToken: String,
 ) {
     companion object {
-        fun AuthRequestModel.toDto() = AuthRequestDto(token, type)
+        fun AuthRequestModel.toDto() = AuthRequestDto(token, type, deviceToken, deviceType, fcmToken)
     }
 }

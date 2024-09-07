@@ -83,11 +83,17 @@ class LoginViewModel
             fcmToken: String,
         ) {
             viewModelScope.launch {
-                authRepository.postOauthDataToGetToken(AuthRequestModel(accessToken, KAKAO))
+                authRepository.postOauthDataToGetToken(
+                    AuthRequestModel(
+                        accessToken,
+                        KAKAO,
+                        userRepository.getDeviceToken(),
+                        ANDROID,
+                        fcmToken,
+                    ),
+                )
                     .onSuccess {
-                        with(userRepository) {
-                            setTokens(it.accesstoken, it.refreshtoken)
-                        }
+                        userRepository.setTokens(it.accesstoken, it.refreshtoken)
                         _changeTokenState.value = UiState.Success(it.status)
                     }
                     .onFailure {
@@ -98,5 +104,6 @@ class LoginViewModel
 
         companion object {
             const val KAKAO = "KAKAO"
+            const val ANDROID = "ANDROID"
         }
     }

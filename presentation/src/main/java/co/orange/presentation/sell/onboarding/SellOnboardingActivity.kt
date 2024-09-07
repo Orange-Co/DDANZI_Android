@@ -33,14 +33,28 @@ class SellOnboardingActivity :
 
     private var sellProductDialog: SellProductDialog? = null
 
+    private var _guideAdapter: GuideAdapter? = null
+    val guideAdapter
+        get() = requireNotNull(_guideAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initViewPager()
         initSelectBtnListener()
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeCheckedAgainState()
         observeChangeImageState()
+    }
+
+    private fun initViewPager() {
+        _guideAdapter = GuideAdapter()
+        binding.vpOnboarding.apply {
+            adapter = guideAdapter
+            getChildAt(0).setOnTouchListener { _, _ -> true }
+        }
+        binding.dotIndicator.setViewPager(binding.vpOnboarding)
     }
 
     private fun initSelectBtnListener() {

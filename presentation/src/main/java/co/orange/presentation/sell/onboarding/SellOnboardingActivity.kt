@@ -41,6 +41,8 @@ class SellOnboardingActivity :
         super.onCreate(savedInstanceState)
 
         initViewPager()
+        initExitBtnListener()
+        initNextBtnListener()
         initSelectBtnListener()
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
@@ -55,6 +57,32 @@ class SellOnboardingActivity :
             getChildAt(0).setOnTouchListener { _, _ -> true }
         }
         binding.dotIndicator.setViewPager(binding.vpOnboarding)
+    }
+
+    private fun initExitBtnListener() {
+        binding.btnExit.setOnSingleClickListener { finish() }
+    }
+
+    private fun initNextBtnListener() {
+        with(binding) {
+            btnNext.setOnClickListener {
+                vpOnboarding.currentItem += 1
+                setGuideWIthPosition(vpOnboarding.currentItem)
+            }
+        }
+    }
+
+    private fun setGuideWIthPosition(position: Int) {
+        with(binding) {
+            when (position) {
+                1 -> tvOnboardingGuide.text = stringOf(R.string.sell_onboarding_guide_second)
+                2 -> {
+                    tvOnboardingGuide.text = stringOf(R.string.sell_onboarding_guide_third)
+                    btnNext.isVisible = false
+                    btnSelect.isVisible = true
+                }
+            }
+        }
     }
 
     private fun initSelectBtnListener() {

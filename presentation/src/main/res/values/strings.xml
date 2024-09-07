@@ -166,6 +166,11 @@
     <string name="confirm_tv_sell_date_subtitle">배송지 입력 기간 이내의 상품만 등록 가능합니다.</string>
     <string name="confirm_tv_date_hint">클릭해서 날짜를 선택하세요</string>
 
+    <string name="sell_onboarding_btn_select">캡쳐화면 선택하기</string>
+    <string name="sell_onboarding_guide_first">선물받은 배송상품의 캡처화면을 업로드 해주세요.\n상품명이 확인 되어야 합니다!</string>
+    <string name="sell_onboarding_guide_second">거래성사 시 푸시알림이 도착해요.\n정보확인 후 카카오선물창에 직접입력 해주세요!</string>
+    <string name="sell_onboarding_guide_third">판매금 정산은 배송 및 구매확정 후 이루어집니다.\n딴지와 함께 즐거운 거래 되세요!</string>
+
     <string name="sell_product_tv_subtitle">해당 상품이 맞나요?</string>
     <string name="sell_product_btn_submit">네 맞아요</string>
     <string name="sell_product_pick_again"><u>다시 업로드하기</u></string>
@@ -266,7 +271,5 @@
     <string name="bank_add_tv_number_hint">-를 제외한 계좌번호를 작성해주세요</string>
     <string name="bank_toast">계좌 입력이 완료되었습니다</string>
     <string name="bank_type_tv_title">등록할 계좌의 은행을 선택해주세요</string>
-
-    <string name="sell_onboarding_btn_select">캡쳐화면 선택하기</string>
 
 </resources>

@@ -18,6 +18,7 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.OrderInfoModel
 import co.orange.domain.enums.OrderStatus
@@ -26,11 +27,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.buy.R as featureR
 
 @AndroidEntryPoint
 class BuyInfoActivity :
     BaseActivity<ActivityBuyInfoBinding>(featureR.layout.activity_buy_info) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
     private val viewModel by viewModels<BuyInfoViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,11 +136,7 @@ class BuyInfoActivity :
             .onEach { isSuccess ->
                 if (isSuccess) {
                     toast(stringOf(R.string.buy_order_fix_msg))
-                    Intent(this, MainActivity::class.java).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                        startActivity(this)
-                    }
+                    navigationManager.toMainViewWIthClearing()
                 } else {
                     toast(stringOf(R.string.error_msg))
                 }

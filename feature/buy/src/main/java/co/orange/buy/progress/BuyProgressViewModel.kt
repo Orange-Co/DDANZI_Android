@@ -3,6 +3,7 @@ package co.orange.buy.progress
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.orange.buy.BuildConfig.PAYMENT_UID
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.OrderRequestModel
 import co.orange.domain.entity.request.PayEndRequestModel
@@ -17,7 +18,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kr.genti.presentation.BuildConfig.PAYMENT_UID
 import timber.log.Timber
 import javax.inject.Inject
 

@@ -24,6 +24,7 @@ import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toPhoneFrom
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AddressInfoModel
 import co.orange.domain.entity.response.BuyProgressModel
@@ -34,11 +35,15 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import javax.inject.Inject
 import co.orange.buy.R as featureR
 
 @AndroidEntryPoint
 class BuyProgressActivity :
     BaseActivity<ActivityBuyProgressBinding>(featureR.layout.activity_buy_progress) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by viewModels<BuyProgressViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,9 +83,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToAddAddress() {
-        Intent(this, DeliveryActivity::class.java).apply {
-            startActivity(this)
-        }
+        navigationManager.toDeliveryView()
     }
 
     private fun initTermDetailBtnListener() {
@@ -248,8 +251,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToPushActivity(orderId: String) {
-        PushActivity.createIntent(this, true, orderId, null, null, null, null)
-            .apply { startActivity(this) }
+        navigationManager.toPushViewWithIntent(true, orderId, null, null, null, null)
         finish()
     }
 

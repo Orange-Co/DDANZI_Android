@@ -16,19 +16,23 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.OrderInfoModel
-import co.orange.presentation.main.MainActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.buy.R as featureR
 
 @AndroidEntryPoint
 class BuyFinishedActivity :
     BaseActivity<ActivityBuyFinishedBinding>(featureR.layout.activity_buy_finished) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by viewModels<BuyFinishedViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +50,7 @@ class BuyFinishedActivity :
     }
 
     private fun navigateToHome() {
-        Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(this)
-        }
+        navigationManager.toMainViewWIthClearing()
     }
 
     private fun initDetailBtnListener() {

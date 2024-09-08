@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import co.orange.auth.login.LoginActivity
 import co.orange.core.extension.toast
 import co.orange.domain.entity.request.ReissueRequestModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.UserRepository
-import co.orange.presentation.auth.login.LoginActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor

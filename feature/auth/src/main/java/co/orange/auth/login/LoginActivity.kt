@@ -1,23 +1,23 @@
-package co.orange.presentation.auth.login
+package co.orange.auth.login
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.auth.databinding.ActivityLoginBinding
+import co.orange.auth.phone.PhoneActivity
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.auth.phone.PhoneActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.databinding.ActivityLoginBinding
-import kr.genti.presentation.R as featureR
+import co.orange.auth.R as featureR
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(featureR.layout.activity_login) {

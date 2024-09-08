@@ -1,14 +1,14 @@
-package co.orange.presentation.auth.submit
+package co.orange.auth.submit
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import co.orange.auth.databinding.ActivitySubmitBinding
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.databinding.ActivitySubmitBinding
-import kr.genti.presentation.R as featureR
+import co.orange.auth.R as featureR
 
 @AndroidEntryPoint
 class SubmitActivity : BaseActivity<ActivitySubmitBinding>(featureR.layout.activity_submit) {

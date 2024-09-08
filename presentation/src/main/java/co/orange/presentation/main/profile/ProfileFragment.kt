@@ -8,13 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.history.HistoryActivity
 import co.orange.presentation.history.HistoryActivity.Companion.TYPE_BUY
 import co.orange.presentation.history.HistoryActivity.Companion.TYPE_INTEREST
@@ -61,7 +61,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-            Intent(requireActivity(), LoginActivity::class.java).apply {
+            Intent(requireActivity(), co.orange.auth.login.LoginActivity::class.java).apply {
                 startActivity(this)
             }
         }

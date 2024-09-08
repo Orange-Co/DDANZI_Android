@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
@@ -20,7 +21,6 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
-import co.orange.presentation.auth.login.LoginActivity
 import coil.load
 import com.kkkk.buy.progress.BuyProgressActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,7 +64,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initLikeBtnListener() {
         binding.btnLike.setOnSingleClickShortListener {
             if (!viewModel.getUserLogined()) {
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, co.orange.auth.login.LoginActivity::class.java))
                 return@setOnSingleClickShortListener
             }
             viewModel.setLikeStateWithServer()
@@ -74,7 +74,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
             if (!viewModel.getUserLogined()) {
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, co.orange.auth.login.LoginActivity::class.java))
                 return@setOnSingleClickListener
             }
             if (viewModel.optionList.isEmpty()) {

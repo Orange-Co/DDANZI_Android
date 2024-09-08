@@ -1,4 +1,4 @@
-package co.orange.presentation.auth.login
+package co.orange.auth.login
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

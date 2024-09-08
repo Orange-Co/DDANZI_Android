@@ -109,12 +109,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.auth.login.LoginActivity"
+            android:name="co.orange.auth.login.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.auth.submit.SubmitActivity"
+            android:name="co.orange.auth.submit.SubmitActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -124,7 +124,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.auth.phone.PhoneActivity"
+            android:name="co.orange.auth.phone.PhoneActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

@@ -19,6 +19,12 @@ android {
 
         buildConfigField(
             "String",
+            "IAMPORT_CODE",
+            gradleLocalProperties(rootDir).getProperty("iamport.code"),
+        )
+
+        buildConfigField(
+            "String",
             "MERCHANT_UID",
             gradleLocalProperties(rootDir).getProperty("merchant.uid"),
         )

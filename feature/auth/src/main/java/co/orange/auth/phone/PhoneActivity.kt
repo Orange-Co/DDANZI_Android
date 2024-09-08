@@ -1,10 +1,14 @@
-package co.orange.presentation.auth.phone
+package co.orange.auth.phone
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.auth.BuildConfig.IAMPORT_CODE
+import co.orange.auth.BuildConfig.MERCHANT_UID
+import co.orange.auth.databinding.ActivityPhoneBinding
+import co.orange.auth.submit.SubmitActivity
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
@@ -12,18 +16,14 @@ import co.orange.core.extension.setStatusBarColorFromResource
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.auth.submit.SubmitActivity
 import com.iamport.sdk.data.sdk.IamPortCertification
 import com.iamport.sdk.domain.core.Iamport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.BuildConfig.IAMPORT_CODE
-import kr.genti.presentation.BuildConfig.MERCHANT_UID
-import kr.genti.presentation.databinding.ActivityPhoneBinding
 import timber.log.Timber
-import kr.genti.presentation.R as featureR
+import co.orange.auth.R as featureR
 
 @AndroidEntryPoint
 class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activity_phone) {

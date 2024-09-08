@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initFocusWithKeyboard
@@ -15,7 +16,6 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductModel
-import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -135,7 +135,7 @@ class SearchActivity :
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, co.orange.auth.login.LoginActivity::class.java))
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)

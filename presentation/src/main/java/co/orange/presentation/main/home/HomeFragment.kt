@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
@@ -16,7 +17,6 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
@@ -88,7 +88,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            startActivity(Intent(requireActivity(), co.orange.auth.login.LoginActivity::class.java))
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)
@@ -109,7 +109,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
                     startActivity(this)
                 }
             } else {
-                Intent(requireActivity(), LoginActivity::class.java).apply {
+                Intent(requireActivity(), co.orange.auth.login.LoginActivity::class.java).apply {
                     startActivity(this)
                 }
             }

@@ -1,4 +1,4 @@
-package co.orange.presentation.auth.phone
+package co.orange.auth.phone
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

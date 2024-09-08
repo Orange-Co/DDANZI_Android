@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="co.orange.presentation.auth.phone.PhoneViewModel" />
+            type="co.orange.auth.phone.PhoneViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

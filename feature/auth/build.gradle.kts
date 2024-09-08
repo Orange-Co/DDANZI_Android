@@ -100,4 +100,11 @@ dependencies {
     KakaoDependencies.run {
         implementation(user)
     }
+
+    FirebaseDependencies.run {
+        implementation(platform(firebaseBom))
+        implementation(messaging)
+        implementation(crashlytics)
+        implementation(analytics)
+    }
 }

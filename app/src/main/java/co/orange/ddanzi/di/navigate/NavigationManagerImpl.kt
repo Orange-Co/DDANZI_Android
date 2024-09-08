@@ -6,9 +6,9 @@ import co.orange.auth.login.LoginActivity
 import co.orange.buy.finished.BuyFinishedActivity
 import co.orange.buy.progress.BuyProgressActivity
 import co.orange.core.navigation.NavigationManager
+import co.orange.main.alarm.AlarmRequestActivity
 import co.orange.main.detail.DetailActivity
 import co.orange.main.main.MainActivity
-import co.orange.main.push.PushActivity
 import co.orange.sell.finished.SellFinishedActivity
 import co.orange.sell.info.SellInfoActivity
 import co.orange.sell.onboarding.SellOnboardingActivity
@@ -37,7 +37,7 @@ class NavigationManagerImpl
             context.startActivity(DetailActivity.createIntent(context, productId))
         }
 
-        override fun toPushViewWithIntent(
+        override fun toAlarmRequestViewWithIntent(
             context: Context,
             isBuying: Boolean,
             orderId: String?,
@@ -47,7 +47,7 @@ class NavigationManagerImpl
             salePrice: Int?,
         ) {
             context.startActivity(
-                PushActivity.createIntent(
+                AlarmRequestActivity.createIntent(
                     context,
                     isBuying,
                     orderId,

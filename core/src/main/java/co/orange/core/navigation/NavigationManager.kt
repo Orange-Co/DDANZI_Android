@@ -11,7 +11,7 @@ interface NavigationManager {
         productId: String,
     )
 
-    fun toPushViewWithIntent(
+    fun toAlarmRequestViewWithIntent(
         context: Context,
         isBuying: Boolean,
         orderId: String?,

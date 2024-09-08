@@ -12,6 +12,7 @@ import co.orange.main.push.PushActivity
 import co.orange.sell.finished.SellFinishedActivity
 import co.orange.sell.info.SellInfoActivity
 import co.orange.sell.onboarding.SellOnboardingActivity
+import co.orange.setting.bank.BankActivity
 import co.orange.setting.delivery.DeliveryActivity
 import co.orange.setting.history.HistoryActivity
 import co.orange.setting.setting.SettingActivity
@@ -74,6 +75,10 @@ class NavigationManagerImpl
 
         override fun toDeliveryView() {
             context.startActivity(Intent(context, DeliveryActivity::class.java))
+        }
+
+        override fun toBankView() {
+            context.startActivity(Intent(context, BankActivity::class.java))
         }
 
         /** To Buy Module**/

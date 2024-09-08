@@ -19,12 +19,10 @@ import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.setStatusBarColorFromResource
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
 import co.orange.domain.entity.response.SellRegisteredModel
-import co.orange.presentation.push.PushActivity
-import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
-import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
 import co.orange.sell.databinding.ActivitySellProgressBinding
 import co.orange.sell.finished.SellFinishedActivity
 import coil.load
@@ -32,11 +30,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellProgressActivity :
     BaseActivity<ActivitySellProgressBinding>(featureR.layout.activity_sell_progress) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by viewModels<SellProgressViewModel>()
 
     private var sellDateBottomSheet: SellDateBottomSheet? = null
@@ -194,15 +196,14 @@ class SellProgressActivity :
     }
 
     private fun navigateToPushActivity(item: SellRegisteredModel) {
-        PushActivity.createIntent(
-            this,
+        navigationManager.toPushViewWithIntent(
             false,
             null,
             item.itemId,
             item.productName,
             item.imgUrl,
             item.salePrice,
-        ).apply { startActivity(this) }
+        )
         finish()
     }
 

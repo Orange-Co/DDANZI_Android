@@ -7,15 +7,20 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
+import co.orange.core.navigation.NavigationManager
 import co.orange.sell.databinding.ActivitySellFinishedBinding
 import co.orange.sell.info.SellInfoActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellFinishedActivity :
     BaseActivity<ActivitySellFinishedBinding>(featureR.layout.activity_sell_finished) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by viewModels<SellFinishedViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +33,8 @@ class SellFinishedActivity :
 
     private fun initReturnBtnListener() {
         with(binding) {
-            btnExit.setOnSingleClickListener { returnToMainActivity() }
-            btnSellMore.setOnSingleClickListener { returnToMainActivity() }
-        }
-    }
-
-    private fun returnToMainActivity() {
-        Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(this)
+            btnExit.setOnSingleClickListener { navigationManager.toMainViewWIthClearing() }
+            btnSellMore.setOnSingleClickListener { navigationManager.toMainViewWIthClearing() }
         }
     }
 
@@ -51,10 +48,10 @@ class SellFinishedActivity :
 
     private fun setUiWithIntent() {
         with(binding) {
-            intent.getStringExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
-            intent.getStringExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_PRODUCT_NAME)?.let { tvFinishedItemName.text = it }
-            intent.getStringExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_PRODUCT_IMAGE)?.let { ivFinishedItem.load(it) }
-            tvFinishedItemPrice.text = intent.getIntExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_SALE_PRICE, 0).setPriceForm()
+            intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
+            intent.getStringExtra(EXTRA_PRODUCT_NAME)?.let { tvFinishedItemName.text = it }
+            intent.getStringExtra(EXTRA_PRODUCT_IMAGE)?.let { ivFinishedItem.load(it) }
+            tvFinishedItemPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).setPriceForm()
         }
     }
 

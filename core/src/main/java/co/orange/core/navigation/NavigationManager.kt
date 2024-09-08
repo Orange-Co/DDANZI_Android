@@ -27,6 +27,8 @@ interface NavigationManager {
 
     fun toDeliveryView()
 
+    fun toBankView()
+
     /** To Buy Module**/
 
     fun toBuyProgressView(

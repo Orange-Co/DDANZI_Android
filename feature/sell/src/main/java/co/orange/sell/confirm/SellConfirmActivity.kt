@@ -15,6 +15,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellBuyerInfoModel
 import co.orange.sell.databinding.ActivitySellConfirmBinding
@@ -22,11 +23,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellConfirmActivity :
     BaseActivity<ActivitySellConfirmBinding>(featureR.layout.activity_sell_confirm) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by viewModels<SellConfirmViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,11 +120,7 @@ class SellConfirmActivity :
             .onEach { isSuccess ->
                 if (isSuccess) {
                     toast(stringOf(R.string.sell_order_fix_msg))
-                    Intent(this, MainActivity::class.java).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                        startActivity(this)
-                    }
+                    navigationManager.toMainViewWIthClearing()
                 } else {
                     toast(stringOf(R.string.error_msg))
                 }

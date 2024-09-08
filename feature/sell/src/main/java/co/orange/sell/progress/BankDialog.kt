@@ -1,6 +1,5 @@
 package co.orange.sell.progress
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -8,12 +7,16 @@ import androidx.fragment.app.activityViewModels
 import co.orange.core.R
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.bank.BankActivity
+import co.orange.core.navigation.NavigationManager
 import co.orange.sell.databinding.DialogBankBinding
+import javax.inject.Inject
 import co.orange.sell.R as featureR
 
 class BankDialog :
     BaseDialog<DialogBankBinding>(featureR.layout.dialog_bank) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by activityViewModels<SellProgressViewModel>()
 
     override fun onStart() {
@@ -42,9 +45,7 @@ class BankDialog :
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
             viewModel.isSentToBank = true
-            Intent(requireContext(), BankActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigationManager.toBankView()
             dismiss()
         }
     }

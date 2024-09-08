@@ -18,7 +18,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name="co.orange.presentation.splash.SplashActivity"
+            android:name="co.orange.main.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -29,133 +29,123 @@
         </activity>
 
         <activity
-            android:name="co.orange.presentation.main.MainActivity"
+            android:name="co.orange.main.main.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.detail.DetailActivity"
+            android:name="co.orange.main.detail.DetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.progress.BuyProgressActivity"
+            android:name="co.orange.main.search.SearchActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.push.BuyPushActivity"
+            android:name="co.orange.main.push.PushActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.finished.BuyFinishedActivity"
+            android:name="co.orange.main.main.profile.ReportActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name="co.orange.buy.progress.BuyProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.info.BuyInfoActivity"
+            android:name="co.orange.buy.finished.BuyFinishedActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.search.SearchActivity"
+            android:name="co.orange.buy.info.BuyInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.setting.SettingActivity"
+            android:name="co.orange.setting.setting.SettingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.delivery.DeliveryActivity"
+            android:name="co.orange.setting.delivery.DeliveryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.bank.BankActivity"
+            android:name="co.orange.setting.bank.BankActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.setting.AccountActivity"
+            android:name="co.orange.setting.account.AccountActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.onboarding.SellOnboardingActivity"
+            android:name="co.orange.setting.history.HistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.progress.SellProgressActivity"
+            android:name="co.orange.setting.delivery.address.AddressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.push.PushActivity"
+            android:name="co.orange.setting.bank.add.BankAddActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.finished.SellFinishedActivity"
+            android:name="co.orange.sell.onboarding.SellOnboardingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.info.SellInfoActivity"
+            android:name="co.orange.sell.progress.SellProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.confirm.SellConfirmActivity"
+            android:name="co.orange.sell.finished.SellFinishedActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.auth.login.LoginActivity"
+            android:name="co.orange.sell.info.SellInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.auth.signup_x.SignUpActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name="co.orange.presentation.auth.submit.SubmitActivity"
+            android:name="co.orange.sell.confirm.SellConfirmActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.history.HistoryActivity"
+            android:name="co.orange.auth.login.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.auth.phone.PhoneActivity"
+            android:name="co.orange.auth.phone.PhoneActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.delivery.address.AddressActivity"
+            android:name="co.orange.auth.submit.SubmitActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.bank.add.BankAddActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="co.orange.presentation.main.profile.ReportActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="co.orange.presentation.delivery.address.AddressWebActivity"
+            android:name="co.orange.setting.delivery.address.AddressWebActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="co.orange.presentation.address.ADDRESS" />
@@ -180,7 +170,7 @@
         </activity>
 
         <service
-            android:name="co.orange.presentation.config.DdanziMessagingService"
+            android:name="co.orange.main.config.DdanziMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

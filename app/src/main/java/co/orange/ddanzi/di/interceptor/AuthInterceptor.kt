@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import co.orange.auth.login.LoginActivity
 import co.orange.core.extension.toast
 import co.orange.domain.entity.request.ReissueRequestModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.UserRepository
-import co.orange.presentation.auth.login.LoginActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -76,7 +76,7 @@ class AuthInterceptor
         private fun Request.Builder.newAuthBuilder() = this.addHeader(AUTHORIZATION, "$BEARER ${userRepository.getAccessToken()}")
 
         companion object {
-            private const val CODE_TOKEN_EXPIRED = 403
+            private const val CODE_TOKEN_EXPIRED = 401
             private const val TOKEN_EXPIRED_ERROR = "토큰이 만료되었어요\n다시 로그인 해주세요"
             private const val BEARER = "Bearer"
             private const val AUTHORIZATION = "Authorization"

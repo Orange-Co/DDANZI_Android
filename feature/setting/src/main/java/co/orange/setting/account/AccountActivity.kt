@@ -1,4 +1,4 @@
-package co.orange.setting.setting
+package co.orange.setting.account
 
 import android.os.Bundle
 import androidx.activity.viewModels

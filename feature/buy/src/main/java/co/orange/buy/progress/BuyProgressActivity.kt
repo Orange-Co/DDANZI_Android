@@ -274,7 +274,7 @@ class BuyProgressActivity :
         fun createIntent(
             context: Context,
             productId: String,
-            optionList: ArrayList<Int> = arrayListOf(),
+            optionList: ArrayList<Int>,
         ): Intent =
             Intent(context, BuyProgressActivity::class.java).apply {
                 putExtra(EXTRA_PRODUCT_ID, productId)

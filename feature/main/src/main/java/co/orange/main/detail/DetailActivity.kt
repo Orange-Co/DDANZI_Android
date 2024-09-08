@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
@@ -19,19 +18,23 @@ import co.orange.core.extension.setOverThousand
 import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
 import co.orange.main.databinding.ActivityDetailBinding
 import coil.load
-import com.kkkk.buy.progress.BuyProgressActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.main.R as featureR
 
 @AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activity_detail) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by viewModels<DetailViewModel>()
 
     private var optionBottomSheet: OptionBottomSheet? = null
@@ -64,7 +67,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initLikeBtnListener() {
         binding.btnLike.setOnSingleClickShortListener {
             if (!viewModel.getUserLogined()) {
-                startActivity(Intent(this, LoginActivity::class.java))
+                navigationManager.toLoginView()
                 return@setOnSingleClickShortListener
             }
             viewModel.setLikeStateWithServer()
@@ -74,14 +77,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
             if (!viewModel.getUserLogined()) {
-                startActivity(Intent(this, LoginActivity::class.java))
+                navigationManager.toLoginView()
                 return@setOnSingleClickListener
             }
             if (viewModel.optionList.isEmpty()) {
-                com.kkkk.buy.progress.BuyProgressActivity.createIntent(
-                    this,
-                    viewModel.productId,
-                ).apply { startActivity(this) }
+                navigationManager.toBuyProgressView(viewModel.productId, arrayListOf())
             } else {
                 optionBottomSheet = OptionBottomSheet()
                 optionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)

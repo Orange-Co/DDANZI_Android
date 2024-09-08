@@ -9,27 +9,30 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.main.databinding.FragmentHomeBinding
 import co.orange.main.detail.DetailActivity
 import co.orange.main.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.main.search.SearchActivity
-import co.orange.sell.onboarding.SellOnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.main.R as featureR
 
 @AndroidEntryPoint
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragment_home) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private var _adapter: HomeAdapter? = null
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
@@ -88,7 +91,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            startActivity(Intent(requireActivity(), co.orange.auth.login.LoginActivity::class.java))
+            navigationManager.toLoginView()
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)
@@ -105,13 +108,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
             if (viewModel.getUserLogined()) {
-                Intent(requireActivity(), co.orange.sell.onboarding.SellOnboardingActivity::class.java).apply {
-                    startActivity(this)
-                }
+                navigationManager.toSellOnboardingView()
             } else {
-                Intent(requireActivity(), co.orange.auth.login.LoginActivity::class.java).apply {
-                    startActivity(this)
-                }
+                navigationManager.toLoginView()
             }
         }
     }

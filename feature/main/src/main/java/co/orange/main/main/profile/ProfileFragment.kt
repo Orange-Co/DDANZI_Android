@@ -8,27 +8,26 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import co.orange.auth.login.LoginActivity
 import co.orange.core.R
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.main.databinding.FragmentProfileBinding
-import co.orange.presentation.history.HistoryActivity
-import co.orange.presentation.history.HistoryActivity.Companion.TYPE_BUY
-import co.orange.presentation.history.HistoryActivity.Companion.TYPE_INTEREST
-import co.orange.presentation.history.HistoryActivity.Companion.TYPE_SELL
-import co.orange.presentation.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.main.R as featureR
 
 @AndroidEntryPoint
 class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.fragment_profile) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by activityViewModels<ProfileViewModel>()
 
     override fun onViewCreated(
@@ -53,17 +52,13 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
 
     private fun initSettingBtnListener() {
         binding.btnSetting.setOnSingleClickListener {
-            Intent(requireContext(), SettingActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigationManager.toSettingView()
         }
     }
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-            Intent(requireActivity(), co.orange.auth.login.LoginActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigationManager.toLoginView()
         }
     }
 
@@ -92,8 +87,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
     }
 
     private fun navigateToHistory(type: Int) {
-        HistoryActivity.createIntent(requireContext(), type)
-            .apply { startActivity(this) }
+        navigationManager.toHistoryView(type)
     }
 
     private fun checkIsLogined() {
@@ -119,6 +113,10 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
     }
 
     companion object {
+        const val TYPE_BUY = 0
+        const val TYPE_SELL = 1
+        const val TYPE_INTEREST = 2
+
         const val WEB_QUESTION =
             "https://brawny-guan-098.notion.site/0e7b016d88fb4b8ab066f45e644f365b?pvs=4"
     }

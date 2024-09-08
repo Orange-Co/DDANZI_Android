@@ -11,15 +11,19 @@ import co.orange.core.R
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOverThousand
+import co.orange.core.navigation.NavigationManager
 import co.orange.main.databinding.BottomSheetOptionBinding
-import com.kkkk.buy.progress.BuyProgressActivity
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.main.R as featureR
 
 class OptionBottomSheet :
     BaseBottomSheet<BottomSheetOptionBinding>(featureR.layout.bottom_sheet_option) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private val viewModel by activityViewModels<DetailViewModel>()
 
     private var _adapter: OptionAdapter? = null
@@ -56,11 +60,7 @@ class OptionBottomSheet :
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            com.kkkk.buy.progress.BuyProgressActivity.createIntent(
-                requireContext(),
-                viewModel.productId,
-                viewModel.selectedOptionList,
-            ).apply { startActivity(this) }
+            navigationManager.toBuyProgressView(viewModel.productId, viewModel.selectedOptionList)
         }
     }
 

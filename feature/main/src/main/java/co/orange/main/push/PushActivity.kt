@@ -15,14 +15,17 @@ import androidx.core.content.ContextCompat
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.navigation.NavigationManager
 import co.orange.main.databinding.ActivityPushBinding
-import co.orange.sell.finished.SellFinishedActivity
-import com.kkkk.buy.finished.BuyFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import co.orange.main.R as featureR
 
 @AndroidEntryPoint
 class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_push) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,20 +107,18 @@ class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_
     }
 
     private fun navigateToBuyFinishedActivity() {
-        com.kkkk.buy.finished.BuyFinishedActivity.createIntent(
-            this,
+        navigationManager.toBuyFinishedView(
             intent.getStringExtra(EXTRA_ORDER_ID).orEmpty(),
-        ).apply { startActivity(this) }
+        )
     }
 
     private fun navigateToSellFinishedActivity() {
-        co.orange.sell.finished.SellFinishedActivity.createIntent(
-            this,
+        navigationManager.toSellFinishedView(
             intent.getStringExtra(EXTRA_ITEM_ID).orEmpty(),
             intent.getStringExtra(EXTRA_PRODUCT_NAME).orEmpty(),
             intent.getStringExtra(EXTRA_PRODUCT_IMAGE).orEmpty(),
             intent.getIntExtra(EXTRA_SALE_PRICE, 0),
-        ).apply { startActivity(this) }
+        )
     }
 
     companion object {
@@ -132,11 +133,11 @@ class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_
         fun createIntent(
             context: Context,
             isBuying: Boolean,
-            orderId: String? = null,
-            itemId: String? = null,
-            productName: String? = null,
-            productImage: String? = null,
-            salePrice: Int? = null,
+            orderId: String?,
+            itemId: String?,
+            productName: String?,
+            productImage: String?,
+            salePrice: Int?,
         ): Intent =
             Intent(context, PushActivity::class.java).apply {
                 putExtra(EXTRA_IS_BUYING, isBuying)

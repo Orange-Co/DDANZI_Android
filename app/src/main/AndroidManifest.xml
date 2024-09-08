@@ -44,11 +44,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.push.BuyPushActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="co.orange.presentation.buy.finished.BuyFinishedActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -117,12 +112,6 @@
             android:name="co.orange.presentation.auth.login.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
-        <activity
-            android:name="co.orange.presentation.auth.signup_x.SignUpActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name="co.orange.presentation.auth.submit.SubmitActivity"

@@ -1,46 +1,100 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.kkkk.buy"
-    compileSdk = 34
+    namespace = "co.orange.feature.buy"
+    compileSdk = Constants.compileSdk
 
     defaultConfig {
-        applicationId = "com.kkkk.buy"
-        minSdk = 28
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Constants.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField(
+            "String",
+            "PAYMENT_UID",
+            gradleLocalProperties(rootDir).getProperty("payment.uid"),
+        )
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.javaVersion
+        targetCompatibility = Versions.javaVersion
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.jvmVersion
+    }
+
+    buildFeatures {
+        buildConfig = true
+        dataBinding = true
+        viewBinding = true
     }
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":domain"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    KotlinDependencies.run {
+        implementation(kotlin)
+        implementation(coroutines)
+        implementation(jsonSerialization)
+        implementation(dateTime)
+    }
+
+    AndroidXDependencies.run {
+        implementation(coreKtx)
+        implementation(appCompat)
+        implementation(constraintLayout)
+        implementation(fragment)
+        implementation(startup)
+        implementation(legacy)
+        implementation(security)
+        implementation(hilt)
+        implementation(lifeCycleKtx)
+        implementation(lifecycleJava8)
+        implementation(splashScreen)
+        implementation(workManager)
+        implementation(hiltWorkManager)
+    }
+
+    KaptDependencies.run {
+        kapt(hiltCompiler)
+        kapt(hiltWorkManagerCompiler)
+    }
+
+    GoogleDependencies.run {
+        implementation(materialDesign)
+    }
+
+    TestDependencies.run {
+        testImplementation(jUnit)
+        androidTestImplementation(androidTest)
+        androidTestImplementation(espresso)
+    }
+
+    ThirdPartyDependencies.run {
+        implementation(coil)
+        implementation(timber)
+        implementation(lottie)
+    }
+
+    JitpackDependencies.run {
+        implementation(iamport)
+    }
+
+    FirebaseDependencies.run {
+        implementation(platform(firebaseBom))
+        implementation(crashlytics)
+        implementation(analytics)
+    }
 }

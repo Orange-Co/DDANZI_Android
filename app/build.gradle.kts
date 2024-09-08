@@ -75,7 +75,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":presentation"))
+    implementation(project(":feature"))
 
     KotlinDependencies.run {
         implementation(kotlin)

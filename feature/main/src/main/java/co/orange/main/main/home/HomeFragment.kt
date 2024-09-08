@@ -91,7 +91,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            navigationManager.toLoginView()
+            navigationManager.toLoginView(requireContext())
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)
@@ -108,9 +108,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
             if (viewModel.getUserLogined()) {
-                navigationManager.toSellOnboardingView()
+                navigationManager.toSellOnboardingView(requireContext())
             } else {
-                navigationManager.toLoginView()
+                navigationManager.toLoginView(requireContext())
             }
         }
     }

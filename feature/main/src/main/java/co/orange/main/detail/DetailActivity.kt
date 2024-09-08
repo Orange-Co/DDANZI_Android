@@ -67,7 +67,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initLikeBtnListener() {
         binding.btnLike.setOnSingleClickShortListener {
             if (!viewModel.getUserLogined()) {
-                navigationManager.toLoginView()
+                navigationManager.toLoginView(this)
                 return@setOnSingleClickShortListener
             }
             viewModel.setLikeStateWithServer()
@@ -77,11 +77,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
             if (!viewModel.getUserLogined()) {
-                navigationManager.toLoginView()
+                navigationManager.toLoginView(this)
                 return@setOnSingleClickListener
             }
             if (viewModel.optionList.isEmpty()) {
-                navigationManager.toBuyProgressView(viewModel.productId, arrayListOf())
+                navigationManager.toBuyProgressView(this, viewModel.productId, arrayListOf())
             } else {
                 optionBottomSheet = OptionBottomSheet()
                 optionBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_OPTION)

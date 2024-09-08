@@ -45,7 +45,7 @@ class BankDialog :
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
             viewModel.isSentToBank = true
-            navigationManager.toBankView()
+            navigationManager.toBankView(requireContext())
             dismiss()
         }
     }

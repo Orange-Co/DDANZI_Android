@@ -1,12 +1,18 @@
 package co.orange.core.navigation
 
+import android.content.Context
+
 interface NavigationManager {
     /** To Main Module**/
-    fun toMainViewWIthClearing()
+    fun toMainViewWIthClearing(context: Context)
 
-    fun toDetailView(productId: String)
+    fun toDetailView(
+        context: Context,
+        productId: String,
+    )
 
     fun toPushViewWithIntent(
+        context: Context,
         isBuying: Boolean,
         orderId: String?,
         itemId: String?,
@@ -17,37 +23,48 @@ interface NavigationManager {
 
     /** To Auth Module**/
 
-    fun toLoginView()
+    fun toLoginView(context: Context)
 
     /** To Setting Module**/
 
-    fun toSettingView()
+    fun toSettingView(context: Context)
 
-    fun toHistoryView(type: Int)
+    fun toHistoryView(
+        context: Context,
+        type: Int,
+    )
 
-    fun toDeliveryView()
+    fun toDeliveryView(context: Context)
 
-    fun toBankView()
+    fun toBankView(context: Context)
 
     /** To Buy Module**/
 
     fun toBuyProgressView(
+        context: Context,
         productId: String,
         optionList: ArrayList<Int>,
     )
 
-    fun toBuyFinishedView(orderId: String)
+    fun toBuyFinishedView(
+        context: Context,
+        orderId: String,
+    )
 
     /** To Sell Module**/
 
-    fun toSellOnboardingView()
+    fun toSellOnboardingView(context: Context)
 
     fun toSellFinishedView(
+        context: Context,
         itemId: String,
         productName: String,
         productImage: String,
         salePrice: Int,
     )
 
-    fun toSellInfoView(itemId: String)
+    fun toSellInfoView(
+        context: Context,
+        itemId: String,
+    )
 }

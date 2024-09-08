@@ -197,6 +197,7 @@ class SellProgressActivity :
 
     private fun navigateToPushActivity(item: SellRegisteredModel) {
         navigationManager.toPushViewWithIntent(
+            this,
             false,
             null,
             item.itemId,

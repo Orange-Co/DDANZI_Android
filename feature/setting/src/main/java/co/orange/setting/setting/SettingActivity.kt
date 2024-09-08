@@ -12,6 +12,7 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.setting.account.AccountActivity
 import co.orange.setting.bank.BankActivity
 import co.orange.setting.databinding.ActivitySettingBinding
 import co.orange.setting.delivery.DeliveryActivity

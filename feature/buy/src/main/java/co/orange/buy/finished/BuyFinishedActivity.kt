@@ -50,7 +50,7 @@ class BuyFinishedActivity :
     }
 
     private fun navigateToHome() {
-        navigationManager.toMainViewWIthClearing()
+        navigationManager.toMainViewWIthClearing(this)
     }
 
     private fun initDetailBtnListener() {

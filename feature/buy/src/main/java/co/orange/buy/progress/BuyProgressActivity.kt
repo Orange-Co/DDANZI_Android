@@ -83,7 +83,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToAddAddress() {
-        navigationManager.toDeliveryView()
+        navigationManager.toDeliveryView(this)
     }
 
     private fun initTermDetailBtnListener() {
@@ -251,7 +251,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToPushActivity(orderId: String) {
-        navigationManager.toPushViewWithIntent(true, orderId, null, null, null, null)
+        navigationManager.toPushViewWithIntent(this, true, orderId, null, null, null, null)
         finish()
     }
 

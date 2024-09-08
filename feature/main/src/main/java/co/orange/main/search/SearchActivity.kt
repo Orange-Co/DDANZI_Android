@@ -126,10 +126,7 @@ class SearchActivity :
     }
 
     private fun initItemClickListener(item: ProductModel) {
-        DetailActivity.createIntent(
-            this,
-            item.productId,
-        ).apply { startActivity(this) }
+        startActivity(DetailActivity.createIntent(this, item.productId))
     }
 
     private fun initLikeClickListener(
@@ -138,7 +135,7 @@ class SearchActivity :
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            navigationManager.toLoginView()
+            navigationManager.toLoginView(this)
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)

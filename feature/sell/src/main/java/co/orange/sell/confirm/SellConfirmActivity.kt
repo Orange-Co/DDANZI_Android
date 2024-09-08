@@ -120,7 +120,7 @@ class SellConfirmActivity :
             .onEach { isSuccess ->
                 if (isSuccess) {
                     toast(stringOf(R.string.sell_order_fix_msg))
-                    navigationManager.toMainViewWIthClearing()
+                    navigationManager.toMainViewWIthClearing(this)
                 } else {
                     toast(stringOf(R.string.error_msg))
                 }

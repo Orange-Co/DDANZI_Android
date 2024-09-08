@@ -52,13 +52,13 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
 
     private fun initSettingBtnListener() {
         binding.btnSetting.setOnSingleClickListener {
-            navigationManager.toSettingView()
+            navigationManager.toSettingView(requireContext())
         }
     }
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-            navigationManager.toLoginView()
+            navigationManager.toLoginView(requireContext())
         }
     }
 
@@ -87,7 +87,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
     }
 
     private fun navigateToHistory(type: Int) {
-        navigationManager.toHistoryView(type)
+        navigationManager.toHistoryView(requireContext(), type)
     }
 
     private fun checkIsLogined() {

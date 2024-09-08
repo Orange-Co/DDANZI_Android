@@ -108,12 +108,14 @@ class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_
 
     private fun navigateToBuyFinishedActivity() {
         navigationManager.toBuyFinishedView(
+            this,
             intent.getStringExtra(EXTRA_ORDER_ID).orEmpty(),
         )
     }
 
     private fun navigateToSellFinishedActivity() {
         navigationManager.toSellFinishedView(
+            this,
             intent.getStringExtra(EXTRA_ITEM_ID).orEmpty(),
             intent.getStringExtra(EXTRA_PRODUCT_NAME).orEmpty(),
             intent.getStringExtra(EXTRA_PRODUCT_IMAGE).orEmpty(),

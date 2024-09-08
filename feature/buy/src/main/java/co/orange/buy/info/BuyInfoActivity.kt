@@ -136,7 +136,7 @@ class BuyInfoActivity :
             .onEach { isSuccess ->
                 if (isSuccess) {
                     toast(stringOf(R.string.buy_order_fix_msg))
-                    navigationManager.toMainViewWIthClearing()
+                    navigationManager.toMainViewWIthClearing(this)
                 } else {
                     toast(stringOf(R.string.error_msg))
                 }

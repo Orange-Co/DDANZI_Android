@@ -33,8 +33,8 @@ class SellFinishedActivity :
 
     private fun initReturnBtnListener() {
         with(binding) {
-            btnExit.setOnSingleClickListener { navigationManager.toMainViewWIthClearing() }
-            btnSellMore.setOnSingleClickListener { navigationManager.toMainViewWIthClearing() }
+            btnExit.setOnSingleClickListener { navigationManager.toMainViewWIthClearing(this@SellFinishedActivity) }
+            btnSellMore.setOnSingleClickListener { navigationManager.toMainViewWIthClearing(this@SellFinishedActivity) }
         }
     }
 

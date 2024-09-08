@@ -60,7 +60,11 @@ class OptionBottomSheet :
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
-            navigationManager.toBuyProgressView(viewModel.productId, viewModel.selectedOptionList)
+            navigationManager.toBuyProgressView(
+                requireContext(),
+                viewModel.productId,
+                viewModel.selectedOptionList,
+            )
         }
     }
 

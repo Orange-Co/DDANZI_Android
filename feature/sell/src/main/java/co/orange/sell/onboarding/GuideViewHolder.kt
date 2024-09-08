@@ -1,9 +1,9 @@
-package co.orange.presentation.sell.onboarding
+package co.orange.sell.onboarding
 
 import androidx.recyclerview.widget.RecyclerView
 import co.orange.core.R
+import co.orange.sell.databinding.ItemOnboardingGuideBinding
 import coil.load
-import kr.genti.presentation.databinding.ItemOnboardingGuideBinding
 
 class GuideViewHolder(
     val binding: ItemOnboardingGuideBinding,

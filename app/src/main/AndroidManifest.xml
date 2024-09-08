@@ -79,12 +79,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.onboarding.SellOnboardingActivity"
+            android:name="co.orange.sell.onboarding.SellOnboardingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.progress.SellProgressActivity"
+            android:name="co.orange.sell.progress.SellProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -94,17 +94,17 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.finished.SellFinishedActivity"
+            android:name="co.orange.sell.finished.SellFinishedActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.info.SellInfoActivity"
+            android:name="co.orange.sell.info.SellInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.sell.confirm.SellConfirmActivity"
+            android:name="co.orange.sell.confirm.SellConfirmActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

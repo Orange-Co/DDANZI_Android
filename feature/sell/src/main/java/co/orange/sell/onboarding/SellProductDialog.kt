@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.onboarding
+package co.orange.sell.onboarding
 
 import android.os.Bundle
 import android.view.View
@@ -7,10 +7,10 @@ import androidx.fragment.app.activityViewModels
 import co.orange.core.R
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.sell.progress.SellProgressActivity
+import co.orange.sell.databinding.DialogSellProductBinding
+import co.orange.sell.progress.SellProgressActivity
 import coil.load
-import kr.genti.presentation.databinding.DialogSellProductBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 class SellProductDialog :
     BaseDialog<DialogSellProductBinding>(featureR.layout.dialog_sell_product) {

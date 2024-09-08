@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.onboarding
+package co.orange.sell.onboarding
 
 import android.content.ContentResolver
 import android.net.Uri

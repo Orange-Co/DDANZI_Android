@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.progress
+package co.orange.sell.progress
 
 import android.os.Bundle
 import android.view.View
@@ -6,11 +6,11 @@ import androidx.fragment.app.activityViewModels
 import co.orange.core.R
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
-import kr.genti.presentation.databinding.BottomSheetSellDateBinding
+import co.orange.sell.databinding.BottomSheetSellDateBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 class SellDateBottomSheet :
     BaseBottomSheet<BottomSheetSellDateBinding>(featureR.layout.bottom_sheet_sell_date) {

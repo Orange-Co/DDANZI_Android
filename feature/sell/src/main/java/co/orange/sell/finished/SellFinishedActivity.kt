@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.finished
+package co.orange.sell.finished
 
 import android.content.Context
 import android.content.Intent
@@ -7,12 +7,11 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
-import co.orange.presentation.main.MainActivity
-import co.orange.presentation.sell.info.SellInfoActivity
+import co.orange.sell.databinding.ActivitySellFinishedBinding
+import co.orange.sell.info.SellInfoActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.databinding.ActivitySellFinishedBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellFinishedActivity :
@@ -52,10 +51,10 @@ class SellFinishedActivity :
 
     private fun setUiWithIntent() {
         with(binding) {
-            intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
-            intent.getStringExtra(EXTRA_PRODUCT_NAME)?.let { tvFinishedItemName.text = it }
-            intent.getStringExtra(EXTRA_PRODUCT_IMAGE)?.let { ivFinishedItem.load(it) }
-            tvFinishedItemPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).setPriceForm()
+            intent.getStringExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
+            intent.getStringExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_PRODUCT_NAME)?.let { tvFinishedItemName.text = it }
+            intent.getStringExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_PRODUCT_IMAGE)?.let { ivFinishedItem.load(it) }
+            tvFinishedItemPrice.text = intent.getIntExtra(co.orange.sell.finished.SellFinishedActivity.EXTRA_SALE_PRICE, 0).setPriceForm()
         }
     }
 

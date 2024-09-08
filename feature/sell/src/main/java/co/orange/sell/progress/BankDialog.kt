@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.progress
+package co.orange.sell.progress
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,8 @@ import co.orange.core.R
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.bank.BankActivity
-import kr.genti.presentation.databinding.DialogBankBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.databinding.DialogBankBinding
+import co.orange.sell.R as featureR
 
 class BankDialog :
     BaseDialog<DialogBankBinding>(featureR.layout.dialog_bank) {

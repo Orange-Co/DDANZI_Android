@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.confirm
+package co.orange.sell.confirm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

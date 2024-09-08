@@ -17,7 +17,7 @@ import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.history.interest.HistoryInterestAdapter
 import co.orange.presentation.history.item.HistorySellAdapter
 import co.orange.presentation.history.order.HistoryBuyAdapter
-import co.orange.presentation.sell.info.SellInfoActivity
+import co.orange.sell.info.SellInfoActivity
 import com.kkkk.buy.finished.BuyFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -71,7 +71,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(featureR.layout.act
             }
         _sellAdapter =
             HistorySellAdapter { itemId ->
-                SellInfoActivity.createIntent(this, itemId).apply {
+                co.orange.sell.info.SellInfoActivity.createIntent(this, itemId).apply {
                     startActivity(this)
                 }
             }

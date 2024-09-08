@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.onboarding
+package co.orange.sell.onboarding
 
 import android.app.Activity
 import android.content.Intent
@@ -17,12 +17,12 @@ import co.orange.core.extension.setStatusBarColorFromResource
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
+import co.orange.sell.databinding.ActivitySellOnboardingBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.databinding.ActivitySellOnboardingBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellOnboardingActivity :
@@ -93,7 +93,7 @@ class SellOnboardingActivity :
     }
 
     private fun checkAndGetImage() {
-        if (ActivityResultContracts.PickVisualMedia.isPhotoPickerAvailable(this)) {
+        if (ActivityResultContracts.PickVisualMedia.isPhotoPickerAvailable()) {
             photoPickerResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         } else {
             galleryPickerResult.launch(

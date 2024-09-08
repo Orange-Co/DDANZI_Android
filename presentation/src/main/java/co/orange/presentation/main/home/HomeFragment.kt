@@ -20,7 +20,7 @@ import co.orange.presentation.auth.login.LoginActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.presentation.search.SearchActivity
-import co.orange.presentation.sell.onboarding.SellOnboardingActivity
+import co.orange.sell.onboarding.SellOnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -105,7 +105,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
             if (viewModel.getUserLogined()) {
-                Intent(requireActivity(), SellOnboardingActivity::class.java).apply {
+                Intent(requireActivity(), co.orange.sell.onboarding.SellOnboardingActivity::class.java).apply {
                     startActivity(this)
                 }
             } else {

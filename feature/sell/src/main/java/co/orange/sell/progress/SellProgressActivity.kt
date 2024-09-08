@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.progress
+package co.orange.sell.progress
 
 import android.Manifest
 import android.content.Context
@@ -23,16 +23,16 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellProductModel
 import co.orange.domain.entity.response.SellRegisteredModel
 import co.orange.presentation.push.PushActivity
-import co.orange.presentation.sell.finished.SellFinishedActivity
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
+import co.orange.sell.databinding.ActivitySellProgressBinding
+import co.orange.sell.finished.SellFinishedActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.databinding.ActivitySellProgressBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellProgressActivity :
@@ -228,6 +228,11 @@ class SellProgressActivity :
     companion object {
         private const val BOTTOM_SHEET_DATE = "BOTTOM_SHEET_DATE"
         private const val DIALOG_BANK = " DIALOG_BANK"
+
+        const val WEB_TERM_SERVICE =
+            "https://brawny-guan-098.notion.site/faa1517ffed44f6a88021a41407ed736?pvs=4"
+        const val WEB_TERM_SELL =
+            "https://brawny-guan-098.notion.site/6d77260d027148ceb0f806f0911c284a?pvs=4"
 
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
         private const val EXTRA_PRODUCT_NAME = "EXTRA_PRODUCT_NAME"

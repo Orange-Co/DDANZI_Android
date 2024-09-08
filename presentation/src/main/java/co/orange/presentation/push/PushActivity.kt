@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.presentation.sell.finished.SellFinishedActivity
+import co.orange.sell.finished.SellFinishedActivity
 import com.kkkk.buy.finished.BuyFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.presentation.databinding.ActivityPushBinding
@@ -111,7 +111,7 @@ class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_
     }
 
     private fun navigateToSellFinishedActivity() {
-        SellFinishedActivity.createIntent(
+        co.orange.sell.finished.SellFinishedActivity.createIntent(
             this,
             intent.getStringExtra(EXTRA_ITEM_ID).orEmpty(),
             intent.getStringExtra(EXTRA_PRODUCT_NAME).orEmpty(),

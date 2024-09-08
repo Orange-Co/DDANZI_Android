@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.finished
+package co.orange.sell.finished
 
 import androidx.lifecycle.ViewModel
 import co.orange.domain.repository.SellRepository

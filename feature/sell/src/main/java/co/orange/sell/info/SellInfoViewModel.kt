@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.info
+package co.orange.sell.info
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.progress
+package co.orange.sell.progress
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

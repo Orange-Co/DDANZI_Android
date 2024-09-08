@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.confirm
+package co.orange.sell.confirm
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -17,14 +17,12 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellBuyerInfoModel
-import co.orange.presentation.main.MainActivity
-import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SELL
+import co.orange.sell.databinding.ActivitySellConfirmBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.databinding.ActivitySellConfirmBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellConfirmActivity :
@@ -131,6 +129,9 @@ class SellConfirmActivity :
     companion object {
         private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
         private const val CLIP_LABEL = "BUYER_INFO"
+
+        const val WEB_TERM_SELL =
+            "https://brawny-guan-098.notion.site/6d77260d027148ceb0f806f0911c284a?pvs=4"
 
         @JvmStatic
         fun createIntent(

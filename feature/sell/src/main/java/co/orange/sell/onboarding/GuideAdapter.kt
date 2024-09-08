@@ -1,9 +1,9 @@
-package co.orange.presentation.sell.onboarding
+package co.orange.sell.onboarding
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kr.genti.presentation.databinding.ItemOnboardingGuideBinding
+import co.orange.sell.databinding.ItemOnboardingGuideBinding
 
 class GuideAdapter : RecyclerView.Adapter<GuideViewHolder>() {
     override fun onCreateViewHolder(

@@ -1,4 +1,4 @@
-package co.orange.presentation.sell.info
+package co.orange.sell.info
 
 import android.content.Context
 import android.content.Intent
@@ -18,16 +18,14 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellInfoModel
 import co.orange.domain.enums.ItemStatus
-import co.orange.presentation.sell.confirm.SellConfirmActivity
+import co.orange.sell.confirm.SellConfirmActivity
+import co.orange.sell.databinding.ActivitySellInfoBinding
 import coil.load
-import com.kkkk.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
-import com.kkkk.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.databinding.ActivitySellInfoBinding
-import kr.genti.presentation.R as featureR
+import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
 class SellInfoActivity :
@@ -138,6 +136,9 @@ class SellInfoActivity :
     }
 
     companion object {
+        const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
+        const val NEW_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
+
         private const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
 
         @JvmStatic

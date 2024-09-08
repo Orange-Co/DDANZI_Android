@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "co.orange.feature.auth"
+    namespace = "co.orange.auth"
     compileSdk = Constants.compileSdk
 
     defaultConfig {
@@ -16,12 +16,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        buildConfigField(
-            "String",
-            "IAMPORT_CODE",
-            gradleLocalProperties(rootDir).getProperty("iamport.code"),
-        )
 
         buildConfigField(
             "String",

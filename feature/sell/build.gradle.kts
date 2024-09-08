@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "co.orange.feature.sell"
+    namespace = "co.orange.sell"
     compileSdk = Constants.compileSdk
 
     defaultConfig {

@@ -21,8 +21,8 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.ProductDetailModel
 import co.orange.presentation.auth.login.LoginActivity
-import co.orange.presentation.buy.progress.BuyProgressActivity
 import coil.load
+import com.kkkk.buy.progress.BuyProgressActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -78,7 +78,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
                 return@setOnSingleClickListener
             }
             if (viewModel.optionList.isEmpty()) {
-                BuyProgressActivity.createIntent(
+                com.kkkk.buy.progress.BuyProgressActivity.createIntent(
                     this,
                     viewModel.productId,
                 ).apply { startActivity(this) }

@@ -39,17 +39,17 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.progress.BuyProgressActivity"
+            android:name="co.orange.buy.progress.BuyProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.finished.BuyFinishedActivity"
+            android:name="co.orange.buy.finished.BuyFinishedActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.buy.info.BuyInfoActivity"
+            android:name="co.orange.buy.info.BuyInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

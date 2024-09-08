@@ -13,12 +13,12 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.state.UiState
-import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.detail.DetailActivity
 import co.orange.presentation.history.interest.HistoryInterestAdapter
 import co.orange.presentation.history.item.HistorySellAdapter
 import co.orange.presentation.history.order.HistoryBuyAdapter
 import co.orange.presentation.sell.info.SellInfoActivity
+import com.kkkk.buy.finished.BuyFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -65,7 +65,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(featureR.layout.act
     private fun initAdapter() {
         _buyAdapter =
             HistoryBuyAdapter { orderId ->
-                BuyFinishedActivity.createIntent(this, orderId).apply {
+                com.kkkk.buy.finished.BuyFinishedActivity.createIntent(this, orderId).apply {
                     startActivity(this)
                 }
             }

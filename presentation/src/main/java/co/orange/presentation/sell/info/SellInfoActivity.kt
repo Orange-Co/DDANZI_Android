@@ -18,10 +18,10 @@ import co.orange.core.extension.toast
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SellInfoModel
 import co.orange.domain.enums.ItemStatus
-import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
-import co.orange.presentation.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import co.orange.presentation.sell.confirm.SellConfirmActivity
 import coil.load
+import com.kkkk.buy.finished.BuyFinishedActivity.Companion.NEW_DATE_PATTERN
+import com.kkkk.buy.finished.BuyFinishedActivity.Companion.OLD_DATE_PATTERN
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn

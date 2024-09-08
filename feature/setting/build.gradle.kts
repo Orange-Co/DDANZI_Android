@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "co.orange.feature.setting"
+    namespace = "co.orange.setting"
     compileSdk = Constants.compileSdk
 
     defaultConfig {

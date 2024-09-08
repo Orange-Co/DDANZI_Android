@@ -56,9 +56,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(featureR.layout.activit
                 when (state) {
                     is UiState.Success -> {
                         if (state.data != USER_ALREADY_SIGNED) {
-                            Intent(this, PhoneActivity::class.java).apply {
-                                startActivity(this)
-                            }
+                            startActivity(Intent(this, PhoneActivity::class.java))
                         }
                         finish()
                     }

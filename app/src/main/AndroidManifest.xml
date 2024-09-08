@@ -69,7 +69,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.presentation.bank.BankActivity"
+            android:name="co.orange.setting.bank.BankActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

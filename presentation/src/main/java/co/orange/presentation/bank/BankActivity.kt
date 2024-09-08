@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -18,11 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class BankActivity : BaseActivity<ActivityBankBinding>(R.layout.activity_bank) {
+class BankActivity : BaseActivity<ActivityBankBinding>(featureR.layout.activity_bank) {
     val viewModel by viewModels<BankViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

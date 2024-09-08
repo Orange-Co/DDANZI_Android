@@ -7,10 +7,10 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
+import co.orange.core.R
 import co.orange.presentation.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import timber.log.Timber
 import java.util.Random
 

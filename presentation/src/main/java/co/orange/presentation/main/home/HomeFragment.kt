@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import co.orange.core.R
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
 import co.orange.core.extension.setOnSingleClickListener
@@ -24,11 +25,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentHomeBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragment_home) {
     private var _adapter: HomeAdapter? = null
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }

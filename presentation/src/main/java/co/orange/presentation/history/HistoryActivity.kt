@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -22,11 +23,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityHistoryBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_history) {
+class HistoryActivity : BaseActivity<ActivityHistoryBinding>(featureR.layout.activity_history) {
     val viewModel by viewModels<HistoryViewModel>()
 
     private var _buyAdapter: HistoryBuyAdapter? = null

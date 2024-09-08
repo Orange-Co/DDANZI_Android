@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -17,11 +18,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySettingBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_setting) {
+class SettingActivity : BaseActivity<ActivitySettingBinding>(featureR.layout.activity_setting) {
     val viewModel by viewModels<SettingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

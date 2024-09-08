@@ -18,11 +18,11 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.buy.finished.BuyFinishedActivity
 import co.orange.presentation.sell.finished.SellFinishedActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityPushBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class PushActivity : BaseActivity<ActivityPushBinding>(R.layout.activity_push) {
+class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_push) {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {

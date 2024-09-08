@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
@@ -30,12 +31,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySellProgressBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
 class SellProgressActivity :
-    BaseActivity<ActivitySellProgressBinding>(R.layout.activity_sell_progress) {
+    BaseActivity<ActivitySellProgressBinding>(featureR.layout.activity_sell_progress) {
     private val viewModel by viewModels<SellProgressViewModel>()
 
     private var sellDateBottomSheet: SellDateBottomSheet? = null

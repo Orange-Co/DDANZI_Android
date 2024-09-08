@@ -6,11 +6,11 @@ import android.os.Bundle
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityReportBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class ReportActivity : BaseActivity<ActivityReportBinding>(R.layout.activity_report) {
+class ReportActivity : BaseActivity<ActivityReportBinding>(featureR.layout.activity_report) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

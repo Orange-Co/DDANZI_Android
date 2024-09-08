@@ -2,8 +2,8 @@ package co.orange.presentation.detail
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import co.orange.core.R
 import co.orange.domain.entity.response.ProductOptionModel.OptionDetailModel
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ItemOptionDetailBinding
 
 class OptionDetailViewHolder(

@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
+import co.orange.core.R
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.bank.BankActivity
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogBankBinding
+import kr.genti.presentation.R as featureR
 
 class BankDialog :
-    BaseDialog<DialogBankBinding>(R.layout.dialog_bank) {
+    BaseDialog<DialogBankBinding>(featureR.layout.dialog_bank) {
     private val viewModel by activityViewModels<SellProgressViewModel>()
 
     override fun onStart() {

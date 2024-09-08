@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.convertDateTime
@@ -25,12 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySellInfoBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
 class SellInfoActivity :
-    BaseActivity<ActivitySellInfoBinding>(R.layout.activity_sell_info) {
+    BaseActivity<ActivitySellInfoBinding>(featureR.layout.activity_sell_info) {
     private val viewModel by viewModels<SellInfoViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

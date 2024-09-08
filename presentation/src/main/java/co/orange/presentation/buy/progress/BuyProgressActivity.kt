@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
@@ -35,13 +36,13 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.BuildConfig.IAMPORT_CODE
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBuyProgressBinding
 import timber.log.Timber
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
 class BuyProgressActivity :
-    BaseActivity<ActivityBuyProgressBinding>(R.layout.activity_buy_progress) {
+    BaseActivity<ActivityBuyProgressBinding>(featureR.layout.activity_buy_progress) {
     private val viewModel by viewModels<BuyProgressViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

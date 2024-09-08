@@ -6,6 +6,7 @@ import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -16,11 +17,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogAccountQuitBinding
+import kr.genti.presentation.R as featureR
 
 class AccountQuitDialog :
-    BaseDialog<DialogAccountQuitBinding>(R.layout.dialog_account_quit) {
+    BaseDialog<DialogAccountQuitBinding>(featureR.layout.dialog_account_quit) {
     private val viewModel by activityViewModels<AccountViewModel>()
 
     override fun onStart() {

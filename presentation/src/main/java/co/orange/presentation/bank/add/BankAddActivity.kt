@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -15,11 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityBankAddBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class BankAddActivity : BaseActivity<ActivityBankAddBinding>(R.layout.activity_bank_add) {
+class BankAddActivity : BaseActivity<ActivityBankAddBinding>(featureR.layout.activity_bank_add) {
     val viewModel by viewModels<BankAddViewModel>()
 
     private var bankTypeBottomSheet: BankTypeBottomSheet? = null

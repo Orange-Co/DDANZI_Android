@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setNavigationBarColorFromResource
 import co.orange.core.extension.setStatusBarColorFromResource
@@ -21,11 +22,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.genti.presentation.BuildConfig
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySplashBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
+class SplashActivity : BaseActivity<ActivitySplashBinding>(featureR.layout.activity_splash) {
     private val appUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
 
     private val activityResultLauncher: ActivityResultLauncher<IntentSenderRequest> =

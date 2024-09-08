@@ -3,14 +3,15 @@ package co.orange.presentation.bank.type
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import co.orange.core.R
 import co.orange.core.base.BaseBottomSheet
 import co.orange.domain.enums.BankType
 import co.orange.presentation.bank.add.BankAddViewModel
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetBankTypeBinding
+import kr.genti.presentation.R as featureR
 
 class BankTypeBottomSheet :
-    BaseBottomSheet<BottomSheetBankTypeBinding>(R.layout.bottom_sheet_bank_type) {
+    BaseBottomSheet<BottomSheetBankTypeBinding>(featureR.layout.bottom_sheet_bank_type) {
     private val viewModel by activityViewModels<BankAddViewModel>()
 
     private var _adapter: BankTypeAdapter? = null

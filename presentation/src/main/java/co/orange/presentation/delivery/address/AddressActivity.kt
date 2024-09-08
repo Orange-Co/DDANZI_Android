@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.colorOf
 import co.orange.core.extension.setOnSingleClickListener
@@ -17,11 +18,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityAddressBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class AddressActivity : BaseActivity<ActivityAddressBinding>(R.layout.activity_address) {
+class AddressActivity : BaseActivity<ActivityAddressBinding>(featureR.layout.activity_address) {
     val viewModel by viewModels<AddressViewModel>()
 
     override fun onStart() {

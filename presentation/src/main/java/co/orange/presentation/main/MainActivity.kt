@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.colorOf
 import co.orange.core.extension.initOnBackPressedListener
@@ -13,11 +14,11 @@ import co.orange.core.extension.toast
 import co.orange.presentation.main.home.HomeFragment
 import co.orange.presentation.main.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityMainBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding>(featureR.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initBnvItemSelectedListener() {
-        supportFragmentManager.findFragmentById(R.id.fcv_main) ?: navigateTo<HomeFragment>()
+        supportFragmentManager.findFragmentById(featureR.id.fcv_main) ?: navigateTo<HomeFragment>()
 
         binding.bnvMain.setOnItemSelectedListener { menu ->
             if (binding.bnvMain.selectedItemId == menu.itemId) {
@@ -55,7 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private inline fun <reified T : Fragment> navigateTo() {
         supportFragmentManager.commit {
-            replace<T>(R.id.fcv_main, T::class.java.canonicalName)
+            replace<T>(featureR.id.fcv_main, T::class.java.canonicalName)
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initFocusWithKeyboard
 import co.orange.core.extension.setOnSingleClickListener
@@ -23,12 +24,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySearchBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
 class SearchActivity :
-    BaseActivity<ActivitySearchBinding>(R.layout.activity_search) {
+    BaseActivity<ActivitySearchBinding>(featureR.layout.activity_search) {
     private val viewModel by viewModels<SearchViewModel>()
 
     private var _keywordAdapter: SearchWordAdapter? = null

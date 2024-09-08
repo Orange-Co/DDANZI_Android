@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOverThousand
@@ -14,11 +15,11 @@ import co.orange.presentation.buy.progress.BuyProgressActivity
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetOptionBinding
+import kr.genti.presentation.R as featureR
 
 class OptionBottomSheet :
-    BaseBottomSheet<BottomSheetOptionBinding>(R.layout.bottom_sheet_option) {
+    BaseBottomSheet<BottomSheetOptionBinding>(featureR.layout.bottom_sheet_option) {
     private val viewModel by activityViewModels<DetailViewModel>()
 
     private var _adapter: OptionAdapter? = null

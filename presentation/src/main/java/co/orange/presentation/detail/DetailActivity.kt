@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
@@ -26,11 +27,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDetailBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
+class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activity_detail) {
     private val viewModel by viewModels<DetailViewModel>()
 
     private var optionBottomSheet: OptionBottomSheet? = null

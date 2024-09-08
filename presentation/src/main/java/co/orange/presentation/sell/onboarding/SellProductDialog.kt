@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
+import co.orange.core.R
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.sell.progress.SellProgressActivity
 import coil.load
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogSellProductBinding
+import kr.genti.presentation.R as featureR
 
 class SellProductDialog :
-    BaseDialog<DialogSellProductBinding>(R.layout.dialog_sell_product) {
+    BaseDialog<DialogSellProductBinding>(featureR.layout.dialog_sell_product) {
     private val viewModel by activityViewModels<SellOnboardingViewModel>()
 
     override fun onStart() {

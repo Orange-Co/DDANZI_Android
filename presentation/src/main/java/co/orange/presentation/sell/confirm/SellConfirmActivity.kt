@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -22,12 +23,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySellConfirmBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
 class SellConfirmActivity :
-    BaseActivity<ActivitySellConfirmBinding>(R.layout.activity_sell_confirm) {
+    BaseActivity<ActivitySellConfirmBinding>(featureR.layout.activity_sell_confirm) {
     private val viewModel by viewModels<SellConfirmViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
@@ -17,11 +18,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityDeliveryBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(R.layout.activity_delivery) {
+class DeliveryActivity : BaseActivity<ActivityDeliveryBinding>(featureR.layout.activity_delivery) {
     val viewModel by viewModels<DeliveryViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import co.orange.core.R
 import co.orange.core.util.ItemDiffCallback
 import co.orange.domain.entity.response.ProductModel
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ItemHomeBannerBinding
 import kr.genti.presentation.databinding.ItemHomeProductBinding
 

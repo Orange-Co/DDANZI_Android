@@ -16,11 +16,12 @@ import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
 import co.orange.core.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityAddressWebBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class AddressWebActivity : BaseActivity<ActivityAddressWebBinding>(R.layout.activity_address_web) {
+class AddressWebActivity :
+    BaseActivity<ActivityAddressWebBinding>(featureR.layout.activity_address_web) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

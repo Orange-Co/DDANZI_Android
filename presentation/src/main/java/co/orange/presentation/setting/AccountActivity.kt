@@ -5,11 +5,11 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityAccountBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class AccountActivity : BaseActivity<ActivityAccountBinding>(R.layout.activity_account) {
+class AccountActivity : BaseActivity<ActivityAccountBinding>(featureR.layout.activity_account) {
     val viewModel by viewModels<AccountViewModel>()
 
     private var accountLogoutDialog: AccountLogoutDialog? = null

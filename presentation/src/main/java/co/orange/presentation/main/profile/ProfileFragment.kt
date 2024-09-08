@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -23,11 +24,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentProfileBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
+class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.fragment_profile) {
     private val viewModel by activityViewModels<ProfileViewModel>()
 
     override fun onViewCreated(

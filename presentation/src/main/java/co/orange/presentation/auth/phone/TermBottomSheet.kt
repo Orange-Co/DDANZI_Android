@@ -5,15 +5,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import co.orange.core.R
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_PRIVATE
 import co.orange.presentation.setting.SettingActivity.Companion.WEB_TERM_SERVICE
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.BottomSheetTermBinding
+import kr.genti.presentation.R as featureR
 
 class TermBottomSheet :
-    BaseBottomSheet<BottomSheetTermBinding>(R.layout.bottom_sheet_term) {
+    BaseBottomSheet<BottomSheetTermBinding>(featureR.layout.bottom_sheet_term) {
     private val viewModel by activityViewModels<PhoneViewModel>()
 
     override fun onStart() {

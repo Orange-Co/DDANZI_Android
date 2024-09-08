@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setStatusBarColorFromResource
@@ -20,12 +21,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.presentation.BuildConfig.IAMPORT_CODE
 import kr.genti.presentation.BuildConfig.MERCHANT_UID
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityPhoneBinding
 import timber.log.Timber
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
-class PhoneActivity : BaseActivity<ActivityPhoneBinding>(R.layout.activity_phone) {
+class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activity_phone) {
     private val viewModel by viewModels<PhoneViewModel>()
 
     private var termBottomSheet: TermBottomSheet? = null

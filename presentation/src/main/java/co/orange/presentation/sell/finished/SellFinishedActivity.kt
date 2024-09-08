@@ -11,12 +11,12 @@ import co.orange.presentation.main.MainActivity
 import co.orange.presentation.sell.info.SellInfoActivity
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivitySellFinishedBinding
+import kr.genti.presentation.R as featureR
 
 @AndroidEntryPoint
 class SellFinishedActivity :
-    BaseActivity<ActivitySellFinishedBinding>(R.layout.activity_sell_finished) {
+    BaseActivity<ActivitySellFinishedBinding>(featureR.layout.activity_sell_finished) {
     private val viewModel by viewModels<SellFinishedViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

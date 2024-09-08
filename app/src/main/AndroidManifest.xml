@@ -169,7 +169,7 @@
         </activity>
 
         <service
-            android:name="co.orange.presentation.config.DdanziMessagingService"
+            android:name="co.orange.main.config.DdanziMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -6,9 +6,11 @@ import co.orange.auth.login.LoginActivity
 import co.orange.buy.finished.BuyFinishedActivity
 import co.orange.buy.progress.BuyProgressActivity
 import co.orange.core.navigation.NavigationManager
+import co.orange.main.detail.DetailActivity
 import co.orange.main.main.MainActivity
 import co.orange.main.push.PushActivity
 import co.orange.sell.finished.SellFinishedActivity
+import co.orange.sell.info.SellInfoActivity
 import co.orange.sell.onboarding.SellOnboardingActivity
 import co.orange.setting.delivery.DeliveryActivity
 import co.orange.setting.history.HistoryActivity
@@ -29,8 +31,8 @@ class NavigationManagerImpl
             }
         }
 
-        override fun toDeliveryView() {
-            context.startActivity(Intent(context, DeliveryActivity::class.java))
+        override fun toDetailView(productId: String) {
+            context.startActivity(DetailActivity.createIntent(context, productId))
         }
 
         override fun toPushViewWithIntent(
@@ -70,6 +72,10 @@ class NavigationManagerImpl
             context.startActivity(HistoryActivity.createIntent(context, type))
         }
 
+        override fun toDeliveryView() {
+            context.startActivity(Intent(context, DeliveryActivity::class.java))
+        }
+
         /** To Buy Module**/
 
         override fun toBuyProgressView(
@@ -104,5 +110,9 @@ class NavigationManagerImpl
                     salePrice,
                 ),
             )
+        }
+
+        override fun toSellInfoView(itemId: String) {
+            context.startActivity(SellInfoActivity.createIntent(context, itemId))
         }
     }

@@ -12,6 +12,7 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
+import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.setting.databinding.ActivityHistoryBinding
 import co.orange.setting.history.interest.HistoryInterestAdapter
@@ -21,10 +22,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import co.orange.setting.R as featureR
 
 @AndroidEntryPoint
 class HistoryActivity : BaseActivity<ActivityHistoryBinding>(featureR.layout.activity_history) {
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     val viewModel by viewModels<HistoryViewModel>()
 
     private var _buyAdapter: HistoryBuyAdapter? = null
@@ -62,21 +67,15 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(featureR.layout.act
     private fun initAdapter() {
         _buyAdapter =
             HistoryBuyAdapter { orderId ->
-                BuyFinishedActivity.createIntent(this, orderId).apply {
-                    startActivity(this)
-                }
+                navigationManager.toBuyFinishedView(orderId)
             }
         _sellAdapter =
             HistorySellAdapter { itemId ->
-                SellInfoActivity.createIntent(this, itemId).apply {
-                    startActivity(this)
-                }
+                navigationManager.toSellInfoView(itemId)
             }
         _interestAdapter =
             HistoryInterestAdapter { productId ->
-                DetailActivity.createIntent(this, productId).apply {
-                    startActivity(this)
-                }
+                navigationManager.toDetailView(productId)
             }
     }
 

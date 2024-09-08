@@ -4,7 +4,7 @@ interface NavigationManager {
     /** To Main Module**/
     fun toMainViewWIthClearing()
 
-    fun toDeliveryView()
+    fun toDetailView(productId: String)
 
     fun toPushViewWithIntent(
         isBuying: Boolean,
@@ -25,6 +25,8 @@ interface NavigationManager {
 
     fun toHistoryView(type: Int)
 
+    fun toDeliveryView()
+
     /** To Buy Module**/
 
     fun toBuyProgressView(
@@ -44,4 +46,6 @@ interface NavigationManager {
         productImage: String,
         salePrice: Int,
     )
+
+    fun toSellInfoView(itemId: String)
 }

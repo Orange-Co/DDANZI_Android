@@ -164,7 +164,6 @@ class BuyProgressViewModel
             viewModelScope.launch {
                 buyRepository.postToRequestOrder(
                     OrderRequestModel(
-                        buyProgressData?.productId.orEmpty(),
                         orderId,
                         optionList,
                     ),

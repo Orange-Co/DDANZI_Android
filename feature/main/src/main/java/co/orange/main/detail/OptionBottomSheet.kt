@@ -13,12 +13,14 @@ import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOverThousand
 import co.orange.core.navigation.NavigationManager
 import co.orange.main.databinding.BottomSheetOptionBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import co.orange.main.R as featureR
 
+@AndroidEntryPoint
 class OptionBottomSheet :
     BaseBottomSheet<BottomSheetOptionBinding>(featureR.layout.bottom_sheet_option) {
     @Inject

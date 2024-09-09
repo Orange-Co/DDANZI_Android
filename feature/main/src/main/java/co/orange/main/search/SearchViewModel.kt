@@ -96,5 +96,5 @@ class SearchViewModel
             _itemLikeMinusState.value = UiState.Empty
         }
 
-        fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()
+        fun getUserLogined() = userRepository.getUserRegistered()
     }

@@ -8,6 +8,7 @@ import co.orange.data.dto.response.AuthTokenDto
 import co.orange.data.dto.response.ReissueTokenDto
 import co.orange.data.dto.response.SignUpDto
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -27,4 +28,7 @@ interface AuthService {
         @Header("Authorization") accesstoken: String,
         @Body request: SignUpRequestDto,
     ): BaseResponse<SignUpDto>
+
+    @GET("/api/v1/health")
+    suspend fun getServerStatus(): BaseResponse<Boolean>
 }

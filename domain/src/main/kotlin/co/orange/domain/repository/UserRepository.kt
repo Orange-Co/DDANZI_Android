@@ -23,5 +23,9 @@ interface UserRepository {
         userPhone: String,
     )
 
+    fun getUserRegistered(): Boolean
+
+    fun setUserStatus(status: String)
+
     fun clearInfo()
 }

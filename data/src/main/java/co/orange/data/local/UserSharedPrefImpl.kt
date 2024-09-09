@@ -29,6 +29,10 @@ class UserSharedPrefImpl
             get() = dataStore.getString(USER_PHONE, "").orEmpty()
             set(value) = dataStore.edit { putString(USER_PHONE, value) }
 
+        override var userStatus: String
+            get() = dataStore.getString(USER_STATUS, "").orEmpty()
+            set(value) = dataStore.edit { putString(USER_STATUS, value) }
+
         override fun clearInfo() {
             dataStore.edit().clear().apply()
         }
@@ -39,5 +43,6 @@ class UserSharedPrefImpl
             private const val DEVICE_TOKEN = "DEVICE_TOKEN"
             private const val USER_NAME = "USER_NAME"
             private const val USER_PHONE = "USER_PHONE"
+            private const val USER_STATUS = "USER_STATUS"
         }
     }

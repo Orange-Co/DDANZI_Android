@@ -112,6 +112,7 @@ class PhoneViewModel
                                     birth = it.birthday.orEmpty(),
                                     sex = it.gender?.uppercase().orEmpty(),
                                     isAgreedMarketingTerm = isTermMarketingSelected.value ?: false,
+                                    ci = it.uniqueKey.orEmpty(),
                                 ),
                             )
                             userRepository.setUserInfo(
@@ -133,6 +134,7 @@ class PhoneViewModel
             viewModelScope.launch {
                 authRepository.postToSignUp(userRepository.getAccessToken(), request)
                     .onSuccess {
+                        userRepository.setUserStatus(it.status)
                         _postSignUpState.value = UiState.Success(it.nickname)
                     }
                     .onFailure {

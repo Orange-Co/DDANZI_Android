@@ -34,6 +34,10 @@
     <string name="ex_item_now_price">48,900</string>
     <string name="ex_item_like">999+</string>
 
+    <string name="alarm_tv_title">알림</string>
+    <string name="alarm_tv_guide">최근 7일 이내의 알림만 보관됩니다.</string>
+    <string name="alarm_tv_empty">최근 7일동안 받은 알림이 없어요</string>
+
     <string name="detail_chips_category">카테고리</string>
     <string name="detail_chips_option">선택옵션 존재</string>
     <string name="detail_chips_imminent">마감 임박</string>
@@ -173,7 +177,7 @@
 
     <string name="sell_product_tv_subtitle">해당 상품이 맞나요?</string>
     <string name="sell_product_btn_submit">네 맞아요</string>
-    <string name="sell_product_pick_again"><u>다시 업로드하기</u></string>
+    <string name="sell_product_pick_again"><u>다른 캡쳐본 업로드하기</u></string>
     <string name="sell_product_picker_error">갤러리 이미지를 가져오는 과정에서 오류가 발생했습니다.</string>
 
     <string name="sell_finished_tv_title">상품 등록 완료</string>

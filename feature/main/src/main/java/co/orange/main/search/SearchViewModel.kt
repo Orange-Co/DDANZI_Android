@@ -6,8 +6,8 @@ import co.orange.core.state.UiState
 import co.orange.domain.entity.response.SearchInfoModel
 import co.orange.domain.entity.response.SearchResultModel
 import co.orange.domain.repository.DeviceRepository
+import co.orange.domain.repository.HomeRepository
 import co.orange.domain.repository.InterestRepository
-import co.orange.domain.repository.SearchRepository
 import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class SearchViewModel
     @Inject
     constructor(
-        private val searchRepository: SearchRepository,
+        private val homeRepository: HomeRepository,
         private val deviceRepository: DeviceRepository,
         private val userRepository: UserRepository,
         private val interestRepository: InterestRepository,
@@ -55,7 +55,7 @@ class SearchViewModel
             _getSearchResultState.value = UiState.Loading
             currentKeyword = keyword
             viewModelScope.launch {
-                searchRepository.getSearchResult(keyword)
+                homeRepository.getSearchResult(keyword)
                     .onSuccess {
                         _getSearchResultState.value = UiState.Success(it)
                     }

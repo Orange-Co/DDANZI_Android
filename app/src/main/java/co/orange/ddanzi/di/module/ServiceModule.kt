@@ -7,7 +7,6 @@ import co.orange.data.service.HomeService
 import co.orange.data.service.IamportService
 import co.orange.data.service.InterestService
 import co.orange.data.service.ProfileService
-import co.orange.data.service.SearchService
 import co.orange.data.service.SellService
 import co.orange.data.service.SettingService
 import co.orange.data.service.UploadService
@@ -30,21 +29,15 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideHomeService(
-        @RetrofitQualifier.JWT retrofit: Retrofit,
-    ): HomeService = retrofit.create(HomeService::class.java)
-
-    @Provides
-    @Singleton
     fun provideDeviceService(
         @RetrofitQualifier.DEVICE retrofit: Retrofit,
     ): DeviceService = retrofit.create(DeviceService::class.java)
 
     @Provides
     @Singleton
-    fun provideSearchService(
+    fun provideHomeService(
         @RetrofitQualifier.JWT retrofit: Retrofit,
-    ): SearchService = retrofit.create(SearchService::class.java)
+    ): HomeService = retrofit.create(HomeService::class.java)
 
     @Provides
     @Singleton

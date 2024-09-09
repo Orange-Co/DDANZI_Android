@@ -1,4 +1,4 @@
-package co.orange.main.push
+package co.orange.main.alarm
 
 import android.Manifest
 import android.content.Context
@@ -16,13 +16,14 @@ import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.navigation.NavigationManager
-import co.orange.main.databinding.ActivityPushBinding
+import co.orange.main.databinding.ActivityAlarmRequestBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import co.orange.main.R as featureR
 
 @AndroidEntryPoint
-class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_push) {
+class AlarmRequestActivity :
+    BaseActivity<ActivityAlarmRequestBinding>(featureR.layout.activity_alarm_request) {
     @Inject
     lateinit var navigationManager: NavigationManager
 
@@ -72,7 +73,7 @@ class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_
         if (isAlreadyRejectedPermission()) {
             // 이미 권한을 거절한 경우 권한 설정 화면으로 이동
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.parse("package:" + this@PushActivity.packageName)
+                data = Uri.parse("package:" + this@AlarmRequestActivity.packageName)
                 startActivity(this)
             }
         } else {
@@ -141,7 +142,7 @@ class PushActivity : BaseActivity<ActivityPushBinding>(featureR.layout.activity_
             productImage: String?,
             salePrice: Int?,
         ): Intent =
-            Intent(context, PushActivity::class.java).apply {
+            Intent(context, AlarmRequestActivity::class.java).apply {
                 putExtra(EXTRA_IS_BUYING, isBuying)
                 putExtra(EXTRA_ORDER_ID, orderId)
                 putExtra(EXTRA_ITEM_ID, itemId)

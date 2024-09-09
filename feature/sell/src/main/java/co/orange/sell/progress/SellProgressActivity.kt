@@ -196,7 +196,7 @@ class SellProgressActivity :
     }
 
     private fun navigateToPushActivity(item: SellRegisteredModel) {
-        navigationManager.toPushViewWithIntent(
+        navigationManager.toAlarmRequestViewWithIntent(
             this,
             false,
             null,

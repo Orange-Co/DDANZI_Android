@@ -44,7 +44,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="co.orange.main.push.PushActivity"
+            android:name="co.orange.main.alarm.AlarmRequestActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

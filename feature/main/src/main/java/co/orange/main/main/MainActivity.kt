@@ -10,7 +10,7 @@ import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.colorOf
 import co.orange.core.extension.initOnBackPressedListener
-import co.orange.core.extension.toast
+import co.orange.main.alarm.AlarmActivity
 import co.orange.main.databinding.ActivityMainBinding
 import co.orange.main.main.home.HomeFragment
 import co.orange.main.main.profile.ProfileFragment
@@ -66,8 +66,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(featureR.layout.activity_
 
     private fun getNotificationIntent() {
         if (!intent.getStringExtra(EXTRA_TYPE).isNullOrEmpty()) {
-            // TODO 알림뷰로 이동
-            toast("알림이 수신되었습니다")
+            startActivity(Intent(this, AlarmActivity::class.java))
         }
     }
 

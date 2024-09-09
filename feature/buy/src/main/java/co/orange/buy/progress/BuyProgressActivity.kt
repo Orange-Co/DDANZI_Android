@@ -251,7 +251,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToPushActivity(orderId: String) {
-        navigationManager.toPushViewWithIntent(this, true, orderId, null, null, null, null)
+        navigationManager.toAlarmRequestViewWithIntent(this, true, orderId, null, null, null, null)
         finish()
     }
 

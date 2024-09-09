@@ -11,7 +11,7 @@ interface NavigationManager {
         productId: String,
     )
 
-    fun toPushViewWithIntent(
+    fun toAlarmRequestViewWithIntent(
         context: Context,
         isBuying: Boolean,
         orderId: String?,
@@ -51,6 +51,11 @@ interface NavigationManager {
         orderId: String,
     )
 
+    fun toBuyInfoView(
+        context: Context,
+        orderId: String,
+    )
+
     /** To Sell Module**/
 
     fun toSellOnboardingView(context: Context)
@@ -66,5 +71,10 @@ interface NavigationManager {
     fun toSellInfoView(
         context: Context,
         itemId: String,
+    )
+
+    fun toSellConfirmView(
+        context: Context,
+        orderId: String,
     )
 }

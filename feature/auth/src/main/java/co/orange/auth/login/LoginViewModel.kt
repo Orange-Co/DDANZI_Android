@@ -94,6 +94,7 @@ class LoginViewModel
                 )
                     .onSuccess {
                         userRepository.setTokens(it.accesstoken, it.refreshtoken)
+                        userRepository.setUserStatus(it.status)
                         _changeTokenState.value = UiState.Success(it.status)
                     }
                     .onFailure {

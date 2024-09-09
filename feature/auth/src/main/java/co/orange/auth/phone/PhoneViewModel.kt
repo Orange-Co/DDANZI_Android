@@ -134,6 +134,7 @@ class PhoneViewModel
             viewModelScope.launch {
                 authRepository.postToSignUp(userRepository.getAccessToken(), request)
                     .onSuccess {
+                        userRepository.setUserStatus(it.status)
                         _postSignUpState.value = UiState.Success(it.nickname)
                     }
                     .onFailure {

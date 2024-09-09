@@ -77,5 +77,5 @@ class DetailViewModel
             }
         }
 
-        fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()
+        fun getUserLogined() = userRepository.getUserRegistered()
     }

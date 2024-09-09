@@ -73,7 +73,7 @@ class HomeViewModel
             _itemLikeMinusState.value = UiState.Empty
         }
 
-        fun getUserLogined() = userRepository.getAccessToken().isNotEmpty()
+        fun getUserLogined() = userRepository.getUserRegistered()
 
         fun setDeviceToken(deviceToken: String) {
             userRepository.setDeviceToken(deviceToken)

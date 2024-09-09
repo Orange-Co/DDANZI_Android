@@ -6,6 +6,7 @@ interface UserSharedPref {
     var deviceToken: String
     var userName: String
     var userPhone: String
+    var userStatus: String
 
     fun clearInfo()
 }

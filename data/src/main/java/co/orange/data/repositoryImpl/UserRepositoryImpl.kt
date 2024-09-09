@@ -39,7 +39,17 @@ class UserRepositoryImpl
             userSharedPref.userPhone = userPhone
         }
 
+        override fun getUserRegistered(): Boolean = userSharedPref.userStatus == USER_REGISTERED
+
+        override fun setUserStatus(status: String) {
+            userSharedPref.userStatus = status
+        }
+
         override fun clearInfo() {
             userSharedPref.clearInfo()
+        }
+
+        companion object {
+            const val USER_REGISTERED = "ACTIVATE"
         }
     }

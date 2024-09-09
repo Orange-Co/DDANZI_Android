@@ -2,13 +2,21 @@ package co.orange.main.alarm
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
+import co.orange.core.extension.stringOf
+import co.orange.core.extension.toast
 import co.orange.core.navigation.NavigationManager
+import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AlarmListModel.AlarmItemModel
 import co.orange.main.R
 import co.orange.main.databinding.ActivityAlarmBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,6 +35,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
 
         initBackBtnListener()
         initAdapter()
+        observeGetAlarmListState()
     }
 
     private fun initBackBtnListener() {
@@ -43,6 +52,20 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
 
     private fun initItemClickListener(item: AlarmItemModel) {
         // TODO
+    }
+
+    private fun observeGetAlarmListState() {
+        viewModel.getAlarmListState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        adapter.submitList(state.data.alarmList)
+                    }
+
+                    is UiState.Failure -> toast(stringOf(co.orange.core.R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroy() {

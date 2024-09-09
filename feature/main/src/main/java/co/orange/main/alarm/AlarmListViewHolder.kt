@@ -21,6 +21,8 @@ class AlarmListViewHolder(
 
             root.setOnSingleClickListener {
                 itemClick(item)
+                root.background =
+                    ColorDrawable(ContextCompat.getColor(itemView.context, R.color.white))
             }
 
             root.background =
@@ -28,10 +30,7 @@ class AlarmListViewHolder(
                     ColorDrawable(ContextCompat.getColor(itemView.context, R.color.white))
                 } else {
                     ColorDrawable(
-                        ContextCompat.getColor(
-                            itemView.context,
-                            R.color.emphasize_yellow,
-                        ),
+                        ContextCompat.getColor(itemView.context, R.color.emphasize_yellow),
                     )
                 }
         }

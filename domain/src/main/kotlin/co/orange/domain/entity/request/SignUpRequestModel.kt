@@ -6,4 +6,5 @@ data class SignUpRequestModel(
     val birth: String,
     val sex: String,
     val isAgreedMarketingTerm: Boolean,
+    val ci: String,
 )

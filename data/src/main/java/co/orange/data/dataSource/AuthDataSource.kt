@@ -17,4 +17,6 @@ interface AuthDataSource {
         accesstoken: String,
         request: SignUpRequestDto,
     ): BaseResponse<SignUpDto>
+
+    suspend fun getServerStatus(): BaseResponse<Boolean>
 }

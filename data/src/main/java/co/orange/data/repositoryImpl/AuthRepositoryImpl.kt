@@ -41,6 +41,11 @@ class AuthRepositoryImpl
                 ).data.toModel()
             }
 
+        override suspend fun getServerStatus(): Result<Boolean> =
+            runCatching {
+                authDataSource.getServerStatus().data
+            }
+
         companion object {
             private const val BEARER = "Bearer"
         }

@@ -26,4 +26,6 @@ data class AuthDataSourceImpl
             accesstoken: String,
             request: SignUpRequestDto,
         ): BaseResponse<SignUpDto> = authService.postToSignUp(accesstoken, request)
+
+        override suspend fun getServerStatus(): BaseResponse<Boolean> = authService.getServerStatus()
     }

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import co.orange.core.util.ItemDiffCallback
-import co.orange.domain.entity.response.AlarmItemModel
+import co.orange.domain.entity.response.AlarmListModel.AlarmItemModel
 import co.orange.main.databinding.ItemAlarmBinding
 
 class AlarmListAdapter(

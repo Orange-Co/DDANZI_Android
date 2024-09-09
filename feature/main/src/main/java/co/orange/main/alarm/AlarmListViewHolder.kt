@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.orange.core.R
 import co.orange.core.extension.setOnSingleClickListener
-import co.orange.domain.entity.response.AlarmItemModel
+import co.orange.domain.entity.response.AlarmListModel.AlarmItemModel
 import co.orange.main.databinding.ItemAlarmBinding
 
 class AlarmListViewHolder(

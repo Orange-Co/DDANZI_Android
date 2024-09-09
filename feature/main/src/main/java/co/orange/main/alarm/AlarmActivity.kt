@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.navigation.NavigationManager
-import co.orange.domain.entity.response.AlarmItemModel
+import co.orange.domain.entity.response.AlarmListModel.AlarmItemModel
 import co.orange.main.R
 import co.orange.main.databinding.ActivityAlarmBinding
 import dagger.hilt.android.AndroidEntryPoint

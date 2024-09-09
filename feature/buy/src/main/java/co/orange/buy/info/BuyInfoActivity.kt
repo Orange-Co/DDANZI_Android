@@ -109,16 +109,22 @@ class BuyInfoActivity :
                     Triple(R.string.buy_info_msg_placed, R.string.buy_info_btn_fix, false)
                 }
 
-                OrderStatus.SHIPPING.name -> {
-                    Triple(R.string.buy_info_msg_shipping, R.string.buy_info_btn_fix, true)
-                }
-
                 OrderStatus.COMPLETED.name -> {
                     Triple(R.string.buy_info_msg_completed, R.string.buy_info_btn_completed, false)
                 }
 
                 OrderStatus.CANCELLED.name -> {
                     Triple(R.string.buy_info_msg_cancelled, R.string.buy_info_btn_cancelled, false)
+                }
+
+                in
+                listOf(
+                    OrderStatus.SHIPPING.name,
+                    OrderStatus.DELAYED_SHIPPING.name,
+                    OrderStatus.WARNING.name,
+                ),
+                -> {
+                    Triple(R.string.buy_info_msg_shipping, R.string.buy_info_btn_fix, true)
                 }
 
                 else -> return

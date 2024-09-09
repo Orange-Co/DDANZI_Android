@@ -36,6 +36,7 @@
 
     <string name="alarm_tv_title">알림</string>
     <string name="alarm_tv_guide">최근 7일 이내의 알림만 보관됩니다.</string>
+    <string name="alarm_tv_empty">최근 7일동안 받은 알림이 없어요</string>
 
     <string name="detail_chips_category">카테고리</string>
     <string name="detail_chips_option">선택옵션 존재</string>

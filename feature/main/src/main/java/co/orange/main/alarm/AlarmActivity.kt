@@ -2,6 +2,7 @@ package co.orange.main.alarm
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.base.BaseActivity
@@ -61,6 +62,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
                 when (state) {
                     is UiState.Success -> {
                         adapter.submitList(state.data.alarmList)
+                        binding.layoutEmpty.isVisible = state.data.alarmList.isEmpty()
                     }
 
                     is UiState.Failure -> toast(stringOf(co.orange.core.R.string.error_msg))

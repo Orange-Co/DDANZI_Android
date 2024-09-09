@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_fill_10_rect"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="34dp">
+
+        <TextView
+            android:id="@+id/tv_server_title"
+            style="@style/TextAppearance.DDanzi.Title4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/server_check_tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_server_subtitle"
+            style="@style/TextAppearance.DDanzi.Body5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/server_check_tv_subtitle"
+            android:textColor="@color/gray_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_server_title" />
+
+        <TextView
+            android:id="@+id/btn_quit"
+            style="@style/TextAppearance.DDanzi.Body4"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_black_fill_5_rect"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="@string/server_check_btn_quit"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_server_subtitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

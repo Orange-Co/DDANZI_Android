@@ -112,6 +112,7 @@ class AlarmRequestActivity :
             this,
             intent.getStringExtra(EXTRA_ORDER_ID).orEmpty(),
         )
+        finish()
     }
 
     private fun navigateToSellFinishedActivity() {
@@ -122,6 +123,7 @@ class AlarmRequestActivity :
             intent.getStringExtra(EXTRA_PRODUCT_IMAGE).orEmpty(),
             intent.getIntExtra(EXTRA_SALE_PRICE, 0),
         )
+        finish()
     }
 
     companion object {

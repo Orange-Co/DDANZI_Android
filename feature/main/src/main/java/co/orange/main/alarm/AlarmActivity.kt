@@ -36,6 +36,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
         initBackBtnListener()
         initAdapter()
         observeGetAlarmListState()
+        observePatchReadState()
     }
 
     private fun initBackBtnListener() {
@@ -51,7 +52,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
     }
 
     private fun initItemClickListener(item: AlarmItemModel) {
-        // TODO
+        viewModel.patchToReadAlarmToServer(item)
     }
 
     private fun observeGetAlarmListState() {
@@ -66,6 +67,20 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
+    }
+
+    private fun observePatchReadState() {
+        viewModel.patchReadState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> navigateToViewByType(state.data)
+                    is UiState.Failure -> toast(stringOf(co.orange.core.R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun navigateToViewByType(item: AlarmItemModel) {
     }
 
     override fun onDestroy() {

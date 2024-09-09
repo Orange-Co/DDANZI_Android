@@ -42,11 +42,11 @@ class AlarmViewModel
         }
 
         fun patchToReadAlarmToServer(item: AlarmItemModel) {
+            _patchReadState.value = UiState.Loading
             if (item.isChecked) {
                 _patchReadState.value = UiState.Success(item)
                 return
             }
-            _patchReadState.value = UiState.Loading
             viewModelScope.launch {
                 homeRepository.patchToReadAlarm(
                     item.alarmId,

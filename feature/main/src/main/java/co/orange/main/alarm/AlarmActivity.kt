@@ -1,5 +1,6 @@
 package co.orange.main.alarm
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -12,8 +13,10 @@ import co.orange.core.extension.toast
 import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.response.AlarmListModel.AlarmItemModel
+import co.orange.domain.enums.AlarmType
 import co.orange.main.R
 import co.orange.main.databinding.ActivityAlarmBinding
+import co.orange.main.main.profile.ReportActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -83,6 +86,21 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
     }
 
     private fun navigateToViewByType(item: AlarmItemModel) {
+        when (item.alarmCase) {
+            AlarmType.A1.name -> {
+                item.orderId?.let { navigationManager.toSellConfirmView(this, it) }
+            }
+
+            AlarmType.A4.name -> {
+                startActivity(Intent(this, ReportActivity::class.java))
+            }
+
+            in listOf(AlarmType.B2.name, AlarmType.B3.name, AlarmType.B4.name) -> {
+                item.orderId?.let { navigationManager.toSellInfoView(this, it) }
+            }
+
+            else -> return
+        }
     }
 
     override fun onDestroy() {

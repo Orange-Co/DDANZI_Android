@@ -188,7 +188,8 @@ class BuyProgressActivity :
             iamPortRequest = request,
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            viewModel.patchPayEndToServer(response?.error_code)
+            if (response == null) return@payment
+            viewModel.patchPayEndToServer(response.success)
         }
     }
 
@@ -198,10 +199,6 @@ class BuyProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         if (state.data.payStatus == PAY_SUCCESS) {
-                            if (viewModel.isOrderCanceled) {
-                                viewModel.isOrderCanceled = false
-                                return@onEach
-                            }
                             viewModel.postToRequestOrderToServer()
                         } else {
                             toast(stringOf(R.string.error_msg))

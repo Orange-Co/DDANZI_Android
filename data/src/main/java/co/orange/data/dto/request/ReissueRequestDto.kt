@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ReissueRequestDto(
-    @SerialName("refreshToken")
-    val refreshToken: String,
+    @SerialName("refreshtoken")
+    val refreshtoken: String,
 ) {
     companion object {
-        fun ReissueRequestModel.toDto() = ReissueRequestDto(refreshToken)
+        fun ReissueRequestModel.toDto() = ReissueRequestDto(refreshtoken)
     }
 }

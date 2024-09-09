@@ -10,7 +10,7 @@ data class AuthRequestDto(
     val token: String,
     @SerialName("type")
     val type: String,
-    @SerialName("deviceToken")
+    @SerialName("devicetoken")
     val deviceToken: String,
     @SerialName("deviceType")
     val deviceType: String,

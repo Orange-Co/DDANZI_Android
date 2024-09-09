@@ -112,7 +112,7 @@ class PhoneViewModel
                                     birth = it.birthday.orEmpty(),
                                     sex = it.gender?.uppercase().orEmpty(),
                                     isAgreedMarketingTerm = isTermMarketingSelected.value ?: false,
-                                    ci = it.uniqueInSite.orEmpty(),
+                                    ci = it.uniqueKey.orEmpty(),
                                 ),
                             )
                             userRepository.setUserInfo(

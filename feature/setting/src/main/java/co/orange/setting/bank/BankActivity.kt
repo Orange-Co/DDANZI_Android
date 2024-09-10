@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -29,6 +30,7 @@ class BankActivity : BaseActivity<ActivityBankBinding>(featureR.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AmplitudeManager.trackEvent("view_account")
         initBackBtnListener()
         initBankInfoBtnListener()
         observeUserBankState()
@@ -52,9 +54,7 @@ class BankActivity : BaseActivity<ActivityBankBinding>(featureR.layout.activity_
     }
 
     private fun navigateToAddBankView(accountId: Long) {
-        BankAddActivity.createIntent(this, accountId).apply {
-            startActivity(this)
-        }
+        startActivity(BankAddActivity.createIntent(this, accountId))
     }
 
     private fun observeUserBankState() {

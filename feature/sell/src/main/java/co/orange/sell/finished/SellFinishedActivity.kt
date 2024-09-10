@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
@@ -34,25 +35,31 @@ class SellFinishedActivity :
     private fun initReturnBtnListener() {
         with(binding) {
             btnExit.setOnSingleClickListener { navigationManager.toMainViewWIthClearing(this@SellFinishedActivity) }
-            btnSellMore.setOnSingleClickListener { navigationManager.toMainViewWIthClearing(this@SellFinishedActivity) }
+            btnSellMore.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_sell_adjustment_add")
+                navigationManager.toMainViewWIthClearing(this@SellFinishedActivity)
+            }
         }
     }
 
     private fun initDetailBtnListener() {
         binding.btnProductDetail.setOnSingleClickListener {
-            SellInfoActivity.createIntent(this, viewModel.itemId).apply {
-                startActivity(this)
-            }
+            AmplitudeManager.trackEvent("click_sell_adjustment_check")
+            startActivity(SellInfoActivity.createIntent(this, viewModel.itemId))
         }
     }
 
     private fun setUiWithIntent() {
+        intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
         with(binding) {
-            intent.getStringExtra(EXTRA_ITEM_ID)?.let { viewModel.itemId = it }
             intent.getStringExtra(EXTRA_PRODUCT_NAME)?.let { tvFinishedItemName.text = it }
             intent.getStringExtra(EXTRA_PRODUCT_IMAGE)?.let { ivFinishedItem.load(it) }
             tvFinishedItemPrice.text = intent.getIntExtra(EXTRA_SALE_PRICE, 0).setPriceForm()
         }
+        AmplitudeManager.trackEvent(
+            "complete_sell_adjustment",
+            mapOf("item_id" to viewModel.itemId),
+        )
     }
 
     companion object {

@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setStatusBarColorFromResource
@@ -41,6 +42,7 @@ class SellOnboardingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AmplitudeManager.trackEvent("view_landing_1")
         initViewPager()
         initExitBtnListener()
         initNextBtnListener()
@@ -69,6 +71,10 @@ class SellOnboardingActivity :
             btnNext.setOnClickListener {
                 vpOnboarding.currentItem += 1
                 setGuideWIthPosition(vpOnboarding.currentItem)
+                when (vpOnboarding.currentItem) {
+                    1 -> AmplitudeManager.trackEvent("click_landing_1_next")
+                    2 -> AmplitudeManager.trackEvent("click_landing_2_next")
+                }
             }
         }
     }
@@ -88,11 +94,13 @@ class SellOnboardingActivity :
 
     private fun initSelectBtnListener() {
         binding.btnSelect.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_landing_3_next")
             checkAndGetImage()
         }
     }
 
     private fun checkAndGetImage() {
+        AmplitudeManager.trackEvent("view_gallery")
         if (ActivityResultContracts.PickVisualMedia.isPhotoPickerAvailable()) {
             photoPickerResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         } else {

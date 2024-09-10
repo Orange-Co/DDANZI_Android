@@ -3,6 +3,7 @@ package co.orange.sell.progress
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.SellRegisterRequestModel
 import co.orange.domain.entity.response.SellProductModel
@@ -44,6 +45,7 @@ class SellProgressViewModel
         val postRegisterState: StateFlow<UiState<SellRegisteredModel>> = _postRegisterState
 
         fun checkAllTerm() {
+            AmplitudeManager.trackEvent("click_sell_terms_all")
             isTermServiceSelected.value = isTermAllSelected.value?.not()
             isTermSellSelected.value = isTermAllSelected.value?.not()
             isTermAllSelected.value = isTermAllSelected.value?.not()

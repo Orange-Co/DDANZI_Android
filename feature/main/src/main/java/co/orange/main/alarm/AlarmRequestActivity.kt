@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
@@ -32,6 +33,7 @@ class AlarmRequestActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AmplitudeManager.trackEvent("view_sell_push")
         initOnBackPressedListener(binding.root)
         initExitBtnListener()
         initAlarmBtnListener()
@@ -47,9 +49,11 @@ class AlarmRequestActivity :
     private fun initExitBtnListener() {
         with(binding) {
             btnExit.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_sell_push_refuse")
                 checkIsBuyOrSell()
             }
             btnLater.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_sell_push_refuse")
                 checkIsBuyOrSell()
             }
         }

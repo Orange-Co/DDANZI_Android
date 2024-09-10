@@ -67,7 +67,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initLikeBtnListener() {
         binding.btnLike.setOnSingleClickShortListener {
             if (!viewModel.getUserLogined()) {
-                navigationManager.toLoginView(this)
+                navigationManager.toLoginView(this, "like")
                 return@setOnSingleClickShortListener
             }
             viewModel.setLikeStateWithServer()
@@ -77,7 +77,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
             if (!viewModel.getUserLogined()) {
-                navigationManager.toLoginView(this)
+                navigationManager.toLoginView(this, "buy")
                 return@setOnSingleClickListener
             }
             if (viewModel.optionList.isEmpty()) {

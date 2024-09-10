@@ -58,7 +58,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(featureR.layout.f
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-            navigationManager.toLoginView(requireContext())
+            navigationManager.toLoginView(requireContext(), "mypage")
         }
     }
 

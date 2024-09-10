@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import co.orange.auth.databinding.BottomSheetTermBinding
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.auth.R as featureR
@@ -48,6 +49,7 @@ class TermBottomSheet :
 
     private fun initSubmitBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_verification_terms_next")
             viewModel.clickSubmitBtn(true)
             dismiss()
         }

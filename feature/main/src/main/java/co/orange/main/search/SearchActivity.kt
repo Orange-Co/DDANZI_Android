@@ -135,7 +135,7 @@ class SearchActivity :
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            navigationManager.toLoginView(this)
+            navigationManager.toLoginView(this, "like")
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)

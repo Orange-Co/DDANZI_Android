@@ -18,6 +18,8 @@ import java.util.Random
 class DdanziMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+
+        Timber.tag("okhttp").d("NOTIFICATION ON NEW TOKEN : $token")
     }
 
     override fun handleIntent(intent: Intent?) {

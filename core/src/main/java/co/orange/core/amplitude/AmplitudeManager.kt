@@ -1,4 +1,4 @@
-package co.orange.ddanzi.manager
+package co.orange.core.amplitude
 
 import android.content.Context
 import com.amplitude.android.Amplitude

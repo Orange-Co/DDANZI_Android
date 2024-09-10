@@ -30,21 +30,31 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    implementation(KotlinDependencies.kotlin)
+    KotlinDependencies.run {
+        implementation(kotlin)
+    }
 
-    // Lifecycle Ktx
-    implementation(AndroidXDependencies.lifeCycleKtx)
+    AndroidXDependencies.run {
+        implementation(lifeCycleKtx)
+        implementation(hilt)
+    }
 
-    // Material Design
-    implementation(GoogleDependencies.materialDesign)
+    GoogleDependencies.run {
+        implementation(materialDesign)
+    }
 
-    // Hilt
-    implementation(AndroidXDependencies.hilt)
-    kapt(KaptDependencies.hiltAndroidCompiler)
+    KaptDependencies.run {
+        kapt(hiltAndroidCompiler)
+    }
 
-    // Test Dependency
-    testImplementation(TestDependencies.jUnit)
-    androidTestImplementation(TestDependencies.androidTest)
-    androidTestImplementation(TestDependencies.espresso)
+    ThirdPartyDependencies.run {
+        implementation(timber)
+        implementation(amplitude)
+    }
+
+    TestDependencies.run {
+        testImplementation(jUnit)
+        androidTestImplementation(androidTest)
+        androidTestImplementation(espresso)
+    }
 }

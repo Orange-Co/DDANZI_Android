@@ -2,9 +2,9 @@ package co.orange.ddanzi
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.ddanzi.BuildConfig.AMPLITUDE_KEY
 import co.orange.ddanzi.BuildConfig.NATIVE_APP_KEY
-import co.orange.ddanzi.manager.AmplitudeManager
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber

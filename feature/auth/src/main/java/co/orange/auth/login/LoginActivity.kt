@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.auth.databinding.ActivityLoginBinding
 import co.orange.auth.phone.PhoneActivity
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -34,6 +35,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(featureR.layout.activit
 
     private fun initLoginBtnListener() {
         binding.btnLoginKakao.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_sign_up_kakao")
             viewModel.startLogInWithKakao(this)
         }
     }

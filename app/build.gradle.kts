@@ -46,12 +46,22 @@ android {
                 "BASE_URL",
                 gradleLocalProperties(rootDir).getProperty("dev.base.url"),
             )
+            buildConfigField(
+                "String",
+                "AMPLITUDE_KEY",
+                gradleLocalProperties(rootDir).getProperty("dev.amplitude.key"),
+            )
         }
         release {
             buildConfigField(
                 "String",
                 "BASE_URL",
                 gradleLocalProperties(rootDir).getProperty("base.url"),
+            )
+            buildConfigField(
+                "String",
+                "AMPLITUDE_KEY",
+                gradleLocalProperties(rootDir).getProperty("amplitude.key"),
             )
 
             isMinifyEnabled = false

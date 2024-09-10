@@ -7,6 +7,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initFocusWithKeyboard
 import co.orange.core.extension.setOnSingleClickListener
@@ -104,6 +105,7 @@ class SearchActivity :
     }
 
     private fun initKeywordClickListener(keyword: String) {
+        AmplitudeManager.trackEvent("click_search_popular")
         binding.etSearch.setText(keyword)
     }
 
@@ -151,6 +153,7 @@ class SearchActivity :
                     lifecycleScope.launch {
                         delay(DEBOUNCE_TIME)
                         text.toString().let { text ->
+                            AmplitudeManager.trackEvent("click_search_search")
                             binding.layoutAfterSearch.isVisible = true
                             binding.tvSearchedText.text = getString(R.string.add_quotation, text)
                             viewModel.getSearchResultFromServer(text)
@@ -241,6 +244,7 @@ class SearchActivity :
 
     override fun onDestroy() {
         super.onDestroy()
+
         _keywordAdapter = null
         _recentAdapter = null
         _resultAdapter = null

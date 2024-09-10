@@ -3,6 +3,7 @@ package co.orange.auth.phone
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.extension.toPhoneFrom
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.SignUpRequestModel
@@ -47,6 +48,7 @@ class PhoneViewModel
         val postSignUpState: StateFlow<UiState<String>> = _postSignUpState
 
         fun checkAllTerm() {
+            AmplitudeManager.trackEvent("click_verification_terms_all")
             isTermPrivateSelected.value = isTermAllSelected.value?.not()
             isTermServiceSelected.value = isTermAllSelected.value?.not()
             isTermMarketingSelected.value = isTermAllSelected.value?.not()

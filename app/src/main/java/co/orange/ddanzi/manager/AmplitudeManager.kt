@@ -1,5 +1,10 @@
 package co.orange.ddanzi.manager
 
+import android.content.Context
+import com.amplitude.android.Amplitude
+import com.amplitude.android.Configuration
+import com.amplitude.android.events.Identify
+
 object AmplitudeManager {
     private lateinit var amplitude: Amplitude
 
@@ -18,24 +23,12 @@ object AmplitudeManager {
 
     fun trackEvent(
         eventName: String,
-        properties1: Map<String, Any>? = null,
-        properties2: Map<String, Any>? = null,
+        properties: Map<String, Any>? = null,
     ) {
-        when {
-            properties1 == null && properties2 == null -> {
-                amplitude.track(eventName)
-            }
-
-            properties1 != null && properties2 == null -> {
-                amplitude.track(eventName, properties1)
-            }
-
-            properties1 != null && properties2 != null -> {
-                val combinedProperties = mutableMapOf<String, Any?>()
-                combinedProperties.putAll(properties1)
-                combinedProperties.putAll(properties2)
-                amplitude.track(eventName, combinedProperties)
-            }
+        if (properties == null) {
+            amplitude.track(eventName)
+        } else {
+            amplitude.track(eventName, properties)
         }
     }
 

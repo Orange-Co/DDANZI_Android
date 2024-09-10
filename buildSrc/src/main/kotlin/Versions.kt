@@ -35,6 +35,7 @@ object Versions {
     const val circleIndicatorVersion = "2.1.6"
     const val mlkitVersion = "16.0.0"
     const val appUpdateVersion = "2.1.0"
+    const val amplitudeVersion = "1.17.3"
 
     const val iamportVersion = "v1.4.5"
 

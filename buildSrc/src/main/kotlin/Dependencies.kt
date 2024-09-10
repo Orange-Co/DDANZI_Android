@@ -65,6 +65,7 @@ object ThirdPartyDependencies {
     const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
     const val coil = "io.coil-kt:coil:${Versions.coilVersion}"
     const val lottie = "com.airbnb.android:lottie:${Versions.lottieVersion}"
+    const val amplitude = "com.amplitude:analytics-android:${Versions.amplitudeVersion}"
 
     const val progressView = "com.github.skydoves:progressview:${Versions.progressViewVersion}"
     const val balloon = "com.github.skydoves:balloon:${Versions.balloonVersion}"

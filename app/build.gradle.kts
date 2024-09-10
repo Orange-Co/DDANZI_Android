@@ -130,6 +130,7 @@ dependencies {
         implementation(retrofit)
         implementation(retrofitJsonConverter)
         implementation(timber)
+        implementation(amplitude)
     }
 
     KakaoDependencies.run {

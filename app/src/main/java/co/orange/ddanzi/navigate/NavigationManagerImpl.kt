@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di.navigate
+package co.orange.ddanzi.navigate
 
 import android.content.Context
 import android.content.Intent

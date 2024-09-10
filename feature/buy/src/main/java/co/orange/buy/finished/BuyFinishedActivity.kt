@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.buy.databinding.ActivityBuyFinishedBinding
 import co.orange.buy.info.BuyInfoActivity
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.convertDateTime
@@ -38,15 +39,26 @@ class BuyFinishedActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initView()
         initReturnBtnListener()
         initDetailBtnListener()
         getIntentInfo()
         observeGetOrderInfoState()
     }
 
+    private fun initView() {
+        AmplitudeManager.trackEvent(
+            "complete_purchase_adjustment",
+            mapOf("order_id" to viewModel.orderId),
+        )
+    }
+
     private fun initReturnBtnListener() {
         binding.btnHome.setOnSingleClickListener { navigateToHome() }
-        binding.btnKeepShopping.setOnSingleClickListener { navigateToHome() }
+        binding.btnKeepShopping.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_purchase_adjustment_add")
+            navigateToHome()
+        }
     }
 
     private fun navigateToHome() {
@@ -55,9 +67,8 @@ class BuyFinishedActivity :
 
     private fun initDetailBtnListener() {
         binding.btnShowDetail.setOnSingleClickListener {
-            BuyInfoActivity.createIntent(this, viewModel.orderId).apply {
-                startActivity(this)
-            }
+            AmplitudeManager.trackEvent("click_purchase_adjustment_check")
+            startActivity(BuyInfoActivity.createIntent(this, viewModel.orderId))
         }
     }
 

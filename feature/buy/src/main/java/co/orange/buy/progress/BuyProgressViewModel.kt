@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.buy.BuildConfig.PAYMENT_UID
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.OrderRequestModel
 import co.orange.domain.entity.request.PayEndRequestModel
@@ -55,6 +56,7 @@ class BuyProgressViewModel
         val postOrderState: StateFlow<UiState<String>> = _postOrderState
 
         fun checkAllTerm() {
+            AmplitudeManager.trackEvent("click_purchase_terms_all")
             isTermServiceSelected.value = isTermAllSelected.value?.not()
             isTermPurchaseSelected.value = isTermAllSelected.value?.not()
             isTermAllSelected.value = isTermAllSelected.value?.not()

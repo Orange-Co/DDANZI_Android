@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
@@ -52,13 +53,20 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     }
 
     private fun initBackBtnListener() {
-        binding.btnBack.setOnSingleClickListener { finish() }
-        binding.btnHome.setOnSingleClickListener { finish() }
+        binding.btnBack.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_detail_quit")
+            finish()
+        }
+        binding.btnHome.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_detail_home")
+            finish()
+        }
     }
 
     private fun initDetailViewBtnListener() {
         binding.btnDetailView.setOnSingleClickListener {
             if (viewModel.infoUrl.isNotEmpty()) {
+                AmplitudeManager.trackEvent("click_detail_detail")
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.infoUrl)))
             }
         }
@@ -66,6 +74,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
 
     private fun initLikeBtnListener() {
         binding.btnLike.setOnSingleClickShortListener {
+            AmplitudeManager.trackEvent("click_detail_heart")
             if (!viewModel.getUserLogined()) {
                 navigationManager.toLoginView(this, "like")
                 return@setOnSingleClickShortListener
@@ -76,6 +85,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
+            AmplitudeManager.trackEvent(
+                "click_detail_purchase",
+                mapOf("product_id" to viewModel.productId),
+            )
             if (!viewModel.getUserLogined()) {
                 navigationManager.toLoginView(this, "buy")
                 return@setOnSingleClickListener
@@ -94,6 +107,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
             productId = intent.getStringExtra(EXTRA_PRODUCT_ID).orEmpty()
             getProductDetailFromServer()
         }
+        AmplitudeManager.trackEvent("view_detail", mapOf("product_id" to viewModel.productId))
     }
 
     private fun observeGetProductDetailState() {

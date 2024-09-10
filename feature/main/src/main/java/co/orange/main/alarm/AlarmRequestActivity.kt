@@ -33,7 +33,6 @@ class AlarmRequestActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        AmplitudeManager.trackEvent("view_sell_push")
         initOnBackPressedListener(binding.root)
         initExitBtnListener()
         initAlarmBtnListener()
@@ -49,11 +48,11 @@ class AlarmRequestActivity :
     private fun initExitBtnListener() {
         with(binding) {
             btnExit.setOnSingleClickListener {
-                AmplitudeManager.trackEvent("click_sell_push_refuse")
+                AmplitudeManager.trackEvent("click_push_refuse")
                 checkIsBuyOrSell()
             }
             btnLater.setOnSingleClickListener {
-                AmplitudeManager.trackEvent("click_sell_push_refuse")
+                AmplitudeManager.trackEvent("click_push_refuse")
                 checkIsBuyOrSell()
             }
         }
@@ -105,8 +104,10 @@ class AlarmRequestActivity :
 
     private fun checkIsBuyOrSell() {
         if (intent.getBooleanExtra(EXTRA_IS_BUYING, true)) {
+            AmplitudeManager.trackEvent("view_purchase_push")
             navigateToBuyFinishedActivity()
         } else {
+            AmplitudeManager.trackEvent("view_sell_push")
             navigateToSellFinishedActivity()
         }
     }

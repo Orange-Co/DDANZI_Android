@@ -7,9 +7,7 @@ import co.orange.domain.entity.response.SellBuyerInfoModel
 import co.orange.domain.enums.OrderStatus
 import co.orange.domain.repository.SellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,8 +23,8 @@ class SellConfirmViewModel
         private val _getBuyerInfoState = MutableStateFlow<UiState<SellBuyerInfoModel>>(UiState.Empty)
         val getBuyerInfoState: StateFlow<UiState<SellBuyerInfoModel>> = _getBuyerInfoState
 
-        private val _patchOrderConfirmResult = MutableSharedFlow<Boolean>()
-        val patchOrderConfirmResult: SharedFlow<Boolean> = _patchOrderConfirmResult
+        private val _patchOrderConfirmState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+        val patchOrderConfirmState: StateFlow<UiState<Boolean>> = _patchOrderConfirmState
 
         fun getBuyerInfoFromServer() {
             _getBuyerInfoState.value = UiState.Loading
@@ -45,13 +43,13 @@ class SellConfirmViewModel
                 sellRepository.patchOrderConfirm(orderId)
                     .onSuccess {
                         if (it.orderStatus == OrderStatus.SHIPPING.name) {
-                            _patchOrderConfirmResult.emit(true)
+                            _patchOrderConfirmState.value = UiState.Success(true)
                         } else {
-                            _patchOrderConfirmResult.emit(false)
+                            _patchOrderConfirmState.value = UiState.Failure(it.orderStatus)
                         }
                     }
                     .onFailure {
-                        _patchOrderConfirmResult.emit(false)
+                        _patchOrderConfirmState.value = UiState.Failure(it.message.orEmpty())
                     }
             }
         }

@@ -107,7 +107,13 @@ class SellInfoActivity :
                     Triple(R.string.sell_info_msg_ordered, R.string.sell_info_btn_fix, true)
                 }
 
-                ItemStatus.SHIPPING.name -> {
+                in
+                listOf(
+                    ItemStatus.SHIPPING.name,
+                    ItemStatus.DELAYED_SHIPPING.name,
+                    ItemStatus.WARNING.name,
+                ),
+                -> {
                     Triple(R.string.buy_info_msg_shipping, R.string.sell_info_btn_shipping, false)
                 }
 

@@ -48,7 +48,7 @@ interface SellService {
         @Path("id") orderId: String,
     ): BaseResponse<SellBuyerInfoDto>
 
-    @PATCH("/api/v1/order/{id}/sell")
+    @PATCH("/api/v1/order/{id}/sale")
     suspend fun patchOrderConfirm(
         @Path("id") orderId: String,
     ): BaseResponse<OrderConfirmDto>

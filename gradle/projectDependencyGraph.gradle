@@ -1,4 +1,4 @@
-task projectDependencyGraph {
+tasks.register('projectDependencyGraph') {
     doLast {
         def dot = new File(rootProject.buildDir, 'dependency-graph/project.dot')
         dot.parentFile.mkdirs()

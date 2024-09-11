@@ -240,15 +240,15 @@
     <string name="sign_up_term_tv_first">개인정보 처리방침 (필수)</string>
     <string name="sign_up_term_tv_second">서비스 이용 약관 (필수)</string>
     <string name="sign_up_term_tv_third">마케팅 수신 동의 (선택)</string>
-    <string name="sign_up_term_btn_submit">동의하고 본인 인증하러 가기</string>
+    <string name="sign_up_term_btn_submit">동의하고 본인인증하러 가기</string>
 
     <string name="sign_up_nickname">%1$s님</string>
     <string name="sign_up_confirm_btn_confirm">완료</string>
     <string name="sign_up_confirm_tv_title">환영해요!</string>
 
-    <string name="phone_tv_title">본인 인증을 진행해주세요</string>
-    <string name="phone_tv_subtitle">안전한 딴지 사용을 위해\n본인 인증이 필요해요</string>
-    <string name="phone_btn_auth">본인 인증하러 가기</string>
+    <string name="phone_tv_title">본인인증을 진행해주세요</string>
+    <string name="phone_tv_subtitle">안전한 딴지 사용을 위해\n본인인증이 필요해요</string>
+    <string name="phone_btn_auth">본인인증하러 가기</string>
 
     <string name="profile_history_buy_title">구매 목록</string>
     <string name="profile_history_sell_title">판매 목록</string>

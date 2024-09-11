@@ -100,7 +100,7 @@ class SellInfoActivity :
         val (infoMsgResId, btnTextResId, isButtonEnabled) =
             when (status) {
                 ItemStatus.ON_SALE.name -> {
-                    Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_btn_fix, false)
+                    Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_msg_on_sale, false)
                 }
 
                 ItemStatus.ORDERED.name -> {

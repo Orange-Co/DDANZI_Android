@@ -68,7 +68,11 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
                         binding.layoutEmpty.isVisible = state.data.alarmList.isEmpty()
                     }
 
-                    is UiState.Failure -> toast(stringOf(co.orange.core.R.string.error_msg))
+                    is UiState.Failure -> {
+                        toast(stringOf(co.orange.core.R.string.error_msg))
+                        binding.layoutEmpty.isVisible = true
+                    }
+
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)

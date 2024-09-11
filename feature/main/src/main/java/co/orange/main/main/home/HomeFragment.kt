@@ -18,6 +18,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
+import co.orange.main.alarm.AlarmActivity
 import co.orange.main.databinding.FragmentHomeBinding
 import co.orange.main.detail.DetailActivity
 import co.orange.main.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
@@ -48,6 +49,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
 
         initAdapter()
         initSearchBtnListener()
+        initAlarmBtnListener()
         initSellBtnListener()
         setDeviceToken()
         setGridRecyclerView()
@@ -99,6 +101,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         binding.btnSearch.setOnSingleClickListener {
             AmplitudeManager.trackEvent("click_home_search")
             startActivity(Intent(requireContext(), SearchActivity::class.java))
+        }
+    }
+
+    private fun initAlarmBtnListener() {
+        binding.btnAlarm.setOnSingleClickListener {
+            startActivity(Intent(requireContext(), AlarmActivity::class.java))
         }
     }
 

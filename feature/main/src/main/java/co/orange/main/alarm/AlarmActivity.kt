@@ -103,7 +103,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
                 item.orderId?.let { navigationManager.toSellInfoView(this, it) }
             }
 
-            else -> return
+            else -> finish()
         }
     }
 

@@ -100,7 +100,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
             }
 
             in listOf(AlarmType.B2.name, AlarmType.B3.name, AlarmType.B4.name) -> {
-                item.orderId?.let { navigationManager.toSellInfoView(this, it) }
+                item.orderId?.let { navigationManager.toBuyInfoView(this, it) }
             }
 
             else -> finish()

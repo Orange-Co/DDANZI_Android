@@ -34,10 +34,12 @@ class SellFinishedActivity :
 
     private fun initReturnBtnListener() {
         with(binding) {
-            btnExit.setOnSingleClickListener { navigationManager.toMainViewWIthClearing(this@SellFinishedActivity) }
+            btnExit.setOnSingleClickListener {
+                navigationManager.toMainViewWIthClearing(this@SellFinishedActivity)
+            }
             btnSellMore.setOnSingleClickListener {
                 AmplitudeManager.trackEvent("click_sell_adjustment_add")
-                navigationManager.toMainViewWIthClearing(this@SellFinishedActivity)
+                finish()
             }
         }
     }

@@ -44,7 +44,7 @@ class SellConfirmViewModel
             viewModelScope.launch {
                 sellRepository.patchOrderConfirm(orderId)
                     .onSuccess {
-                        if (it.orderStatus == OrderStatus.COMPLETED.name) {
+                        if (it.orderStatus == OrderStatus.SHIPPING.name) {
                             _patchOrderConfirmResult.emit(true)
                         } else {
                             _patchOrderConfirmResult.emit(false)

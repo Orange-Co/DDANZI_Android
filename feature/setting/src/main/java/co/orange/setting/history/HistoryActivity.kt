@@ -67,7 +67,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(featureR.layout.act
     private fun initAdapter() {
         _buyAdapter =
             HistoryBuyAdapter { orderId ->
-                navigationManager.toBuyFinishedView(this, orderId)
+                navigationManager.toBuyInfoView(this, orderId)
             }
         _sellAdapter =
             HistorySellAdapter { itemId ->

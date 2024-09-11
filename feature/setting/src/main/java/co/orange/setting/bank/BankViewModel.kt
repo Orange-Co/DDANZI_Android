@@ -18,6 +18,7 @@ class BankViewModel
         private val settingRepository: SettingRepository,
     ) : ViewModel() {
         var accountId: Long = -1
+        var ownerName: String = ""
 
         private val _getUserBankState = MutableStateFlow<UiState<BankModel>>(UiState.Empty)
         val getUserBankState: StateFlow<UiState<BankModel>> = _getUserBankState
@@ -25,9 +26,10 @@ class BankViewModel
         fun getUserBankFromServer() {
             viewModelScope.launch {
                 settingRepository.getUserBank()
-                    .onSuccess {
-                        it.accountId?.let { accountId = it }
-                        _getUserBankState.value = UiState.Success(it)
+                    .onSuccess { response ->
+                        response.accountId?.let { accountId = it }
+                        response.name?.let { ownerName = it }
+                        _getUserBankState.value = UiState.Success(response)
                     }
                     .onFailure {
                         _getUserBankState.value = UiState.Failure(it.message.orEmpty())

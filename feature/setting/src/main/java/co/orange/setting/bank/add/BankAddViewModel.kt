@@ -3,10 +3,8 @@ package co.orange.setting.bank.add
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.orange.core.extension.maskName
 import co.orange.domain.entity.request.BankRequestModel
 import co.orange.domain.repository.SettingRepository
-import co.orange.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,8 +16,9 @@ class BankAddViewModel
     @Inject
     constructor(
         private val settingRepository: SettingRepository,
-        private val userRepository: UserRepository,
     ) : ViewModel() {
+        var accountId: Long = -1
+
         var ownerName = ""
         var maskedName = MutableLiveData<String>()
 
@@ -32,15 +31,6 @@ class BankAddViewModel
 
         private val _setBankResult = MutableSharedFlow<Boolean>()
         val setBankResult: SharedFlow<Boolean> = _setBankResult
-
-        init {
-            getUserName()
-        }
-
-        private fun getUserName() {
-            ownerName = userRepository.getUserName()
-            maskedName.value = ownerName.takeIf { it.isNotEmpty() }?.maskName() ?: return
-        }
 
         fun checkIsCompleted() {
             isCompleted.value =

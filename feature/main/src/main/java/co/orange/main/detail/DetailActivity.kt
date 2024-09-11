@@ -122,6 +122,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
 
     private fun setProduct(item: ProductDetailModel) {
         with(binding) {
+            layoutDetailBefore.isVisible = false
             tvDetailTitle.text = item.name.breakLines()
             chipsDetailCategory.text = item.category
             chipsDetailOption.isVisible = item.isOptionExist

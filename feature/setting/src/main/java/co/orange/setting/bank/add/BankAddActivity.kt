@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
 import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
+import co.orange.core.extension.maskName
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
@@ -33,6 +34,7 @@ class BankAddActivity : BaseActivity<ActivityBankAddBinding>(featureR.layout.act
         initBackBtnListener()
         initBankTypeListener()
         initConfirmBtnListener()
+        getIntentFromPreviousView()
         observeAddressResult()
     }
 
@@ -48,14 +50,23 @@ class BankAddActivity : BaseActivity<ActivityBankAddBinding>(featureR.layout.act
     }
 
     private fun initConfirmBtnListener() {
-        AmplitudeManager.trackEvent("click_account_next")
-        val accountId = intent.getLongExtra(EXTRA_ACCOUNT_ID, -1)
         binding.btnConfirm.setOnSingleClickListener {
-            if (accountId == DEFAULT_ID) {
-                viewModel.postToAddBankToServer()
-            } else {
-                viewModel.putToModBankToServer(accountId)
+            AmplitudeManager.trackEvent("click_account_next")
+            with(viewModel) {
+                if (accountId == DEFAULT_ID) {
+                    postToAddBankToServer()
+                } else {
+                    putToModBankToServer(accountId)
+                }
             }
+        }
+    }
+
+    private fun getIntentFromPreviousView() {
+        with(viewModel) {
+            accountId = intent.getLongExtra(EXTRA_ACCOUNT_ID, -1)
+            ownerName = intent.getStringExtra(EXTRA_OWNER_NAME).orEmpty()
+            maskedName.value = ownerName.takeIf { it.isNotEmpty() }?.maskName()
         }
     }
 
@@ -73,6 +84,7 @@ class BankAddActivity : BaseActivity<ActivityBankAddBinding>(featureR.layout.act
 
     override fun onDestroy() {
         super.onDestroy()
+
         bankTypeBottomSheet = null
     }
 
@@ -81,14 +93,17 @@ class BankAddActivity : BaseActivity<ActivityBankAddBinding>(featureR.layout.act
         private const val BOTTOM_SHEET_BANK_TYPE = "BOTTOM_SHEET_BANK_TYPE"
 
         private const val EXTRA_ACCOUNT_ID = "EXTRA_ACCOUNT_ID"
+        private const val EXTRA_OWNER_NAME = "EXTRA_OWNER_NAME"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             accountId: Long,
+            ownerName: String,
         ): Intent =
             Intent(context, BankAddActivity::class.java).apply {
                 putExtra(EXTRA_ACCOUNT_ID, accountId)
+                putExtra(EXTRA_OWNER_NAME, ownerName)
             }
     }
 }

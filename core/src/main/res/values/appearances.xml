@@ -41,7 +41,7 @@
 
     <style name="TextAppearance.DDanzi.Body2">
         <item name="fontFamily">@font/font_pretendard_semibold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:paddingVertical">2sp</item>
     </style>
 

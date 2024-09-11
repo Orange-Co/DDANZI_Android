@@ -44,6 +44,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity android:name="co.orange.main.alarm.AlarmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="co.orange.main.alarm.AlarmRequestActivity"
             android:exported="false"

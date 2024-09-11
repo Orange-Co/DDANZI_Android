@@ -10,12 +10,12 @@ data class SellRegisterRequestDto(
     val productId: String,
     @SerialName("productName")
     val productName: String,
-    @SerialName("dueDate")
-    val dueDate: String,
+    @SerialName("receivedDate")
+    val receivedDate: String,
     @SerialName("registeredImage")
     val registeredImage: String,
 ) {
     companion object {
-        fun SellRegisterRequestModel.toDto() = SellRegisterRequestDto(productId, productName, dueDate, registeredImage)
+        fun SellRegisterRequestModel.toDto() = SellRegisterRequestDto(productId, productName, receivedDate, registeredImage)
     }
 }

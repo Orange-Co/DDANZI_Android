@@ -68,7 +68,11 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
                         binding.layoutEmpty.isVisible = state.data.alarmList.isEmpty()
                     }
 
-                    is UiState.Failure -> toast(stringOf(co.orange.core.R.string.error_msg))
+                    is UiState.Failure -> {
+                        toast(stringOf(co.orange.core.R.string.error_msg))
+                        binding.layoutEmpty.isVisible = true
+                    }
+
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
@@ -96,10 +100,10 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
             }
 
             in listOf(AlarmType.B2.name, AlarmType.B3.name, AlarmType.B4.name) -> {
-                item.orderId?.let { navigationManager.toSellInfoView(this, it) }
+                item.orderId?.let { navigationManager.toBuyInfoView(this, it) }
             }
 
-            else -> return
+            else -> finish()
         }
     }
 

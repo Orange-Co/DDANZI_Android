@@ -54,15 +54,11 @@ class BuyFinishedActivity :
     }
 
     private fun initReturnBtnListener() {
-        binding.btnHome.setOnSingleClickListener { navigateToHome() }
+        binding.btnHome.setOnSingleClickListener { navigationManager.toMainViewWIthClearing(this) }
         binding.btnKeepShopping.setOnSingleClickListener {
             AmplitudeManager.trackEvent("click_purchase_adjustment_add")
-            navigateToHome()
+            navigationManager.toMainViewWIthClearing(this)
         }
-    }
-
-    private fun navigateToHome() {
-        navigationManager.toMainViewWIthClearing(this)
     }
 
     private fun initDetailBtnListener() {

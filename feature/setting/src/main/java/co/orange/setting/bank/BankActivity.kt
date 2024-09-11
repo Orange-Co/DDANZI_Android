@@ -54,7 +54,7 @@ class BankActivity : BaseActivity<ActivityBankBinding>(featureR.layout.activity_
     }
 
     private fun navigateToAddBankView(accountId: Long) {
-        startActivity(BankAddActivity.createIntent(this, accountId))
+        startActivity(BankAddActivity.createIntent(this, accountId, viewModel.ownerName))
     }
 
     private fun observeUserBankState() {

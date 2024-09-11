@@ -42,7 +42,7 @@ class SellConfirmActivity :
         initConfirmBtnListener()
         getIntentInfo()
         observeGetBuyerInfoState()
-        observePatchOrderConfirmResult()
+        observePatchOrderConfirmState()
     }
 
     private fun initBackBtnListener() {
@@ -115,14 +115,17 @@ class SellConfirmActivity :
         clipboardManager.setPrimaryClip(ClipData.newPlainText(CLIP_LABEL, text))
     }
 
-    private fun observePatchOrderConfirmResult() {
-        viewModel.patchOrderConfirmResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isSuccess ->
-                if (isSuccess) {
-                    toast(stringOf(R.string.sell_order_fix_msg))
-                    navigationManager.toMainViewWIthClearing(this)
-                } else {
-                    toast(stringOf(R.string.error_msg))
+    private fun observePatchOrderConfirmState() {
+        viewModel.patchOrderConfirmState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        toast(stringOf(R.string.sell_order_fix_msg))
+                        navigationManager.toMainViewWIthClearing(this)
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
     }

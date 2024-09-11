@@ -105,13 +105,14 @@
 
                 <TextView
                     android:id="@+id/tv_detail_title"
-                    style="@style/TextAppearance.DDanzi.Title4"
+                    style="@style/TextAppearance.DDanzi.Body2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="1.0"
+                    android:paddingVertical="5dp"
                     android:maxLines="2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/font_pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="28sp"
@@ -286,6 +287,18 @@
             app:layout_constraintBottom_toTopOf="@id/btn_purchase"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/layout_detail_before"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/white"
+            tools:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/border_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_back" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_like"

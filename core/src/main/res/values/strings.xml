@@ -34,8 +34,8 @@
     <string name="home_btn_sell">판매하기</string>
 
     <string name="ex_item_title">퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트</string>
-    <string name="ex_item_real_price"><strike>54,000</strike></string>
-    <string name="ex_item_now_price">48,900</string>
+    <string name="ex_item_real_price"><strike>54,000원</strike></string>
+    <string name="ex_item_now_price">48,900원</string>
     <string name="ex_item_like">999+</string>
 
     <string name="alarm_tv_title">알림</string>
@@ -48,7 +48,7 @@
     <string name="detail_tv_percent">%</string>
     <string name="detail_tv_stock">남은 재고</string>
     <string name="detail_tv_stock_unit">개</string>
-    <string name="detail_btn_detail_view"><u>이 상품에 대한 자세한 정보를 보고 싶다면?</u></string>
+    <string name="detail_btn_detail_view">이 상품에 대한 자세한 정보를 보고 싶다면?</string>
     <string name="detail_btn_purchase">구매하기</string>
 
     <string name="option_tv_title">원하는 옵션을 선택해주세요</string>

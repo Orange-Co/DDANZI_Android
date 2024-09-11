@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
@@ -47,7 +48,7 @@ class SellProgressActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.vm = viewModel
+        initView()
         initExitBtnListener()
         initTermDetailBtnListener()
         initRegisterBtnListener()
@@ -62,8 +63,16 @@ class SellProgressActivity :
         getProductWithIdFromIntent()
     }
 
+    private fun initView() {
+        binding.vm = viewModel
+        AmplitudeManager.trackEvent("view_sell", mapOf("product_id" to viewModel.productId))
+    }
+
     private fun initExitBtnListener() {
-        binding.btnExit.setOnSingleClickListener { finish() }
+        binding.btnExit.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_sell_quit")
+            finish()
+        }
     }
 
     private fun initTermDetailBtnListener() {
@@ -83,6 +92,10 @@ class SellProgressActivity :
 
     private fun initRegisterBtnListener() {
         binding.btnRegister.setOnSingleClickListener {
+            AmplitudeManager.trackEvent(
+                "click_sell_next",
+                mapOf("product_id" to viewModel.productId),
+            )
             with(viewModel) {
                 setLoadingState(true)
                 if (isBankExist) {
@@ -103,6 +116,7 @@ class SellProgressActivity :
     }
 
     private fun startSelectingDate() {
+        AmplitudeManager.trackEvent("click_sell_date")
         sellDateBottomSheet = SellDateBottomSheet()
         sellDateBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_DATE)
     }

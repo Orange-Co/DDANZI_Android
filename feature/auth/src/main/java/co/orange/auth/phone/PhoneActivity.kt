@@ -10,6 +10,7 @@ import co.orange.auth.BuildConfig.MERCHANT_UID
 import co.orange.auth.databinding.ActivityPhoneBinding
 import co.orange.auth.submit.SubmitActivity
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setStatusBarColorFromResource
@@ -34,7 +35,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Iamport.init(this)
+        initView()
         initAuthBtnListener()
         observeIsSubmitClicked()
         observeIamportTokenResult()
@@ -42,8 +43,14 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activit
         observeSignUpState()
     }
 
+    private fun initView() {
+        Iamport.init(this)
+        AmplitudeManager.trackEvent("view_verification")
+    }
+
     private fun initAuthBtnListener() {
         binding.btnPhoneAuth.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_verification_next")
             termBottomSheet = TermBottomSheet()
             termBottomSheet?.show(supportFragmentManager, BOTTOM_SHEET_TERM)
         }
@@ -108,11 +115,9 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activit
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
+                        AmplitudeManager.trackEvent("complete_sign_up")
                         setLoadingScreen(false)
-                        SubmitActivity.createIntent(this, state.data).apply {
-                            startActivity(this)
-                        }
-                        finish()
+                        startActivity(SubmitActivity.createIntent(this, state.data))
                     }
 
                     is UiState.Failure -> {

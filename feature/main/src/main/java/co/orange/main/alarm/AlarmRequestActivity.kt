@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.initOnBackPressedListener
 import co.orange.core.extension.setOnSingleClickListener
@@ -47,9 +48,11 @@ class AlarmRequestActivity :
     private fun initExitBtnListener() {
         with(binding) {
             btnExit.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_push_refuse")
                 checkIsBuyOrSell()
             }
             btnLater.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_push_refuse")
                 checkIsBuyOrSell()
             }
         }
@@ -101,8 +104,10 @@ class AlarmRequestActivity :
 
     private fun checkIsBuyOrSell() {
         if (intent.getBooleanExtra(EXTRA_IS_BUYING, true)) {
+            AmplitudeManager.trackEvent("view_purchase_push")
             navigateToBuyFinishedActivity()
         } else {
+            AmplitudeManager.trackEvent("view_sell_push")
             navigateToSellFinishedActivity()
         }
     }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.sell.databinding.DialogSellProductBinding
@@ -33,6 +34,7 @@ class SellProductDialog :
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        AmplitudeManager.trackEvent("view_confirm")
         initExitBtnListener()
         initConfirmBtnListener()
         initPickAgainBtnListener()
@@ -45,18 +47,28 @@ class SellProductDialog :
 
     private fun initConfirmBtnListener() {
         binding.btnSubmit.setOnSingleClickListener {
-            SellProgressActivity.createIntent(
-                requireContext(),
-                viewModel.productId,
-                viewModel.productName,
-                viewModel.uploadedUrl,
-            ).apply { startActivity(this) }
+            AmplitudeManager.trackEvent(
+                "click_confirm_next",
+                mapOf("product_id" to viewModel.productId),
+            )
+            startActivity(
+                SellProgressActivity.createIntent(
+                    requireContext(),
+                    viewModel.productId,
+                    viewModel.productName,
+                    viewModel.uploadedUrl,
+                ),
+            )
             dismiss()
         }
     }
 
     private fun initPickAgainBtnListener() {
         binding.btnPickAgain.setOnSingleClickListener {
+            AmplitudeManager.trackEvent(
+                "click_confirm_quit",
+                mapOf("product_id" to viewModel.productId),
+            )
             viewModel.setCheckedAgain(true)
             dismiss()
         }

@@ -23,7 +23,10 @@ interface NavigationManager {
 
     /** To Auth Module**/
 
-    fun toLoginView(context: Context)
+    fun toLoginView(
+        context: Context,
+        property: String,
+    )
 
     /** To Setting Module**/
 

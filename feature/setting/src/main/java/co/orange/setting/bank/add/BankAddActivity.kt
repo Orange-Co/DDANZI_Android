@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -47,6 +48,7 @@ class BankAddActivity : BaseActivity<ActivityBankAddBinding>(featureR.layout.act
     }
 
     private fun initConfirmBtnListener() {
+        AmplitudeManager.trackEvent("click_account_next")
         val accountId = intent.getLongExtra(EXTRA_ACCOUNT_ID, -1)
         binding.btnConfirm.setOnSingleClickListener {
             if (accountId == DEFAULT_ID) {

@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseBottomSheet
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setOverThousand
@@ -43,6 +44,7 @@ class OptionBottomSheet :
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        AmplitudeManager.trackEvent("view_option")
         initDetailViewBtnListener()
         initPurchaseBtnListener()
         initLikeBtnListener()
@@ -62,6 +64,7 @@ class OptionBottomSheet :
 
     private fun initPurchaseBtnListener() {
         binding.btnPurchase.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_option_next")
             navigationManager.toBuyProgressView(
                 requireContext(),
                 viewModel.productId,

@@ -17,6 +17,7 @@ import co.orange.buy.databinding.ActivityBuyProgressBinding
 import co.orange.buy.finished.BuyFinishedActivity
 import co.orange.buy.progress.BuyProgressViewModel.Companion.PAY_SUCCESS
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
 import co.orange.core.extension.setOnSingleClickListener
@@ -72,7 +73,10 @@ class BuyProgressActivity :
     }
 
     private fun initExitBtnListener() {
-        binding.btnExit.setOnSingleClickListener { finish() }
+        binding.btnExit.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_purchase_quit")
+            finish()
+        }
     }
 
     private fun initDeliveryChangeBtnListener() {
@@ -83,6 +87,7 @@ class BuyProgressActivity :
     }
 
     private fun navigateToAddAddress() {
+        AmplitudeManager.trackEvent("click_purchase_address")
         navigationManager.toDeliveryView(this)
     }
 
@@ -103,6 +108,10 @@ class BuyProgressActivity :
 
     private fun initConfirmBtnListener() {
         binding.btnConfirmPurchase.setOnSingleClickListener {
+            AmplitudeManager.trackEvent(
+                "click_purchase_purchase",
+                mapOf("product_id" to viewModel.productId),
+            )
             viewModel.postPayStartToServer()
         }
     }
@@ -115,6 +124,7 @@ class BuyProgressActivity :
                     ?: emptyList()
             getBuyDataFromServer()
         }
+        AmplitudeManager.trackEvent("view_purchase", mapOf("product_id" to viewModel.productId))
     }
 
     private fun observeGetBuyDataState() {
@@ -188,7 +198,8 @@ class BuyProgressActivity :
             iamPortRequest = request,
         ) { response ->
             Timber.tag("okhttp").d("IAMPORT PURCHASE RESPONSE : $response")
-            viewModel.patchPayEndToServer(response?.error_code)
+            if (response == null) return@payment
+            viewModel.patchPayEndToServer(response.success)
         }
     }
 
@@ -198,10 +209,6 @@ class BuyProgressActivity :
                 when (state) {
                     is UiState.Success -> {
                         if (state.data.payStatus == PAY_SUCCESS) {
-                            if (viewModel.isOrderCanceled) {
-                                viewModel.isOrderCanceled = false
-                                return@onEach
-                            }
                             viewModel.postToRequestOrderToServer()
                         } else {
                             toast(stringOf(R.string.error_msg))

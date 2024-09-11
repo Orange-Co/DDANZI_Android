@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import co.orange.auth.login.LoginActivity
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.extension.toast
 import co.orange.domain.entity.request.ReissueRequestModel
 import co.orange.domain.repository.AuthRepository
@@ -63,6 +64,7 @@ class AuthInterceptor
                 userRepository.clearInfo()
 
                 Handler(Looper.getMainLooper()).post {
+                    AmplitudeManager.trackEvent("view_sign_up", mapOf("sign_up_from" to "token"))
                     context.toast(TOKEN_EXPIRED_ERROR)
                     Intent(context, LoginActivity::class.java).apply {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

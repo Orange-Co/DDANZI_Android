@@ -9,9 +9,11 @@ import co.orange.core.base.BaseDialog
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.navigation.NavigationManager
 import co.orange.sell.databinding.DialogBankBinding
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import co.orange.sell.R as featureR
 
+@AndroidEntryPoint
 class BankDialog :
     BaseDialog<DialogBankBinding>(featureR.layout.dialog_bank) {
     @Inject

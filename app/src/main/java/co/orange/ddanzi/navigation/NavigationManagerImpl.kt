@@ -1,4 +1,4 @@
-package co.orange.ddanzi.di.navigate
+package co.orange.ddanzi.navigation
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import co.orange.auth.login.LoginActivity
 import co.orange.buy.finished.BuyFinishedActivity
 import co.orange.buy.info.BuyInfoActivity
 import co.orange.buy.progress.BuyProgressActivity
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.navigation.NavigationManager
 import co.orange.main.alarm.AlarmRequestActivity
 import co.orange.main.detail.DetailActivity
@@ -63,7 +64,11 @@ class NavigationManagerImpl
 
         /** To Auth Module**/
 
-        override fun toLoginView(context: Context) {
+        override fun toLoginView(
+            context: Context,
+            property: String,
+        ) {
+            AmplitudeManager.trackEvent("view_sign_up", mapOf("sign_up_from" to property))
             context.startActivity(Intent(context, LoginActivity::class.java))
         }
 

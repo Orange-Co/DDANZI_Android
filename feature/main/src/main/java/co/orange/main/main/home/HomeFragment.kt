@@ -10,6 +10,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseFragment
 import co.orange.core.extension.dpToPx
 import co.orange.core.extension.setOnSingleClickListener
@@ -59,6 +60,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
     override fun onResume() {
         super.onResume()
 
+        AmplitudeManager.trackEvent("view_home")
         viewModel.getHomeDataFromServer()
     }
 
@@ -73,16 +75,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
     }
 
     private fun initBannerClickListener(x: String) {
-        Intent(Intent.ACTION_VIEW, Uri.parse(WEB_BANNER)).apply {
-            startActivity(this)
-        }
+        AmplitudeManager.trackEvent("click_home_banner")
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(WEB_BANNER)))
     }
 
     private fun initProductClickListener(productId: String) {
-        DetailActivity.createIntent(
-            requireContext(),
-            productId,
-        ).apply { startActivity(this) }
+        startActivity(DetailActivity.createIntent(requireContext(), productId))
     }
 
     private fun initLikeClickListener(
@@ -91,7 +89,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         position: Int,
     ) {
         if (!viewModel.getUserLogined()) {
-            navigationManager.toLoginView(requireContext())
+            navigationManager.toLoginView(requireContext(), "like")
             return
         }
         viewModel.setLikeStateWithServer(productId, isInterested, position)
@@ -99,18 +97,18 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
 
     private fun initSearchBtnListener() {
         binding.btnSearch.setOnSingleClickListener {
-            Intent(requireContext(), SearchActivity::class.java).apply {
-                startActivity(this)
-            }
+            AmplitudeManager.trackEvent("click_home_search")
+            startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
     }
 
     private fun initSellBtnListener() {
         binding.btnSell.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("click_home_sell")
             if (viewModel.getUserLogined()) {
                 navigationManager.toSellOnboardingView(requireContext())
             } else {
-                navigationManager.toLoginView(requireContext())
+                navigationManager.toLoginView(requireContext(), "sell")
             }
         }
     }

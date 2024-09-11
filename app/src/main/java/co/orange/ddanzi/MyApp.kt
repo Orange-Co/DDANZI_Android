@@ -2,6 +2,8 @@ package co.orange.ddanzi
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import co.orange.core.amplitude.AmplitudeManager
+import co.orange.ddanzi.BuildConfig.AMPLITUDE_KEY
 import co.orange.ddanzi.BuildConfig.NATIVE_APP_KEY
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
@@ -14,6 +16,7 @@ class MyApp : Application() {
 
         initTimber()
         initKakaoSdk()
+        initAmplitude()
         setDayMode()
     }
 
@@ -23,6 +26,10 @@ class MyApp : Application() {
 
     private fun initKakaoSdk() {
         KakaoSdk.init(this, NATIVE_APP_KEY)
+    }
+
+    private fun initAmplitude() {
+        AmplitudeManager.init(this, AMPLITUDE_KEY)
     }
 
     private fun setDayMode() {

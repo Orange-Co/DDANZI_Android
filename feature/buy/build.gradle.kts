@@ -22,12 +22,22 @@ android {
             "IAMPORT_CODE",
             gradleLocalProperties(rootDir).getProperty("iamport.code"),
         )
-
-        buildConfigField(
-            "String",
-            "PAYMENT_UID",
-            gradleLocalProperties(rootDir).getProperty("payment.uid"),
-        )
+    }
+    buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "PAYMENT_UID",
+                gradleLocalProperties(rootDir).getProperty("payment.test.uid"),
+            )
+        }
+        release {
+            buildConfigField(
+                "String",
+                "PAYMENT_UID",
+                gradleLocalProperties(rootDir).getProperty("payment.uid"),
+            )
+        }
     }
 
     compileOptions {

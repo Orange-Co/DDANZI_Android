@@ -22,12 +22,23 @@ android {
             "IAMPORT_CODE",
             gradleLocalProperties(rootDir).getProperty("iamport.code"),
         )
+    }
 
-        buildConfigField(
-            "String",
-            "MERCHANT_UID",
-            gradleLocalProperties(rootDir).getProperty("merchant.uid"),
-        )
+    buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "MERCHANT_UID",
+                gradleLocalProperties(rootDir).getProperty("merchant.test.uid"),
+            )
+        }
+        release {
+            buildConfigField(
+                "String",
+                "MERCHANT_UID",
+                gradleLocalProperties(rootDir).getProperty("merchant.uid"),
+            )
+        }
     }
 
     compileOptions {

@@ -70,6 +70,7 @@ class OptionBottomSheet :
                 viewModel.productId,
                 viewModel.selectedOptionList,
             )
+            dismiss()
         }
     }
 

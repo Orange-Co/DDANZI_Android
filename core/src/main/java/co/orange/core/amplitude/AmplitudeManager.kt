@@ -32,21 +32,24 @@ object AmplitudeManager {
         }
     }
 
-    fun updateProperties(
+    fun updateProperty(
         propertyName: String,
-        values: String,
+        value: String,
     ) {
-        amplitude.identify(Identify().set(propertyName, values))
+        amplitude.identify(Identify().set(propertyName, value))
     }
 
-    fun updateIntProperties(
+    fun updateIntProperty(
         propertyName: String,
-        intValues: Int,
+        intValue: Int,
     ) {
-        amplitude.identify(Identify().set(propertyName, intValues))
+        amplitude.identify(Identify().set(propertyName, intValue))
     }
 
-    fun plusIntProperties(propertyName: String) {
-        amplitude.identify(Identify().add(propertyName, 1))
+    fun plusIntProperty(
+        propertyName: String,
+        addedValue: Int,
+    ) {
+        amplitude.identify(Identify().add(propertyName, addedValue))
     }
 }

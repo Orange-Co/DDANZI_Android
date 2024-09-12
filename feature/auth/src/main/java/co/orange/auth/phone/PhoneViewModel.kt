@@ -4,9 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.amplitude.AmplitudeManager
+import co.orange.core.extension.convertDateTime
+import co.orange.core.extension.convertToAge
 import co.orange.core.extension.toPhoneFrom
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.SignUpRequestModel
+import co.orange.domain.entity.response.IamportCertificationModel
 import co.orange.domain.repository.AuthRepository
 import co.orange.domain.repository.IamportRepository
 import co.orange.domain.repository.UserRepository
@@ -104,23 +107,24 @@ class PhoneViewModel
         private fun getCertificationDataFromServer(accessToken: String) {
             viewModelScope.launch {
                 iamportRepository.getIamportCertificationData(accessToken, certificatedUid)
-                    .onSuccess {
-                        if (it != null) {
+                    .onSuccess { response ->
+                        if (response != null) {
                             _getIamportCertificationResult.emit(true)
                             postToSignUpFromServer(
                                 SignUpRequestModel(
-                                    name = it.name.orEmpty(),
-                                    phone = it.phone.orEmpty(),
-                                    birth = it.birthday.orEmpty(),
-                                    sex = it.gender?.uppercase().orEmpty(),
+                                    name = response.name.orEmpty(),
+                                    phone = response.phone.orEmpty(),
+                                    birth = response.birthday.orEmpty(),
+                                    sex = response.gender?.uppercase().orEmpty(),
                                     isAgreedMarketingTerm = isTermMarketingSelected.value ?: false,
-                                    ci = it.uniqueKey.orEmpty(),
+                                    ci = response.uniqueKey.orEmpty(),
                                 ),
                             )
                             userRepository.setUserInfo(
-                                userName = it.name.orEmpty(),
-                                userPhone = it.phone?.toPhoneFrom().orEmpty(),
+                                userName = response.name.orEmpty(),
+                                userPhone = response.phone?.toPhoneFrom().orEmpty(),
                             )
+                            setAmplitudeUserProperty(response)
                         } else {
                             _getIamportCertificationResult.emit(false)
                         }
@@ -143,5 +147,25 @@ class PhoneViewModel
                         _postSignUpState.value = UiState.Failure(it.message.orEmpty())
                     }
             }
+        }
+
+        private fun setAmplitudeUserProperty(item: IamportCertificationModel) {
+            AmplitudeManager.apply {
+                updateProperty("user_sex", item.gender?.uppercase().orEmpty())
+                updateProperty("user_name", item.name.orEmpty())
+                item.birthday?.convertDateTime(OLD_DATE_PATTERN, NO_YEAR_PATTERN)
+                    ?.let { day ->
+                        updateProperty("user_birthday", day)
+                    }
+                item.birthday?.convertToAge(OLD_DATE_PATTERN)
+                    ?.let { age ->
+                        updateIntProperty("user_age", age)
+                    }
+            }
+        }
+
+        companion object {
+            const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
+            const val NO_YEAR_PATTERN = "yyyy-MM-dd HH:mm:ss"
         }
     }

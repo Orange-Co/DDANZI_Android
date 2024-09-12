@@ -1,7 +1,9 @@
 package co.orange.core.extension
 
 import java.text.BreakIterator
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Period
 import java.time.format.DateTimeFormatter
 
 fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
@@ -42,6 +44,12 @@ fun String.convertDateTime(
         DateTimeFormatter.ofPattern(oldPattern),
     )
         .format(DateTimeFormatter.ofPattern(newPattern))
+
+fun String.convertToAge(oldPattern: String): Int =
+    Period.between(
+        LocalDate.parse(this, DateTimeFormatter.ofPattern(oldPattern)),
+        LocalDate.now(),
+    ).years + 1
 
 fun String.maskName(): String =
     when (this.length) {

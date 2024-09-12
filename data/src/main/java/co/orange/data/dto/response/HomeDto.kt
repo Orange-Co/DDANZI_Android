@@ -10,6 +10,8 @@ data class HomeDto(
     val homeImgUrl: String,
     @SerialName("productList")
     val productList: List<ProductDto>,
+    @SerialName("pageInfo")
+    val pageInfo: PageInfoDto,
 ) {
-    fun toModel() = HomeModel(homeImgUrl, productList.map { it.toModel() })
+    fun toModel() = HomeModel(homeImgUrl, productList.map { it.toModel() }, pageInfo.toModel())
 }

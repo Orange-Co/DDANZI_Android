@@ -47,7 +47,7 @@ class SellInfoActivity :
 
     private fun initSellConfirmBtnListener() {
         binding.btnSellConfirm.setOnSingleClickListener {
-            SellConfirmActivity.createIntent(this, viewModel.orderId).apply {
+            SellConfirmActivity.createIntent(this, viewModel.orderId, viewModel.totalPrice).apply {
                 startActivity(this)
             }
         }

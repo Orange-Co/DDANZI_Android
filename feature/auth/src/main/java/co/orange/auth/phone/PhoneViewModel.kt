@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -161,11 +163,21 @@ class PhoneViewModel
                     ?.let { age ->
                         updateIntProperty("user_age", age)
                     }
+                updateProperty(
+                    "user_signup_date",
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern(NEW_DATE_PATTERN)),
+                )
+                updateIntProperty("user_purchase_count", 0)
+                updateIntProperty("user_purchase_total", 0)
+                updateIntProperty("user_selling_try", 0)
+                updateIntProperty("user_selling_count", 0)
+                updateIntProperty("user_selling_total", 0)
             }
         }
 
         companion object {
             const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
+            const val NEW_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
             const val NO_YEAR_PATTERN = "yyyy-MM-dd HH:mm:ss"
         }
     }

@@ -39,6 +39,13 @@ object AmplitudeManager {
         amplitude.identify(Identify().set(propertyName, value))
     }
 
+    fun updatePropertyOnce(
+        propertyName: String,
+        value: String,
+    ) {
+        amplitude.identify(Identify().setOnce(propertyName, value))
+    }
+
     fun updateIntProperty(
         propertyName: String,
         intValue: Int,

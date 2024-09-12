@@ -66,6 +66,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(featureR.layout.activ
                 DateTimeFormatter.ofPattern(DATE_PATTERN),
             ),
         )
+        AmplitudeManager.updateIntProperty("user_looking", 0)
         setStatusBarColorFromResource(R.color.black)
         setNavigationBarColorFromResource(R.color.black)
     }

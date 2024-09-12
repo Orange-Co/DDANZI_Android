@@ -43,6 +43,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AmplitudeManager.plusIntProperty("user_looking", 1)
         initBackBtnListener()
         initDetailViewBtnListener()
         initLikeBtnListener()

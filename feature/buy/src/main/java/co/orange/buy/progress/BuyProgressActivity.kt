@@ -237,6 +237,7 @@ class BuyProgressActivity :
         if (isPermissionNeeded()) {
             navigateToPushActivity(orderId)
         } else {
+            AmplitudeManager.updateProperty("user_push", "enabled")
             navigateToBuyFinishedActivity(orderId)
         }
     }

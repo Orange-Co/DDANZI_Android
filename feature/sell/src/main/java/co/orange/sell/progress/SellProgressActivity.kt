@@ -184,6 +184,7 @@ class SellProgressActivity :
         if (isPermissionNeeded()) {
             navigateToPushActivity(item)
         } else {
+            AmplitudeManager.updateProperty("user_push", "enabled")
             navigateToSellFinishedActivity(item)
         }
     }

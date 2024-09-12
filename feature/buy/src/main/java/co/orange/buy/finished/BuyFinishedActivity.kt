@@ -12,7 +12,7 @@ import co.orange.core.R
 import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
-import co.orange.core.extension.convertDateWithoutMilli
+import co.orange.core.extension.convertDateFormat
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
@@ -102,7 +102,7 @@ class BuyFinishedActivity :
                 ).breakLines()
             tvFinishedDeliveryPhone.text = item.addressInfo.recipientPhone
             tvFinishedTransactionMethod.text = item.paymentMethod
-            tvFinishedTransactionDate.text = item.paidAt.convertDateWithoutMilli()
+            tvFinishedTransactionDate.text = item.paidAt.convertDateFormat()
             tvFinishedPayMoney.text = item.originPrice.setPriceForm()
             tvFinishedPayDiscount.text =
                 getString(R.string.add_minus, item.discountPrice.setPriceForm())

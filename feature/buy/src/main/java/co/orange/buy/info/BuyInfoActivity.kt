@@ -11,7 +11,7 @@ import co.orange.buy.databinding.ActivityBuyInfoBinding
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
-import co.orange.core.extension.convertDateWithoutMilli
+import co.orange.core.extension.convertDateFormat
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
@@ -89,7 +89,7 @@ class BuyInfoActivity :
                 ).breakLines()
             tvInfoDeliveryPhone.text = item.addressInfo.recipientPhone
             tvInfoTransactionMethod.text = item.paymentMethod
-            tvInfoTransactionDate.text = item.paidAt.convertDateWithoutMilli()
+            tvInfoTransactionDate.text = item.paidAt.convertDateFormat()
             tvInfoPayMoney.text = item.originPrice.setPriceForm()
             tvInfoPayDiscount.text =
                 getString(R.string.add_minus, item.discountPrice.setPriceForm())

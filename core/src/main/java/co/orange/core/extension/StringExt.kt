@@ -1,9 +1,7 @@
 package co.orange.core.extension
 
 import java.text.BreakIterator
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.Period
 import java.time.format.DateTimeFormatter
 
 fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
@@ -35,23 +33,11 @@ fun String.toPhoneFrom(): String? {
     }
 }
 
-fun String.convertDateWithoutMilli(): String =
+fun String.convertDateFormat(): String =
     LocalDateTime.parse(
         this.replace(Regex("\\.\\d{1,6}"), ""),
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
     ).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-
-fun String.convertOnlyDate(): String =
-    LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        .format(DateTimeFormatter.ofPattern("MMdd"))
-
-fun String.convertToAge(): Int =
-    Period.between(
-        LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
-        LocalDate.now(),
-    ).years + 1
-
-fun getTodayDate(): String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
 fun String.maskName(): String =
     when (this.length) {

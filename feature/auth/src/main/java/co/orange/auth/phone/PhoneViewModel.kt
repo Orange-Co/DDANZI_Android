@@ -4,9 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.amplitude.AmplitudeManager
-import co.orange.core.extension.convertOnlyDate
-import co.orange.core.extension.convertToAge
-import co.orange.core.extension.getTodayDate
 import co.orange.core.extension.toPhoneFrom
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.SignUpRequestModel
@@ -21,6 +18,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -158,7 +159,10 @@ class PhoneViewModel
                     updateProperty("user_birthday", birthday.convertOnlyDate())
                     updateIntProperty("user_age", birthday.convertToAge())
                 }
-                updateProperty("user_signup_date", getTodayDate())
+                updateProperty(
+                    "user_signup_date",
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                )
                 updateIntProperty("user_purchase_count", 0)
                 updateIntProperty("user_purchase_total", 0)
                 updateIntProperty("user_selling_try", 0)
@@ -166,4 +170,14 @@ class PhoneViewModel
                 updateIntProperty("user_selling_total", 0)
             }
         }
+
+        private fun String.convertOnlyDate(): String =
+            LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                .format(DateTimeFormatter.ofPattern("MMdd"))
+
+        private fun String.convertToAge(): Int =
+            Period.between(
+                LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.now(),
+            ).years + 1
     }

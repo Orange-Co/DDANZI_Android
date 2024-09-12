@@ -11,7 +11,9 @@ import retrofit2.http.Query
 
 interface HomeService {
     @GET("/api/v1/home")
-    suspend fun getHomeData(): BaseResponse<HomeDto>
+    suspend fun getHomeData(
+        @Query("page") page: Int,
+    ): BaseResponse<HomeDto>
 
     @GET("/api/v1/search")
     suspend fun getSearchResult(

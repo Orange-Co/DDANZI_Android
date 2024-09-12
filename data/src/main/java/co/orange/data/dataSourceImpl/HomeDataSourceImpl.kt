@@ -13,7 +13,7 @@ data class HomeDataSourceImpl
     constructor(
         private val homeService: HomeService,
     ) : HomeDataSource {
-        override suspend fun getHomeData(): BaseResponse<HomeDto> = homeService.getHomeData()
+        override suspend fun getHomeData(page: Int): BaseResponse<HomeDto> = homeService.getHomeData(page)
 
         override suspend fun getSearchResult(keyword: String): BaseResponse<SearchResultDto> = homeService.getSearchResult(keyword)
 

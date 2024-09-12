@@ -12,7 +12,7 @@ class HomeRepositoryImpl
     constructor(
         private val homeDataSource: HomeDataSource,
     ) : HomeRepository {
-        override suspend fun getHomeData(): Result<HomeModel> = runCatching { homeDataSource.getHomeData().data.toModel() }
+        override suspend fun getHomeData(page: Int): Result<HomeModel> = runCatching { homeDataSource.getHomeData(page).data.toModel() }
 
         override suspend fun getSearchResult(keyword: String): Result<SearchResultModel> =
             runCatching {

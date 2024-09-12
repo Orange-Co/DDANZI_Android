@@ -6,7 +6,7 @@ import co.orange.data.dto.response.HomeDto
 import co.orange.data.dto.response.SearchResultDto
 
 interface HomeDataSource {
-    suspend fun getHomeData(): BaseResponse<HomeDto>
+    suspend fun getHomeData(page: Int): BaseResponse<HomeDto>
 
     suspend fun getSearchResult(keyword: String): BaseResponse<SearchResultDto>
 

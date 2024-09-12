@@ -4,8 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.orange.core.amplitude.AmplitudeManager
-import co.orange.core.extension.convertDateTime
+import co.orange.core.extension.convertOnlyDate
 import co.orange.core.extension.convertToAge
+import co.orange.core.extension.getTodayDate
 import co.orange.core.extension.toPhoneFrom
 import co.orange.core.state.UiState
 import co.orange.domain.entity.request.SignUpRequestModel
@@ -20,8 +21,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -155,29 +154,16 @@ class PhoneViewModel
             AmplitudeManager.apply {
                 updateProperty("user_sex", item.gender?.uppercase().orEmpty())
                 updateProperty("user_name", item.name.orEmpty())
-                item.birthday?.convertDateTime(OLD_DATE_PATTERN, NO_YEAR_PATTERN)
-                    ?.let { day ->
-                        updateProperty("user_birthday", day)
-                    }
-                item.birthday?.convertToAge(OLD_DATE_PATTERN)
-                    ?.let { age ->
-                        updateIntProperty("user_age", age)
-                    }
-                updateProperty(
-                    "user_signup_date",
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern(NEW_DATE_PATTERN)),
-                )
+                item.birthday?.let { birthday ->
+                    updateProperty("user_birthday", birthday.convertOnlyDate())
+                    updateIntProperty("user_age", birthday.convertToAge())
+                }
+                updateProperty("user_signup_date", getTodayDate())
                 updateIntProperty("user_purchase_count", 0)
                 updateIntProperty("user_purchase_total", 0)
                 updateIntProperty("user_selling_try", 0)
                 updateIntProperty("user_selling_count", 0)
                 updateIntProperty("user_selling_total", 0)
             }
-        }
-
-        companion object {
-            const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
-            const val NEW_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
-            const val NO_YEAR_PATTERN = "yyyy-MM-dd HH:mm:ss"
         }
     }

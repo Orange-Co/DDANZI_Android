@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.breakLines
-import co.orange.core.extension.convertDateTime
+import co.orange.core.extension.convertDateWithoutMilli
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.setPriceForm
 import co.orange.core.extension.stringOf
@@ -87,8 +87,7 @@ class SellInfoActivity :
                 ).breakLines()
             tvInfoDeliveryPhone.text = item.addressInfo.recipientPhone
             tvInfoTransactionMethod.text = item.paymentMethod
-            tvInfoTransactionDate.text =
-                item.paidAt?.convertDateTime(OLD_DATE_PATTERN, NEW_DATE_PATTERN)
+            tvInfoTransactionDate.text = item.paidAt?.convertDateWithoutMilli()
             tvInfoPayKakao.text = item.originPrice.setPriceForm()
             tvInfoPayReal.text = item.salePrice.setPriceForm()
             tvInfoPayTotal.text = item.salePrice.setPriceForm()

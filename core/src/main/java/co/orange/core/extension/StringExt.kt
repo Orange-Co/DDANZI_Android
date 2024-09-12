@@ -35,21 +35,23 @@ fun String.toPhoneFrom(): String? {
     }
 }
 
-fun String.convertDateTime(
-    oldPattern: String,
-    newPattern: String,
-): String =
+fun String.convertDateWithoutMilli(): String =
     LocalDateTime.parse(
         this.replace(Regex("\\.\\d{1,6}"), ""),
-        DateTimeFormatter.ofPattern(oldPattern),
-    )
-        .format(DateTimeFormatter.ofPattern(newPattern))
+        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
+    ).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-fun String.convertToAge(oldPattern: String): Int =
+fun String.convertOnlyDate(): String =
+    LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        .format(DateTimeFormatter.ofPattern("MMdd"))
+
+fun String.convertToAge(): Int =
     Period.between(
-        LocalDate.parse(this, DateTimeFormatter.ofPattern(oldPattern)),
+        LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
         LocalDate.now(),
     ).years + 1
+
+fun getTodayDate(): String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
 fun String.maskName(): String =
     when (this.length) {

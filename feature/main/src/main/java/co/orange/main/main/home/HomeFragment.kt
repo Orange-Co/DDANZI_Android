@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import co.orange.core.R
 import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseFragment
@@ -19,6 +18,7 @@ import co.orange.core.extension.stringOf
 import co.orange.core.extension.toast
 import co.orange.core.navigation.NavigationManager
 import co.orange.core.state.UiState
+import co.orange.core.util.GridInfiniteScrollListener
 import co.orange.main.alarm.AlarmActivity
 import co.orange.main.databinding.FragmentHomeBinding
 import co.orange.main.detail.DetailActivity
@@ -159,25 +159,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
 
     private fun setListWithInfinityScroll() {
         binding.rvHome.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(
-                    recyclerView: RecyclerView,
-                    dx: Int,
-                    dy: Int,
-                ) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (dy > 0) {
-                        recyclerView.layoutManager?.let { layoutManager ->
-                            if (!binding.rvHome.canScrollVertically(1) &&
-                                layoutManager is GridLayoutManager &&
-                                layoutManager.findLastVisibleItemPosition() == adapter.itemCount - 1
-                            ) {
-                                viewModel.getHomeDataFromServer()
-                            }
-                        }
-                    }
-                }
-            },
+            GridInfiniteScrollListener { viewModel.getHomeDataFromServer() },
         )
     }
 

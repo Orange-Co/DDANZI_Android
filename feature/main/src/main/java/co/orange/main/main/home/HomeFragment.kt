@@ -1,10 +1,13 @@
 package co.orange.main.main.home
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +25,7 @@ import co.orange.core.util.GridInfiniteScrollListener
 import co.orange.main.alarm.AlarmActivity
 import co.orange.main.databinding.FragmentHomeBinding
 import co.orange.main.detail.DetailActivity
+import co.orange.main.detail.DetailActivity.Companion.EXTRA_IS_LIKED
 import co.orange.main.main.home.HomeAdapter.Companion.VIEW_TYPE_BANNER
 import co.orange.main.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,12 +39,25 @@ import co.orange.main.R as featureR
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragment_home) {
     @Inject
     lateinit var navigationManager: NavigationManager
+    private lateinit var detailActivityLauncher: ActivityResultLauncher<Intent>
 
     private var _adapter: HomeAdapter? = null
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     private val viewModel by activityViewModels<HomeViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        detailActivityLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    setLikeStateWithIntent(
+                        result.data?.getBooleanExtra(EXTRA_IS_LIKED, false) ?: false,
+                    )
+                }
+            }
+    }
 
     override fun onViewCreated(
         view: View,
@@ -82,8 +99,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(WEB_BANNER)))
     }
 
-    private fun initProductClickListener(productId: String) {
-        startActivity(DetailActivity.createIntent(requireContext(), productId))
+    private fun initProductClickListener(
+        productId: String,
+        position: Int,
+    ) {
+        viewModel.clickedPosition = position
+        detailActivityLauncher.launch(DetailActivity.createIntent(requireContext(), productId))
     }
 
     private fun initLikeClickListener(
@@ -160,6 +181,14 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         binding.rvHome.addOnScrollListener(
             GridInfiniteScrollListener { viewModel.getHomeDataFromServer() },
         )
+    }
+
+    private fun setLikeStateWithIntent(isLiked: Boolean) {
+        if (isLiked) {
+            adapter.plusItemLike(viewModel.clickedPosition)
+        } else {
+            adapter.minusItemLike(viewModel.clickedPosition)
+        }
     }
 
     private fun observeGetHomeDataState() {

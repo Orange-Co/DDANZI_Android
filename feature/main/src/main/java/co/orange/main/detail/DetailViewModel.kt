@@ -36,6 +36,7 @@ class DetailViewModel
         private val _likeState = MutableStateFlow<Boolean>(false)
         val likeState: StateFlow<Boolean> = _likeState
 
+        var originLikeState = false
         var isLikeLottieNeeded = false
 
         fun getProductDetailFromServer() {
@@ -49,6 +50,7 @@ class DetailViewModel
                             ArrayList<Int>(optionList.size).apply {
                                 repeat(optionList.size) { add(-1) }
                             }
+                        originLikeState = it.isInterested
                         _likeState.value = it.isInterested
                         _getProductDetailState.value = UiState.Success(it)
                     }

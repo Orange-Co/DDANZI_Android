@@ -12,7 +12,7 @@ import coil.load
 
 class HomeProductViewHolder(
     val binding: ItemHomeProductBinding,
-    val productClick: (String) -> (Unit),
+    val productClick: (String, Int) -> (Unit),
     val likeClick: (String, Boolean, Int) -> (Unit),
 ) :
     RecyclerView.ViewHolder(binding.root) {
@@ -21,7 +21,7 @@ class HomeProductViewHolder(
         position: Int,
     ) {
         with(binding) {
-            root.setOnSingleClickListener { productClick(item.productId) }
+            root.setOnSingleClickListener { productClick(item.productId, position) }
 
             btnItemLike.setOnSingleClickListener {
                 likeClick(item.productId, item.isInterested, position)

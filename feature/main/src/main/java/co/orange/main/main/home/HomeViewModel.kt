@@ -31,6 +31,8 @@ class HomeViewModel
         private val _itemLikeMinusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
         val itemLikeMinusState: StateFlow<UiState<Int>> = _itemLikeMinusState
 
+        var clickedPosition = -1
+
         private var currentPage = -1
         private var isPagingFinish = false
         private var totalPage = Int.MAX_VALUE

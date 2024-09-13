@@ -12,7 +12,7 @@ import co.orange.main.databinding.ItemHomeProductBinding
 
 class HomeAdapter(
     private val bannerClick: (String) -> (Unit),
-    private val productClick: (String) -> (Unit),
+    private val productClick: (String, Int) -> (Unit),
     private val likeClick: (String, Boolean, Int) -> (Unit),
 ) : ListAdapter<ProductModel, RecyclerView.ViewHolder>(diffUtil) {
     private var itemList = mutableListOf<ProductModel>()

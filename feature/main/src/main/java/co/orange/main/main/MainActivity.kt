@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import co.orange.core.R
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.colorOf
@@ -22,11 +22,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(featureR.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initOnBackPressedListener(binding.root)
+        initView()
         initBnvItemIconTintList()
         initBnvItemSelectedListener()
-        setNavigationBarBlack()
         getNotificationIntent()
+    }
+
+    private fun initView() {
+        initOnBackPressedListener(binding.root)
+        this.window.navigationBarColor = colorOf(R.color.black)
     }
 
     private fun initBnvItemIconTintList() {
@@ -37,16 +41,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(featureR.layout.activity_
     }
 
     private fun initBnvItemSelectedListener() {
-        supportFragmentManager.findFragmentById(featureR.id.fcv_main) ?: navigateTo<HomeFragment>()
+        supportFragmentManager.findFragmentById(featureR.id.fcv_main) ?: addFragment<HomeFragment>()
 
         binding.bnvMain.setOnItemSelectedListener { menu ->
             if (binding.bnvMain.selectedItemId == menu.itemId) {
                 return@setOnItemSelectedListener false
             }
             when (menu.itemId) {
-                R.id.menu_home -> navigateTo<HomeFragment>()
+                R.id.menu_home -> showFragment<HomeFragment>()
 
-                R.id.menu_profile -> navigateTo<ProfileFragment>()
+                R.id.menu_profile -> showFragment<ProfileFragment>()
 
                 else -> return@setOnItemSelectedListener false
             }
@@ -54,14 +58,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(featureR.layout.activity_
         }
     }
 
-    private inline fun <reified T : Fragment> navigateTo() {
+    private inline fun <reified T : Fragment> showFragment() {
         supportFragmentManager.commit {
-            replace<T>(featureR.id.fcv_main, T::class.java.canonicalName)
+            supportFragmentManager.fragments.forEach { hide(it) }
+            supportFragmentManager.findFragmentByTag(T::class.java.canonicalName)?.let {
+                show(it)
+            } ?: add<T>(featureR.id.fcv_main, T::class.java.canonicalName)
         }
     }
 
-    private fun setNavigationBarBlack() {
-        this.window.navigationBarColor = colorOf(R.color.black)
+    private inline fun <reified T : Fragment> addFragment() {
+        supportFragmentManager.commit {
+            add<T>(featureR.id.fcv_main, T::class.java.canonicalName)
+        }
     }
 
     private fun getNotificationIntent() {

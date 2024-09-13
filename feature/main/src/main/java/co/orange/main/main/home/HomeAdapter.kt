@@ -79,11 +79,6 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
-    fun setItemList(itemList: List<ProductModel>) {
-        this.itemList = itemList.toMutableList()
-        notifyDataSetChanged()
-    }
-
     fun addItemList(newItems: List<ProductModel>) {
         this.itemList.addAll(newItems)
         notifyDataSetChanged()

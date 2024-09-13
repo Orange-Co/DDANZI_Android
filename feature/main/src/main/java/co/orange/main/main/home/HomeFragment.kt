@@ -65,7 +65,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         super.onResume()
 
         AmplitudeManager.trackEvent("view_home")
-        viewModel.getHomeDataFromServer()
     }
 
     private fun initAdapter() {
@@ -169,7 +168,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
                 when (state) {
                     is UiState.Success -> {
                         adapter.addBannerItem(state.data.homeImgUrl)
-                        adapter.setItemList(state.data.productList)
+                        adapter.addItemList(state.data.productList)
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

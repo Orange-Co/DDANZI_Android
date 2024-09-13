@@ -35,6 +35,10 @@ class HomeViewModel
         private var isPagingFinish = false
         private var totalPage = Int.MAX_VALUE
 
+        init {
+            getHomeDataFromServer()
+        }
+
         fun getHomeDataFromServer() {
             if (isPagingFinish) return
             viewModelScope.launch {

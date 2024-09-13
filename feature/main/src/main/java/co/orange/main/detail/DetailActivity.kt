@@ -1,10 +1,12 @@
 package co.orange.main.detail
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
@@ -43,6 +45,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AmplitudeManager.plusIntProperty("user_looking", 1)
         initBackBtnListener()
         initDetailViewBtnListener()
         initLikeBtnListener()
@@ -55,12 +58,23 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener {
             AmplitudeManager.trackEvent("click_detail_quit")
-            finish()
+            navigateBackWithIntent()
         }
         binding.btnHome.setOnSingleClickListener {
             AmplitudeManager.trackEvent("click_detail_home")
-            finish()
+            navigateBackWithIntent()
         }
+        onBackPressedDispatcher.addCallback(this) { navigateBackWithIntent() }
+    }
+
+    private fun navigateBackWithIntent() {
+        if (viewModel.originLikeState != viewModel.likeState.value) {
+            setResult(
+                Activity.RESULT_OK,
+                Intent().putExtra(EXTRA_IS_LIKED, viewModel.likeState.value),
+            )
+        }
+        finish()
     }
 
     private fun initDetailViewBtnListener() {
@@ -163,6 +177,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(featureR.layout.activ
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        const val EXTRA_IS_LIKED = "EXTRA_IS_LIKED"
 
         private const val BOTTOM_SHEET_OPTION = "BOTTOM_SHEET_OPTION"
 

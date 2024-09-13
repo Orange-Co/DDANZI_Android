@@ -67,7 +67,11 @@ class AlarmRequestActivity :
     private fun setRequestPermissionLauncher() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-                // TODO 앰플리튜드 적용
+                if (isGranted) {
+                    AmplitudeManager.updateProperty("user_push", "enabled")
+                } else {
+                    AmplitudeManager.updateProperty("user_push", "disabled")
+                }
                 checkIsBuyOrSell()
             }
     }

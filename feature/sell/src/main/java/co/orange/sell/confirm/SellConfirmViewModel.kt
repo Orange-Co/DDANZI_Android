@@ -19,6 +19,7 @@ class SellConfirmViewModel
         private val sellRepository: SellRepository,
     ) : ViewModel() {
         var orderId = ""
+        var totalPrice = 0
 
         private val _getBuyerInfoState = MutableStateFlow<UiState<SellBuyerInfoModel>>(UiState.Empty)
         val getBuyerInfoState: StateFlow<UiState<SellBuyerInfoModel>> = _getBuyerInfoState

@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.auth.BuildConfig.IAMPORT_CODE
-import co.orange.auth.BuildConfig.MERCHANT_UID
 import co.orange.auth.databinding.ActivityPhoneBinding
 import co.orange.auth.submit.SubmitActivity
 import co.orange.core.R
@@ -24,6 +23,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import java.util.Date
 import co.orange.auth.R as featureR
 
 @AndroidEntryPoint
@@ -73,7 +73,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activit
             userCode = IAMPORT_CODE,
             iamPortCertification =
                 IamPortCertification(
-                    merchant_uid = MERCHANT_UID,
+                    merchant_uid = "mid_ddanzi_android_${Date().time}",
                     company = stringOf(R.string.company_name),
                 ),
         ) { response ->
@@ -115,9 +115,13 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activit
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
-                        AmplitudeManager.trackEvent("complete_sign_up")
+                        AmplitudeManager.apply {
+                            trackEvent("complete_sign_up")
+                            updateProperty("user_id", state.data)
+                        }
                         setLoadingScreen(false)
                         startActivity(SubmitActivity.createIntent(this, state.data))
+                        finish()
                     }
 
                     is UiState.Failure -> {

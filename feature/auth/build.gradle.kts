@@ -24,23 +24,6 @@ android {
         )
     }
 
-    buildTypes {
-        debug {
-            buildConfigField(
-                "String",
-                "MERCHANT_UID",
-                gradleLocalProperties(rootDir).getProperty("merchant.test.uid"),
-            )
-        }
-        release {
-            buildConfigField(
-                "String",
-                "MERCHANT_UID",
-                gradleLocalProperties(rootDir).getProperty("merchant.uid"),
-            )
-        }
-    }
-
     compileOptions {
         sourceCompatibility = Versions.javaVersion
         targetCompatibility = Versions.javaVersion

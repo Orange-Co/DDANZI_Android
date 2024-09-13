@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setOnSingleClickListener
 import co.orange.core.extension.stringOf
@@ -66,6 +67,7 @@ class SellConfirmActivity :
     private fun getIntentInfo() {
         with(viewModel) {
             orderId = intent.getStringExtra(EXTRA_ORDER_ID).orEmpty()
+            totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, 0)
             getBuyerInfoFromServer()
         }
     }
@@ -120,6 +122,10 @@ class SellConfirmActivity :
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
+                        AmplitudeManager.apply {
+                            plusIntProperty("user_selling_count", 1)
+                            plusIntProperty("user_selling_total", viewModel.totalPrice)
+                        }
                         toast(stringOf(R.string.sell_order_fix_msg))
                         navigationManager.toMainViewWIthClearing(this)
                     }
@@ -132,6 +138,8 @@ class SellConfirmActivity :
 
     companion object {
         private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
+        private const val EXTRA_TOTAL_PRICE = "EXTRA_TOTAL_PRICE"
+
         private const val CLIP_LABEL = "BUYER_INFO"
 
         const val WEB_TERM_SELL =
@@ -141,9 +149,11 @@ class SellConfirmActivity :
         fun createIntent(
             context: Context,
             orderId: String,
+            totalPrice: Int,
         ): Intent =
             Intent(context, SellConfirmActivity::class.java).apply {
                 putExtra(EXTRA_ORDER_ID, orderId)
+                putExtra(EXTRA_TOTAL_PRICE, totalPrice)
             }
     }
 }

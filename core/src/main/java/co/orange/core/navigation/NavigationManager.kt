@@ -75,9 +75,4 @@ interface NavigationManager {
         context: Context,
         itemId: String,
     )
-
-    fun toSellConfirmView(
-        context: Context,
-        orderId: String,
-    )
 }

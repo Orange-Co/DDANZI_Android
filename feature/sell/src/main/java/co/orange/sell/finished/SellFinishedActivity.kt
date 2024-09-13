@@ -27,6 +27,7 @@ class SellFinishedActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AmplitudeManager.plusIntProperty("user_selling_try", 1)
         initReturnBtnListener()
         initDetailBtnListener()
         setUiWithIntent()

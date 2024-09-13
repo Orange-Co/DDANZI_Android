@@ -10,10 +10,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import co.orange.core.R
+import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseActivity
 import co.orange.core.extension.setNavigationBarColorFromResource
 import co.orange.core.extension.setStatusBarColorFromResource
-import co.orange.core.extension.toast
 import co.orange.main.BuildConfig
 import co.orange.main.databinding.ActivitySplashBinding
 import co.orange.main.main.MainActivity
@@ -28,6 +28,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import co.orange.main.R as featureR
 
 @AndroidEntryPoint
@@ -41,7 +43,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(featureR.layout.activ
     private val activityResultLauncher: ActivityResultLauncher<IntentSenderRequest> =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
             if (it.resultCode != RESULT_OK) {
-                toast("업데이트가 취소되었습니다.")
                 finishAffinity()
             }
         }
@@ -49,14 +50,25 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(featureR.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setStatusBarColorFromResource(R.color.black)
-        setNavigationBarColorFromResource(R.color.black)
+        initView()
         observeIsServerAvailable()
     }
 
     override fun onResume() {
         super.onResume()
         checkConnectedNetwork()
+    }
+
+    private fun initView() {
+        AmplitudeManager.updatePropertyOnce(
+            "user_install_date",
+            LocalDateTime.now().format(
+                DateTimeFormatter.ofPattern(DATE_PATTERN),
+            ),
+        )
+        AmplitudeManager.updateIntProperty("user_looking", 0)
+        setStatusBarColorFromResource(R.color.black)
+        setNavigationBarColorFromResource(R.color.black)
     }
 
     private fun checkConnectedNetwork() {
@@ -90,7 +102,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(featureR.layout.activ
                     navigateToMain()
                 }
             }.addOnFailureListener {
-                toast("업데이트에 실패했습니다.")
                 navigateToMain()
             }
         }
@@ -138,5 +149,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(featureR.layout.activ
         private const val DELAY_TIME = 2200L
 
         private const val DIALOG_SERVER_CHECK = "DIALOG_SERVER_CHECK"
+
+        const val DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
     }
 }

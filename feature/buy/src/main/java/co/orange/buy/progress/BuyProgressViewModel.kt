@@ -34,8 +34,10 @@ class BuyProgressViewModel
         private var buyProgressData: BuyProgressModel? = null
         var optionList = listOf<Long>()
 
+        var totalPrice = 0
+
         var payMethodId = MutableLiveData<Int>(-1)
-        var payMethod = ""
+        private var payMethod = ""
 
         var isTermAllSelected = MutableLiveData<Boolean>(false)
         var isTermServiceSelected = MutableLiveData<Boolean>(false)
@@ -93,6 +95,7 @@ class BuyProgressViewModel
                     .onSuccess {
                         checkIsCompleted()
                         buyProgressData = it
+                        totalPrice = it.totalPrice
                         _getBuyDataState.value = UiState.Success(it)
                     }
                     .onFailure {

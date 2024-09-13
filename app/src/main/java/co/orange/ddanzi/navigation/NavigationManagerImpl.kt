@@ -11,7 +11,6 @@ import co.orange.core.navigation.NavigationManager
 import co.orange.main.alarm.AlarmRequestActivity
 import co.orange.main.detail.DetailActivity
 import co.orange.main.main.MainActivity
-import co.orange.sell.confirm.SellConfirmActivity
 import co.orange.sell.finished.SellFinishedActivity
 import co.orange.sell.info.SellInfoActivity
 import co.orange.sell.onboarding.SellOnboardingActivity
@@ -146,12 +145,5 @@ class NavigationManagerImpl
             itemId: String,
         ) {
             context.startActivity(SellInfoActivity.createIntent(context, itemId))
-        }
-
-        override fun toSellConfirmView(
-            context: Context,
-            orderId: String,
-        ) {
-            context.startActivity(SellConfirmActivity.createIntent(context, orderId))
         }
     }

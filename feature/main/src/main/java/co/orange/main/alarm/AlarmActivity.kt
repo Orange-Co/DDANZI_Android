@@ -92,7 +92,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding>(R.layout.activity_alarm
     private fun navigateToViewByType(item: AlarmItemModel) {
         when (item.alarmCase) {
             AlarmType.A1.name -> {
-                item.orderId?.let { navigationManager.toSellConfirmView(this, it) }
+                item.itemId?.let { navigationManager.toSellInfoView(this, it) }
             }
 
             AlarmType.A4.name -> {

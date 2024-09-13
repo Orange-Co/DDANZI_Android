@@ -225,7 +225,13 @@ class BuyProgressActivity :
         viewModel.postOrderState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
-                    is UiState.Success -> navigateToPushOrFinish(state.data)
+                    is UiState.Success -> {
+                        AmplitudeManager.apply {
+                            plusIntProperty("user_purchase_count", 1)
+                            plusIntProperty("user_purchase_total", viewModel.totalPrice)
+                        }
+                        navigateToPushOrFinish(state.data)
+                    }
 
                     is UiState.Failure -> toast(stringOf(R.string.buy_order_error_msg))
                     else -> return@onEach
@@ -237,6 +243,7 @@ class BuyProgressActivity :
         if (isPermissionNeeded()) {
             navigateToPushActivity(orderId)
         } else {
+            AmplitudeManager.updateProperty("user_push", "enabled")
             navigateToBuyFinishedActivity(orderId)
         }
     }

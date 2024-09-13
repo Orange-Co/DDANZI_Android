@@ -33,15 +33,11 @@ fun String.toPhoneFrom(): String? {
     }
 }
 
-fun String.convertDateTime(
-    oldPattern: String,
-    newPattern: String,
-): String =
+fun String.convertDateFormat(): String =
     LocalDateTime.parse(
         this.replace(Regex("\\.\\d{1,6}"), ""),
-        DateTimeFormatter.ofPattern(oldPattern),
-    )
-        .format(DateTimeFormatter.ofPattern(newPattern))
+        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
+    ).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
 fun String.maskName(): String =
     when (this.length) {

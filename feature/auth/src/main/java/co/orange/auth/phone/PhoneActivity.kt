@@ -121,6 +121,7 @@ class PhoneActivity : BaseActivity<ActivityPhoneBinding>(featureR.layout.activit
                         }
                         setLoadingScreen(false)
                         startActivity(SubmitActivity.createIntent(this, state.data))
+                        finish()
                     }
 
                     is UiState.Failure -> {

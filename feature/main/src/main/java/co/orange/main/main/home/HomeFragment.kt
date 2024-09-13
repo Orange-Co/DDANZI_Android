@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.orange.core.R
 import co.orange.core.amplitude.AmplitudeManager
 import co.orange.core.base.BaseFragment
@@ -54,6 +55,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
         setDeviceToken()
         setGridRecyclerView()
         setRecyclerViewDeco()
+        setListWithInfinityScroll()
         observeGetHomeDataState()
         observeItemLikePlusState()
         observeItemLikeMinusState()
@@ -152,6 +154,30 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
                 spacing = 30.dpToPx(requireContext()),
                 bottomPadding = 50.dpToPx(requireContext()),
             ),
+        )
+    }
+
+    private fun setListWithInfinityScroll() {
+        binding.rvHome.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(
+                    recyclerView: RecyclerView,
+                    dx: Int,
+                    dy: Int,
+                ) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0) {
+                        recyclerView.layoutManager?.let { layoutManager ->
+                            if (!binding.rvHome.canScrollVertically(1) &&
+                                layoutManager is GridLayoutManager &&
+                                layoutManager.findLastVisibleItemPosition() == adapter.itemCount - 1
+                            ) {
+                                viewModel.getHomeDataFromServer()
+                            }
+                        }
+                    }
+                }
+            },
         )
     }
 

@@ -84,6 +84,11 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
+    fun addItemList(newItems: List<ProductModel>) {
+        this.itemList.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
     fun plusItemLike(position: Int) {
         itemList[position].apply {
             isInterested = true

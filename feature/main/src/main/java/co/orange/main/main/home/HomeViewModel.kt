@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.ceil
 
 @HiltViewModel
 class HomeViewModel
@@ -30,10 +31,20 @@ class HomeViewModel
         private val _itemLikeMinusState = MutableStateFlow<UiState<Int>>(UiState.Empty)
         val itemLikeMinusState: StateFlow<UiState<Int>> = _itemLikeMinusState
 
+        private var currentPage = -1
+        private var isPagingFinish = false
+        private var totalPage = Int.MAX_VALUE
+
         fun getHomeDataFromServer() {
+            if (isPagingFinish) return
             viewModelScope.launch {
-                homeRepository.getHomeData()
+                homeRepository.getHomeData(
+                    ++currentPage,
+                )
                     .onSuccess {
+                        totalPage =
+                            ceil((it.pageInfo.totalElements.toDouble() / it.pageInfo.numberOfElements)).toInt() - 1
+                        if (currentPage == totalPage) isPagingFinish = true
                         _getHomeDataState.value = UiState.Success(it)
                     }
                     .onFailure {

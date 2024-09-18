@@ -128,7 +128,11 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(featureR.layout.fragmen
 
     private fun initAlarmBtnListener() {
         binding.btnAlarm.setOnSingleClickListener {
-            startActivity(Intent(requireContext(), AlarmActivity::class.java))
+            if (viewModel.getUserLogined()) {
+                startActivity(Intent(requireContext(), AlarmActivity::class.java))
+            } else {
+                navigationManager.toLoginView(requireContext(), "sell")
+            }
         }
     }
 

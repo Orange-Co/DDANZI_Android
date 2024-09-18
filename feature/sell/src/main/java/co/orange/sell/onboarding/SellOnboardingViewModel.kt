@@ -80,10 +80,14 @@ class SellOnboardingViewModel
             viewModelScope.launch {
                 sellRepository.postToCheckProduct(SellCheckRequestModel(uploadedUrl))
                     .onSuccess {
-                        productId = it.productId
-                        productName = it.productName
-                        productImage = it.imgUrl
-                        _changingImageState.value = UiState.Success(it.productId)
+                        if (it.productId.isNotEmpty()) {
+                            productId = it.productId
+                            productName = it.productName
+                            productImage = it.imgUrl
+                            _changingImageState.value = UiState.Success(it.productId)
+                        } else {
+                            _changingImageState.value = UiState.Failure(it.productId)
+                        }
                     }
                     .onFailure {
                         _changingImageState.value = UiState.Failure(it.message.toString())

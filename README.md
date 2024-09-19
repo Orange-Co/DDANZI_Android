@@ -7,7 +7,7 @@
 
 <br>
 
-## MODULE & PACKAGE CONVENTION
+## MULTI MODULE CONVENTION
 ![project dot](https://github.com/user-attachments/assets/4299dd4f-e36d-402f-a8f2-792edce99e33)
 
 <br>

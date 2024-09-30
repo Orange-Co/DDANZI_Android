@@ -203,6 +203,7 @@
     <string name="sell_info_msg_ordered">입금 완료</string>
     <string name="sell_info_btn_fix">판매 확정하기</string>
     <string name="sell_info_btn_shipping">배송 중인 상품입니다.</string>
+    <string name="sell_delete_success_toast">상품 판매가 취소되었습니다.</string>
 
     <string name="sell_confirm_tv_title">판매 확정</string>
     <string name="sell_confirm_tv_subtitle">카카오톡으로 이동해서\n배송지를 입력해주세요!</string>

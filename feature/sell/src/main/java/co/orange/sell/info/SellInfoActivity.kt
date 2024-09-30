@@ -38,6 +38,7 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
         initSellConfirmBtnListener()
         getIntentInfo()
         observeGetSellInfoState()
+        observeDeleteItemState()
     }
 
     private fun initExitBtnListener() {
@@ -47,6 +48,7 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
     private fun initSellConfirmBtnListener() {
         binding.btnSellConfirm.setOnSingleClickListener {
             if (viewModel.isOnSale) {
+                viewModel.deleteSellingItemFromServer()
             } else {
                 startActivity(
                     SellConfirmActivity.createIntent(
@@ -147,6 +149,23 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
                 layoutInfoTransaction.isVisible = false
             }
         }
+    }
+
+    private fun observeDeleteItemState() {
+        viewModel.deleteItemState
+            .flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        toast(stringOf(R.string.sell_delete_success_toast))
+                        finish()
+                    }
+
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     companion object {

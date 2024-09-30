@@ -54,4 +54,9 @@ class SellRepositoryImpl
             runCatching {
                 sellDataSource.patchOrderConfirm(orderId).data.toModel()
             }
+
+        override suspend fun deleteSellingItem(itemId: String): Result<Boolean> =
+            runCatching {
+                sellDataSource.deleteSellingItem(itemId).data
+            }
     }

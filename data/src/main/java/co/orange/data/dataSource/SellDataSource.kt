@@ -25,4 +25,6 @@ interface SellDataSource {
     suspend fun getBuyerInfo(orderId: String): BaseResponse<SellBuyerInfoDto>
 
     suspend fun patchOrderConfirm(orderId: String): BaseResponse<OrderConfirmDto>
+
+    suspend fun deleteSellingItem(itemId: String): BaseResponse<Boolean>
 }

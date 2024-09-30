@@ -44,228 +44,278 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_subtitle"
-            style="@style/TextAppearance.DDanzi.Title4"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/sell_confirm_tv_subtitle"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/btn_confirm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_sell_confirm_top" />
+            app:layout_constraintTop_toBottomOf="@id/layout_sell_confirm_top">
 
-        <TextView
-            android:id="@+id/btn_sell_guide"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/sell_confirm_btn_guide"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_subtitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_buyer_title"
-            style="@style/TextAppearance.DDanzi.Body1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/sell_confirm_tv_buyer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_sell_guide" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_subtitle"
+                    style="@style/TextAppearance.DDanzi.Title4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingMultiplier="1.0"
+                    android:text="@string/sell_confirm_tv_subtitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_sell_confirm_top" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_address_title"
-            style="@style/TextAppearance.DDanzi.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/address_tv_delivery_title"
-            android:textColor="@color/gray_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_buyer_title" />
+                <TextView
+                    android:id="@+id/btn_sell_guide"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:padding="18dp"
+                    android:text="@string/sell_confirm_btn_guide"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_subtitle" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_address"
-            style="@style/TextAppearance.DDanzi.Body5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_copy_address"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address_title"
-            tools:text="(12345) 서울특별시 성동구 성수이로 137" />
+                <LinearLayout
+                    android:id="@+id/layout_warning"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#FFE5E5"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_sell_guide">
 
-        <TextView
-            android:id="@+id/btn_copy_address"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/shape_gray4_line_100_rect"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="4dp"
-            android:text="@string/sell_confirm_btn_copy"
-            android:textColor="@color/gray_4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_address"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_address" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#FFAAAA" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_address_detail_title"
-            style="@style/TextAppearance.DDanzi.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/address_tv_address_plus_title"
-            android:textColor="@color/gray_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address" />
+                    <TextView
+                        style="@style/TextAppearance.DDanzi.Regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.0"
+                        android:padding="16dp"
+                        android:text="@string/sell_confirm_tv_warning"
+                        android:textColor="#C92424" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_address_detail"
-            style="@style/TextAppearance.DDanzi.Body5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_copy_address_detail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address_detail_title"
-            tools:text="123동 456호" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#FFAAAA" />
 
-        <TextView
-            android:id="@+id/btn_copy_address_detail"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/shape_gray4_line_100_rect"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="4dp"
-            android:text="@string/sell_confirm_btn_copy"
-            android:textColor="@color/gray_4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_address_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_address_detail" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_name_title"
-            style="@style/TextAppearance.DDanzi.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/setting_tv_info_name"
-            android:textColor="@color/gray_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address_detail" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_buyer_title"
+                    style="@style/TextAppearance.DDanzi.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/sell_confirm_tv_buyer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_warning" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_name"
-            style="@style/TextAppearance.DDanzi.Body5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_copy_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_name_title"
-            tools:text="김상호" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_address_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/address_tv_delivery_title"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_buyer_title" />
 
-        <TextView
-            android:id="@+id/btn_copy_name"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/shape_gray4_line_100_rect"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="4dp"
-            android:text="@string/sell_confirm_btn_copy"
-            android:textColor="@color/gray_4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_name" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_address"
+                    style="@style/TextAppearance.DDanzi.Body5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_copy_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address_title"
+                    tools:text="(12345) 서울특별시 성동구 성수이로 137" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_phone_title"
-            style="@style/TextAppearance.DDanzi.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/setting_tv_info_phone"
-            android:textColor="@color/gray_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_name" />
+                <TextView
+                    android:id="@+id/btn_copy_address"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_gray4_line_100_rect"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/sell_confirm_btn_copy"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_address" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_phone"
-            style="@style/TextAppearance.DDanzi.Body5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_copy_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_phone_title"
-            tools:text="010-1234-5678" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_address_detail_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/address_tv_address_plus_title"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address" />
 
-        <TextView
-            android:id="@+id/btn_copy_phone"
-            style="@style/TextAppearance.DDanzi.Body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/shape_gray4_line_100_rect"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="4dp"
-            android:text="@string/sell_confirm_btn_copy"
-            android:textColor="@color/gray_4"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_phone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_phone" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_address_detail"
+                    style="@style/TextAppearance.DDanzi.Body5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_copy_address_detail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address_detail_title"
+                    tools:text="123동 456호" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_option_title"
-            style="@style/TextAppearance.DDanzi.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/sell_confirm_tv_option"
-            android:textColor="@color/gray_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_phone" />
+                <TextView
+                    android:id="@+id/btn_copy_address_detail"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_gray4_line_100_rect"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/sell_confirm_btn_copy"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_address_detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_address_detail" />
 
-        <TextView
-            android:id="@+id/tv_sell_confirm_option"
-            style="@style/TextAppearance.DDanzi.Body5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_option_title"
-            tools:text="XL\nBLACK" />
+                <TextView
+                    android:id="@+id/tv_sell_confirm_name_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/setting_tv_info_name"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_address_detail" />
+
+                <TextView
+                    android:id="@+id/tv_sell_confirm_name"
+                    style="@style/TextAppearance.DDanzi.Body5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_copy_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_name_title"
+                    tools:text="김상호" />
+
+                <TextView
+                    android:id="@+id/btn_copy_name"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_gray4_line_100_rect"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/sell_confirm_btn_copy"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_name" />
+
+                <TextView
+                    android:id="@+id/tv_sell_confirm_phone_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/setting_tv_info_phone"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_name" />
+
+                <TextView
+                    android:id="@+id/tv_sell_confirm_phone"
+                    style="@style/TextAppearance.DDanzi.Body5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_copy_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_phone_title"
+                    tools:text="010-1234-5678" />
+
+                <TextView
+                    android:id="@+id/btn_copy_phone"
+                    style="@style/TextAppearance.DDanzi.Body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_gray4_line_100_rect"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/sell_confirm_btn_copy"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_sell_confirm_phone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sell_confirm_phone" />
+
+                <TextView
+                    android:id="@+id/tv_sell_confirm_option_title"
+                    style="@style/TextAppearance.DDanzi.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/sell_confirm_tv_option"
+                    android:textColor="@color/gray_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_phone" />
+
+                <TextView
+                    android:id="@+id/tv_sell_confirm_option"
+                    style="@style/TextAppearance.DDanzi.Body5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_option_title"
+                    tools:text="XL\nBLACK" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <TextView
             android:id="@+id/btn_confirm"

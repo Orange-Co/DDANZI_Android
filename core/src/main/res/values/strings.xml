@@ -205,6 +205,7 @@
 
     <string name="sell_confirm_tv_title">판매 확정</string>
     <string name="sell_confirm_tv_subtitle">카카오톡으로 이동해서\n배송지를 입력해주세요!</string>
+    <string name="sell_confirm_tv_warning">해당 과정에서의 <u>입력 실수 및 누락</u>은 책임지지 않습니다.\n입력 완료 버튼 클릭 시 판매 확정이 완료됩니다.</string>
     <string name="sell_confirm_btn_guide"><u>가이드 보러가기</u></string>
     <string name="sell_confirm_tv_buyer">구매자 정보</string>
     <string name="sell_confirm_tv_option">선택 옵션</string>

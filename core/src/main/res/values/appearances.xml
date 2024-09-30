@@ -69,4 +69,10 @@
         <item name="android:paddingVertical">1sp</item>
     </style>
 
+    <style name="TextAppearance.DDanzi.Regular">
+        <item name="fontFamily">@font/font_pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingVertical">2sp</item>
+    </style>
+
 </resources>

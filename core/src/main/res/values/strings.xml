@@ -198,6 +198,7 @@
     <string name="sell_info_tv_pay_real_title">판매가</string>
     <string name="sell_info_btn_fix_sell">판매 확정하기</string>
     <string name="sell_info_tv_pay_total">최종 판매 금액</string>
+    <string name="sell_info_msg_cancel">판매 취소하기</string>
     <string name="sell_info_msg_on_sale">판매 중</string>
     <string name="sell_info_msg_ordered">입금 완료</string>
     <string name="sell_info_btn_fix">판매 확정하기</string>

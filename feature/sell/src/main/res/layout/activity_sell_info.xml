@@ -225,7 +225,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="우리집" />
 
-                        <TextView
+                        <co.orange.core.custom.MultiLineTextView
                             android:id="@+id/tv_info_delivery_address"
                             style="@style/TextAppearance.DDanzi.Body5"
                             android:layout_width="0dp"

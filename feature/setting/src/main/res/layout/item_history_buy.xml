@@ -35,7 +35,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
+        <co.orange.core.custom.MultiLineTextView
             android:id="@+id/tv_buy_item_title"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
@@ -44,6 +44,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
+            android:lineSpacingMultiplier="1.0"
             android:maxLines="2"
             android:minLines="2"
             app:layout_constraintEnd_toEndOf="parent"

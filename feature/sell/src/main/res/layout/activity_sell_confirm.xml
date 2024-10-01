@@ -68,7 +68,7 @@
                     android:text="@string/sell_confirm_tv_subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layout_sell_confirm_top" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/btn_sell_guide"
@@ -137,7 +137,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_confirm_buyer_title" />
 
-                <TextView
+                <co.orange.core.custom.MultiLineTextView
                     android:id="@+id/tv_sell_confirm_address"
                     style="@style/TextAppearance.DDanzi.Body5"
                     android:layout_width="0dp"

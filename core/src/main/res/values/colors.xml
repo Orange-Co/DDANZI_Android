@@ -23,6 +23,7 @@
     <color name="button_blue">#3527D7</color>
     <color name="hyper_link_blue">#315EFB</color>
     <color name="emphasize_red">#FF002E</color>
+    <color name="discount_red">#E65454</color>
     <color name="emphasize_yellow">#FFFDF0</color>
 
     <!-- Transparent -->

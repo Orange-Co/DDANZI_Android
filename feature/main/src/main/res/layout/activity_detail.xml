@@ -15,8 +15,8 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:padding="12dp"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,35 +72,38 @@
 
                     <TextView
                         android:id="@+id/chips_detail_category"
-                        style="@style/TextAppearance.DDanzi.Body5"
+                        style="@style/TextAppearance.DDanzi.Body6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_black_line_5_rect"
+                        android:background="@drawable/shape_gray1_fill_5_rect"
                         android:paddingHorizontal="7dp"
                         android:paddingVertical="5dp"
+                        android:textColor="@color/gray_3"
                         tools:text="@string/detail_chips_category" />
 
                     <TextView
                         android:id="@+id/chips_detail_option"
-                        style="@style/TextAppearance.DDanzi.Body5"
+                        style="@style/TextAppearance.DDanzi.Body6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
-                        android:background="@drawable/shape_black_line_5_rect"
+                        android:background="@drawable/shape_gray1_fill_5_rect"
                         android:paddingHorizontal="7dp"
                         android:paddingVertical="5dp"
-                        android:text="@string/detail_chips_option" />
+                        android:text="@string/detail_chips_option"
+                        android:textColor="@color/gray_3" />
 
                     <TextView
                         android:id="@+id/chips_detail_imminent"
-                        style="@style/TextAppearance.DDanzi.Body5"
+                        style="@style/TextAppearance.DDanzi.Body6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
-                        android:background="@drawable/shape_black_line_5_rect"
+                        android:background="@drawable/shape_gray1_fill_5_rect"
                         android:paddingHorizontal="7dp"
                         android:paddingVertical="5dp"
-                        android:text="@string/detail_chips_imminent" />
+                        android:text="@string/detail_chips_imminent"
+                        android:textColor="@color/gray_3" />
 
                 </LinearLayout>
 
@@ -111,61 +114,53 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
-                    android:ellipsize="end"
                     android:lineSpacingMultiplier="1.0"
-                    android:maxLines="2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/layout_detail_chips"
                     tools:text="@string/ex_item_title" />
 
                 <TextView
+                    android:id="@+id/tv_detail_real_price"
+                    style="@style/TextAppearance.DDanzi.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+                    tools:text="@string/ex_item_real_price" />
+
+                <TextView
                     android:id="@+id/tv_detail_discount_rate"
+                    style="@style/TextAppearance.DDanzi.Title4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/font_pretendard_bold"
-                    android:textColor="@color/black"
-                    android:textSize="28sp"
+                    android:textColor="@color/discount_red"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_real_price"
                     tools:text="30" />
 
                 <TextView
                     android:id="@+id/tv_detail_discount_percent"
+                    style="@style/TextAppearance.DDanzi.Title4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/font_pretendard_bold"
                     android:text="@string/detail_tv_percent"
-                    android:textColor="@color/black"
-                    android:textSize="28sp"
+                    android:textColor="@color/discount_red"
                     app:layout_constraintStart_toEndOf="@id/tv_detail_discount_rate"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
-
-                <TextView
-                    android:id="@+id/tv_detail_real_price"
-                    style="@style/TextAppearance.DDanzi.Body1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="9dp"
-                    android:textColor="@color/gray_2"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_detail_discount_rate"
-                    app:layout_constraintEnd_toStartOf="@id/tv_detail_now_price"
-                    tools:text="@string/ex_item_real_price" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_real_price" />
 
                 <TextView
                     android:id="@+id/tv_detail_now_price"
+                    style="@style/TextAppearance.DDanzi.Title4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/font_pretendard_bold"
-                    android:textColor="@color/black"
-                    android:textSize="28sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toEndOf="@id/tv_detail_discount_percent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_real_price"
                     tools:text="@string/ex_item_now_price" />
 
                 <TextView
@@ -173,22 +168,21 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="6dp"
                     android:text="@string/detail_tv_stock"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_discount_rate" />
+                    app:layout_constraintBottom_toBottomOf="@id/tv_detail_now_price"
+                    app:layout_constraintEnd_toStartOf="@id/tv_detail_stock_count"
+                    app:layout_constraintTop_toTopOf="@id/tv_detail_now_price" />
 
                 <TextView
                     android:id="@+id/tv_detail_stock_count"
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="6dp"
                     android:textColor="@color/gray_3"
-                    app:layout_constraintStart_toEndOf="@id/tv_detail_stock_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_discount_rate"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_detail_now_price"
+                    app:layout_constraintEnd_toStartOf="@id/tv_detail_stock_unit"
+                    app:layout_constraintTop_toTopOf="@id/tv_detail_now_price"
                     tools:text="12" />
 
                 <TextView
@@ -196,26 +190,31 @@
                     style="@style/TextAppearance.DDanzi.Body3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="23dp"
                     android:text="@string/detail_tv_stock_unit"
                     android:textColor="@color/gray_3"
-                    app:layout_constraintStart_toEndOf="@id/tv_detail_stock_count"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_discount_rate" />
+                    app:layout_constraintBottom_toBottomOf="@id/tv_detail_now_price"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_detail_now_price" />
 
                 <LinearLayout
                     android:id="@+id/btn_detail_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/shape_gray2_line_rect"
                     android:orientation="horizontal"
-                    android:padding="12dp"
+                    android:padding="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_stock_title">
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_discount_percent">
 
                     <TextView
-                        style="@style/TextAppearance.DDanzi.Body3"
+                        style="@style/TextAppearance.DDanzi.Body5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
                         android:text="@string/detail_btn_detail_view"
                         android:textColor="@color/gray_3" />
 
@@ -223,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="1dp"
                         android:src="@drawable/ic_next_gray2" />
 
@@ -294,11 +293,11 @@
             android:layout_height="0dp"
             android:layout_marginTop="9dp"
             android:background="@color/white"
-            tools:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/border_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_back" />
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            tools:visibility="gone" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_like"

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <co.orange.core.custom.MultiLineTextView
             android:id="@+id/tv_option_item_title"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"

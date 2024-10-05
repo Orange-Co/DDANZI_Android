@@ -33,7 +33,7 @@
 
     <string name="home_btn_sell">판매하기</string>
 
-    <string name="ex_item_title">퓨어 오일 퍼퓸 10 ml 긴제목테스트트트트트</string>
+    <string name="ex_item_title">푸드장 프리미엄 구이 선물세트1.15kg(부채살+살치살+토시살+소목등심(척아이롤))</string>
     <string name="ex_item_real_price"><strike>54,000원</strike></string>
     <string name="ex_item_now_price">48,900원</string>
     <string name="ex_item_like">999+</string>
@@ -198,13 +198,16 @@
     <string name="sell_info_tv_pay_real_title">판매가</string>
     <string name="sell_info_btn_fix_sell">판매 확정하기</string>
     <string name="sell_info_tv_pay_total">최종 판매 금액</string>
+    <string name="sell_info_msg_cancel">판매 취소하기</string>
     <string name="sell_info_msg_on_sale">판매 중</string>
     <string name="sell_info_msg_ordered">입금 완료</string>
     <string name="sell_info_btn_fix">판매 확정하기</string>
     <string name="sell_info_btn_shipping">배송 중인 상품입니다.</string>
+    <string name="sell_delete_success_toast">상품 판매가 취소되었습니다.</string>
 
     <string name="sell_confirm_tv_title">판매 확정</string>
     <string name="sell_confirm_tv_subtitle">카카오톡으로 이동해서\n배송지를 입력해주세요!</string>
+    <string name="sell_confirm_tv_warning">해당 과정에서의 <u>입력 실수 및 누락</u>은 책임지지 않습니다.\n입력 완료 버튼 클릭 시 판매 확정이 완료됩니다.</string>
     <string name="sell_confirm_btn_guide"><u>가이드 보러가기</u></string>
     <string name="sell_confirm_tv_buyer">구매자 정보</string>
     <string name="sell_confirm_tv_option">선택 옵션</string>

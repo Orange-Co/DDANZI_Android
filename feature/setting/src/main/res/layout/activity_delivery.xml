@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="김상호" />
 
-            <TextView
+            <co.orange.core.custom.MultiLineTextView
                 android:id="@+id/tv_delivery_address"
                 style="@style/TextAppearance.DDanzi.Body5"
                 android:layout_width="0dp"

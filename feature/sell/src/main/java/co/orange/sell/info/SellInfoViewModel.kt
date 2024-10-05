@@ -21,19 +21,38 @@ class SellInfoViewModel
         var orderId = ""
         var totalPrice = 0
 
+        var isOnSale = true
+
         private val _getSellInfoState = MutableStateFlow<UiState<SellInfoModel>>(UiState.Empty)
         val getSellInfoState: StateFlow<UiState<SellInfoModel>> = _getSellInfoState
+
+        private val _deleteItemState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+        val deleteItemState: StateFlow<UiState<Boolean>> = _deleteItemState
 
         fun getItemDetailInfoFromServer() {
             _getSellInfoState.value = UiState.Loading
             viewModelScope.launch {
-                sellRepository.getItemDetailInfo(itemId)
+                sellRepository
+                    .getItemDetailInfo(itemId)
                     .onSuccess {
                         orderId = it.orderId.orEmpty()
                         totalPrice = it.salePrice
                         _getSellInfoState.value = UiState.Success(it)
                     }.onFailure {
                         _getSellInfoState.value = UiState.Failure(it.message.orEmpty())
+                    }
+            }
+        }
+
+        fun deleteSellingItemFromServer() {
+            _deleteItemState.value = UiState.Loading
+            viewModelScope.launch {
+                sellRepository
+                    .deleteSellingItem(itemId)
+                    .onSuccess {
+                        _deleteItemState.value = UiState.Success(it)
+                    }.onFailure {
+                        _deleteItemState.value = UiState.Failure(it.message.orEmpty())
                     }
             }
         }

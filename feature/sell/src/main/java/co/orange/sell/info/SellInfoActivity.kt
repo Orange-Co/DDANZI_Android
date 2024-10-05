@@ -28,8 +28,7 @@ import kotlinx.coroutines.flow.onEach
 import co.orange.sell.R as featureR
 
 @AndroidEntryPoint
-class SellInfoActivity :
-    BaseActivity<ActivitySellInfoBinding>(featureR.layout.activity_sell_info) {
+class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.activity_sell_info) {
     private val viewModel by viewModels<SellInfoViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +38,7 @@ class SellInfoActivity :
         initSellConfirmBtnListener()
         getIntentInfo()
         observeGetSellInfoState()
+        observeDeleteItemState()
     }
 
     private fun initExitBtnListener() {
@@ -47,8 +47,16 @@ class SellInfoActivity :
 
     private fun initSellConfirmBtnListener() {
         binding.btnSellConfirm.setOnSingleClickListener {
-            SellConfirmActivity.createIntent(this, viewModel.orderId, viewModel.totalPrice).apply {
-                startActivity(this)
+            if (viewModel.isOnSale) {
+                viewModel.deleteSellingItemFromServer()
+            } else {
+                startActivity(
+                    SellConfirmActivity.createIntent(
+                        this,
+                        viewModel.orderId,
+                        viewModel.totalPrice,
+                    ),
+                )
             }
         }
     }
@@ -61,7 +69,9 @@ class SellInfoActivity :
     }
 
     private fun observeGetSellInfoState() {
-        viewModel.getSellInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+        viewModel.getSellInfoState
+            .flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> setIntentUi(state.data)
@@ -96,10 +106,11 @@ class SellInfoActivity :
     }
 
     private fun setItemStatus(status: String) {
+        viewModel.isOnSale = status == ItemStatus.ON_SALE.name
         val (infoMsgResId, btnTextResId, isButtonEnabled) =
             when (status) {
                 ItemStatus.ON_SALE.name -> {
-                    Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_msg_on_sale, false)
+                    Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_msg_cancel, true)
                 }
 
                 ItemStatus.ORDERED.name -> {
@@ -140,10 +151,24 @@ class SellInfoActivity :
         }
     }
 
-    companion object {
-        const val OLD_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
-        const val NEW_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
+    private fun observeDeleteItemState() {
+        viewModel.deleteItemState
+            .flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        toast(stringOf(R.string.sell_delete_success_toast))
+                        finish()
+                    }
 
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    companion object {
         private const val EXTRA_ITEM_ID = "EXTRA_ITEM_ID"
 
         @JvmStatic

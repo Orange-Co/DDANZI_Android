@@ -11,6 +11,7 @@ import co.orange.data.dto.response.SellProductDto
 import co.orange.data.dto.response.SellRegisteredDto
 import co.orange.data.dto.response.SignedUrlDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -52,4 +53,9 @@ interface SellService {
     suspend fun patchOrderConfirm(
         @Path("id") orderId: String,
     ): BaseResponse<OrderConfirmDto>
+
+    @DELETE("/api/v1/item/{id}")
+    suspend fun deleteSellingItem(
+        @Path("id") itemId: String,
+    ): BaseResponse<Boolean>
 }

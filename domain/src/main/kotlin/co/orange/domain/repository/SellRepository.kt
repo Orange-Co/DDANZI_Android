@@ -24,4 +24,6 @@ interface SellRepository {
     suspend fun getBuyerInfo(orderId: String): Result<SellBuyerInfoModel>
 
     suspend fun patchOrderConfirm(orderId: String): Result<OrderConfirmModel>
+
+    suspend fun deleteSellingItem(itemId: String): Result<Boolean>
 }

@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="@id/cv_home_item"
             app:layout_constraintTop_toTopOf="@id/cv_home_item" />
 
-        <TextView
+        <co.orange.core.custom.MultiLineTextView
             android:id="@+id/tv_home_item_title"
             style="@style/TextAppearance.DDanzi.Body3"
             android:layout_width="0dp"
@@ -57,6 +57,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
+            android:lineSpacingMultiplier="1.0"
             android:maxLines="2"
             android:minLines="2"
             app:layout_constraintEnd_toEndOf="parent"

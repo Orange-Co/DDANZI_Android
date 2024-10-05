@@ -34,4 +34,6 @@ data class SellDateSourceImpl
         override suspend fun getBuyerInfo(orderId: String): BaseResponse<SellBuyerInfoDto> = sellService.getBuyerInfo(orderId)
 
         override suspend fun patchOrderConfirm(orderId: String): BaseResponse<OrderConfirmDto> = sellService.patchOrderConfirm(orderId)
+
+        override suspend fun deleteSellingItem(itemId: String): BaseResponse<Boolean> = sellService.deleteSellingItem(itemId)
     }

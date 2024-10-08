@@ -113,7 +113,7 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
                     Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_msg_cancel, true)
                 }
 
-                ItemStatus.ORDERED.name -> {
+                ItemStatus.ORDER_PLACE.name -> {
                     Triple(R.string.sell_info_msg_ordered, R.string.sell_info_btn_fix, true)
                 }
 
@@ -125,6 +125,10 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
                 ),
                 -> {
                     Triple(R.string.buy_info_msg_shipping, R.string.sell_info_btn_shipping, false)
+                }
+
+                ItemStatus.EXPIRED.name -> {
+                    Triple(R.string.buy_info_msg_expired, R.string.buy_info_btn_expired, false)
                 }
 
                 ItemStatus.COMPLETED.name -> {
@@ -142,11 +146,12 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
             btnSellConfirm.setText(btnTextResId)
             btnSellConfirm.isEnabled = isButtonEnabled
             ivSellToast.isVisible = isButtonEnabled
-            if (status == ItemStatus.ON_SALE.name) {
+            if (status == ItemStatus.ON_SALE.name || status == ItemStatus.EXPIRED.name) {
                 tvInfoTransaction.isVisible = false
                 layoutInfoBuyer.isVisible = false
                 layoutInfoDelivery.isVisible = false
                 layoutInfoTransaction.isVisible = false
+                ivSellToast.isVisible = false
             }
         }
     }

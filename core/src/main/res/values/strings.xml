@@ -33,7 +33,7 @@
 
     <string name="home_btn_sell">판매하기</string>
 
-    <string name="ex_item_title">푸드장 프리미엄 구이 선물세트1.15kg(부채살+살치살+토시살+소목등심(척아이롤))</string>
+    <string name="ex_item_title">[버터샵] 버터패밀리 페이스 미니 키링 밀크캣\/버터군\/키링연두</string>
     <string name="ex_item_real_price"><strike>54,000원</strike></string>
     <string name="ex_item_now_price">48,900원</string>
     <string name="ex_item_like">999+</string>
@@ -92,13 +92,16 @@
     <string name="buy_info_tv_seller_title">판매자 정보</string>
     <string name="buy_info_tv_nickname">닉네임</string>
     <string name="buy_info_tv_delivery_title">배송지 정보</string>
+    <string name="buy_info_msg_pending">주문 대기</string>
     <string name="buy_info_msg_placed">주문 완료</string>
     <string name="buy_info_msg_shipping">배송중</string>
+    <string name="buy_info_msg_expired">판매 기한 만료</string>
     <string name="buy_info_msg_completed">거래 완료</string>
     <string name="buy_info_msg_cancelled">거래 취소</string>
     <string name="buy_info_btn_fix">구매 확정하기</string>
     <string name="buy_info_btn_completed">거래가 완료된 상품입니다.</string>
     <string name="buy_info_btn_cancelled">거래가 취소된 상품입니다.</string>
+    <string name="buy_info_btn_expired">판매 기간이 지난 상품입니다.</string>
     <string name="buy_order_error_msg">오류가 발생했습니다. 고객센터로 문의해주세요.</string>
     <string name="buy_order_fix_msg">구매 확정을 완료했습니다.</string>
 

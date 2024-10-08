@@ -29,8 +29,7 @@ import javax.inject.Inject
 import co.orange.buy.R as featureR
 
 @AndroidEntryPoint
-class BuyInfoActivity :
-    BaseActivity<ActivityBuyInfoBinding>(featureR.layout.activity_buy_info) {
+class BuyInfoActivity : BaseActivity<ActivityBuyInfoBinding>(featureR.layout.activity_buy_info) {
     @Inject
     lateinit var navigationManager: NavigationManager
     private val viewModel by viewModels<BuyInfoViewModel>()
@@ -63,7 +62,9 @@ class BuyInfoActivity :
     }
 
     private fun observeGetOrderInfoState() {
-        viewModel.getOrderInfoState.flowWithLifecycle(lifecycle).distinctUntilChanged()
+        viewModel.getOrderInfoState
+            .flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> setIntentUi(state.data)
@@ -102,7 +103,11 @@ class BuyInfoActivity :
     private fun setOrderStatus(status: String) {
         val (infoMsgResId, btnTextResId, isButtonEnabled) =
             when (status) {
-                OrderStatus.ORDER_PLACED.name -> {
+                OrderStatus.ORDER_PENDING.name -> {
+                    Triple(R.string.buy_info_msg_pending, R.string.buy_info_btn_fix, false)
+                }
+
+                OrderStatus.ORDER_PLACE.name -> {
                     Triple(R.string.buy_info_msg_placed, R.string.buy_info_btn_fix, false)
                 }
 
@@ -135,7 +140,9 @@ class BuyInfoActivity :
     }
 
     private fun observePatchOrderConfirmResult() {
-        viewModel.patchOrderConfirmResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
+        viewModel.patchOrderConfirmResult
+            .flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
             .onEach { isSuccess ->
                 if (isSuccess) {
                     toast(stringOf(R.string.buy_order_fix_msg))

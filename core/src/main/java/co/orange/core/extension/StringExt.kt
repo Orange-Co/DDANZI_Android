@@ -21,23 +21,21 @@ fun String.getGraphemeLength(): Int {
     return count
 }
 
-fun String.breakLines(): String {
-    return this.replace(" ", "\u00A0")
-}
+fun String.breakLines(): String = this.replace(Regex("\\s+"), " ")
 
-fun String.toPhoneFrom(): String? {
-    return if (this.length == 11) {
+fun String.toPhoneFrom(): String? =
+    if (this.length == 11) {
         "${this.substring(0, 3)}-${this.substring(3, 7)}-${this.substring(7)}"
     } else {
         null
     }
-}
 
 fun String.convertDateFormat(): String =
-    LocalDateTime.parse(
-        this.replace(Regex("\\.\\d{1,6}"), ""),
-        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
-    ).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+    LocalDateTime
+        .parse(
+            this.replace(Regex("\\.\\d{1,6}"), ""),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
+        ).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
 fun String.maskName(): String =
     when (this.length) {

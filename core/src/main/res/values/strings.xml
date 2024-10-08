@@ -92,6 +92,7 @@
     <string name="buy_info_tv_seller_title">판매자 정보</string>
     <string name="buy_info_tv_nickname">닉네임</string>
     <string name="buy_info_tv_delivery_title">배송지 정보</string>
+    <string name="buy_info_msg_pending">주문 대기</string>
     <string name="buy_info_msg_placed">주문 완료</string>
     <string name="buy_info_msg_shipping">배송중</string>
     <string name="buy_info_msg_completed">거래 완료</string>

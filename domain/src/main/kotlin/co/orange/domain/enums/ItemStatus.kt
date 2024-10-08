@@ -2,7 +2,7 @@ package co.orange.domain.enums
 
 enum class ItemStatus {
     ON_SALE,
-    ORDERED,
+    ORDER_PLACE,
     SHIPPING,
     DELAYED_SHIPPING,
     WARNING,

@@ -113,7 +113,7 @@ class SellInfoActivity : BaseActivity<ActivitySellInfoBinding>(featureR.layout.a
                     Triple(R.string.sell_info_msg_on_sale, R.string.sell_info_msg_cancel, true)
                 }
 
-                ItemStatus.ORDERED.name -> {
+                ItemStatus.ORDER_PLACE.name -> {
                     Triple(R.string.sell_info_msg_ordered, R.string.sell_info_btn_fix, true)
                 }
 
